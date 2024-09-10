@@ -66,13 +66,6 @@ export const Login = () => {
           </>
         )}
       </Formik>
-
-      <div className='font-light text-slate-400 mt-4 text-sm'>
-        Don&apos;t have an account ?{" "}
-        <Link href='/register' className='font-bold'>
-          Register here
-        </Link>
-      </div>
     </>
   );
 };
