@@ -7,9 +7,9 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import React, { useState } from "react";
-import { AcmeIcon } from "../icons/acme-icon";
-import { AcmeLogo } from "../icons/acmelogo";
-import { BottomIcon } from "../icons/sidebar/bottom-icon";
+import { AcmeIcon } from "@/components/icons/acme-icon";
+import { AcmeLogo } from "@/components/icons/acmelogo";
+import { BottomIcon } from "@/components/icons/sidebar/bottom-icon";
 
 interface Company {
   name: string;

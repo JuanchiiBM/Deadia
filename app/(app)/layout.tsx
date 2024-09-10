@@ -1,4 +1,4 @@
-import { Layout } from "@/components/layout/layout";
+import { Layout } from "@/pages/layout/layout";
 import "@/styles/globals.css";
 
 export default function RootLayout({
