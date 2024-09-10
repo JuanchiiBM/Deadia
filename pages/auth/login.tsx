@@ -1,6 +1,5 @@
 "use client";
 
-import { createAuthCookie } from "@/actions/auth.action";
 import { LoginSchema } from "@/helpers/schemas";
 import { LoginFormType } from "@/helpers/types";
 import { Button, Input } from "@nextui-org/react";
@@ -20,7 +19,6 @@ export const Login = () => {
   const handleLogin = useCallback(
     async (values: LoginFormType) => {
 
-      await createAuthCookie();
       router.replace("/");
     },
     [router]
