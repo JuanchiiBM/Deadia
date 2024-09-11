@@ -1,5 +1,6 @@
 import { Image } from "@nextui-org/react";
 import { Divider } from "@nextui-org/divider";
+import Object3D from "@/components/auth/threeFiber/Object3D";
 
 interface Props {
   children: React.ReactNode;
@@ -17,8 +18,8 @@ export const AuthLayoutWrapper = ({ children }: Props) => {
           />
         </div>
 
-        <div className='z-10'>
-          <h1 className='font-bold text-[45px]'>NextUI Dashboard Template</h1>
+        <div className='z-10' id="asdasdasd">
+          <Object3D></Object3D>
         </div>
       </div>
 
