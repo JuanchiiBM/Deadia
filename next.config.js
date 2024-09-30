@@ -1,7 +1,7 @@
+const MillionLint = require('@million/lint');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['three'],
+  transpilePackages: ['three']
 };
-
-module.exports = nextConfig;
+module.exports = MillionLint.next()(nextConfig);
