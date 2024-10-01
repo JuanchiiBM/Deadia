@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import dynamic from "next/dynamic";
-import { TableWrapper } from "@/components/table/table";
 import { CardBalance1 } from "./card-balance1";
 import { CardBalance2 } from "./card-balance2";
 import { CardBalance3 } from "./card-balance3";
@@ -48,22 +47,6 @@ export const Content = () => (
           <CardTransactions />
         </div>
       </div>
-    </div>
-
-    {/* Table Latest Users */}
-    <div className="flex flex-col justify-center w-full py-5 px-4 lg:px-0  max-w-[90rem] mx-auto gap-3">
-      <div className="flex  flex-wrap justify-between">
-        <h3 className="text-center text-xl font-semibold">Latest Users</h3>
-        <Link
-          href="/accounts"
-          as={NextLink}
-          color="primary"
-          className="cursor-pointer"
-        >
-          View All
-        </Link>
-      </div>
-      <TableWrapper />
     </div>
   </div>
 );
