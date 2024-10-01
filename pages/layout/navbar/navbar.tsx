@@ -9,7 +9,7 @@ interface Props {
 
 export const NavbarWrapper = ({ children }: Props) => {
   return (
-    <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden justify-end">
+    <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden justify-start">
       <Navbar
         isBordered
         className="w-full justify-end"
@@ -28,7 +28,9 @@ export const NavbarWrapper = ({ children }: Props) => {
           <UserDropdown />
         </NavbarContent>
       </Navbar>
-      {children}
+      <section className="p-5">
+        {children}
+      </section>
     </div>
   );
 };
