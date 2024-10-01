@@ -24,7 +24,7 @@ export const SidebarWrapper = () => {
         })}
       >
         <div className={Sidebar.Header()}>
-          DEADIA
+          SIGMA
         </div>
         <div className="flex flex-col justify-between h-full">
           <div className={Sidebar.Body()}>
