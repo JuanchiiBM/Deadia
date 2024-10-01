@@ -1,7 +1,6 @@
 import { Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
 import React from "react";
 import { BurguerButton } from "./burguer-button";
-import { NotificationsDropdown } from "./notifications-dropdown";
 import { UserDropdown } from "./user-dropdown";
 
 interface Props {
@@ -26,7 +25,6 @@ export const NavbarWrapper = ({ children }: Props) => {
           justify="end"
           className="data-[justify=end]:flex-grow-0"
         >
-          <NotificationsDropdown />
           <UserDropdown />
         </NavbarContent>
       </Navbar>

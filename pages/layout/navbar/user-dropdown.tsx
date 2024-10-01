@@ -11,6 +11,8 @@ import React, { useCallback } from "react";
 import { DarkModeSwitch } from "./darkmodeswitch";
 import { useRouter } from "next/navigation";
 import { deleteAuthCookie } from "@/actions/auth.action";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 
 export const UserDropdown = () => {
   const router = useRouter();
@@ -21,7 +23,7 @@ export const UserDropdown = () => {
   }, [router]);
 
   return (
-    <Dropdown>
+    <Dropdown className="bg-background-200">
       <NavbarItem>
         <DropdownTrigger>
           <Avatar
@@ -35,26 +37,19 @@ export const UserDropdown = () => {
       <DropdownMenu
         aria-label='User menu actions'
         onAction={(actionKey) => console.log({ actionKey })}>
-        <DropdownItem
-          key='profile'
-          className='flex flex-col justify-start w-full items-start'>
-          <p>Signed in as</p>
-          <p>zoey@example.com</p>
-        </DropdownItem>
-        <DropdownItem key='settings'>My Settings</DropdownItem>
-        <DropdownItem key='team_settings'>Team Settings</DropdownItem>
-        <DropdownItem key='analytics'>Analytics</DropdownItem>
-        <DropdownItem key='system'>System</DropdownItem>
-        <DropdownItem key='configurations'>Configurations</DropdownItem>
-        <DropdownItem key='help_and_feedback'>Help & Feedback</DropdownItem>
+        <DropdownItem className='data-[hover=true]:bg-background-200 cursor-default text-content1' key='profile' startContent={<FontAwesomeIcon icon={faUser} />}>Usuario: Juanchi</DropdownItem>
+        <DropdownItem className="data-[hover=true]:bg-background-300 text-content1" key='configurations' startContent={<FontAwesomeIcon icon={faGear} />}>Configuración</DropdownItem>
         <DropdownItem
           key='logout'
           color='danger'
           className='text-danger'
-          onPress={handleLogout}>
+          onPress={handleLogout}
+          startContent={
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          }>
           Log Out
         </DropdownItem>
-        <DropdownItem key='switch'>
+        <DropdownItem className="data-[hover=true]:bg-background-300" key='switch'>
           <DarkModeSwitch />
         </DropdownItem>
       </DropdownMenu>

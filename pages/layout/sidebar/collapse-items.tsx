@@ -2,16 +2,22 @@
 import React, { useState } from "react";
 import { ChevronDownIcon } from "@/components/icons/sidebar/chevron-down-icon";
 import { Accordion, AccordionItem } from "@nextui-org/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
+import { SidebarItem } from "./sidebar-item";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 interface Props {
   icon: React.ReactNode;
   title: string;
+  path: string[];
   items: string[];
 }
 
-export const CollapseItems = ({ icon, items, title }: Props) => {
+export const CollapseItems = ({ icon, items, path, title }: Props) => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="flex gap-4 h-full items-center cursor-pointer">
@@ -21,10 +27,10 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
           classNames={{
             indicator: "data-[open=true]:-rotate-180",
             trigger:
-              "py-0 min-h-[44px] hover:bg-default-100 rounded-xl active:scale-[0.98] transition-transform px-3.5",
+              "py-0 min-h-[44px] hover:bg-background text-content1 hover:text-content2 rounded-xl active:scale-[0.98] transition-all duration-150 px-3.5",
 
             title:
-              "px-0 flex text-base gap-2 h-full items-center cursor-pointer",
+              "px-0 flex text-base text-content1 hover:text-content2 transition-all duration-150 gap-2 h-full items-center cursor-pointer [&_svg_path]:fill-default-400",
           }}
           aria-label="Accordion 1"
           title={
@@ -34,14 +40,14 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
             </div>
           }
         >
-          <div className="pl-12">
+          <div className="pl-2">
             {items.map((item, index) => (
-              <span
-                key={index}
-                className="w-full flex  text-default-500 hover:text-default-900 transition-colors"
-              >
-                {item}
-              </span>
+              <SidebarItem
+              title={item}
+              icon={<FontAwesomeIcon icon={faCircleDot} />}
+              isActive={pathname === `${path[index]}`}
+              href={path[index]}
+            />
             ))}
           </div>
         </AccordionItem>
