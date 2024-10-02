@@ -28,7 +28,7 @@ export const NavbarWrapper = ({ children }: Props) => {
           <UserDropdown />
         </NavbarContent>
       </Navbar>
-      <section className="p-5">
+      <section className="px-20 py-10">
         {children}
       </section>
     </div>
