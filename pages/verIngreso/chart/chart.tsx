@@ -43,20 +43,20 @@ const options: Props["options"] = {
       categories: months, // Meses con años desde 2022 hasta el mes actual
       labels: {
         style: {
-          colors: '#FFFFFF', // Color de los meses en modo oscuro
+          colors: '#777777', // Color de los meses en modo oscuro
         }
       }
     },
     yaxis: {
       labels: {
         style: {
-          colors: '#FFFFFF' // Color de los números del eje Y
+          colors: '#777777' // Color de los números del eje Y
         }
       },
       title: {
         text: 'Values',
         style: {
-          color: '#FFFFFF' // Color del título del eje Y
+          color: '#777777' // Color del título del eje Y
         }
       }
     },
@@ -75,11 +75,11 @@ const options: Props["options"] = {
       },
     },
     grid: {
-      borderColor: '#404040', // Color de las líneas de la grilla en modo oscuro
+      borderColor: '#777777',
     },
     legend: {
       labels: {
-        colors: '#FFFFFF' // Color de las etiquetas de la leyenda en modo oscuro
+        colors: '#777777'
       },
       position: 'top',
     },
@@ -102,7 +102,7 @@ const options: Props["options"] = {
 export const ChartIngresos = () => {
     return (
         <div id="chart">
-            <Chart options={options} series={series} type="area" height={425} />
+            <Chart options={options} series={series} type="area" height={400} />
         </div>
     );
 };
