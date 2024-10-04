@@ -43,20 +43,20 @@ const options: Props["options"] = {
       categories: months, // Meses con años desde 2022 hasta el mes actual
       labels: {
         style: {
-          colors: '#777777', // Color de los meses en modo oscuro
+          colors: 'hsl(var(--nextui-content2))', // Color de los meses en modo oscuro
         }
       }
     },
     yaxis: {
       labels: {
         style: {
-          colors: '#777777' // Color de los números del eje Y
+          colors: 'hsl(var(--nextui-content2))' // Color de los números del eje Y
         }
       },
       title: {
-        text: 'Values',
+        text: 'Ingresos',
         style: {
-          color: '#777777' // Color del título del eje Y
+          color: 'hsl(var(--nextui-content2))' // Color del título del eje Y
         }
       }
     },
@@ -75,11 +75,11 @@ const options: Props["options"] = {
       },
     },
     grid: {
-      borderColor: '#777777',
+      borderColor: 'hsl(var(--nextui-content2))',
     },
     legend: {
       labels: {
-        colors: '#777777'
+        colors: 'hsl(var(--nextui-content2))'
       },
       position: 'top',
     },

@@ -1,0 +1,93 @@
+.dt-container {
+    background-color: hsl(var(--nextui-background-200));
+    padding: 20px;
+    border-radius: 10px;
+    .dt-layout-row {
+
+        /*TABLA*/
+        .dataTable {
+            border-radius: 5px;
+            clip-path: view-box;
+
+            thead {
+                background-color: hsl(var(--nextui-background));
+                border-bottom: 1px solid hsl(var(--nextui-default-500));
+            }
+
+            tbody {
+                tr {
+                    background-color: hsl(var(--nextui-background-100));
+
+                    &:nth-child(odd) {
+                        background-color: hsl(var(--nextui-background-400));
+                    }
+
+                    td {
+                        padding: 2px 5px;
+                    }
+                }
+            }
+        }
+
+        /*SUPERIOR*/
+        &:first-child {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            .dt-search {
+                input {
+                    border-radius: 5px;
+                    border: 1px solid hsl(var(--nextui-background-100));
+                    background-color: hsl(var(--nextui-background));
+                    transition: 0.25s ease-in-out all;
+                    padding-left: 5px;
+                    margin-left: 10px;
+
+                    &:focus-visible {
+                        outline: none;
+                        background-color: hsl(var(--nextui-background-100));
+                    }
+                }
+            }
+
+            .dt-length {
+                select {
+                    border-radius: 5px;
+                    margin-right: 5px;
+                    background-color: hsl(var(--nextui-background));
+                    border: 1px solid hsl(var(--nextui-background-100));
+
+                    &:focus-visible {
+                        outline: none;
+                    }
+                }
+            }
+        }
+
+        /*INFERIOR*/
+        &:last-child {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+
+            .dt-paging {
+                button {
+                    &:first-child {
+                        border-radius: 5px 0px 0px 5px;
+                    }
+                    &:last-child {
+                        border-radius: 0px 5px 5px 0px;
+                    }
+                    &:hover {
+                        background-color: hsl(var(--nextui-background-200));
+                    }
+                    transition: 0.25s ease-in-out all;
+                    padding: 0px 10px;
+                    border: 1px solid hsl(var(--nextui-background-100));
+                    background-color: hsl(var(--nextui-background));
+                }
+            }
+        }
+    }
+}

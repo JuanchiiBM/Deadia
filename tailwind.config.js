@@ -38,7 +38,8 @@ module.exports = {
             DEFAULT: '#F5FAF8', // Primary background
             100: '#EDF3F4', // Primary background hover
             200: '#D1E5EB', // Secondary background
-            300: '#C0D8DF' // Secondary background hover
+            300: '#C0D8DF', // Secondary background hover
+            400: '#E5F0F2', // Primary background contrast
           },
           primary: {
             DEFAULT: '#86ADB3' // Primary color
@@ -71,7 +72,8 @@ module.exports = {
             DEFAULT: '#1C1F24', // Primary background
             100: '#1F2329', // Primary background hover
             200: '#2A3C44', // Secondary background
-            300: '#223138' // Secondary background hover
+            300: '#223138', // Secondary background hover
+            400: '#23282F', // Primary background contrast
           },
           primary: {
             DEFAULT: '#86ADB3' // Primary color
