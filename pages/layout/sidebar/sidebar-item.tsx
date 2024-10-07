@@ -7,10 +7,11 @@ interface Props {
   title: string;
   icon: React.ReactNode;
   isActive?: boolean;
+  className?: string;
   href?: string;
 }
 
-export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
+export const SidebarItem = ({ icon, title, isActive, href = "", className }: Props) => {
   const { collapsed, setCollapsed } = useSidebarContext();
 
   const handleClick = () => {
@@ -28,7 +29,7 @@ export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
           isActive
             ? "bg-background-200 [&_svg_path]:fill-primary"
             : "hover:bg-background [&_svg_path]:fill-default-400",
-          "flex gap-2 w-full min-h-[44px] h-full items-center px-3.5 rounded-xl cursor-pointer text-content1 hover:text-content2 transition-all duration-150 active:scale-[0.98]"
+          `${className} flex gap-2 w-full min-h-[44px] h-full items-center px-3.5 rounded-lg cursor-pointer text-content1 hover:text-content2 transition-all duration-150 active:scale-[0.98]`
         )}
         onClick={handleClick}
       >

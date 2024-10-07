@@ -44,6 +44,7 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
             {items.map((item, index) => (
               <SidebarItem
               title={item}
+              className="mb-2 min-h-[34px]"
               icon={<FontAwesomeIcon icon={faCircleDot} />}
               isActive={pathname === `${path[index]}`}
               href={path[index]}

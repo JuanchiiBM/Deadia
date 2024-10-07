@@ -102,7 +102,7 @@ const series: Props["series"] = [
 
 export const ChartIngresos = () => {
   return (
-    <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px]'>
+    <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md'>
       <Chart options={options} series={series} type="area" height={400} />
     </div>
   );
