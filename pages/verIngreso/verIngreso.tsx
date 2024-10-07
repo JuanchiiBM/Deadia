@@ -54,13 +54,28 @@ const VerIngreso = () => {
     <>
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart />
-      <div></div>
+      <div className='w-full my-[50px] bg-background-200 flex justify-around p-5 rounded-lg'>
+        <div className='flex flex-col'>
+          <label htmlFor="select-dependency">Dependencia:</label>
+          <select name="" id="select-dependency" className='w-[170px] rounded-md bg-background'>
+            <option value="0">1</option>
+            <option value="1">2</option>
+          </select>
+        </div>
+        <div className='flex flex-col'>
+          <label htmlFor="select-curso">Curso:</label>
+          <select name="" id="select-curso" className='w-[170px] rounded-md bg-background'>
+            <option value="0">1</option>
+            <option value="1">2</option>
+          </select>
+        </div>
+      </div>
       <DataTable data={tableData} className='display' options={{
         destroy: true,
         language: {
           //url: '/dataTableLanguaje.json',
         },
-         
+
       }} >
         <thead>
           <tr>

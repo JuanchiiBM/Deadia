@@ -1,0 +1,19 @@
+.apexcharts-tooltip {
+    background: hsl(var(--nextui-background-200)) !important;
+    border: 1px solid hsl(var(--nextui-background-300)) !important;
+
+    .apexcharts-tooltip-title {
+        background: hsl(var(--nextui-background-300)) !important;
+        border: 1px solid hsl(var(--nextui-background-300)) !important;
+    }
+}
+
+.apexcharts-xaxistooltip {
+    background: hsl(var(--nextui-background-200)) !important;
+    color: hsl(var(--nextui-content1)) !important
+}
+
+.apexcharts-menu {
+    background: hsl(var(--nextui-background-200)) !important;
+    border: 1px solid hsl(var(--nextui-background-300)) !important;
+}
