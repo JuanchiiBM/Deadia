@@ -12,7 +12,7 @@ export const NavbarWrapper = ({ children }: Props) => {
     <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden justify-start">
       <Navbar
         isBordered
-        className="w-full justify-end"
+        className="w-full justify-end fixed h-[60px]"
         classNames={{
           wrapper: "justify-end",
         }}
@@ -28,7 +28,7 @@ export const NavbarWrapper = ({ children }: Props) => {
           <UserDropdown />
         </NavbarContent>
       </Navbar>
-      <section className="px-20 py-10">
+      <section className="px-20 py-10 my-10">
         {children}
       </section>
     </div>
