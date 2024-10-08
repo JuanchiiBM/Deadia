@@ -4,12 +4,29 @@ import dynamic from "next/dynamic";
 import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
+import json from '@/public/data.json'
 
 
 DataTable.use(DT);
 
+// Procesar los datos para crear las series de ApexCharts
+const sortedData = json.data.sort((a, b) => {
+  const [monthA, yearA] = a.fecha.split("/").map(Number);
+  const [monthB, yearB] = b.fecha.split("/").map(Number);
+  return yearA !== yearB ? yearA - yearB : monthA - monthB;
+});
+
+// Crear las series para cada dependencia
+const series = ["Informática", "Idiomas"].map((dependencia) => ({
+  name: dependencia,
+  data: sortedData
+    .filter((item) => item.dependencia === dependencia)
+    .map((item) => Number(item.ingreso.replace("$", "")))
+}));
+
 const Chart = dynamic(
-  () => import("@/pages/verIngreso/chart/chart").then((mod) => mod.ChartIngresos),
+  () => import("@/pages/verIngreso/chart/chart").then((mod) => mod.ChartIngresos
+  ),
   {
     ssr: false,
   }
@@ -18,30 +35,28 @@ const Chart = dynamic(
 const VerIngreso = () => {
 
   const columns = [
-    { data: 'name' },
-    { data: 'position' },
-    { data: 'office' },
-    { data: 'extn' },
-    { data: 'start_date' },
-    { data: 'salary' },
+    { data: 'dependencia' },
+    { data: 'fecha' },
+    { data: 'ingreso' },
   ]
 
   return (
     <>
       <h1 className='text-4xl'>Ingresos</h1>
-      <Chart />
+      <Chart series={series}/>
       <div className='w-full my-[50px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
         <div className='flex flex-col'>
           <label htmlFor="select-dependency">Dependencia:</label>
           <select name="" id="select-dependency" className='w-[170px] rounded-md bg-background'>
-            <option value="0">1</option>
-            <option value="1">2</option>
+            <option value="0">Seleccione</option>
+            <option value="1">Informatica</option>
+            <option value="2">Idiomas</option>
           </select>
         </div>
         <div className='flex flex-col'>
           <label htmlFor="select-curso">Curso:</label>
           <select name="" id="select-curso" className='w-[170px] rounded-md bg-background'>
-            <option value="0">1</option>
+            <option value="0">Seleccione</option>
             <option value="1">2</option>
           </select>
         </div>
@@ -263,12 +278,9 @@ const VerIngreso = () => {
       }} >
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Extn.</th>
-            <th>Start date</th>
-            <th>Salary</th>
+            <th>Dependencia</th>
+            <th>Fecha</th>
+            <th>Ingreso</th>
           </tr>
         </thead>
       </DataTable>

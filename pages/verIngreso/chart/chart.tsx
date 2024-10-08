@@ -19,7 +19,6 @@ const generateMonths = () => {
 
 const months = generateMonths();
 
-
 const options: Props["options"] = {
   chart: {
     type: 'area',
@@ -87,20 +86,24 @@ const options: Props["options"] = {
   colors: ['#00E396', '#008FFB'], // Colores para las series
 };
 
+/*
 const series: Props["series"] = [
   {
     name: 'Series 1', // Tipo de dato 1
-    //@ts-ignore
-    data: Array(months.length).fill().map(() => Math.floor(Math.random() * 100)) // Datos aleatorios por mes
+    data: 
   },
   {
     name: 'Series 2', // Tipo de dato 2
-    //@ts-ignore
     data: Array(months.length).fill().map(() => Math.floor(Math.random() * 100)) // Datos aleatorios por mes
   }
 ];
+*/
 
-export const ChartIngresos = () => {
+interface ChartIngresosProps {
+  series: Props["series"];
+}
+
+export const ChartIngresos: React.FC<ChartIngresosProps> = ({ series }) => {
   return (
     <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md'>
       <Chart options={options} series={series} type="area" height={400} />
