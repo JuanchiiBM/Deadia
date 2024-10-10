@@ -16,6 +16,8 @@ const sortedData = json.data.sort((a, b) => {
   return yearA !== yearB ? yearA - yearB : monthA - monthB;
 });
 
+const minFecha = sortedData[0].fecha;
+const maxFecha = sortedData[sortedData.length - 1].fecha;
 // Crear las series para cada dependencia
 const series = ["Informática", "Idiomas"].map((dependencia) => ({
   name: dependencia,
@@ -43,7 +45,7 @@ const VerIngreso = () => {
   return (
     <>
       <h1 className='text-4xl'>Ingresos</h1>
-      <Chart series={series}/>
+      <Chart series={series} minFecha={minFecha} maxFecha={maxFecha}/>
       <div className='w-full my-[50px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
         <div className='flex flex-col'>
           <label htmlFor="select-dependency">Dependencia:</label>
