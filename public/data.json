@@ -2,123 +2,123 @@
   "data": [
     {
       "id": "1",
-      "Dependencia": "Informática",
-      "Fecha": "01/2024",
-      "Ingreso": "$4500"
+      "dependencia": "Informática",
+      "fecha": "01/2024",
+      "ingreso": "$4500"
     },
     {
       "id": "2",
-      "Dependencia": "Idiomas",
-      "Fecha": "01/2024",
-      "Ingreso": "$3200"
+      "dependencia": "Idiomas",
+      "fecha": "01/2024",
+      "ingreso": "$3200"
     },
     {
       "id": "3",
-      "Dependencia": "Informática",
-      "Fecha": "02/2024",
-      "Ingreso": "$4800"
+      "dependencia": "Informática",
+      "fecha": "02/2024",
+      "ingreso": "$4800"
     },
     {
       "id": "4",
-      "Dependencia": "Idiomas",
-      "Fecha": "02/2024",
-      "Ingreso": "$3500"
+      "dependencia": "Idiomas",
+      "fecha": "02/2024",
+      "ingreso": "$3500"
     },
     {
       "id": "5",
-      "Dependencia": "Informática",
-      "Fecha": "03/2024",
-      "Ingreso": "$5100"
+      "dependencia": "Informática",
+      "fecha": "03/2024",
+      "ingreso": "$5100"
     },
     {
       "id": "6",
-      "Dependencia": "Idiomas",
-      "Fecha": "03/2024",
-      "Ingreso": "$3600"
+      "dependencia": "Idiomas",
+      "fecha": "03/2024",
+      "ingreso": "$3600"
     },
     {
       "id": "7",
-      "Dependencia": "Informática",
-      "Fecha": "04/2024",
-      "Ingreso": "$4700"
+      "dependencia": "Informática",
+      "fecha": "04/2024",
+      "ingreso": "$4700"
     },
     {
       "id": "8",
-      "Dependencia": "Idiomas",
-      "Fecha": "04/2024",
-      "Ingreso": "$3400"
+      "dependencia": "Idiomas",
+      "fecha": "04/2024",
+      "ingreso": "$3400"
     },
     {
       "id": "9",
-      "Dependencia": "Informática",
-      "Fecha": "05/2024",
-      "Ingreso": "$5000"
+      "dependencia": "Informática",
+      "fecha": "05/2024",
+      "ingreso": "$5000"
     },
     {
       "id": "10",
-      "Dependencia": "Idiomas",
-      "Fecha": "05/2024",
-      "Ingreso": "$3300"
+      "dependencia": "Idiomas",
+      "fecha": "05/2024",
+      "ingreso": "$3300"
     },
     {
       "id": "11",
-      "Dependencia": "Informática",
-      "Fecha": "06/2024",
-      "Ingreso": "$5200"
+      "dependencia": "Informática",
+      "fecha": "06/2024",
+      "ingreso": "$5200"
     },
     {
       "id": "12",
-      "Dependencia": "Idiomas",
-      "Fecha": "06/2024",
-      "Ingreso": "$3700"
+      "dependencia": "Idiomas",
+      "fecha": "06/2024",
+      "ingreso": "$3700"
     },
     {
       "id": "13",
-      "Dependencia": "Informática",
-      "Fecha": "07/2024",
-      "Ingreso": "$4800"
+      "dependencia": "Informática",
+      "fecha": "07/2024",
+      "ingreso": "$4800"
     },
     {
       "id": "14",
-      "Dependencia": "Idiomas",
-      "Fecha": "07/2024",
-      "Ingreso": "$3400"
+      "dependencia": "Idiomas",
+      "fecha": "07/2024",
+      "ingreso": "$3400"
     },
     {
       "id": "15",
-      "Dependencia": "Informática",
-      "Fecha": "08/2024",
-      "Ingreso": "$5300"
+      "dependencia": "Informática",
+      "fecha": "08/2024",
+      "ingreso": "$5300"
     },
     {
       "id": "16",
-      "Dependencia": "Idiomas",
-      "Fecha": "08/2024",
-      "Ingreso": "$3600"
+      "dependencia": "Idiomas",
+      "fecha": "08/2024",
+      "ingreso": "$3600"
     },
     {
       "id": "17",
-      "Dependencia": "Informática",
-      "Fecha": "09/2024",
-      "Ingreso": "$4900"
+      "dependencia": "Informática",
+      "fecha": "09/2024",
+      "ingreso": "$4900"
     },
     {
       "id": "18",
-      "Dependencia": "Idiomas",
-      "Fecha": "09/2024",
-      "Ingreso": "$3500"
+      "dependencia": "Idiomas",
+      "fecha": "09/2024",
+      "ingreso": "$3500"
     },
     {
       "id": "19",
-      "Dependencia": "Informática",
-      "Fecha": "10/2024",
-      "Ingreso": "$5400"
+      "dependencia": "Informática",
+      "fecha": "10/2024",
+      "ingreso": "$5400"
     },
     {
       "id": "20",
-      "Dependencia": "Idiomas",
-      "Fecha": "10/2024",
-      "Ingreso": "$3800"
+      "dependencia": "Idiomas",
+      "fecha": "10/2024",
+      "ingreso": "$3800"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import dayjs from 'dayjs';
 import Chart, { Props } from "react-apexcharts";
 import '@/styles/apexCharts.css';
@@ -10,15 +10,14 @@ interface ChartIngresosProps {
 }
 
 export const ChartIngresos: React.FC<ChartIngresosProps> = ({ series, minFecha, maxFecha }) => {
-  console.log(series)
+  const chartRef = useRef<any>(null); 
   const generateMonths = () => {
-    const minFechaFormatted = dayjs(`${minFecha.split("/")[1]}-${minFecha.split("/")[0]}-01`).format("YYYY-MM-DD");
-    const maxFechaFormatted = dayjs(`${maxFecha.split("/")[1]}-${maxFecha.split("/")[0]}-01`).format("YYYY-MM-DD");
-    const start = dayjs(`${minFechaFormatted}`);
-    const end = dayjs(`${maxFechaFormatted}`);
+    console.log(chartRef)
+    const start = dayjs(`${minFecha.split("/")[1]}-${minFecha.split("/")[0]}-01`);
+    const end = dayjs(`${maxFecha.split("/")[1]}-${maxFecha.split("/")[0]}-01`);
     let months = [];
-
     let current = start;
+
     while (current.isBefore(end) || current.isSame(end, 'month')) {
       months.push(current.format('MM/YYYY'));
       current = current.add(1, 'month');
@@ -93,12 +92,12 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ series, minFecha, 
       },
       position: 'top',
     },
-    colors: ['#00E396', '#008FFB'], // Colores para las series
+    colors: ['#00E396', '#008FFB', '#FFA500', '#EE82EE'], // Colores para las series
   };
 
   return (
     <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md'>
-      <Chart options={options} series={series} type="area" height={400} />
+      <Chart ref={chartRef} options={options} series={series} type="area" height={400} />
     </div>
   );
 };

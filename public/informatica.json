@@ -159,6 +159,14 @@
       "fec_inicio": "10/2024",
       "fec_finalizacion": "12/2024",
       "ingreso": "$2800"
+    },
+    {
+      "id": "21",
+      "curso": "Word",
+      "aula": "Z119",
+      "fec_inicio": "03/2024",
+      "fec_finalizacion": "04/2024",
+      "ingreso": "$2800"
     }
   ]
 }
