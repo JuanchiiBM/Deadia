@@ -12,7 +12,6 @@ interface ChartIngresosProps {
 export const ChartIngresos: React.FC<ChartIngresosProps> = ({ series, minFecha, maxFecha }) => {
   const chartRef = useRef<any>(null); 
   const generateMonths = () => {
-    console.log(chartRef)
     const start = dayjs(`${minFecha.split("/")[1]}-${minFecha.split("/")[0]}-01`);
     const end = dayjs(`${maxFecha.split("/")[1]}-${maxFecha.split("/")[0]}-01`);
     let months = [];

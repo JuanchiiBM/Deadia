@@ -2,12 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
 import DataTable from 'datatables.net-react';
+import * as $ from 'jquery'
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import dayjs from 'dayjs';
 import json from '@/public/data.json'
 import Selects from './parts/selects';
 import ApexCharts from 'apexcharts';
+import { DataTableRef } from 'datatables.net-react';
 
 DataTable.use(DT);
 
@@ -31,15 +33,15 @@ const Chart = dynamic(
 );
 
 const VerIngreso = () => {
+  const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
   const [columns, setColumns] = useState([
     { data: 'dependencia' },
     { data: 'fecha' },
     { data: 'ingreso' },
   ]);
-  const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
-  const [tableData, setTableData] = useState<any>([]);
-  const [tableKey, setTableKey] = useState(Date.now());
+  const [tableData, setTableData] = useState([]);
   const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
+  const tableRef = useRef<DataTableRef>(null);
 
 
   const selectJson = async (value: string): Promise<any[]> => {
@@ -107,12 +109,10 @@ const VerIngreso = () => {
       }));
     }
 
-    // Actualiza las columnas y los datos en el estado
-    setColumns(newColumns);
-    setTableData(nextTableData); // Los nuevos datos se asignan aquí
-
-    // Fuerza el reinicio de la tabla usando un nuevo valor de key
-    setTableKey(Date.now());
+    const tableInstance = tableRef.current?.dt();
+    tableInstance?.columns().clear().draw()
+    setColumns(newColumns)
+    setTableData(nextTableData)
   };
 
   // Funcion para cargar el ApexChart
@@ -195,11 +195,11 @@ const VerIngreso = () => {
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart series={chartData.series} minFecha={chartData.minFecha} maxFecha={chartData.maxFecha} />
       <Selects changeJson={changeJson} />
-      <DataTable key={tableKey} data={tableData} className='order-column' columns={columns} options={{
+      <DataTable ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
         destroy: true,
         language: {
-          url: './dataTableLanguaje.json'
-        }
+          url: './dataTableLanguaje.json',
+        },
       }} >
         <thead>
           <tr>
