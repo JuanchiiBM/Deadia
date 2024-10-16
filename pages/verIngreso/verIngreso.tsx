@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
+import ReactDOMServer from 'react-dom/server';
 import DataTable from 'datatables.net-react';
 import * as $ from 'jquery'
 import '../../styles/dataTables.css'
@@ -10,6 +11,8 @@ import json from '@/public/data.json'
 import Selects from './parts/selects';
 import ApexCharts from 'apexcharts';
 import { DataTableRef } from 'datatables.net-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 DataTable.use(DT);
 
@@ -34,14 +37,32 @@ const Chart = dynamic(
 
 const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
+  const [tableData, setTableData] = useState([]);
+  const [tableKey, setTableKey] = useState(0);
+  const [selectData, setSelectData] = useState();
+  const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
+  const tableRef = useRef<DataTableRef>(null);
   const [columns, setColumns] = useState([
     { data: 'dependencia' },
     { data: 'fecha' },
     { data: 'ingreso' },
+    {
+      title: 'Acciones',
+      data: null,
+      render: (data: any, type: any, row: any) => {
+        return ReactDOMServer.renderToString(
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+            <button className="edit-btn btn-sigma">
+              <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+            </button>
+            <button className="delete-btn btn-sigma"                 >
+              <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+            </button>
+          </div>
+        );
+      }
+    }
   ]);
-  const [tableData, setTableData] = useState([]);
-  const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
-  const tableRef = useRef<DataTableRef>(null);
 
 
   const selectJson = async (value: string): Promise<any[]> => {
@@ -65,9 +86,25 @@ const VerIngreso = () => {
     // Configura las columnas y URL según el valor seleccionado
     if (value === '0') {
       newColumns = [
-        { data: 'dependencia' },
-        { data: 'fecha' },
-        { data: 'ingreso' },
+        { data: 'dependencia', title: 'Dependencia' },
+        { data: 'fecha', title: 'Fecha' },
+        { data: 'ingreso', title: 'Ingreso' },
+        {
+          title: 'Acciones',
+          data: null,
+          render: (data: any, type: any, row: any) => {
+            return ReactDOMServer.renderToString(
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                <button className="edit-btn btn-sigma">
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+                </button>
+                <button className="delete-btn btn-sigma"                 >
+                  <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+                </button>
+              </div>
+            );
+          }
+        }
       ];
       const jsonData = await selectJson('deps');
       nextTableData = jsonData.map((dato) => ({
@@ -77,11 +114,27 @@ const VerIngreso = () => {
       }));
     } else if (value === '1') {
       newColumns = [
-        { data: 'curso' },
-        { data: 'aula' },
-        { data: 'fec_inicio' },
-        { data: 'fec_finalizacion' },
-        { data: 'ingreso' },
+        { data: 'curso', title: 'Curso' },
+        { data: 'aula', title: 'Aula' },
+        { data: 'fec_inicio', title: 'Fecha de Inicio' },
+        { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
+        { data: 'ingreso', title: 'Ingreso' },
+        {
+          title: 'Acciones',
+          data: null,
+          render: (data: any, type: any, row: any) => {
+            return ReactDOMServer.renderToString(
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                <button className="edit-btn btn-sigma">
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+                </button>
+                <button className="delete-btn btn-sigma"                 >
+                  <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+                </button>
+              </div>
+            );
+          }
+        }
       ];
       const jsonData = await selectJson('info');
       nextTableData = jsonData.map((dato) => ({
@@ -93,11 +146,27 @@ const VerIngreso = () => {
       }));
     } else if (value === '2') {
       newColumns = [
-        { data: 'curso' },
-        { data: 'aula' },
-        { data: 'fec_inicio' },
-        { data: 'fec_finalizacion' },
-        { data: 'ingreso' },
+        { data: 'curso', title: 'Curso' },
+        { data: 'aula', title: 'Aula' },
+        { data: 'fec_inicio', title: 'Fecha de Inicio' },
+        { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
+        { data: 'ingreso', title: 'Ingreso' },
+        {
+          title: 'Acciones',
+          data: null,
+          render: (data: any, type: any, row: any) => {
+            return ReactDOMServer.renderToString(
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                <button className="edit-btn btn-sigma">
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+                </button>
+                <button className="delete-btn btn-sigma"                 >
+                  <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+                </button>
+              </div>
+            );
+          }
+        }
       ];
       const jsonData = await selectJson('idio');
       nextTableData = jsonData.map((dato) => ({
@@ -108,11 +177,33 @@ const VerIngreso = () => {
         ingreso: dato.ingreso
       }));
     }
-
-    const tableInstance = tableRef.current?.dt();
-    tableInstance?.columns().clear().draw()
+    setTableKey(prevKey => prevKey + 1);
     setColumns(newColumns)
+    console.log(selectData)
+    setSelectData(nextTableData)
     setTableData(nextTableData)
+    setTimeout(() => removeDuplicates(), 50)
+
+  };
+
+  const removeDuplicates = () => {
+    const tableInstance = tableRef.current?.dt();
+    const uniqueRows = new Set();
+    const rowsToRemove: any = [];
+
+    tableInstance?.rows().every(function (rowIdx) {
+      const data = this.data();
+      const rowStr = JSON.stringify(data);
+
+      if (uniqueRows.has(rowStr)) {
+        rowsToRemove.push(rowIdx);
+      } else {
+        uniqueRows.add(rowStr);
+      }
+    });
+
+    // Eliminar las filas duplicadas
+    tableInstance?.rows(rowsToRemove).remove().draw();
   };
 
   // Funcion para cargar el ApexChart
@@ -189,26 +280,31 @@ const VerIngreso = () => {
       .then(data => processDataForChart(data));
   }, [ajaxUrl]);
 
+  useEffect(() => {
+    changeJson('0')
+  }, [])
 
   return (
     <>
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart series={chartData.series} minFecha={chartData.minFecha} maxFecha={chartData.maxFecha} />
-      <Selects changeJson={changeJson} />
-      <DataTable ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
-        destroy: true,
-        language: {
-          url: './dataTableLanguaje.json',
-        },
-      }} >
-        <thead>
-          <tr>
-            {columns.map((col, index) => (
-              <th key={index}>{col.data.charAt(0).toUpperCase() + col.data.slice(1)}</th>
-            ))}
-          </tr>
-        </thead>
-      </DataTable>
+      <Selects changeJson={changeJson} dataCurso={selectData}/>
+      <div className='h-[500px]'>
+        <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
+          destroy: true,
+          language: {
+            url: './dataTableLanguaje.json',
+          },
+        }} >
+          <thead>
+            <tr>
+              {columns.map((col, index) => (
+                <th key={index}>{col.data}</th>
+              ))}
+            </tr>
+          </thead>
+        </DataTable>
+      </div>
     </>
   )
 }

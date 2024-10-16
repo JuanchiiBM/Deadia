@@ -1,42 +1,58 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
+import Select from 'react-select';
+import { colourStyles } from '@/helpers/selects';
 
 interface ISelects {
     changeJson: (value: string) => void
+    dataCurso: any
 }
 
-const Selects: React.FC<ISelects> = ({ changeJson }) => {
-    const cursoSelect = useRef<HTMLSelectElement>(null);
+const Selects: React.FC<ISelects> = ({ changeJson, dataCurso }) => {
+    const cursoSelect = useRef<any>(null);
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [isDisabled, setIsDisabled] = useState(true)
+    const [optCursos, setOptCursos] = useState([])
+    let optionsCursos
 
-    const disabledCursos = (select: HTMLSelectElement) => {
-        if (cursoSelect.current && select.value != '0')
-            cursoSelect.current.disabled = false
+    const disabledCursos = (val: string) => {
+        console.log(cursoSelect.current)
+        if (cursoSelect.current && val != '0') {
+            setIsDisabled(false)
+            optionsCursos = dataCurso.map((opt: any, index: number) => {
+                return {
+                    value: index + 1,
+                    label: `${opt.curso} | ${opt.aula}`
+                };
+            });
+        
+            setOptCursos(optionsCursos)
+        }
         else if (cursoSelect.current) {
-            cursoSelect.current.disabled = true
+            setIsDisabled(true)
+            setOptCursos([])
         }
     }
 
-    const changeDependency = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const select = e.target
-        disabledCursos(select)
-        changeJson(select.value);
+    const changeDependency = (e: any) => {
+        disabledCursos(e.value)
+        console.log(e)
+        changeJson(e.value);
     }
 
+    const optionsDependencias = [
+        { value: '0', label: 'Seleccione' },
+        { value: '1', label: 'Informatica' },
+        { value: '2', label: 'Idiomas' },
+    ]
     return (
         <div className='w-full my-[50px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
             <div className='flex flex-col'>
                 <label htmlFor="select-dependency">Dependencia:</label>
-                <select name="" onChange={(e) => changeDependency(e)} id="select-dependency" className='w-[170px] rounded-md bg-background p-1 outline-none'>
-                    <option value="0">Seleccione</option>
-                    <option value="1">Informatica</option>
-                    <option value="2">Idiomas</option>
-                </select>
+                <Select className='w-[170px]' placeholder='Dependencias' onChange={changeDependency} options={optionsDependencias} defaultValue={optionsDependencias[0]} isSearchable styles={colourStyles}></Select>
             </div>
             <div className='flex flex-col'>
                 <label htmlFor="select-curso">Curso:</label>
-                <select name="" id="select-curso" ref={cursoSelect} disabled className='w-[170px] rounded-md bg-background p-1 outline-none'>
-                    <option value="0">Seleccione</option>
-                    <option value="1">2</option>
-                </select>
+                <Select className='w-[170px]' isDisabled={isDisabled} ref={cursoSelect} placeholder='Cursos' onChange={changeDependency} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></Select>
             </div>
         </div>
     )

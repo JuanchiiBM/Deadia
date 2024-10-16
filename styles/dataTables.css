@@ -98,3 +98,32 @@
         }
     }
 }
+
+.btn-sigma {
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    margin: 2px 0px;
+
+    svg {
+        font-size: 115%;
+        color: hsl(var(--nextui-content1));
+        padding: 3px 5px;
+    }
+}
+
+.edit-btn {
+    background-color: hsl(var(--nextui-warning));
+
+    svg {
+        color: #eee
+    }
+}
+
+.delete-btn {
+    background-color: hsl(var(--nextui-danger));
+
+    svg {
+        color: #eee
+    }
+}

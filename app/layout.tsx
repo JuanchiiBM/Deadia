@@ -3,6 +3,11 @@ import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { fontSans } from "@/config/fonts";
 import clsx from "clsx";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faS } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPenToSquare, faS)
 
 export const metadata: Metadata = {
   title: "Next.js",
