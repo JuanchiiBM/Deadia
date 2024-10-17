@@ -37,9 +37,8 @@ const Chart = dynamic(
 
 const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState();
   const [tableKey, setTableKey] = useState(0);
-  const [selectData, setSelectData] = useState();
   const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
   const tableRef = useRef<DataTableRef>(null);
   const [columns, setColumns] = useState([
@@ -79,10 +78,9 @@ const VerIngreso = () => {
   }
 
   // Función para actualizar el JSON y las columnas
-  const changeJson = async (value: any) => {
-    let nextTableData: any = [];
-    let newColumns: any = [];
-
+  let nextTableData: any = [];
+  let newColumns: any = [];
+  const changeJson = async (value: any, ret?: boolean) => {
     // Configura las columnas y URL según el valor seleccionado
     if (value === '0') {
       newColumns = [
@@ -178,12 +176,11 @@ const VerIngreso = () => {
       }));
     }
     setTableKey(prevKey => prevKey + 1);
-    setColumns(newColumns)
-    console.log(selectData)
-    setSelectData(nextTableData)
+    setColumns(newColumns);
     setTableData(nextTableData)
-    setTimeout(() => removeDuplicates(), 50)
-
+    setTimeout(() => { removeDuplicates(); }, 50)
+    if (ret = true)
+      return nextTableData
   };
 
   const removeDuplicates = () => {
@@ -280,6 +277,7 @@ const VerIngreso = () => {
       .then(data => processDataForChart(data));
   }, [ajaxUrl]);
 
+
   useEffect(() => {
     changeJson('0')
   }, [])
@@ -288,7 +286,7 @@ const VerIngreso = () => {
     <>
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart series={chartData.series} minFecha={chartData.minFecha} maxFecha={chartData.maxFecha} />
-      <Selects changeJson={changeJson} dataCurso={selectData}/>
+      <Selects changeJson={changeJson} />
       <div className='h-[500px]'>
         <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
           destroy: true,
