@@ -35,6 +35,10 @@ const Chart = dynamic(
   }
 );
 
+let nextTableData: any = [];
+let newColumns: any = [];
+let jsonData
+
 const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
   const [tableData, setTableData] = useState();
@@ -69,6 +73,7 @@ const VerIngreso = () => {
       const response = await fetch(`http://localhost:3000/${value}`, {
         method: "GET",
       });
+      if (value != 'curso')
       setAjaxUrl(`http://localhost:3000/${value}`)
       return response.json();
     } catch (error) {
@@ -78,130 +83,150 @@ const VerIngreso = () => {
   }
 
   // Función para actualizar el JSON y las columnas
-  let nextTableData: any = [];
-  let newColumns: any = [];
   const changeJson = async (value: any, ret?: boolean) => {
     // Configura las columnas y URL según el valor seleccionado
-    if (value === '0') {
-      newColumns = [
-        { data: 'dependencia', title: 'Dependencia' },
-        { data: 'fecha', title: 'Fecha' },
-        { data: 'ingreso', title: 'Ingreso' },
-        {
-          title: 'Acciones',
-          data: null,
-          render: (data: any, type: any, row: any) => {
-            return ReactDOMServer.renderToString(
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                <button className="edit-btn btn-sigma">
-                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-                </button>
-                <button className="delete-btn btn-sigma"                 >
-                  <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-                </button>
-              </div>
-            );
+    switch (value) {
+      case '0':
+        newColumns = [
+          { data: 'dependencia', title: 'Dependencia' },
+          { data: 'fecha', title: 'Fecha' },
+          { data: 'ingreso', title: 'Ingreso' },
+          {
+            title: 'Acciones',
+            data: null,
+            render: (data: any, type: any, row: any) => {
+              return ReactDOMServer.renderToString(
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                  <button className="edit-btn btn-sigma">
+                    <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+                  </button>
+                  <button className="delete-btn btn-sigma"                 >
+                    <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+                  </button>
+                </div>
+              );
+            }
           }
-        }
-      ];
-      const jsonData = await selectJson('deps');
-      nextTableData = jsonData.map((dato) => ({
-        dependencia: dato.dependencia,
-        fecha: dato.fecha,
-        ingreso: dato.ingreso
-      }));
-    } else if (value === '1') {
-      newColumns = [
-        { data: 'curso', title: 'Curso' },
-        { data: 'aula', title: 'Aula' },
-        { data: 'fec_inicio', title: 'Fecha de Inicio' },
-        { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
-        { data: 'ingreso', title: 'Ingreso' },
-        {
-          title: 'Acciones',
-          data: null,
-          render: (data: any, type: any, row: any) => {
-            return ReactDOMServer.renderToString(
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                <button className="edit-btn btn-sigma">
-                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-                </button>
-                <button className="delete-btn btn-sigma"                 >
-                  <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-                </button>
-              </div>
-            );
+        ];
+        jsonData = await selectJson('deps');
+        nextTableData = jsonData.map((dato) => ({
+          dependencia: dato.dependencia,
+          fecha: dato.fecha,
+          ingreso: dato.ingreso
+        }));
+        break;
+      case '1':
+        newColumns = [
+          { data: 'curso', title: 'Curso' },
+          { data: 'aula', title: 'Aula' },
+          { data: 'fec_inicio', title: 'Fecha de Inicio' },
+          { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
+          { data: 'ingreso', title: 'Ingreso' },
+          {
+            title: 'Acciones',
+            data: null,
+            render: (data: any, type: any, row: any) => {
+              return ReactDOMServer.renderToString(
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                  <button className="edit-btn btn-sigma">
+                    <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+                  </button>
+                  <button className="delete-btn btn-sigma"                 >
+                    <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+                  </button>
+                </div>
+              );
+            }
           }
-        }
-      ];
-      const jsonData = await selectJson('info');
-      nextTableData = jsonData.map((dato) => ({
-        curso: dato.curso,
-        aula: dato.aula,
-        fec_inicio: dato.fec_inicio,
-        fec_finalizacion: dato.fec_finalizacion,
-        ingreso: dato.ingreso
-      }));
-    } else if (value === '2') {
-      newColumns = [
-        { data: 'curso', title: 'Curso' },
-        { data: 'aula', title: 'Aula' },
-        { data: 'fec_inicio', title: 'Fecha de Inicio' },
-        { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
-        { data: 'ingreso', title: 'Ingreso' },
-        {
-          title: 'Acciones',
-          data: null,
-          render: (data: any, type: any, row: any) => {
-            return ReactDOMServer.renderToString(
-              <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                <button className="edit-btn btn-sigma">
-                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-                </button>
-                <button className="delete-btn btn-sigma"                 >
-                  <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-                </button>
-              </div>
-            );
+        ];
+        jsonData = await selectJson('info');
+        nextTableData = jsonData.map((dato) => ({
+          curso: dato.curso,
+          aula: dato.aula,
+          fec_inicio: dato.fec_inicio,
+          fec_finalizacion: dato.fec_finalizacion,
+          ingreso: dato.ingreso
+        }));
+        break;
+      case '2':
+        newColumns = [
+          { data: 'curso', title: 'Curso' },
+          { data: 'aula', title: 'Aula' },
+          { data: 'fec_inicio', title: 'Fecha de Inicio' },
+          { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
+          { data: 'ingreso', title: 'Ingreso' },
+          {
+            title: 'Acciones',
+            data: null,
+            render: (data: any, type: any, row: any) => {
+              return ReactDOMServer.renderToString(
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                  <button className="edit-btn btn-sigma">
+                    <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+                  </button>
+                  <button className="delete-btn btn-sigma"                 >
+                    <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+                  </button>
+                </div>
+              );
+            }
           }
-        }
-      ];
-      const jsonData = await selectJson('idio');
-      nextTableData = jsonData.map((dato) => ({
-        curso: dato.curso,
-        aula: dato.aula,
-        fec_inicio: dato.fec_inicio,
-        fec_finalizacion: dato.fec_finalizacion,
-        ingreso: dato.ingreso
-      }));
+        ];
+        jsonData = await selectJson('idio');
+        nextTableData = jsonData.map((dato) => ({
+          curso: dato.curso,
+          aula: dato.aula,
+          fec_inicio: dato.fec_inicio,
+          fec_finalizacion: dato.fec_finalizacion,
+          ingreso: dato.ingreso
+        }));
+        break;
     }
     setTableKey(prevKey => prevKey + 1);
     setColumns(newColumns);
-    setTableData(nextTableData)
-    setTimeout(() => { removeDuplicates(); }, 50)
+    setTableData(undefined)
     if (ret = true)
       return nextTableData
   };
 
-  const removeDuplicates = () => {
-    const tableInstance = tableRef.current?.dt();
-    const uniqueRows = new Set();
-    const rowsToRemove: any = [];
-
-    tableInstance?.rows().every(function (rowIdx) {
-      const data = this.data();
-      const rowStr = JSON.stringify(data);
-
-      if (uniqueRows.has(rowStr)) {
-        rowsToRemove.push(rowIdx);
-      } else {
-        uniqueRows.add(rowStr);
+  const changeJsonForCurse = async (value: any) => {
+    newColumns = [
+      { data: 'dni', title: 'DNI' },
+      { data: 'nombre', title: 'Nombre' },
+      { data: 'mail', title: 'Mail' },
+      { data: 'ingreso', title: 'Ingreso' },
+      {
+        title: 'Acciones',
+        data: null,
+        render: (data: any, type: any, row: any) => {
+          return ReactDOMServer.renderToString(
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+              <button className="edit-btn btn-sigma">
+                <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
+              </button>
+              <button className="delete-btn btn-sigma"                 >
+                <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
+              </button>
+            </div>
+          );
+        }
       }
-    });
+    ];
+    jsonData = await selectJson('curso');
+    nextTableData = jsonData.map((dato) => ({
+      dni: dato.dni,
+      nombre: dato.nombre,
+      mail: dato.mail,
+      ingreso: dato.ingreso
+    }));
+    setTableKey(prevKey => prevKey + 1);
+    setColumns(newColumns);
+    setTableData(undefined)
+  }
 
-    // Eliminar las filas duplicadas
-    tableInstance?.rows(rowsToRemove).remove().draw();
-  };
+  useEffect(() => {
+    setTableData((t) => t = nextTableData)
+  }, [columns])
 
   // Funcion para cargar el ApexChart
   const processDataForChart = (data: any[]) => {
@@ -271,6 +296,7 @@ const VerIngreso = () => {
 
     setChartData({ series, minFecha, maxFecha });
   };
+
   useEffect(() => {
     fetch(ajaxUrl)
       .then(response => response.json())
@@ -286,7 +312,7 @@ const VerIngreso = () => {
     <>
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart series={chartData.series} minFecha={chartData.minFecha} maxFecha={chartData.maxFecha} />
-      <Selects changeJson={changeJson} />
+      <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} />
       <div className='h-[500px]'>
         <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
           destroy: true,
