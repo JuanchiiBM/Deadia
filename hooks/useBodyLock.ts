@@ -14,8 +14,8 @@ export const useLockedBody = (initialLocked = false): ReturnType => {
       }
 
       // Save initial body style
-      const originalOverflow = document.body.style.overflow;
-      const originalPaddingRight = document.body.style.paddingRight;
+      const originaloverflow = document.body.style.overflow;
+      const originalpaddingright = document.body.style.paddingRight;
 
       // Lock body scroll
       document.body.style.overflow = 'hidden';
@@ -30,10 +30,10 @@ export const useLockedBody = (initialLocked = false): ReturnType => {
       }
 
       return () => {
-         document.body.style.overflow = originalOverflow;
+         document.body.style.overflow = originaloverflow;
 
          if (scrollBarWidth) {
-            document.body.style.paddingRight = originalPaddingRight;
+            document.body.style.paddingRight = originalpaddingright;
          }
       };
    }, [locked]);

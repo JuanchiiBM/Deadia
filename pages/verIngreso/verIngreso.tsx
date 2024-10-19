@@ -3,32 +3,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
 import ReactDOMServer from 'react-dom/server';
 import DataTable from 'datatables.net-react';
-import * as $ from 'jquery'
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import dayjs from 'dayjs';
-import json from '@/public/data.json'
-import Selects from './parts/selects';
-import ApexCharts from 'apexcharts';
+import Selects from './selects';
 import { DataTableRef } from 'datatables.net-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 DataTable.use(DT);
 
-interface SeriesData {
-  name: string;
-  data: number[];
-}
 
-interface ChartData {
-  series: SeriesData[];
-  minFecha: string;
-  maxFecha: string;
-}
 
 const Chart = dynamic(
-  () => import("@/pages/verIngreso/parts/chart").then((mod) => mod.ChartIngresos
+  () => import("@/pages/verIngreso/chart").then((mod) => mod.ChartIngresos
   ),
   {
     ssr: false,
@@ -43,7 +31,6 @@ const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
   const [tableData, setTableData] = useState();
   const [tableKey, setTableKey] = useState(0);
-  const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
   const tableRef = useRef<DataTableRef>(null);
   const [columns, setColumns] = useState([
     { data: 'dependencia' },
@@ -85,6 +72,7 @@ const VerIngreso = () => {
   // Función para actualizar el JSON y las columnas
   const changeJson = async (value: any, ret?: boolean) => {
     // Configura las columnas y URL según el valor seleccionado
+    setTableData(undefined)
     switch (value) {
       case '0':
         newColumns = [
@@ -184,7 +172,6 @@ const VerIngreso = () => {
     }
     setTableKey(prevKey => prevKey + 1);
     setColumns(newColumns);
-    setTableData(undefined)
     if (ret = true)
       return nextTableData
   };
@@ -212,6 +199,7 @@ const VerIngreso = () => {
         }
       }
     ];
+    setTableData(undefined)
     jsonData = await selectJson('curso');
     nextTableData = jsonData.map((dato) => ({
       dni: dato.dni,
@@ -219,90 +207,14 @@ const VerIngreso = () => {
       mail: dato.mail,
       ingreso: dato.ingreso
     }));
+    
     setTableKey(prevKey => prevKey + 1);
     setColumns(newColumns);
-    setTableData(undefined)
   }
 
   useEffect(() => {
     setTableData((t) => t = nextTableData)
   }, [columns])
-
-  // Funcion para cargar el ApexChart
-  const processDataForChart = (data: any[]) => {
-    let sortedData;
-    let minFecha;
-    let maxFecha;
-    let allMonths: string[] = [];
-    let series: SeriesData[] = [];
-
-    if (data[0].dependencia) {
-      // Procesar el JSON por 'dependencia'
-      sortedData = data.sort((a, b) => {
-        const [monthA, yearA] = a.fecha.split("/").map(Number);
-        const [monthB, yearB] = b.fecha.split("/").map(Number);
-        return yearA !== yearB ? yearA - yearB : monthA - monthB;
-      });
-
-      minFecha = sortedData[0].fecha;
-      maxFecha = sortedData[sortedData.length - 1].fecha;
-
-      let current = dayjs(`${minFecha.split("/")[1]}-${minFecha.split("/")[0]}-01`);
-      const end = dayjs(`${maxFecha.split("/")[1]}-${maxFecha.split("/")[0]}-01`);
-      while (current.isBefore(end) || current.isSame(end, 'month')) {
-        allMonths.push(current.format("MM/YYYY"));
-        current = current.add(1, 'month');
-      }
-
-      const dependencias = Array.from(new Set(data.map(item => item.dependencia)));
-      series = dependencias.map(dependencia => {
-        const monthlyData = allMonths.map(month => {
-          const monthlySum = data
-            .filter(item => item.dependencia === dependencia && item.fecha === month)
-            .reduce((acc, curr) => acc + Number(curr.ingreso.replace("$", "")), 0);
-          return monthlySum || 0;
-        });
-        return { name: dependencia, data: monthlyData };
-      });
-    } else if (data[0].curso) {
-      // Procesar el JSON por 'curso'
-      sortedData = data.sort((a, b) => {
-        const [monthA, yearA] = a.fec_finalizacion.split("/").map(Number);
-        const [monthB, yearB] = b.fec_finalizacion.split("/").map(Number);
-        return yearA !== yearB ? yearA - yearB : monthA - monthB;
-      });
-
-      minFecha = sortedData[0].fec_finalizacion;
-      maxFecha = sortedData[sortedData.length - 1].fec_finalizacion;
-
-      let current = dayjs(`${minFecha.split("/")[1]}-${minFecha.split("/")[0]}-01`);
-      const end = dayjs(`${maxFecha.split("/")[1]}-${maxFecha.split("/")[0]}-01`);
-      while (current.isBefore(end) || current.isSame(end, 'month')) {
-        allMonths.push(current.format("MM/YYYY"));
-        current = current.add(1, 'month');
-      }
-
-      const cursos = Array.from(new Set(data.map(item => item.curso)));
-      series = cursos.map(curso => {
-        const monthlyData = allMonths.map(month => {
-          const monthlySum = data
-            .filter(item => item.curso === curso && item.fec_finalizacion === month)
-            .reduce((acc, curr) => acc + Number(curr.ingreso.replace("$", "")), 0);
-          return monthlySum || 0;
-        });
-        return { name: curso, data: monthlyData };
-      });
-    }
-
-    setChartData({ series, minFecha, maxFecha });
-  };
-
-  useEffect(() => {
-    fetch(ajaxUrl)
-      .then(response => response.json())
-      .then(data => processDataForChart(data));
-  }, [ajaxUrl]);
-
 
   useEffect(() => {
     changeJson('0')
@@ -311,7 +223,7 @@ const VerIngreso = () => {
   return (
     <>
       <h1 className='text-4xl'>Ingresos</h1>
-      <Chart series={chartData.series} minFecha={chartData.minFecha} maxFecha={chartData.maxFecha} />
+      <Chart url={ajaxUrl} />
       <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} />
       <div className='h-[500px]'>
         <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
