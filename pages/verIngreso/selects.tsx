@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import AsyncSelect, { SelectInstance } from 'react-select';
+import Select, { SelectInstance } from 'react-select';
 import { colourStyles } from '@/helpers/selects';
 
 interface ISelects {
@@ -56,11 +56,11 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse }) => {
         <div className='w-full my-[50px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
             <div className='flex flex-col'>
                 <label htmlFor="select-dependency">Dependencia:</label>
-                <AsyncSelect className='w-[170px]' placeholder='Dependencias' ref={depSelect} noOptionsMessage={({inputValue}) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'}  onChange={changeDependency} options={optionsDependencias} defaultValue={optionsDependencias[0]} isSearchable styles={colourStyles}></AsyncSelect>
+                <Select className='w-[170px]' placeholder='Dependencias' ref={depSelect} noOptionsMessage={({inputValue}) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'}  onChange={changeDependency} options={optionsDependencias} defaultValue={optionsDependencias[0]} isSearchable styles={colourStyles}></Select>
             </div>
             <div className='flex flex-col'>
                 <label htmlFor="select-curso">Curso:</label>
-                <AsyncSelect className='w-[170px]' isDisabled={isDisabled} ref={cursoSelect} placeholder='Cursos' noOptionsMessage={({inputValue}) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeCurse} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></AsyncSelect>
+                <Select className='w-[170px]' isDisabled={isDisabled} ref={cursoSelect} placeholder='Cursos' noOptionsMessage={({inputValue}) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeCurse} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></Select>
             </div>
         </div>
     )

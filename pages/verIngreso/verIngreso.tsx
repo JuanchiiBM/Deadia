@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
 import ReactDOMServer from 'react-dom/server';
+import { hydrateRoot } from 'react-dom/client';
 import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
@@ -10,6 +11,9 @@ import Selects from './selects';
 import { DataTableRef } from 'datatables.net-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { useDisclosure } from '@nextui-org/react';
+import ModalVerIngreso from './modal';
+import { flushSync } from 'react-dom';
 
 DataTable.use(DT);
 
@@ -26,32 +30,18 @@ const Chart = dynamic(
 let nextTableData: any = [];
 let newColumns: any = [];
 let jsonData
-
+  
 const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
   const [tableData, setTableData] = useState();
   const [tableKey, setTableKey] = useState(0);
   const tableRef = useRef<DataTableRef>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [columns, setColumns] = useState([
-    { data: 'dependencia' },
-    { data: 'fecha' },
-    { data: 'ingreso' },
-    {
-      title: 'Acciones',
-      data: null,
-      render: (data: any, type: any, row: any) => {
-        return ReactDOMServer.renderToString(
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-            <button className="edit-btn btn-sigma">
-              <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-            </button>
-            <button className="delete-btn btn-sigma"                 >
-              <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-            </button>
-          </div>
-        );
-      }
-    }
+    { data: 'dependencia', title: 'Dependencia'},
+    { data: 'fecha', title: 'Fecha' },
+    { data: 'ingreso', title: 'Ingreso' },
+    { title: 'Acciones', data: null }
   ]);
 
 
@@ -79,28 +69,23 @@ const VerIngreso = () => {
           { data: 'dependencia', title: 'Dependencia' },
           { data: 'fecha', title: 'Fecha' },
           { data: 'ingreso', title: 'Ingreso' },
-          {
-            title: 'Acciones',
-            data: null,
-            render: (data: any, type: any, row: any) => {
-              return ReactDOMServer.renderToString(
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                  <button className="edit-btn btn-sigma">
-                    <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-                  </button>
-                  <button className="delete-btn btn-sigma"                 >
-                    <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-                  </button>
-                </div>
-              );
-            }
-          }
+          { data: 'acciones', title: 'Acciones' }
         ];
         jsonData = await selectJson('deps');
         nextTableData = jsonData.map((dato) => ({
           dependencia: dato.dependencia,
           fecha: dato.fecha,
-          ingreso: dato.ingreso
+          ingreso: dato.ingreso,
+          id: dato.id,
+          acciones: () => {
+            return ReactDOMServer.renderToString(
+              <div id={`actions-${dato.dependencia}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px"}}>
+                <button className="edit-btn btn-sigma" data-id={dato.id + "-" + dato.dependencia} id={`edit-btn-${dato.dependencia}-${dato.id}`}>
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
+                <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
+              </div>
+            );
+          }
         }));
         break;
       case '1':
@@ -110,22 +95,7 @@ const VerIngreso = () => {
           { data: 'fec_inicio', title: 'Fecha de Inicio' },
           { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
           { data: 'ingreso', title: 'Ingreso' },
-          {
-            title: 'Acciones',
-            data: null,
-            render: (data: any, type: any, row: any) => {
-              return ReactDOMServer.renderToString(
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                  <button className="edit-btn btn-sigma">
-                    <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-                  </button>
-                  <button className="delete-btn btn-sigma"                 >
-                    <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-                  </button>
-                </div>
-              );
-            }
-          }
+          { data: 'acciones', title: 'Acciones' }
         ];
         jsonData = await selectJson('info');
         nextTableData = jsonData.map((dato) => ({
@@ -133,7 +103,17 @@ const VerIngreso = () => {
           aula: dato.aula,
           fec_inicio: dato.fec_inicio,
           fec_finalizacion: dato.fec_finalizacion,
-          ingreso: dato.ingreso
+          ingreso: dato.ingreso,
+          id: dato.id,
+          acciones: () => {
+            return ReactDOMServer.renderToString(
+              <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px"}}>
+                <button className="edit-btn btn-sigma" data-id={dato.id+'-'+dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
+                <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
+              </div>
+            );
+          }
         }));
         break;
       case '2':
@@ -143,22 +123,7 @@ const VerIngreso = () => {
           { data: 'fec_inicio', title: 'Fecha de Inicio' },
           { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
           { data: 'ingreso', title: 'Ingreso' },
-          {
-            title: 'Acciones',
-            data: null,
-            render: (data: any, type: any, row: any) => {
-              return ReactDOMServer.renderToString(
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                  <button className="edit-btn btn-sigma">
-                    <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-                  </button>
-                  <button className="delete-btn btn-sigma"                 >
-                    <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-                  </button>
-                </div>
-              );
-            }
-          }
+          { data: 'acciones', title: 'Acciones' }
         ];
         jsonData = await selectJson('idio');
         nextTableData = jsonData.map((dato) => ({
@@ -166,12 +131,23 @@ const VerIngreso = () => {
           aula: dato.aula,
           fec_inicio: dato.fec_inicio,
           fec_finalizacion: dato.fec_finalizacion,
-          ingreso: dato.ingreso
+          ingreso: dato.ingreso,
+          id: dato.id,
+          acciones: () => {
+            return ReactDOMServer.renderToString(
+              <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px"}}>
+                <button className="edit-btn btn-sigma" data-id={dato.id+'-'+dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
+                  <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
+                <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
+              </div>
+            );
+          }
         }));
         break;
     }
     setTableKey(prevKey => prevKey + 1);
-    setColumns(newColumns);
+    setColumns((prev) => prev = newColumns);
+    
     if (ret = true)
       return nextTableData
   };
@@ -182,22 +158,6 @@ const VerIngreso = () => {
       { data: 'nombre', title: 'Nombre' },
       { data: 'mail', title: 'Mail' },
       { data: 'ingreso', title: 'Ingreso' },
-      {
-        title: 'Acciones',
-        data: null,
-        render: (data: any, type: any, row: any) => {
-          return ReactDOMServer.renderToString(
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-              <button className="edit-btn btn-sigma">
-                <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" />
-              </button>
-              <button className="delete-btn btn-sigma"                 >
-                <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" />
-              </button>
-            </div>
-          );
-        }
-      }
     ];
     setTableData(undefined)
     jsonData = await selectJson('curso');
@@ -212,8 +172,22 @@ const VerIngreso = () => {
     setColumns(newColumns);
   }
 
+  const hydrateActions = () => {
+    nextTableData.forEach((dato: any) => {
+      if (document.getElementById(`actions-${dato.dependencia}-${dato.id}`)) {
+        document.getElementById(`edit-btn-${dato.dependencia}-${dato.id}`)?.addEventListener('click', () => onOpen())
+      } else if (document.getElementById(`actions-${dato.aula}-${dato.id}`)) {
+        document.getElementById(`edit-btn-${dato.aula}-${dato.id}`)?.addEventListener('click', () => onOpen())
+      }
+    })
+  }
+
   useEffect(() => {
-    setTableData((t) => t = nextTableData)
+    hydrateActions()
+  }, [tableData])
+
+  useEffect(() => {
+    setTableData((t) => t = nextTableData)    
   }, [columns])
 
   useEffect(() => {
@@ -241,6 +215,7 @@ const VerIngreso = () => {
           </thead>
         </DataTable>
       </div>
+      <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>
     </>
   )
 }

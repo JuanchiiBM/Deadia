@@ -23,6 +23,7 @@ export const colourStyles: StylesConfig = {
     option: (baseStyles, state) => ({
         ...baseStyles,
         background: state.isFocused ? 'hsl(var(--nextui-background-200))' : state.isSelected ? 'hsl(var(--nextui-background-300))' : 'hsl(var(--nextui-background))',
+        color: state.isSelected ? 'hsl(var(--nextui-content1))' : 'hsl(var(--nextui-content1))',
         ':active': {
             ...baseStyles[':active'],
             background: 'hsl(var(--nextui-background-300))'
