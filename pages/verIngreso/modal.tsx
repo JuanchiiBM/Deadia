@@ -1,39 +1,39 @@
 import React from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from "@nextui-org/react";
 
+interface IModalVerIngreso extends UseDisclosureProps {
+    contentModal: any
+}
 
-const ModalVerIngreso: React.FC<UseDisclosureProps> = ({isOpen, onClose, onOpen}) => {
+const ModalVerIngreso: React.FC<IModalVerIngreso> = ({ isOpen, onClose, onOpen, contentModal }) => {
     return (
         <Modal backdrop='blur' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
-                {(onClose) => (
+                {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                        <ModalBody>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Nullam pulvinar risus non risus hendrerit venenatis.
-                                Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                            </p>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Nullam pulvinar risus non risus hendrerit venenatis.
-                                Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                            </p>
-                            <p>
-                                Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                                dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis.
-                                Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.
-                                Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur
-                                proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                            </p>
-                        </ModalBody>
+                        <ModalHeader className="flex flex-col gap-1">{contentModal.dependencia || contentModal.curso}</ModalHeader>
+                        {
+                            contentModal.dependencia ?
+                                <ModalBody>
+                                    <p>
+                                        {contentModal.dependencia}-
+                                        {contentModal.fecha}
+                                    </p>
+                                </ModalBody> :
+                                <ModalBody>
+                                        <p>
+                                            {contentModal.curso}-
+                                            {contentModal.aula}
+                                        </p>
+                                </ModalBody>
+                        }
+
                         <ModalFooter>
                             <Button color="danger" variant="light" onPress={onClose}>
-                                Close
+                                Cerrar
                             </Button>
                             <Button color="primary" onPress={onClose}>
-                                Action
+                                Guardar
                             </Button>
                         </ModalFooter>
                     </>

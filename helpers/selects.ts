@@ -2,6 +2,8 @@ import { StylesConfig } from 'react-select';
 export const colourStyles: StylesConfig = {
     control: (baseStyles, state) => ({
         background: state.isFocused ? 'hsl(var(--nextui-background-100))' : state.isDisabled ? 'hsl(var(--nextui-background-100))' : 'hsl(var(--nextui-background))',
+        opacity: state.isDisabled ? '0.5' : '1',
+        transition: 'all 0.15s ease',
         border: state.isFocused ? 'none' : 'none',
         borderRadius: '5px',
         display: 'flex',

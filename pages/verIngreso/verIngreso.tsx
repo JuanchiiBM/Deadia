@@ -30,15 +30,16 @@ const Chart = dynamic(
 let nextTableData: any = [];
 let newColumns: any = [];
 let jsonData
-  
+
 const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
   const [tableData, setTableData] = useState();
   const [tableKey, setTableKey] = useState(0);
+  const [contentModal, setContentModal] = useState()
   const tableRef = useRef<DataTableRef>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [columns, setColumns] = useState([
-    { data: 'dependencia', title: 'Dependencia'},
+    { data: 'dependencia', title: 'Dependencia' },
     { data: 'fecha', title: 'Fecha' },
     { data: 'ingreso', title: 'Ingreso' },
     { title: 'Acciones', data: null }
@@ -51,7 +52,7 @@ const VerIngreso = () => {
         method: "GET",
       });
       if (value != 'curso')
-      setAjaxUrl(`http://localhost:3000/${value}`)
+        setAjaxUrl(`http://localhost:3000/${value}`)
       return response.json();
     } catch (error) {
       console.error("Error:", error);
@@ -79,7 +80,7 @@ const VerIngreso = () => {
           id: dato.id,
           acciones: () => {
             return ReactDOMServer.renderToString(
-              <div id={`actions-${dato.dependencia}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px"}}>
+              <div id={`actions-${dato.dependencia}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
                 <button className="edit-btn btn-sigma" data-id={dato.id + "-" + dato.dependencia} id={`edit-btn-${dato.dependencia}-${dato.id}`}>
                   <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
                 <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
@@ -107,8 +108,8 @@ const VerIngreso = () => {
           id: dato.id,
           acciones: () => {
             return ReactDOMServer.renderToString(
-              <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px"}}>
-                <button className="edit-btn btn-sigma" data-id={dato.id+'-'+dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
+              <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <button className="edit-btn btn-sigma" data-id={dato.id + '-' + dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
                   <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
                 <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
               </div>
@@ -135,8 +136,8 @@ const VerIngreso = () => {
           id: dato.id,
           acciones: () => {
             return ReactDOMServer.renderToString(
-              <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px"}}>
-                <button className="edit-btn btn-sigma" data-id={dato.id+'-'+dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
+              <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <button className="edit-btn btn-sigma" data-id={dato.id + '-' + dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
                   <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
                 <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
               </div>
@@ -147,7 +148,7 @@ const VerIngreso = () => {
     }
     setTableKey(prevKey => prevKey + 1);
     setColumns((prev) => prev = newColumns);
-    
+
     if (ret = true)
       return nextTableData
   };
@@ -167,16 +168,64 @@ const VerIngreso = () => {
       mail: dato.mail,
       ingreso: dato.ingreso
     }));
-    
+
     setTableKey(prevKey => prevKey + 1);
     setColumns(newColumns);
   }
 
+  const changeDependencyRange = (range: string) => {
+    const [minRange, maxRange] = range.split('-');
+    const [minMonth, minYear] = minRange.split('/').map(Number);
+    const [maxMonth, maxYear] = maxRange.split('/').map(Number);
+
+    const tableFiltered = nextTableData.filter((dato: any) => {
+      const [month, year] = dato.fecha.split('/').map(Number);
+      if (
+        (year > minYear || (year === minYear && month >= minMonth)) &&
+        (year < maxYear || (year === maxYear && month <= maxMonth))
+      ) {
+        return true;
+      }
+      return false;
+    })
+    // Agrupar dependencias y sumar los ingresos en un array
+    const groupedData: any[] = [];
+    let mergedData: any = []
+
+    tableFiltered.forEach((dato: any) => {
+      const { dependencia, ingreso } = dato;
+      const existingEntry = groupedData.find((item) => item.dependencia === dependencia);
+
+      if (existingEntry) {
+        existingEntry.ingreso += parseFloat(ingreso.replace('$', ''));
+      } else {
+        groupedData.push({
+          dependencia,
+          ingreso: parseFloat(ingreso.replace('$', '')),
+          fecha: `${minRange}-${maxRange}` // Mostrar el rango seleccionado
+        });
+      }
+    });
+
+    // Formatear los ingresos a dos decimales y agregar el símbolo "$"
+    mergedData = groupedData.map((item) => ({
+      ...item,
+      ingreso: `$${item.ingreso}`,
+      acciones: null
+    }));
+
+    setTableData(mergedData); // Actualizar la tabla con los datos agrupados
+  };
+
   const hydrateActions = () => {
+    Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
+    Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
     nextTableData.forEach((dato: any) => {
       if (document.getElementById(`actions-${dato.dependencia}-${dato.id}`)) {
+        document.getElementById(`edit-btn-${dato.dependencia}-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
         document.getElementById(`edit-btn-${dato.dependencia}-${dato.id}`)?.addEventListener('click', () => onOpen())
       } else if (document.getElementById(`actions-${dato.aula}-${dato.id}`)) {
+        document.getElementById(`edit-btn-${dato.aula}-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
         document.getElementById(`edit-btn-${dato.aula}-${dato.id}`)?.addEventListener('click', () => onOpen())
       }
     })
@@ -187,7 +236,7 @@ const VerIngreso = () => {
   }, [tableData])
 
   useEffect(() => {
-    setTableData((t) => t = nextTableData)    
+    setTableData((t) => t = nextTableData)
   }, [columns])
 
   useEffect(() => {
@@ -198,7 +247,7 @@ const VerIngreso = () => {
     <>
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart url={ajaxUrl} />
-      <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} />
+      <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeDependencyRange={changeDependencyRange} />
       <div className='h-[500px]'>
         <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
           destroy: true,
@@ -215,7 +264,7 @@ const VerIngreso = () => {
           </thead>
         </DataTable>
       </div>
-      <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>
+      <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
     </>
   )
 }
