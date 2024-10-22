@@ -37,7 +37,7 @@ export const SidebarWrapper = () => {
             <CollapseItems
               icon={<AccountsIcon />}
               items={["Visualizar Ingresos", "Registrar Ingreso"]}
-              path={["/verIngreso", "/Ingreso2"]}
+              path={["/verIngreso", "/registrarIngreso"]}
               title="Ingreso"
             />
           </div>

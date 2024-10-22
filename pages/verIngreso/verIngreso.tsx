@@ -6,14 +6,12 @@ import { hydrateRoot } from 'react-dom/client';
 import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
-import dayjs from 'dayjs';
 import Selects from './selects';
 import { DataTableRef } from 'datatables.net-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useDisclosure } from '@nextui-org/react';
 import ModalVerIngreso from './modal';
-import { flushSync } from 'react-dom';
 
 DataTable.use(DT);
 

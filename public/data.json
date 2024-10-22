@@ -1,124 +1,632 @@
 {
-  "data": [
-    {
-      "id": "1",
-      "dependencia": "Informática",
-      "fecha": "01/2024",
-      "ingreso": "$4500"
-    },
-    {
-      "id": "2",
-      "dependencia": "Idiomas",
-      "fecha": "01/2024",
-      "ingreso": "$3200"
-    },
-    {
-      "id": "3",
-      "dependencia": "Informática",
-      "fecha": "02/2024",
-      "ingreso": "$4800"
-    },
-    {
-      "id": "4",
-      "dependencia": "Idiomas",
-      "fecha": "02/2024",
-      "ingreso": "$3500"
-    },
-    {
-      "id": "5",
-      "dependencia": "Informática",
-      "fecha": "03/2024",
-      "ingreso": "$5100"
-    },
-    {
-      "id": "6",
-      "dependencia": "Idiomas",
-      "fecha": "03/2024",
-      "ingreso": "$3600"
-    },
-    {
-      "id": "7",
-      "dependencia": "Informática",
-      "fecha": "04/2024",
-      "ingreso": "$4700"
-    },
-    {
-      "id": "8",
-      "dependencia": "Idiomas",
-      "fecha": "04/2024",
-      "ingreso": "$3400"
-    },
-    {
-      "id": "9",
-      "dependencia": "Informática",
-      "fecha": "05/2024",
-      "ingreso": "$5000"
-    },
-    {
-      "id": "10",
-      "dependencia": "Idiomas",
-      "fecha": "05/2024",
-      "ingreso": "$3300"
-    },
-    {
-      "id": "11",
-      "dependencia": "Informática",
-      "fecha": "06/2024",
-      "ingreso": "$5200"
-    },
-    {
-      "id": "12",
-      "dependencia": "Idiomas",
-      "fecha": "06/2024",
-      "ingreso": "$3700"
-    },
-    {
-      "id": "13",
-      "dependencia": "Informática",
-      "fecha": "07/2024",
-      "ingreso": "$4800"
-    },
-    {
-      "id": "14",
-      "dependencia": "Idiomas",
-      "fecha": "07/2024",
-      "ingreso": "$3400"
-    },
-    {
-      "id": "15",
-      "dependencia": "Informática",
-      "fecha": "08/2024",
-      "ingreso": "$5300"
-    },
-    {
-      "id": "16",
-      "dependencia": "Idiomas",
-      "fecha": "08/2024",
-      "ingreso": "$3600"
-    },
-    {
-      "id": "17",
-      "dependencia": "Informática",
-      "fecha": "09/2024",
-      "ingreso": "$4900"
-    },
-    {
-      "id": "18",
-      "dependencia": "Idiomas",
-      "fecha": "09/2024",
-      "ingreso": "$3500"
-    },
-    {
-      "id": "19",
-      "dependencia": "Informática",
-      "fecha": "10/2024",
-      "ingreso": "$5400"
-    },
-    {
-      "id": "20",
-      "dependencia": "Idiomas",
-      "fecha": "10/2024",
-      "ingreso": "$3800"
-    }
-  ]
+    "deps": [
+        {
+            "id": "1",
+            "dependencia": "Informática",
+            "fecha": "01/2024",
+            "ingreso": "$4500"
+        },
+        {
+            "id": "2",
+            "dependencia": "Idiomas",
+            "fecha": "01/2024",
+            "ingreso": "$3200"
+        },
+        {
+            "id": "3",
+            "dependencia": "Informática",
+            "fecha": "02/2024",
+            "ingreso": "$4800"
+        },
+        {
+            "id": "4",
+            "dependencia": "Idiomas",
+            "fecha": "02/2024",
+            "ingreso": "$3500"
+        },
+        {
+            "id": "5",
+            "dependencia": "Informática",
+            "fecha": "03/2024",
+            "ingreso": "$5100"
+        },
+        {
+            "id": "6",
+            "dependencia": "Idiomas",
+            "fecha": "03/2024",
+            "ingreso": "$3600"
+        },
+        {
+            "id": "7",
+            "dependencia": "Informática",
+            "fecha": "04/2024",
+            "ingreso": "$4700"
+        },
+        {
+            "id": "8",
+            "dependencia": "Idiomas",
+            "fecha": "04/2024",
+            "ingreso": "$3400"
+        },
+        {
+            "id": "9",
+            "dependencia": "Informática",
+            "fecha": "05/2024",
+            "ingreso": "$5000"
+        },
+        {
+            "id": "10",
+            "dependencia": "Idiomas",
+            "fecha": "05/2024",
+            "ingreso": "$3300"
+        },
+        {
+            "id": "11",
+            "dependencia": "Informática",
+            "fecha": "06/2024",
+            "ingreso": "$5200"
+        },
+        {
+            "id": "12",
+            "dependencia": "Idiomas",
+            "fecha": "06/2024",
+            "ingreso": "$3700"
+        },
+        {
+            "id": "13",
+            "dependencia": "Informática",
+            "fecha": "07/2024",
+            "ingreso": "$4800"
+        },
+        {
+            "id": "14",
+            "dependencia": "Idiomas",
+            "fecha": "07/2024",
+            "ingreso": "$3400"
+        },
+        {
+            "id": "15",
+            "dependencia": "Informática",
+            "fecha": "08/2024",
+            "ingreso": "$5300"
+        },
+        {
+            "id": "16",
+            "dependencia": "Idiomas",
+            "fecha": "08/2024",
+            "ingreso": "$3600"
+        },
+        {
+            "id": "17",
+            "dependencia": "Informática",
+            "fecha": "09/2024",
+            "ingreso": "$4900"
+        },
+        {
+            "id": "18",
+            "dependencia": "Idiomas",
+            "fecha": "09/2024",
+            "ingreso": "$3500"
+        },
+        {
+            "id": "19",
+            "dependencia": "Informática",
+            "fecha": "10/2024",
+            "ingreso": "$5400"
+        },
+        {
+            "id": "20",
+            "dependencia": "Idiomas",
+            "fecha": "10/2024",
+            "ingreso": "$3800"
+        },
+        {
+            "id": "21",
+            "dependencia": "Informática",
+            "fecha": "12/2023",
+            "ingreso": "$4500"
+        },
+        {
+            "id": "22",
+            "dependencia": "Informática",
+            "fecha": "11/2023",
+            "ingreso": "$4500"
+        }
+    ],
+    "info": [
+        {
+            "id": "1",
+            "curso": "Excel",
+            "aula": "Z100",
+            "fec_inicio": "01/2024",
+            "fec_finalizacion": "02/2024",
+            "ingreso": "$2500"
+        },
+        {
+            "id": "2",
+            "curso": "Word",
+            "aula": "Z101",
+            "fec_inicio": "01/2024",
+            "fec_finalizacion": "03/2024",
+            "ingreso": "$2700"
+        },
+        {
+            "id": "3",
+            "curso": "PowerPoint",
+            "aula": "Z102",
+            "fec_inicio": "02/2024",
+            "fec_finalizacion": "03/2024",
+            "ingreso": "$2600"
+        },
+        {
+            "id": "4",
+            "curso": "Excel",
+            "aula": "Z103",
+            "fec_inicio": "02/2024",
+            "fec_finalizacion": "04/2024",
+            "ingreso": "$2500"
+        },
+        {
+            "id": "5",
+            "curso": "Word",
+            "aula": "Z104",
+            "fec_inicio": "03/2024",
+            "fec_finalizacion": "04/2024",
+            "ingreso": "$2800"
+        },
+        {
+            "id": "6",
+            "curso": "PowerPoint",
+            "aula": "Z105",
+            "fec_inicio": "03/2024",
+            "fec_finalizacion": "05/2024",
+            "ingreso": "$2900"
+        },
+        {
+            "id": "7",
+            "curso": "Excel",
+            "aula": "Z106",
+            "fec_inicio": "04/2024",
+            "fec_finalizacion": "05/2024",
+            "ingreso": "$2400"
+        },
+        {
+            "id": "8",
+            "curso": "Word",
+            "aula": "Z107",
+            "fec_inicio": "04/2024",
+            "fec_finalizacion": "06/2024",
+            "ingreso": "$2750"
+        },
+        {
+            "id": "9",
+            "curso": "PowerPoint",
+            "aula": "Z108",
+            "fec_inicio": "05/2024",
+            "fec_finalizacion": "06/2024",
+            "ingreso": "$3000"
+        },
+        {
+            "id": "10",
+            "curso": "Excel",
+            "aula": "Z109",
+            "fec_inicio": "05/2024",
+            "fec_finalizacion": "07/2024",
+            "ingreso": "$2450"
+        },
+        {
+            "id": "11",
+            "curso": "Word",
+            "aula": "Z110",
+            "fec_inicio": "06/2024",
+            "fec_finalizacion": "07/2024",
+            "ingreso": "$2650"
+        },
+        {
+            "id": "12",
+            "curso": "PowerPoint",
+            "aula": "Z111",
+            "fec_inicio": "06/2024",
+            "fec_finalizacion": "08/2024",
+            "ingreso": "$2850"
+        },
+        {
+            "id": "13",
+            "curso": "Excel",
+            "aula": "Z112",
+            "fec_inicio": "07/2024",
+            "fec_finalizacion": "08/2024",
+            "ingreso": "$2600"
+        },
+        {
+            "id": "14",
+            "curso": "Word",
+            "aula": "Z113",
+            "fec_inicio": "07/2024",
+            "fec_finalizacion": "09/2024",
+            "ingreso": "$2900"
+        },
+        {
+            "id": "15",
+            "curso": "PowerPoint",
+            "aula": "Z114",
+            "fec_inicio": "08/2024",
+            "fec_finalizacion": "09/2024",
+            "ingreso": "$2750"
+        },
+        {
+            "id": "16",
+            "curso": "Excel",
+            "aula": "Z115",
+            "fec_inicio": "08/2024",
+            "fec_finalizacion": "10/2024",
+            "ingreso": "$2500"
+        },
+        {
+            "id": "17",
+            "curso": "Word",
+            "aula": "Z116",
+            "fec_inicio": "09/2024",
+            "fec_finalizacion": "10/2024",
+            "ingreso": "$2700"
+        },
+        {
+            "id": "18",
+            "curso": "PowerPoint",
+            "aula": "Z117",
+            "fec_inicio": "09/2024",
+            "fec_finalizacion": "11/2024",
+            "ingreso": "$2900"
+        },
+        {
+            "id": "19",
+            "curso": "Excel",
+            "aula": "Z118",
+            "fec_inicio": "10/2024",
+            "fec_finalizacion": "11/2024",
+            "ingreso": "$2400"
+        },
+        {
+            "id": "20",
+            "curso": "Word",
+            "aula": "Z119",
+            "fec_inicio": "10/2024",
+            "fec_finalizacion": "12/2024",
+            "ingreso": "$2800"
+        },
+        {
+            "id": "21",
+            "curso": "Word",
+            "aula": "Z119",
+            "fec_inicio": "03/2024",
+            "fec_finalizacion": "04/2024",
+            "ingreso": "$2800"
+        }
+    ],
+    "idio": [
+        {
+            "id": "1",
+            "curso": "Inglés",
+            "aula": "Z100",
+            "fec_inicio": "01/2024",
+            "fec_finalizacion": "02/2024",
+            "ingreso": "$3000"
+        },
+        {
+            "id": "2",
+            "curso": "Francés",
+            "aula": "Z101",
+            "fec_inicio": "01/2024",
+            "fec_finalizacion": "03/2024",
+            "ingreso": "$3200"
+        },
+        {
+            "id": "3",
+            "curso": "Alemán",
+            "aula": "Z102",
+            "fec_inicio": "02/2024",
+            "fec_finalizacion": "03/2024",
+            "ingreso": "$3100"
+        },
+        {
+            "id": "4",
+            "curso": "Italiano",
+            "aula": "Z103",
+            "fec_inicio": "02/2024",
+            "fec_finalizacion": "04/2024",
+            "ingreso": "$3300"
+        },
+        {
+            "id": "5",
+            "curso": "Inglés",
+            "aula": "Z104",
+            "fec_inicio": "03/2024",
+            "fec_finalizacion": "04/2024",
+            "ingreso": "$3150"
+        },
+        {
+            "id": "6",
+            "curso": "Francés",
+            "aula": "Z105",
+            "fec_inicio": "03/2024",
+            "fec_finalizacion": "05/2024",
+            "ingreso": "$3250"
+        },
+        {
+            "id": "7",
+            "curso": "Alemán",
+            "aula": "Z106",
+            "fec_inicio": "04/2024",
+            "fec_finalizacion": "05/2024",
+            "ingreso": "$3050"
+        },
+        {
+            "id": "8",
+            "curso": "Italiano",
+            "aula": "Z107",
+            "fec_inicio": "04/2024",
+            "fec_finalizacion": "06/2024",
+            "ingreso": "$3350"
+        },
+        {
+            "id": "9",
+            "curso": "Inglés",
+            "aula": "Z108",
+            "fec_inicio": "05/2024",
+            "fec_finalizacion": "06/2024",
+            "ingreso": "$3100"
+        },
+        {
+            "id": "10",
+            "curso": "Francés",
+            "aula": "Z109",
+            "fec_inicio": "05/2024",
+            "fec_finalizacion": "07/2024",
+            "ingreso": "$3400"
+        },
+        {
+            "id": "11",
+            "curso": "Alemán",
+            "aula": "Z110",
+            "fec_inicio": "06/2024",
+            "fec_finalizacion": "07/2024",
+            "ingreso": "$3200"
+        },
+        {
+            "id": "12",
+            "curso": "Italiano",
+            "aula": "Z111",
+            "fec_inicio": "06/2024",
+            "fec_finalizacion": "08/2024",
+            "ingreso": "$3500"
+        },
+        {
+            "id": "13",
+            "curso": "Inglés",
+            "aula": "Z112",
+            "fec_inicio": "07/2024",
+            "fec_finalizacion": "08/2024",
+            "ingreso": "$3300"
+        },
+        {
+            "id": "14",
+            "curso": "Francés",
+            "aula": "Z113",
+            "fec_inicio": "07/2024",
+            "fec_finalizacion": "09/2024",
+            "ingreso": "$3550"
+        },
+        {
+            "id": "15",
+            "curso": "Alemán",
+            "aula": "Z114",
+            "fec_inicio": "08/2024",
+            "fec_finalizacion": "09/2024",
+            "ingreso": "$3400"
+        },
+        {
+            "id": "16",
+            "curso": "Italiano",
+            "aula": "Z115",
+            "fec_inicio": "08/2024",
+            "fec_finalizacion": "10/2024",
+            "ingreso": "$3600"
+        },
+        {
+            "id": "17",
+            "curso": "Inglés",
+            "aula": "Z116",
+            "fec_inicio": "09/2024",
+            "fec_finalizacion": "10/2024",
+            "ingreso": "$3250"
+        },
+        {
+            "id": "18",
+            "curso": "Francés",
+            "aula": "Z117",
+            "fec_inicio": "09/2024",
+            "fec_finalizacion": "11/2024",
+            "ingreso": "$3450"
+        },
+        {
+            "id": "19",
+            "curso": "Alemán",
+            "aula": "Z118",
+            "fec_inicio": "10/2024",
+            "fec_finalizacion": "11/2024",
+            "ingreso": "$3300"
+        },
+        {
+            "id": "20",
+            "curso": "Italiano",
+            "aula": "Z119",
+            "fec_inicio": "10/2024",
+            "fec_finalizacion": "12/2024",
+            "ingreso": "$3650"
+        }
+    ],
+    "curso": [
+        {
+            "dni": "29546789",
+            "nombre": "Carlos Pérez",
+            "mail": "carlos.perez@example.com",
+            "ingreso": 45000
+        },
+        {
+            "dni": "31784321",
+            "nombre": "María López",
+            "mail": "maria.lopez@example.com",
+            "ingreso": 52000
+        },
+        {
+            "dni": "28932178",
+            "nombre": "Juan García",
+            "mail": "juan.garcia@example.com",
+            "ingreso": 60000
+        },
+        {
+            "dni": "34123145",
+            "nombre": "Ana Fernández",
+            "mail": "ana.fernandez@example.com",
+            "ingreso": 47000
+        },
+        {
+            "dni": "30213456",
+            "nombre": "Pedro Martínez",
+            "mail": "pedro.martinez@example.com",
+            "ingreso": 56000
+        },
+        {
+            "dni": "33124567",
+            "nombre": "Lucía Gómez",
+            "mail": "lucia.gomez@example.com",
+            "ingreso": 49000
+        },
+        {
+            "dni": "27845678",
+            "nombre": "Sofía Ramírez",
+            "mail": "sofia.ramirez@example.com",
+            "ingreso": 53000
+        },
+        {
+            "dni": "31234567",
+            "nombre": "Roberto Sánchez",
+            "mail": "roberto.sanchez@example.com",
+            "ingreso": 58000
+        },
+        {
+            "dni": "29345678",
+            "nombre": "Elena Díaz",
+            "mail": "elena.diaz@example.com",
+            "ingreso": 46000
+        },
+        {
+            "dni": "32124567",
+            "nombre": "Gabriel Torres",
+            "mail": "gabriel.torres@example.com",
+            "ingreso": 61000
+        }
+    ],
+    "incomeRegister": [
+        {
+            "dni": "31234567",
+            "nombre": "Laura Álvarez",
+            "mail": "laura.alvarez@example.com",
+            "aula": "Z-101",
+            "curso": "Excel I",
+            "fecha": "2024-01-12",
+            "monto": 15000,
+            "dependencia": "Informática"
+        },
+        {
+            "dni": "32784567",
+            "nombre": "Federico Ruiz",
+            "mail": "federico.ruiz@example.com",
+            "aula": "Z-205",
+            "curso": "Inglés III",
+            "fecha": "2023-11-05",
+            "monto": 12000,
+            "dependencia": "Idiomas"
+        },
+        {
+            "dni": "29456789",
+            "nombre": "Marta Silva",
+            "mail": "marta.silva@example.com",
+            "aula": "Z-303",
+            "curso": "PowerPoint I",
+            "fecha": "2023-12-22",
+            "monto": 14000,
+            "dependencia": "Informática"
+        },
+        {
+            "dni": "30845678",
+            "nombre": "Gonzalo Pérez",
+            "mail": "gonzalo.perez@example.com",
+            "aula": "Z-150",
+            "curso": "Chino",
+            "fecha": "2023-10-18",
+            "monto": 16000,
+            "dependencia": "Idiomas"
+        },
+        {
+            "dni": "32674890",
+            "nombre": "Carolina Díaz",
+            "mail": "carolina.diaz@example.com",
+            "aula": "Z-120",
+            "curso": "Excel II",
+            "fecha": "2024-02-10",
+            "monto": 17000,
+            "dependencia": "Informática"
+        },
+        {
+            "dni": "30567892",
+            "nombre": "Andrés Martínez",
+            "mail": "andres.martinez@example.com",
+            "aula": "Z-302",
+            "curso": "Python",
+            "fecha": "2024-03-08",
+            "monto": 18000,
+            "dependencia": "Informática"
+        },
+        {
+            "dni": "31784567",
+            "nombre": "Lucía Ramírez",
+            "mail": "lucia.ramirez@example.com",
+            "aula": "Z-210",
+            "curso": "Inglés",
+            "fecha": "2023-12-03",
+            "monto": 14000,
+            "dependencia": "Idiomas"
+        },
+        {
+            "dni": "29876543",
+            "nombre": "Jorge Gómez",
+            "mail": "jorge.gomez@example.com",
+            "aula": "Z-305",
+            "curso": "Alemán",
+            "fecha": "2023-11-20",
+            "monto": 19000,
+            "dependencia": "Idiomas"
+        },
+        {
+            "dni": "32156789",
+            "nombre": "Natalia Torres",
+            "mail": "natalia.torres@example.com",
+            "aula": "Z-101",
+            "curso": "Excel I",
+            "fecha": "2023-10-30",
+            "monto": 13000,
+            "dependencia": "Informática"
+        },
+        {
+            "dni": "34567891",
+            "nombre": "Sergio González",
+            "mail": "sergio.gonzalez@example.com",
+            "aula": "Z-115",
+            "curso": "Inglés III",
+            "fecha": "2024-01-15",
+            "monto": 16000,
+            "dependencia": "Idiomas"
+        }
+    ]
 }
