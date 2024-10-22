@@ -628,5 +628,16 @@
             "monto": 16000,
             "dependencia": "Idiomas"
         }
+    ],
+    "incomeRegisterOptionsClassrooms": [
+        {
+            "aula": "Z-101"
+        },
+        {
+            "aula": "Z-102"
+        },
+        {
+            "aula": "Z-103"
+        }
     ]
 }
