@@ -60,7 +60,7 @@ const DataTableRegistrarIngreso = () => {
             <thead>
                 <tr>
                     {tableColumns.map((col, index) => (
-                        <th key={index}>{col.data}</th>
+                        <th className='truncate' key={index}>{col.data}</th>
                     ))}
                 </tr>
             </thead>

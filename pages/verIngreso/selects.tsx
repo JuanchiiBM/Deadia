@@ -82,7 +82,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
     }
 
     useEffect(() => {
-        dateInitial.start != undefined && changeRange()
+        dateInitial && dateInitial.start != undefined && changeRange()
     }, [dateInitial])
 
     const optionsDependencias = [
@@ -99,7 +99,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
             <div>
                 <I18nProvider locale='es-ES'>
                     <label htmlFor="datepicker">Seleccionar Rango:</label>
-                    <DateRangePicker ref={dateRef} defaultValue={undefined} onChange={setDateInitial} value={dateInitial} id='datepicker' isDisabled={!isDisabled} labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
+                    <DateRangePicker visibleMonths={2} ref={dateRef} defaultValue={undefined} onChange={setDateInitial} value={dateInitial} id='datepicker' isDisabled={!isDisabled} labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                         input: 'bg-background hover:bg-background focus:bg-background',
                         inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                     }} calendarProps={{classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200"}}} />

@@ -3,14 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarCheck, faCalendarXmark } from '@fortawesome/free-regular-svg-icons'
 import Image from 'next/image'
+import { Option } from './modalSelects'
+import {RangeValue} from "@react-types/shared";
 
 interface IModalResumenRegistrarIngreso {
     valueDNI: string | undefined
     valueNombre: string | undefined
     valueApellido: string | undefined
+    valueClassroom: Option | null | undefined
+    valueCurse: Option | null | undefined
+    valueDependency: Option | null | undefined
+    valueMonto: string | undefined
+    valueDatePicker: RangeValue<any>
 }
 
-const ModalResumenRegistrarIngreso: React.FC<IModalResumenRegistrarIngreso> = ({ valueDNI, valueNombre, valueApellido }) => {
+const ModalResumenRegistrarIngreso: React.FC<IModalResumenRegistrarIngreso> = ({ valueDNI, valueNombre, valueApellido, valueClassroom, valueCurse, valueDependency, valueMonto, valueDatePicker }) => {
     return (
         <section className='flex flex-col gap-2 w-[30%] m-0'>
             <div className='rounded-xl p-2 border-2 border-default-200 w-full h-[30%]'>
@@ -22,16 +29,16 @@ const ModalResumenRegistrarIngreso: React.FC<IModalResumenRegistrarIngreso> = ({
             <div className='rounded-xl p-2 py-4 border-2 border-default-200 w-full h-[70%] items-center flex flex-col'>
                 <Image src='/img/loadImg.png' alt='Logo' width={100} height={100} />
                 <div className='w-full mt-5'>
-                    <h3 className='text-lg text-center'>Aula</h3>
+                    <h3 className='text-lg text-center'>{valueClassroom?.label ? valueClassroom?.label : 'Aula'}</h3>
                     <div className='flex flex-col w-full text-start border-t-1'>
-                        <p><FontAwesomeIcon icon={faCalendarCheck} className='mr-3'/>-- / -- / ----</p>
-                        <p><FontAwesomeIcon icon={faCalendarXmark} className='mr-3'/>-- / -- / ----</p>
+                        <p><FontAwesomeIcon icon={faCalendarCheck} className='mr-3'/>{valueDatePicker && valueDatePicker.start ? `${valueDatePicker.start.day} / ${valueDatePicker.start.month} / ${valueDatePicker.start.year}` : '-- / -- / ----'}</p>
+                        <p><FontAwesomeIcon icon={faCalendarXmark} className='mr-3'/>{valueDatePicker && valueDatePicker.end ? `${valueDatePicker.end.day} / ${valueDatePicker.end.month} / ${valueDatePicker.end.year}` : '-- / -- / ----'}</p>
                     </div>
                 </div>
                 <div className='w-full mt-5'>
-                    <h3 className='text-lg text-center'>Dependencia</h3>
+                    <h3 className='text-lg text-center'>{valueDependency?.label ? valueDependency?.label : 'Dependencia'}</h3>
                     <div className='flex flex-col w-full text-start border-t-1'>
-                        <p><FontAwesomeIcon icon={faDollarSign} className='mr-3'/>-</p>
+                        <p className='truncate'><FontAwesomeIcon icon={faDollarSign} className='mr-3'/>{valueMonto ? valueMonto : '-'}</p>
                     </div>
                 </div>
 
