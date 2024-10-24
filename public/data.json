@@ -639,5 +639,21 @@
         {
             "aula": "Z-103"
         }
+    ],
+    "Z-101": [
+        {
+            "curse": "Excel I",
+            "dependency": "Informática",
+            "initDate": "2024-05-10",
+            "finalDate": "2024-06-12"
+        }
+    ],
+    "Z-102": [
+        {
+            "curse": "Word I",
+            "dependency": "Informática",
+            "initDate": "2024-02-20",
+            "finalDate": "2024-03-22"
+        }
     ]
 }

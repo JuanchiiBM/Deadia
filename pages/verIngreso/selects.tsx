@@ -17,8 +17,8 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
     const depSelect = useRef<SelectInstance<any> | null>(null);
     const dateRef = useRef<any>()
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
-        start: undefined,
-        end: undefined,
+        start: null,
+        end: null,
       });
     const [isDisabled, setIsDisabled] = useState(true)
     const [optCursos, setOptCursos] = useState([])
@@ -28,8 +28,8 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
         if (cursoSelect.current && val != '0') {
             setIsDisabled(false)
             setDateInitial({
-                start: undefined,
-                end: undefined,
+                start: null,
+                end: null,
               });
             optionsCursos = data.map((opt: any, index: number) => {
                 return {

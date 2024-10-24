@@ -37,7 +37,7 @@ export const colourStyles: StylesConfig = {
 export const colourStylesBordered: StylesConfig = {
     control: (baseStyles, state) => ({
         background: state.isFocused ? 'transparent' : state.isDisabled ? 'transparent' : 'transparent',
-        opacity: state.isDisabled ? '0.3' : '1',
+        opacity: state.isDisabled ? '0.5' : '1',
         transition: 'all 0.15s ease',
         border: state.isFocused ? '2px solid hsl(var(--nextui-default-800))' : '2px solid hsl(var(--nextui-default-200))',
         borderRadius: '10px',

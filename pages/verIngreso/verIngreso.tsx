@@ -249,8 +249,9 @@ const VerIngreso = () => {
       <div className='h-[500px]'>
         <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
           destroy: true,
+          responsive: true,
           language: {
-            url: './dataTableLanguaje.json',
+            url: '../dataTableLanguaje.json',
           },
         }} >
           <thead>

@@ -16,8 +16,8 @@ const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, 
     const [valueDependency, setValueDependency] = useState<Option | null>();
     const [valueMonto, setValueMonto] = useState<string | undefined>();
     const [valueDatePicker, setValueDatePicker] = useState<RangeValue<any>>({
-        start: undefined,
-        end: undefined,
+        start: null,
+        end: null,
       });
     const [isDisabled, setIsDisabled] = useState(true)
 
@@ -60,8 +60,8 @@ const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, 
                                         <Input maxLength={20} value={valueMonto} onChange={(e) => setValueMonto(e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required/>
                                         <I18nProvider locale='es-ES'>
                                             <DateRangePicker visibleMonths={2} value={valueDatePicker} onChange={(e) => {setValueDatePicker(e)}} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
-                                                input: 'bg-background hover:bg-background focus:bg-background',
-                                                inputWrapper: 'bg-background hover:!bg-background focus:bg-background',
+                                                input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
+                                                inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
                                             }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
                                         </I18nProvider>
                                     </div>

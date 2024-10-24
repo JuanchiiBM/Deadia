@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
+import 'datatables.net-responsive-dt';
 import { GETFunction } from '@/utils/globals';
 
 DataTable.use(DT);
@@ -53,8 +54,9 @@ const DataTableRegistrarIngreso = () => {
     return (
         <DataTable data={tableData} className='order-column' columns={tableColumns} options={{
             destroy: true,
+            responsive: true,
             language: {
-                url: './dataTableLanguaje.json',
+                url: '../dataTableLanguaje.json',
             },
         }} >
             <thead>
