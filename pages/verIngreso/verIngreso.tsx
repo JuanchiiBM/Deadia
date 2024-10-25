@@ -40,7 +40,7 @@ const VerIngreso = () => {
   const [columns, setColumns] = useState([
     { data: 'dependencia', title: 'Dependencia' },
     { data: 'fecha', title: 'Fecha' },
-    { data: 'ingreso', title: 'Ingreso' },
+    { data: 'ingreso', title: 'Ingreso Acumulado' },
     { title: 'Acciones', data: null }
   ]);
 
@@ -68,7 +68,7 @@ const VerIngreso = () => {
         newColumns = [
           { data: 'dependencia', title: 'Dependencia' },
           { data: 'fecha', title: 'Fecha' },
-          { data: 'ingreso', title: 'Ingreso' },
+          { data: 'ingreso', title: 'Ingreso Acumulado' },
           { data: 'acciones', title: 'Acciones' }
         ];
         jsonData = await selectJson('deps');

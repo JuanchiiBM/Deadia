@@ -1,8 +1,11 @@
 import React from 'react'
+import OptionsAdministrarEgreso from './options'
 
 const AdministrarEgreso = () => {
   return (
-    <div>AdministrarEgreso</div>
+    <>
+      <OptionsAdministrarEgreso/>
+    </>
   )
 }
 
