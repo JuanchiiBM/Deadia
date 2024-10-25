@@ -34,6 +34,7 @@ const VerIngreso = () => {
   const [tableData, setTableData] = useState();
   const [tableKey, setTableKey] = useState(0);
   const [contentModal, setContentModal] = useState()
+  const dateRef = useRef<any>()
   const tableRef = useRef<DataTableRef>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [columns, setColumns] = useState([
@@ -145,7 +146,7 @@ const VerIngreso = () => {
         break;
     }
     setTableKey(prevKey => prevKey + 1);
-    setColumns((prev) => prev = newColumns);
+    setColumns(newColumns);
 
     if (ret = true)
       return nextTableData
@@ -172,48 +173,70 @@ const VerIngreso = () => {
   }
 
   const changeDependencyRange = (range: string) => {
-    const [minRange, maxRange] = range.split('-');
-    const [minMonth, minYear] = minRange.split('/').map(Number);
-    const [maxMonth, maxYear] = maxRange.split('/').map(Number);
+    if (nextTableData[0] && nextTableData[0].dependencia) {
+      const [minRange, maxRange] = range.split('-');
+      const [minMonth, minYear] = minRange.split('/').map(Number);
+      const [maxMonth, maxYear] = maxRange.split('/').map(Number);
 
-    const tableFiltered = nextTableData.filter((dato: any) => {
-      const [month, year] = dato.fecha.split('/').map(Number);
-      if (
-        (year > minYear || (year === minYear && month >= minMonth)) &&
-        (year < maxYear || (year === maxYear && month <= maxMonth))
-      ) {
-        return true;
+      const tableFiltered = nextTableData.filter((dato: any) => {
+        const [month, year] = dato.fecha.split('/').map(Number);
+        if (
+          (year > minYear || (year === minYear && month >= minMonth)) &&
+          (year < maxYear || (year === maxYear && month <= maxMonth))
+        ) {
+          return true;
+        }
+        return false;
+      })
+      // Agrupar dependencias y sumar los ingresos en un array
+      const groupedData: any[] = [];
+      let mergedData: any = []
+
+      tableFiltered.forEach((dato: any) => {
+        const { dependencia, ingreso } = dato;
+        const existingEntry = groupedData.find((item) => item.dependencia === dependencia);
+
+        if (existingEntry) {
+          existingEntry.ingreso += parseFloat(ingreso.replace('$', ''));
+        } else {
+          groupedData.push({
+            dependencia,
+            ingreso: parseFloat(ingreso.replace('$', '')),
+            fecha: `${minRange}-${maxRange}` // Mostrar el rango seleccionado
+          });
+        }
+      });
+
+      // Formatear los ingresos a dos decimales y agregar el símbolo "$"
+      mergedData = groupedData.map((item) => ({
+        ...item,
+        ingreso: `$${item.ingreso}`,
+        acciones: null
+      }));
+
+      setTableData(mergedData); // Actualizar la tabla con los datos agrupados
+    }
+  }
+
+  const changeRange = () => {
+    const datePicked = dateRef.current?.innerText.split('\n').filter((date: string) => {
+      return date != '/'
+    }).filter((date: string, index: number) => {
+      if (index != 0 && index != 4) {
+        return date
       }
-      return false;
-    })
-    // Agrupar dependencias y sumar los ingresos en un array
-    const groupedData: any[] = [];
-    let mergedData: any = []
-
-    tableFiltered.forEach((dato: any) => {
-      const { dependencia, ingreso } = dato;
-      const existingEntry = groupedData.find((item) => item.dependencia === dependencia);
-
-      if (existingEntry) {
-        existingEntry.ingreso += parseFloat(ingreso.replace('$', ''));
+    }).map((date: string, index: number) => {
+      let newDate
+      if (index == 0 || index == 3) {
+        newDate = `${date}/`
+        return newDate
       } else {
-        groupedData.push({
-          dependencia,
-          ingreso: parseFloat(ingreso.replace('$', '')),
-          fecha: `${minRange}-${maxRange}` // Mostrar el rango seleccionado
-        });
+        return date
       }
-    });
+    }).join('')
 
-    // Formatear los ingresos a dos decimales y agregar el símbolo "$"
-    mergedData = groupedData.map((item) => ({
-      ...item,
-      ingreso: `$${item.ingreso}`,
-      acciones: null
-    }));
-
-    setTableData(mergedData); // Actualizar la tabla con los datos agrupados
-  };
+    changeDependencyRange(datePicked)
+  }
 
   const hydrateActions = () => {
     Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
@@ -235,6 +258,7 @@ const VerIngreso = () => {
 
   useEffect(() => {
     setTableData((t) => t = nextTableData)
+    changeRange()
   }, [columns])
 
   useEffect(() => {
@@ -245,7 +269,7 @@ const VerIngreso = () => {
     <>
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart url={ajaxUrl} />
-      <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeDependencyRange={changeDependencyRange} />
+      <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} />
       <div className='h-[500px]'>
         <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
           destroy: true,

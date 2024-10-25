@@ -4,21 +4,21 @@ import { DateRangePicker, DateRangePickerReturnType } from "@nextui-org/react";
 import {RangeValue} from "@react-types/shared";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
-import {getLocalTimeZone, parseDate, today, DateValue} from "@internationalized/date";
+import {getLocalTimeZone, parseDate, today, DateValue, startOfYear} from "@internationalized/date";
 
 interface ISelects {
     changeJson: (value: string, ret?: boolean) => void
     changeJsonForCurse: (value: string) => void
-    changeDependencyRange: (value: string) => void
+    changeRange: () => void
+    dateRef: any
 }
 
-const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDependencyRange }) => {
+const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef }) => {
     const cursoSelect = useRef<SelectInstance<any> | null>(null);
     const depSelect = useRef<SelectInstance<any> | null>(null);
-    const dateRef = useRef<any>()
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
-        start: null,
-        end: null,
+        start: startOfYear(today(getLocalTimeZone())),
+        end: today(getLocalTimeZone()),
       });
     const [isDisabled, setIsDisabled] = useState(true)
     const [optCursos, setOptCursos] = useState([])
@@ -28,8 +28,8 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
         if (cursoSelect.current && val != '0') {
             setIsDisabled(false)
             setDateInitial({
-                start: null,
-                end: null,
+                start: startOfYear(today(getLocalTimeZone())),
+                end: today(getLocalTimeZone()),
               });
             optionsCursos = data.map((opt: any, index: number) => {
                 return {
@@ -61,26 +61,6 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
         }
     }
 
-    const changeRange = () => {
-        const datePicked = dateRef.current?.innerText.split('\n').filter((date: string) => {
-            return date != '/'
-        }).filter((date: string, index: number) => {
-            if (index != 0 && index != 4) {
-                return date
-            }
-        }).map((date: string, index: number) => {
-            let newDate
-            if (index == 0 || index == 3) {
-                newDate = `${date}/`
-                return newDate
-            } else {
-                return date
-            }
-        }).join('')
-
-        changeDependencyRange(datePicked)
-    }
-
     useEffect(() => {
         dateInitial && dateInitial.start != undefined && changeRange()
     }, [dateInitial])
@@ -99,7 +79,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeDep
             <div>
                 <I18nProvider locale='es-ES'>
                     <label htmlFor="datepicker">Seleccionar Rango:</label>
-                    <DateRangePicker visibleMonths={2} ref={dateRef} defaultValue={undefined} onChange={setDateInitial} value={dateInitial} id='datepicker' isDisabled={!isDisabled} labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
+                    <DateRangePicker visibleMonths={2} ref={dateRef} defaultValue={undefined} onChange={setDateInitial} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                         input: 'bg-background hover:bg-background focus:bg-background',
                         inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                     }} calendarProps={{classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200"}}} />
