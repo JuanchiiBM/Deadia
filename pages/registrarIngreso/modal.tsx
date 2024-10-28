@@ -5,7 +5,6 @@ import ModalSelectsRegistrarIngreso from './modalSelects';
 import ModalResumenRegistrarIngreso from './modalResumen';
 import { Option } from './modalSelects';
 import {RangeValue} from "@react-types/shared";
-import {parseDate} from "@internationalized/date";
 
 const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
     const [valueDNI, setValueDNI] = useState<string | undefined>()
@@ -62,7 +61,7 @@ const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, 
                                             <DateRangePicker visibleMonths={2} value={valueDatePicker} onChange={(e) => {setValueDatePicker(e)}} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
                                                 input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
                                                 inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
-                                            }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
+                                            }}/>
                                         </I18nProvider>
                                     </div>
                                 </div>

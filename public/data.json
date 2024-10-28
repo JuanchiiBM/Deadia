@@ -655,5 +655,26 @@
             "initDate": "2024-02-20",
             "finalDate": "2024-03-22"
         }
+    ],
+    "type": [
+        {
+            "idType": "1",
+            "name": "Oficina"
+        },
+        {
+            "idType": "2",
+            "name": "Farmacia"
+        }
+    ],
+
+    "article": [
+        {
+            "idArticle": "1",
+            "name": "Hojas A4"
+        },
+        {
+            "idArticle": "2",
+            "name": "Lapiceras"
+        }
     ]
 }

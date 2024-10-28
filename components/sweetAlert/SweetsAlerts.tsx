@@ -29,31 +29,6 @@ export const SuccessAlert = (title?: string, text?: string, textBtn?: string, ca
   )
 }
 
-export const SuccessAlerDark = (title?: string, text?: string, textBtn?: string, callBack?: () => void) => {
-  MySwal.fire({
-    title: <p>{title ? title : 'Genial!'}</p>,
-    text: `${text ? text : ''}`,
-    icon: 'success',
-    backdrop: false,
-    background: '#5b828c',
-    color: 'white',
-    confirmButtonText: `${textBtn ? textBtn : 'OK'}`,
-    confirmButtonColor: '#666666',
-    focusConfirm: false,
-    customClass: {
-      popup: 'sweetAlertContainer',
-      confirmButton: 'sweetAlertConfirm'
-    }
-  }).then(() => {
-    if (callBack)
-      return callBack()
-  })
-
-  return (
-    MySwal
-  )
-}
-
 
 export const ErrorAlert = (title?: string, text?: string, textBtn?: string, callBack?: () => void) => {
   MySwal.fire({
@@ -70,32 +45,6 @@ export const ErrorAlert = (title?: string, text?: string, textBtn?: string, call
     customClass: {
       popup: 'sweetAlertContainer',
       confirmButton: 'sweetAlertConfirm sweetAlertConfirmLight'
-    }
-  }).then(() => {
-    if (callBack)
-      return callBack()
-  })
-
-  return (
-    MySwal
-  )
-}
-
-export const ErrorAlertDark = (title?: string, text?: string, textBtn?: string, callBack?: () => void) => {
-  MySwal.fire({
-    title: <p>{title ? title : 'Error'}</p>,
-    text: `${text ? text : ''}`,
-    icon: 'error',
-    iconColor: '#8a1912',
-    backdrop: false,
-    background: '#5b828c',
-    color: '#dddddd',
-    confirmButtonText: `${textBtn ? textBtn : 'OK'}`,
-    confirmButtonColor: '#666666',
-    focusConfirm: false,
-    customClass: {
-      popup: 'sweetAlertContainer',
-      confirmButton: 'sweetAlertConfirm'
     }
   }).then(() => {
     if (callBack)
