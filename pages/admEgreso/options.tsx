@@ -10,10 +10,6 @@ interface IOptionsAdministrarEgreso {
 }
 
 const OptionsAdministrarEgreso: React.FC<any> = ({ onOpen }) => {
-
-    useEffect(() => {
-        onOpen()
-    }, [])
     
     return (
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>

@@ -1,4 +1,8 @@
 import "@/styles/globals.css";
+import "@/styles/sweetAlert.css";
+import "@/styles/dataTables.css";
+import "@/styles/apexCharts.css";
+
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { fontSans } from "@/config/fonts";

@@ -18,7 +18,7 @@ const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen })
     }
 
     return (
-        <Modal backdrop='blur' size='xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
+        <Modal isDismissable={false} backdrop='blur' size='xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
                     <>

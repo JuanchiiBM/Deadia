@@ -666,7 +666,6 @@
             "name": "Farmacia"
         }
     ],
-
     "article": [
         {
             "idArticle": "1",
@@ -675,6 +674,148 @@
         {
             "idArticle": "2",
             "name": "Lapiceras"
+        }
+    ],
+    "egress": [
+        {
+            "type": "Oficina",
+            "article": "Papel A4",
+            "date": "01/10/2024",
+            "amount": "50",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Oficina",
+            "article": "Papel A4",
+            "date": "05/10/2024",
+            "amount": "20",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Oficina",
+            "article": "Cartucho de Tinta",
+            "date": "03/10/2024",
+            "amount": "10",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Oficina",
+            "article": "Cartucho de Tinta",
+            "date": "07/10/2024",
+            "amount": "5",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Oficina",
+            "article": "Bolígrafos",
+            "date": "04/10/2024",
+            "amount": "100",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Oficina",
+            "article": "Bolígrafos",
+            "date": "10/10/2024",
+            "amount": "50",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Oficina",
+            "article": "Cuadernos",
+            "date": "06/10/2024",
+            "amount": "25",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Oficina",
+            "article": "Cuadernos",
+            "date": "12/10/2024",
+            "amount": "10",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Oficina",
+            "article": "Grapadora",
+            "date": "08/10/2024",
+            "amount": "5",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Oficina",
+            "article": "Grapadora",
+            "date": "15/10/2024",
+            "amount": "2",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Alcohol Gel",
+            "date": "02/10/2024",
+            "amount": "30",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Alcohol Gel",
+            "date": "09/10/2024",
+            "amount": "10",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Mascarillas",
+            "date": "03/10/2024",
+            "amount": "200",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Mascarillas",
+            "date": "13/10/2024",
+            "amount": "75",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Guantes",
+            "date": "05/10/2024",
+            "amount": "100",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Guantes",
+            "date": "11/10/2024",
+            "amount": "50",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Termómetros",
+            "date": "07/10/2024",
+            "amount": "20",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Termómetros",
+            "date": "14/10/2024",
+            "amount": "8",
+            "ingress": "Salida"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Desinfectante",
+            "date": "09/10/2024",
+            "amount": "15",
+            "ingress": "Ingreso"
+        },
+        {
+            "type": "Farmacia",
+            "article": "Desinfectante",
+            "date": "16/10/2024",
+            "amount": "7",
+            "ingress": "Salida"
         }
     ]
 }

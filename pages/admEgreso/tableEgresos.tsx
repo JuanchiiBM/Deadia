@@ -9,6 +9,11 @@ import { GETFunction } from '@/utils/globals';
 
 DataTable.use(DT);
 
+interface IDataTable {
+    setData: React.Dispatch<React.SetStateAction<any>>
+    data: any
+}
+
 interface IRegisters {
     type: string
     article: string
@@ -17,10 +22,9 @@ interface IRegisters {
     ingress: string
 }
 
-const DataTableEgresos = () => {
-    const [tableData, setTableData] = useState<any>()
+const DataTableEgresos: React.FC<IDataTable> = ({ setData, data}) => {
     const [tableColumns, setTableColumns] = useState([
-        { data: 'type', title: 'Articulo' },
+        { data: 'type', title: 'Tipo' },
         { data: 'article', title: 'Articulo' },
         { data: 'date', title: 'Fecha' },
         { data: 'amount', title: 'Cantidad' },
@@ -28,17 +32,15 @@ const DataTableEgresos = () => {
       ]);
 
     const initializeDataTable = async () => {
-        /*
-        const jsonData = await GETFunction('incomeRegister') as Array<IRegisters>
+        const jsonData = await GETFunction('egress') as Array<IRegisters>
         const nextTableData = jsonData.map((dato) => ({
-            dni: dato.article,
-            nombre: dato.type,
-            mail: dato.date,
-            aula: dato.amount,
-            curso: dato.ingress
+            type: dato.type,
+            article: dato.article,
+            date: dato.date,
+            amount: dato.amount,
+            ingress: dato.ingress
         }))
-        setTableData(nextTableData)
-        */
+        setData(nextTableData)
     }
 
     useEffect(() => {
@@ -46,7 +48,7 @@ const DataTableEgresos = () => {
     }, [])
     
     return (
-        <DataTable data={tableData} className='order-column' columns={tableColumns} options={{
+        <DataTable data={data} className='order-column' columns={tableColumns} options={{
             destroy: true,
             responsive: true,
             language: {

@@ -11,9 +11,6 @@ interface IOptionsRegistrarIngreso {
 
 const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ onOpen }) => {
 
-    useEffect(() => {
-        onOpen()
-    }, [])
     return (
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
             <h2 className='content-center text-xl'>Registrar Ingresos</h2>

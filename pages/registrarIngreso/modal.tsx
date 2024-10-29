@@ -32,7 +32,7 @@ const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, 
     },[isOpen])
 
     return (
-        <Modal backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
+        <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
                     <>
