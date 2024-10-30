@@ -6,10 +6,15 @@ import ModalResumenRegistrarIngreso from './modalResumen';
 import { Option } from './modalSelects';
 import {RangeValue} from "@react-types/shared";
 
-const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
+interface IModalRegistrarIngreso extends UseDisclosureProps {
+    contentModal: any
+}
+
+const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClose, onOpen, contentModal }) => {
     const [valueDNI, setValueDNI] = useState<string | undefined>()
     const [valueNombre, setValueNombre] = useState<string | undefined>()
     const [valueApellido, setValueApellido] = useState<string | undefined>()
+    const [valueMail, setValueMail] = useState<string | undefined>()
     const [valueClassroom, setValueClassroom] = useState<Option | null>();
     const [valueCurse, setValueCurse] = useState<Option | null>();
     const [valueDependency, setValueDependency] = useState<Option | null>();
@@ -20,14 +25,20 @@ const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, 
       });
     const [isDisabled, setIsDisabled] = useState(true)
 
+    const createOption = (label: string) => ({
+        label,
+        value: label.toLowerCase().replace(/\W/g, ''),
+    })
+
     useEffect(() => {
-        setValueDNI(undefined)
-        setValueNombre(undefined)
-        setValueApellido(undefined)
-        setValueClassroom(undefined)
+        setValueDNI(contentModal ? contentModal.dni : '')
+        setValueNombre(contentModal ? contentModal.nombre.split(' ')[0] : '')
+        setValueApellido(contentModal ? contentModal.nombre.split(' ')[1] : '')
+        setValueMail(contentModal ? contentModal.mail : '')
+        setValueClassroom(contentModal ? createOption(contentModal.aula) : null)
         setValueCurse(undefined)
         setValueDependency(undefined)
-        setValueMonto(undefined)
+        setValueMonto(contentModal ? contentModal.monto : '')
         setValueDatePicker({ start: undefined, end: undefined})
     },[isOpen])
 
@@ -47,7 +58,7 @@ const ModalRegistrarIngreso: React.FC<UseDisclosureProps> = ({ isOpen, onClose, 
                                         <Input maxLength={30} value={valueApellido} onChange={(e) => setValueApellido(e.currentTarget.value)} variant='bordered' labelPlacement='outside' label='Apellido' required />
                                     </div>
                                     <div className="mt-7">
-                                        <Input variant='bordered' labelPlacement='outside' label='Mail' required type='mail' />
+                                        <Input variant='bordered' value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} labelPlacement='outside' label='Mail' required type='mail' />
                                     </div>
                                 </div>
 
