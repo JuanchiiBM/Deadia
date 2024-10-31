@@ -4,7 +4,7 @@ import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
 
-export const SuccessAlert = (title?: string, text?: string, textBtn?: string, callBack?: () => void) => {
+export const SuccessAlert = (title?: string, text?: string | undefined, textBtn?: string | undefined, callBack?: () => void) => {
   MySwal.fire({
     title: <p>{title ? title : 'Genial!'}</p>,
     text: `${text ? text : ''}`,
@@ -30,7 +30,7 @@ export const SuccessAlert = (title?: string, text?: string, textBtn?: string, ca
   )
 }
 
-export const ErrorAlert = (title?: string, text?: string, textBtn?: string, callBack?: () => void) => {
+export const ErrorAlert = (title?: string, text?: string | undefined, textBtn?: string | undefined, callBack?: () => void) => {
   MySwal.fire({
     title: <p>{title ? title : 'Error'}</p>,
     text: `${text ? text : ''}`,
