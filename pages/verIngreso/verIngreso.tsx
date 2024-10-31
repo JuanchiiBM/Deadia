@@ -271,7 +271,7 @@ const VerIngreso = () => {
       <Chart url={ajaxUrl} />
       <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} />
       <div className='h-[500px]'>
-        <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column' columns={columns} options={{
+        <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column text-sm' columns={columns} options={{
           destroy: true,
           responsive: true,
           language: {

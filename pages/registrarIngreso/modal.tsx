@@ -33,8 +33,8 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
         setValueDNI(contentModal ? contentModal.dni : '')
         setValueNombre(contentModal ? contentModal.nombre.split(' ')[0] : '')
         setValueApellido(contentModal ? contentModal.nombre.split(' ')[1] : '')
-        setValueCategory(contentModal ? createOption(contentModal.category) : null)
-        setValueGrade(contentModal ? createOption(contentModal.grade) : null)
+        setValueCategory(contentModal ? createOption(contentModal.categoriaSinGrado) : null)
+        setValueGrade(contentModal && contentModal.grado != '' ? createOption(contentModal.grado) : null)
         setValueMail(contentModal ? contentModal.mail : '')
         setValueClassroom(contentModal ? createOption(contentModal.aula) : null)
         setValueCurse(undefined)
@@ -55,7 +55,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">Registrar Ingreso</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{contentModal ? 'Editar Ingreso (cargado por)' : 'Registrar Ingreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
                             <form id='register-charge' className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
                                 <div className='mb-[75px]'>
@@ -67,7 +67,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                                     </div>
                                     <div className="mt-7">
                                         <Input value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2'}} labelPlacement='outside' label='Mail' required type='mail' />
-                                        <ModalSelects2 setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade}/>
+                                        <ModalSelects2 setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade} isOpen={isOpen} />
                                     </div>
                                 </div>
 

@@ -48,7 +48,7 @@ const DataTableEgresos: React.FC<IDataTable> = ({ setData, data}) => {
     }, [])
     
     return (
-        <DataTable data={data} className='order-column' columns={tableColumns} options={{
+        <DataTable data={data} className='order-column text-sm' columns={tableColumns} options={{
             destroy: true,
             responsive: true,
             language: {

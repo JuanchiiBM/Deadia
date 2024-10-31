@@ -16,9 +16,10 @@ interface IModalSelects2 {
     valueCategory: Option | null | undefined
     setValueGrade: React.Dispatch<React.SetStateAction<Option | null | undefined>>,
     valueGrade: Option | null | undefined,
+    isOpen: boolean | undefined
 }
 
-const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, setValueCategory, valueCategory}) => {
+const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen}) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optGrade, setOptGrade] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
@@ -58,10 +59,20 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
         }
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         chargeCategory()
-        chargeGrade()
-    }, [])
+        chargeGrade()            
+    }, [isOpen])
+
+    useEffect(() => {
+        if (valueCategory?.label == 'Militar') {
+            setIsDisabled(false)
+            setIsRequired(true)
+        } else {
+            setIsDisabled(true)
+            setIsRequired(false)
+        }
+    }, [valueCategory])
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>

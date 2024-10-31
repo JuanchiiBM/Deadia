@@ -536,7 +536,9 @@
             "curso": "Excel I",
             "fecha": "2024-01-12",
             "monto": 15000,
-            "dependencia": "Informática"
+            "dependencia": "Informática",
+            "categoria": "Civil",
+            "grado": ""
         },
         {
             "dni": "32784567",
@@ -546,7 +548,9 @@
             "curso": "Inglés III",
             "fecha": "2023-11-05",
             "monto": 12000,
-            "dependencia": "Idiomas"
+            "dependencia": "Idiomas",
+            "categoria": "Agente Civil",
+            "grado": ""
         },
         {
             "dni": "29456789",
@@ -556,7 +560,9 @@
             "curso": "PowerPoint I",
             "fecha": "2023-12-22",
             "monto": 14000,
-            "dependencia": "Informática"
+            "dependencia": "Informática",
+            "categoria": "Civil",
+            "grado": ""
         },
         {
             "dni": "30845678",
@@ -566,7 +572,9 @@
             "curso": "Chino",
             "fecha": "2023-10-18",
             "monto": 16000,
-            "dependencia": "Idiomas"
+            "dependencia": "Idiomas",
+            "categoria": "Militar",
+            "grado": "TT"
         },
         {
             "dni": "32674890",
@@ -576,7 +584,9 @@
             "curso": "Excel II",
             "fecha": "2024-02-10",
             "monto": 17000,
-            "dependencia": "Informática"
+            "dependencia": "Informática",
+            "categoria": "Civil",
+            "grado": ""
         },
         {
             "dni": "30567892",
@@ -586,7 +596,9 @@
             "curso": "Python",
             "fecha": "2024-03-08",
             "monto": 18000,
-            "dependencia": "Informática"
+            "dependencia": "Informática",
+            "categoria": "Militar",
+            "grado": "CB"
         },
         {
             "dni": "31784567",
@@ -596,7 +608,9 @@
             "curso": "Inglés",
             "fecha": "2023-12-03",
             "monto": 14000,
-            "dependencia": "Idiomas"
+            "dependencia": "Idiomas",
+            "categoria": "Agente Civil",
+            "grado": ""
         },
         {
             "dni": "29876543",
@@ -606,7 +620,9 @@
             "curso": "Alemán",
             "fecha": "2023-11-20",
             "monto": 19000,
-            "dependencia": "Idiomas"
+            "dependencia": "Idiomas",
+            "categoria": "Militar",
+            "grado": "CI"
         },
         {
             "dni": "32156789",
@@ -616,7 +632,9 @@
             "curso": "Excel I",
             "fecha": "2023-10-30",
             "monto": 13000,
-            "dependencia": "Informática"
+            "dependencia": "Informática",
+            "categoria": "Familiar",
+            "grado": ""
         },
         {
             "dni": "34567891",
@@ -626,7 +644,9 @@
             "curso": "Inglés III",
             "fecha": "2024-01-15",
             "monto": 16000,
-            "dependencia": "Idiomas"
+            "dependencia": "Idiomas",
+            "categoria": "Militar",
+            "grado": "CR"
         }
     ],
     "incomeRegisterOptionsClassrooms": [

@@ -19,13 +19,16 @@ interface IDataTable extends UseDisclosureProps {
 
 interface IRegisters {
     dni: string,
+    grado: string,
     nombre: string,
     mail: string,
-    aula: string,
-    curso: string,
-    fecha: string,
-    monto: string,
+    categoria: string,
     dependencia: string
+    curso: string,
+    aula: string,
+    fecha: string,   
+    monto: string,
+    
 }
 
 const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClose, setContentModal}) => {
@@ -33,12 +36,12 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     const [tableColumns, setTableColumns] = useState([
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
-        { data: 'mail', title: 'Mail' },
-        { data: 'aula', title: 'Aula' },
+        { data: 'categoria', title: 'Categoría'},
+        { data: 'dependencia', title: 'Dependencia' },
         { data: 'curso', title: 'Curso' },
+        { data: 'aula', title: 'Aula' },
         { data: 'fecha', title: 'Fecha' },
         { data: 'monto', title: 'Monto' },
-        { data: 'dependencia', title: 'Dependencia' },
         { data: 'acciones', title: 'Acciones' }
       ]);
 
@@ -46,17 +49,20 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
         const jsonData = await GETFunction('incomeRegister') as Array<IRegisters>
         const nextTableData = jsonData.map((dato) => ({
             dni: dato.dni,
+            grado: dato.grado,
             nombre: dato.nombre,
             mail: dato.mail,
-            aula: dato.aula,
+            categoria: dato.categoria == 'Militar' ? `${dato.categoria} (${dato.grado})` : `${dato.categoria}`,
+            categoriaSinGrado: dato.categoria,
+            dependencia: dato.dependencia,
             curso: dato.curso,
+            aula: dato.aula,
             fecha: dato.fecha,
             monto: dato.monto,
-            dependencia: dato.dependencia,
             acciones: () => {
                 return ReactDOMServer.renderToString(
                   <div id={`actions-${dato.aula}-${dato.dni}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                    <button className="edit-btn btn-sigma" data-id={dato.dni + '-' + dato.aula} id={`edit-btn-${dato.aula}-${dato.dni}`}>
+                    <button className="edit-btn btn-sigma" id={`edit-btn-${dato.aula}-${dato.dni}`}>
                       <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
                     <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
                   </div>
@@ -87,7 +93,7 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     }, [tableData])
 
     return (
-        <DataTable data={tableData} className='order-column' columns={tableColumns} options={{
+        <DataTable data={tableData} className='order-column text-sm' columns={tableColumns} options={{
             destroy: true,
             responsive: true,
             language: {
