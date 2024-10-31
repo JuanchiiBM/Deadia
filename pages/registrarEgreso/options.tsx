@@ -5,11 +5,11 @@ import { Button } from '@nextui-org/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
-interface IOptionsAdministrarEgreso {
+interface IOptionRegistrarEgreso {
     onOpen: () => void
 }
 
-const OptionsAdministrarEgreso: React.FC<any> = ({ onOpen }) => {
+const OptionsRegistrarEgreso: React.FC<any> = ({ onOpen }) => {
     
     return (
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
@@ -21,4 +21,4 @@ const OptionsAdministrarEgreso: React.FC<any> = ({ onOpen }) => {
     )
 }
 
-export default OptionsAdministrarEgreso
+export default OptionsRegistrarEgreso

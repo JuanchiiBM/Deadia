@@ -5,6 +5,7 @@ import ModalSelectsRegistrarIngreso from './modalSelects';
 import ModalResumenRegistrarIngreso from './modalResumen';
 import { Option } from './modalSelects';
 import {RangeValue} from "@react-types/shared";
+import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     contentModal: any
@@ -41,6 +42,13 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
         setValueMonto(contentModal ? contentModal.monto : '')
         setValueDatePicker({ start: undefined, end: undefined})
     },[isOpen])
+
+    const cargarIngreso = () => {
+        SuccessAlert('Registro Cargado', '', 'Ok', () => {
+            if (onClose)
+                onClose()
+        })
+    }
 
     return (
         <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
@@ -85,7 +93,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                             <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                             </Button>
-                            <Button color="primary" type='submit' form='register-charge' onPress={onClose}>
+                            <Button color="primary" type='submit' form='register-charge' onPress={cargarIngreso}>
                                 Guardar
                             </Button>
                         </ModalFooter>

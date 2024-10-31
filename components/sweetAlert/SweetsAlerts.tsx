@@ -9,11 +9,12 @@ export const SuccessAlert = (title?: string, text?: string, textBtn?: string, ca
     title: <p>{title ? title : 'Genial!'}</p>,
     text: `${text ? text : ''}`,
     icon: 'success',
+    iconColor: 'hsl(var(--nextui-success))',
     backdrop: false,
-    background: '#CDE2E7',
-    color: 'black',
+    background: 'hsl(var(--nextui-default-100))',
+    color: 'hsl(var(--nextui-default-800))',
     confirmButtonText: `${textBtn ? textBtn : 'OK'}`,
-    confirmButtonColor: '#a5dc86',
+    confirmButtonColor: 'hsl(var(--nextui-success))',
     focusConfirm: false,
     customClass: {
       popup: 'sweetAlertContainer',
@@ -29,18 +30,17 @@ export const SuccessAlert = (title?: string, text?: string, textBtn?: string, ca
   )
 }
 
-
 export const ErrorAlert = (title?: string, text?: string, textBtn?: string, callBack?: () => void) => {
   MySwal.fire({
     title: <p>{title ? title : 'Error'}</p>,
     text: `${text ? text : ''}`,
     icon: 'error',
-    iconColor: '#b83e3a',
+    iconColor: 'hsl(var(--nextui-danger))',
     backdrop: false,
-    background: '#CDE2E7',
-    color: 'black',
+    background: 'hsl(var(--nextui-default-100))',
+    color: 'hsl(var(--nextui-default-800))',
     confirmButtonText: `${textBtn ? textBtn : 'OK'}`,
-    confirmButtonColor: '#cccccc',
+    confirmButtonColor: 'hsl(var(--nextui-default-400))',
     focusConfirm: false,
     customClass: {
       popup: 'sweetAlertContainer',
