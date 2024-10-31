@@ -817,5 +817,33 @@
             "amount": "7",
             "ingress": "Salida"
         }
+    ],
+    "userCategory": [
+        {
+            "name": "Civil"
+        },
+        {
+            "name": "Militar"
+        },
+        {
+            "name": "Familiar"
+        },
+        {
+            "name": "Agente Civil"
+        }
+    ],
+    "userGrade": [
+        {
+            "name": "CB"
+        },
+        {
+            "name": "CI"
+        },
+        {
+            "name": "CR"
+        },
+        {
+            "name": "TT"
+        }
     ]
 }

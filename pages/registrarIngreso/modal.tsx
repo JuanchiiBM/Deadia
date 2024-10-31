@@ -3,8 +3,9 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDi
 import { I18nProvider } from "@react-aria/i18n";
 import ModalSelectsRegistrarIngreso from './modalSelects';
 import ModalResumenRegistrarIngreso from './modalResumen';
-import { Option } from './modalSelects';
+import ModalSelects2 from './modalSelects2';
 import {RangeValue} from "@react-types/shared";
+import { createOption, Option } from '@/utils/globals';
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
@@ -15,6 +16,8 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
     const [valueDNI, setValueDNI] = useState<string | undefined>()
     const [valueNombre, setValueNombre] = useState<string | undefined>()
     const [valueApellido, setValueApellido] = useState<string | undefined>()
+    const [valueCategory, setValueCategory] = useState<Option | null>()
+    const [valueGrade, setValueGrade] = useState<Option | null>()
     const [valueMail, setValueMail] = useState<string | undefined>()
     const [valueClassroom, setValueClassroom] = useState<Option | null>();
     const [valueCurse, setValueCurse] = useState<Option | null>();
@@ -26,15 +29,12 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
       });
     const [isDisabled, setIsDisabled] = useState(true)
 
-    const createOption = (label: string) => ({
-        label,
-        value: label.toLowerCase().replace(/\W/g, ''),
-    })
-
     useEffect(() => {
         setValueDNI(contentModal ? contentModal.dni : '')
         setValueNombre(contentModal ? contentModal.nombre.split(' ')[0] : '')
         setValueApellido(contentModal ? contentModal.nombre.split(' ')[1] : '')
+        setValueCategory(contentModal ? createOption(contentModal.category) : null)
+        setValueGrade(contentModal ? createOption(contentModal.grade) : null)
         setValueMail(contentModal ? contentModal.mail : '')
         setValueClassroom(contentModal ? createOption(contentModal.aula) : null)
         setValueCurse(undefined)
@@ -61,12 +61,13 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                                 <div className='mb-[75px]'>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del alumno:</h3>
                                     <div className='flex gap-2'>
-                                        <Input maxLength={20} value={valueDNI} onChange={(e) => setValueDNI(e.currentTarget.value)} variant='bordered' labelPlacement='outside' label='DNI' required type = "number" />
-                                        <Input maxLength={30} value={valueNombre} onChange={(e) => setValueNombre(e.currentTarget.value)} variant='bordered' labelPlacement='outside' label='Nombre' required />
-                                        <Input maxLength={30} value={valueApellido} onChange={(e) => setValueApellido(e.currentTarget.value)} variant='bordered' labelPlacement='outside' label='Apellido' required />
+                                        <Input maxLength={20} value={valueDNI} onChange={(e) => setValueDNI(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='DNI' required type = "number" />
+                                        <Input maxLength={30} value={valueNombre} onChange={(e) => setValueNombre(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Nombre' required />
+                                        <Input maxLength={30} value={valueApellido} onChange={(e) => setValueApellido(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Apellido' required />
                                     </div>
                                     <div className="mt-7">
-                                        <Input variant='bordered' value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} labelPlacement='outside' label='Mail' required type='mail' />
+                                        <Input value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2'}} labelPlacement='outside' label='Mail' required type='mail' />
+                                        <ModalSelects2 setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade}/>
                                     </div>
                                 </div>
 
@@ -86,7 +87,8 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                                 </div>
                             </form>
                             <ModalResumenRegistrarIngreso valueDNI={valueDNI} valueNombre={valueNombre} valueApellido={valueApellido} valueClassroom={valueClassroom}
-                            valueCurse={valueCurse} valueDependency={valueDependency} valueMonto={valueMonto} valueDatePicker={valueDatePicker}/>
+                            valueCurse={valueCurse} valueDependency={valueDependency} valueMonto={valueMonto} valueDatePicker={valueDatePicker}
+                            valueCategory={valueCategory} valueGrade={valueGrade} valueMail={valueMail}/>
                         </ModalBody>
 
                         <ModalFooter>

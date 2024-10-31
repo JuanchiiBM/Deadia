@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
-import { GETFunction } from '@/utils/globals';
+import { GETFunction, createOption, Option } from '@/utils/globals';
 import {RangeValue} from "@react-types/shared";
 import {parseDate} from "@internationalized/date";
 
@@ -15,11 +15,6 @@ interface IClassroomCreated {
     dependency: string
     initDate: string
     finalDate: string
-}
-
-export interface Option {
-    readonly label: string;
-    readonly value: string;
 }
 
 interface IModalSelectsRegistrarIngreso {
@@ -50,11 +45,6 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
         }))
         setOptClassroom(options)
     }
-
-    const createOption = (label: string) => ({
-        label,
-        value: label.toLowerCase().replace(/\W/g, ''),
-    });
 
     const classroomCreated = (inputValue: string) => {
         const newOption = createOption(inputValue)

@@ -9,3 +9,13 @@ export const GETFunction = async (value: string) => {
         return []; // Retorna un string vacío en caso de error
     }
 }
+
+export const createOption = (label: string | null | undefined) => ({
+    label,
+    value: label?.toLowerCase().replace(/\W/g, ''),
+})
+
+export interface Option {
+    readonly label: string | null | undefined;
+    readonly value: string | null | undefined;
+}

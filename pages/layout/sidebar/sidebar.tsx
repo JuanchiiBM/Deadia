@@ -42,8 +42,8 @@ export const SidebarWrapper = () => {
             />
             <CollapseItems
               icon={<AccountsIcon />}
-              items={["Registrar Egresos"]}
-              path={["/Egresos/registrarEgreso"]}
+              items={["Visualizar Egresos", "Registrar Egresos"]}
+              path={["/Egresos/verEgreso", "/Egresos/registrarEgreso"]}
               title="Egreso"
             />
           </div>

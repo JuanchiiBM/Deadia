@@ -9,6 +9,41 @@ body {
   margin: 0;
 }
 
+@layer utilities {
+  input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset !important;
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 50000s ease-in-out 0s !important;
+  }
+
+  progress {
+    border: 0;
+    height: 5px;
+    border-radius: 20px;
+  }
+
+  progress::-webkit-progress-bar {
+    border: 0;
+    height: 5px;
+    border-radius: 20px;
+    background-color: hsl(var(--nextui-default-300));
+  }
+
+  progress::-webkit-progress-value {
+    border: 0;
+    height: 5px;
+    border-radius: 20px;
+    background-color: hsl(var(--nextui-default-700));
+  }
+
+  progress::-moz-progress-bar {
+    border: 0;
+    height: 5px;
+    border-radius: 20px;
+    background-color: hsl(var(--nextui-default-300));
+  }
+}
+
 * {
   box-sizing: border-box;
 }

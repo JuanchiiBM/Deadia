@@ -3,7 +3,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDi
 import ModalSelectsEgresos from './modalSelects'
 import ModalInputsEgresos from './modalInputs'
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts'
-import { Option } from './modalSelects'
+import { Option } from '@/utils/globals'
 
 const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
     const [valueType, setValueType] = useState<Option | null>();
