@@ -27,9 +27,10 @@ interface IModalSelectsRegistrarIngreso {
     setValueDependency: React.Dispatch<React.SetStateAction<Option | null | undefined>>,
     valueDependency: Option | null | undefined
     setValueDatePicker: React.Dispatch<React.SetStateAction<RangeValue<any>>>
+    contentModal: any
 }
 
-const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ setIsDisabled, isDisabled, valueClassroom, setValueClassroom, valueCurse, setValueCurse, valueDependency, setValueDependency, setValueDatePicker }) => {
+const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ contentModal, setIsDisabled, isDisabled, valueClassroom, setValueClassroom, valueCurse, setValueCurse, valueDependency, setValueDependency, setValueDatePicker }) => {
     const [optClassroom, setOptClassroom] = useState<any>(undefined)
     const [optCurse, setOptCurse] = useState<any>(undefined)
     const [optDependency, setOptDependency] = useState<any>(undefined)
@@ -99,16 +100,15 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     const selectOptionOfClassroom = async (newValue: any) => {
         setValueClassroom(newValue)
-        console.log(newValue)
         // Aca vendría un POST en el que mando el id del value y compruebo si ya esta cargado,
         // En caso de no estarlo, IsDisabled pasa a false, y ejecutará otra función con el userToken GET para recibir
         // las opciones que tiene disponible el usuario
-        if (newValue.value == 'Z-101' || newValue.value == 'Z-102') {
+        if (newValue.label == 'Z-101' || newValue.label == 'Z-102') {
+            console.log('entra re piola')
             setIsDisabled(true)
-            const jsonData = await GETFunction(`${newValue.value}`) as Array<IClassroomCreated>
+            const jsonData = await GETFunction(`${newValue.label}`) as Array<IClassroomCreated>
             setOptionsCurse(jsonData)
             setOptionsDependency(jsonData)
-            console.log(jsonData[0].initDate)
             setValueDatePicker({
                 start: parseDate(jsonData[0].initDate),
                 end: parseDate(jsonData[0].finalDate)
@@ -130,7 +130,15 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     useEffect(() => {
         setOptionsClassroom()
-    }, [])
+    }, [])  
+
+    useEffect(() => {
+        const option = {
+            value: contentModal.aula,
+            label: contentModal.aula
+        }
+        selectOptionOfClassroom(option)
+    }, [contentModal])    
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>

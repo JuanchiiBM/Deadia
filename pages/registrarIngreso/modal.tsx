@@ -73,7 +73,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
 
                                 <div>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del curso:</h3>
-                                    <ModalSelectsRegistrarIngreso setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
+                                    <ModalSelectsRegistrarIngreso contentModal={contentModal} setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
                                     setValueCurse={setValueCurse} valueCurse={valueCurse} setValueDependency={setValueDependency} valueDependency={valueDependency} setValueDatePicker={setValueDatePicker}/>
                                     <div className='flex gap-2'>
                                         <Input maxLength={20} value={valueMonto} onChange={(e) => setValueMonto(e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required/>

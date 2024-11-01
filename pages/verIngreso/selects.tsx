@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
-import { DateRangePicker, DateRangePickerReturnType } from "@nextui-org/react";
+import { DateRangePicker } from "@nextui-org/react";
 import {RangeValue} from "@react-types/shared";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
