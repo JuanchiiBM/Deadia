@@ -15,9 +15,12 @@ export const GETFunction2 = async (url: string) => {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
             method: "GET",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('userToken')}`
             }
         });
+
+        console.log(localStorage.getItem('userToken'))
         return response.json();
     } catch (error) {
         console.error("Error:", error);

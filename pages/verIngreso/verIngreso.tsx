@@ -2,19 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
 import ReactDOMServer from 'react-dom/server';
-import { hydrateRoot } from 'react-dom/client';
-import DataTable from 'datatables.net-react';
-import '../../styles/dataTables.css'
-import DT from 'datatables.net-dt';
-import Selects from './selects';
+import Selects from './options';
 import { DataTableRef } from 'datatables.net-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useDisclosure } from '@nextui-org/react';
+import { GETFunction2 } from '@/utils/globals';
+import TableVerIngreso from './dataTable';
 import ModalVerIngreso from './modal';
-
-DataTable.use(DT);
-
 
 
 const Chart = dynamic(
@@ -31,7 +26,7 @@ let jsonData
 
 const VerIngreso = () => {
   const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
-  const [tableData, setTableData] = useState();
+  const [tableData, setTableData] = useState([]);
   const [tableKey, setTableKey] = useState(0);
   const [contentModal, setContentModal] = useState()
   const dateRef = useRef<any>()
@@ -45,24 +40,11 @@ const VerIngreso = () => {
   ]);
 
 
-  const selectJson = async (value: string): Promise<any[]> => {
-    try {
-      const response = await fetch(`http://localhost:3000/${value}`, {
-        method: "GET",
-      });
-      if (value != 'curso')
-        setAjaxUrl(`http://localhost:3000/${value}`)
-      return response.json();
-    } catch (error) {
-      console.error("Error:", error);
-      return []; // Retorna un string vacío en caso de error
-    }
-  }
 
   // Función para actualizar el JSON y las columnas
   const changeJson = async (value: any, ret?: boolean) => {
     // Configura las columnas y URL según el valor seleccionado
-    setTableData(undefined)
+    setTableData([])
     switch (value) {
       case '0':
         newColumns = [
@@ -71,7 +53,9 @@ const VerIngreso = () => {
           { data: 'ingreso', title: 'Ingreso Acumulado' },
           { data: 'acciones', title: 'Acciones' }
         ];
-        jsonData = await selectJson('deps');
+        jsonData = await GETFunction2('api/income?start_date=2024-05-12&end_date=2024-08-12');
+        console.log(jsonData)
+        /*
         nextTableData = jsonData.map((dato) => ({
           dependencia: dato.dependencia,
           fecha: dato.fecha,
@@ -87,6 +71,7 @@ const VerIngreso = () => {
             );
           }
         }));
+        */
         break;
       case '1':
         newColumns = [
@@ -97,7 +82,7 @@ const VerIngreso = () => {
           { data: 'ingreso', title: 'Ingreso' },
           { data: 'acciones', title: 'Acciones' }
         ];
-        jsonData = await selectJson('info');
+        jsonData = await GETFunction2('info');
         nextTableData = jsonData.map((dato) => ({
           curso: dato.curso,
           aula: dato.aula,
@@ -125,7 +110,7 @@ const VerIngreso = () => {
           { data: 'ingreso', title: 'Ingreso' },
           { data: 'acciones', title: 'Acciones' }
         ];
-        jsonData = await selectJson('idio');
+        jsonData = await GETFunction2('idio');
         nextTableData = jsonData.map((dato) => ({
           curso: dato.curso,
           aula: dato.aula,
@@ -159,8 +144,8 @@ const VerIngreso = () => {
       { data: 'mail', title: 'Mail' },
       { data: 'ingreso', title: 'Ingreso' },
     ];
-    setTableData(undefined)
-    jsonData = await selectJson('curso');
+    setTableData([])
+    jsonData = await GETFunction2('curso');
     nextTableData = jsonData.map((dato) => ({
       dni: dato.dni,
       nombre: dato.nombre,
@@ -270,23 +255,7 @@ const VerIngreso = () => {
       <h1 className='text-4xl'>Ingresos</h1>
       <Chart url={ajaxUrl} />
       <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} />
-      <div className='h-[500px]'>
-        <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column text-sm' columns={columns} options={{
-          destroy: true,
-          responsive: true,
-          language: {
-            url: '../dataTableLanguaje.json',
-          },
-        }} >
-          <thead>
-            <tr>
-              {columns.map((col, index) => (
-                <th key={index}>{col.data}</th>
-              ))}
-            </tr>
-          </thead>
-        </DataTable>
-      </div>
+      <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns}/>
       <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
     </>
   )

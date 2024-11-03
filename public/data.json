@@ -865,5 +865,42 @@
         {
             "name": "TT"
         }
+    ],
+    "egressCategory": [
+        {
+            "name": "Todas"
+        },
+        {
+            "name": "Farmacia"
+        },
+        {
+            "name": "Oficina"
+        }
+    ],
+    "egressArticle": [
+        {
+            "category": "Farmacia",
+            "article":"Alcohol Gel"
+        },
+        {
+            "category": "Farmacia",
+            "article":"Mascarillas"
+        },
+        {
+            "category": "Farmacia",
+            "article":"Termómetros"
+        },
+        {
+            "category": "Oficina",
+            "article":"Cartucho de Tinta"
+        },
+        {
+            "category": "Oficina",
+            "article":"Bolígrafos"
+        },
+        {
+            "category": "Oficina",
+            "article":"Cuadernos"
+        }       
     ]
 }

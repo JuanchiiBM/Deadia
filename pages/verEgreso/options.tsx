@@ -3,8 +3,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Select from 'react-select'
 import { colourStyles } from '@/helpers/selects'
-import { Option } from '@/utils/globals'
+import { Option, GETFunction } from '@/utils/globals'
 import OptionsVerEgresoDatePicker from './optionsDatePicker'
+
+interface IUserCategory {
+    name: string
+}
+
+interface IUserArticle {
+    category: string,
+    article: string,
+}
 
 interface IOptionsVerEgreso {
     setValueCategory: React.Dispatch<React.SetStateAction<Option | null | undefined>>,
@@ -13,28 +22,50 @@ interface IOptionsVerEgreso {
     valueArticle: Option | null | undefined,
 }
 
-const OptionsVerEgreso: React.FC<any> = ({ setValueArticle, valueArticle, setValueCategory, valueCategory}) => {
+const OptionsVerEgreso: React.FC<IOptionsVerEgreso> = ({ setValueArticle, valueArticle, setValueCategory, valueCategory}) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optArticle, setOptArticle] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
     const [isRequired, setIsRequired] = useState<boolean>(false)
     const dateRef = useRef()
 
+    const chargeCategory = async () => {
+        const jsonData = await GETFunction('egressCategory') as Array<IUserCategory>
+        const optionsCategory = jsonData.map((category) => ({
+            value: category.name,
+            label: category.name
+        }))
+        setOptCategory(optionsCategory)
+    }
+
+    const chargeArticle = async (category: string) => {
+        const jsonData = await GETFunction('egressArticle') as Array<IUserArticle>
+        const optionsArticle = jsonData.filter((article) => {return article.category == category && article}).map((article) => ({
+            value: article.article,
+            label: article.article
+        }))
+        setOptArticle(optionsArticle)
+    }
     const selectCategory = (newValue: any) => {
         setValueCategory(newValue)
-
         switch (newValue.value) {
-            case 'Militar':
-                setIsDisabled(false)
-                setIsRequired(true)
-                break;
-            default:
+            case 'Todas':
                 setValueArticle(null)
                 setIsDisabled(true)
                 setIsRequired(false)
                 break;
+            default:
+                setValueArticle(null)
+                setIsDisabled(false)
+                setIsRequired(true)
+                chargeArticle(newValue.value)
+                break;
         }
     }
+
+    useEffect(() => {        
+        chargeCategory()           
+    }, [])
 
     return (
         <div className='w-full my-[50px] bg-background-200 h-[110px] flex justify-around p-5 rounded-lg shadow-md'>
