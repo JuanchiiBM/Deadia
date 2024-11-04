@@ -4,7 +4,7 @@ import { faUserCircle, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarCheck, faCalendarXmark } from '@fortawesome/free-regular-svg-icons'
 import Image from 'next/image'
 import { Option } from '@/utils/globals'
-import {RangeValue} from "@react-types/shared";
+import { RangeValue } from "@react-types/shared";
 
 interface IModalResumenRegistrarIngreso {
     valueDNI: string | undefined
@@ -38,14 +38,14 @@ const ModalResumenRegistrarIngreso: React.FC<IModalResumenRegistrarIngreso> = ({
                     <div className='w-full mt-5'>
                         <h3 className='text-lg text-center'>{valueClassroom?.label ? valueClassroom?.label : 'Aula'}</h3>
                         <div className='flex flex-col w-full text-start border-t-1'>
-                            <p><FontAwesomeIcon icon={faCalendarCheck} className='mr-3'/>{valueDatePicker && valueDatePicker.start ? `${valueDatePicker.start.day} / ${valueDatePicker.start.month} / ${valueDatePicker.start.year}` : '-- / -- / ----'}</p>
-                            <p><FontAwesomeIcon icon={faCalendarXmark} className='mr-3'/>{valueDatePicker && valueDatePicker.end ? `${valueDatePicker.end.day} / ${valueDatePicker.end.month} / ${valueDatePicker.end.year}` : '-- / -- / ----'}</p>
+                            <p><FontAwesomeIcon icon={faCalendarCheck} className='mr-3' />{valueDatePicker && valueDatePicker.start ? `${valueDatePicker.start.day} / ${valueDatePicker.start.month} / ${valueDatePicker.start.year}` : '-- / -- / ----'}</p>
+                            <p><FontAwesomeIcon icon={faCalendarXmark} className='mr-3' />{valueDatePicker && valueDatePicker.end ? `${valueDatePicker.end.day} / ${valueDatePicker.end.month} / ${valueDatePicker.end.year}` : '-- / -- / ----'}</p>
                         </div>
                     </div>
                     <div className='w-full mt-5'>
                         <h3 className='text-lg text-center'>{valueDependency?.label ? valueDependency?.label : 'Dependencia'}</h3>
                         <div className='flex flex-col w-full text-start border-t-1'>
-                            <p className='truncate'><FontAwesomeIcon icon={faDollarSign} className='mr-3'/>{valueMonto ? valueMonto : '-'}</p>
+                            <p className='truncate'><FontAwesomeIcon icon={faDollarSign} className='mr-3' />{valueMonto ? valueMonto : '-'}</p>
                         </div>
                     </div>
                 </div>

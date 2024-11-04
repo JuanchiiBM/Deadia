@@ -19,7 +19,7 @@ interface IModalSelects2 {
     isOpen: boolean | undefined
 }
 
-const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen}) => {
+const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen }) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optGrade, setOptGrade] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
@@ -59,9 +59,9 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
         }
     }
 
-    useEffect(() => {        
+    useEffect(() => {
         chargeCategory()
-        chargeGrade()            
+        chargeGrade()
     }, [isOpen])
 
     useEffect(() => {
@@ -79,7 +79,7 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
             <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered} required></Select>
             <Select maxMenuHeight={200} value={valueGrade} onChange={(newValue: any) => setValueGrade(newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
-  )
+    )
 }
 
 export default ModalSelects2

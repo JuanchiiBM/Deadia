@@ -21,10 +21,10 @@ const ModalVerIngreso: React.FC<IModalVerIngreso> = ({ isOpen, onClose, onOpen, 
                                     </p>
                                 </ModalBody> :
                                 <ModalBody>
-                                        <p>
-                                            {contentModal.curso}-
-                                            {contentModal.aula}
-                                        </p>
+                                    <p>
+                                        {contentModal.curso}-
+                                        {contentModal.aula}
+                                    </p>
                                 </ModalBody>
                         }
 

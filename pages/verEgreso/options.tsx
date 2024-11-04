@@ -22,7 +22,7 @@ interface IOptionsVerEgreso {
     valueArticle: Option | null | undefined,
 }
 
-const OptionsVerEgreso: React.FC<IOptionsVerEgreso> = ({ setValueArticle, valueArticle, setValueCategory, valueCategory}) => {
+const OptionsVerEgreso: React.FC<IOptionsVerEgreso> = ({ setValueArticle, valueArticle, setValueCategory, valueCategory }) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optArticle, setOptArticle] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
@@ -40,7 +40,7 @@ const OptionsVerEgreso: React.FC<IOptionsVerEgreso> = ({ setValueArticle, valueA
 
     const chargeArticle = async (category: string) => {
         const jsonData = await GETFunction('egressArticle') as Array<IUserArticle>
-        const optionsArticle = jsonData.filter((article) => {return article.category == category && article}).map((article) => ({
+        const optionsArticle = jsonData.filter((article) => { return article.category == category && article }).map((article) => ({
             value: article.article,
             label: article.article
         }))
@@ -63,8 +63,8 @@ const OptionsVerEgreso: React.FC<IOptionsVerEgreso> = ({ setValueArticle, valueA
         }
     }
 
-    useEffect(() => {        
-        chargeCategory()           
+    useEffect(() => {
+        chargeCategory()
     }, [])
 
     return (

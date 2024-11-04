@@ -26,24 +26,24 @@ interface IRegisters {
     dependencia: string
     curso: string,
     aula: string,
-    fecha: string,   
+    fecha: string,
     monto: string,
-    
+
 }
 
-const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClose, setContentModal}) => {
+const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClose, setContentModal }) => {
     const [tableData, setTableData] = useState<any>()
     const [tableColumns, setTableColumns] = useState([
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
-        { data: 'categoria', title: 'Categoría'},
+        { data: 'categoria', title: 'Categoría' },
         { data: 'dependencia', title: 'Dependencia' },
         { data: 'curso', title: 'Curso' },
         { data: 'aula', title: 'Aula' },
         { data: 'fecha', title: 'Fecha' },
         { data: 'monto', title: 'Monto' },
         { data: 'acciones', title: 'Acciones' }
-      ]);
+    ]);
 
     const initializeDataTable = async () => {
         const jsonData = await GETFunction('incomeRegister') as Array<IRegisters>
@@ -61,13 +61,13 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
             monto: dato.monto,
             acciones: () => {
                 return ReactDOMServer.renderToString(
-                  <div id={`actions-${dato.aula}-${dato.dni}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                    <button className="edit-btn btn-sigma" id={`edit-btn-${dato.aula}-${dato.dni}`}>
-                      <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
-                    <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
-                  </div>
+                    <div id={`actions-${dato.aula}-${dato.dni}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                        <button className="edit-btn btn-sigma" id={`edit-btn-${dato.aula}-${dato.dni}`}>
+                            <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
+                        <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
+                    </div>
                 );
-              }
+            }
         }))
         setTableData(nextTableData)
     }
@@ -79,7 +79,7 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
             tableData.forEach((dato: any) => {
                 document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => setContentModal(dato))
                 if (onOpen)
-                document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => onOpen())
+                    document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => onOpen())
             })
         }
     }

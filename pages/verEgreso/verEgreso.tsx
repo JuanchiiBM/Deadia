@@ -5,15 +5,15 @@ import { Option } from '@/utils/globals'
 import OptionsVerEgreso from './options'
 
 const VerEgreso = () => {
-  const [valueCategory, setValueCategory] = useState<Option | null>()
-  const [valueArticle, setValueArticle] = useState<Option | null>()
+    const [valueCategory, setValueCategory] = useState<Option | null>()
+    const [valueArticle, setValueArticle] = useState<Option | null>()
 
-  return (
-    <>
-        <h1 className='text-4xl'>Egresos</h1>
-        <OptionsVerEgreso setValueArticle={setValueArticle} setValueCategory={setValueCategory} valueArticle={valueArticle} valueCategory={valueCategory} />
-    </>
-  )
+    return (
+        <>
+            <h1 className='text-4xl'>Egresos</h1>
+            <OptionsVerEgreso setValueArticle={setValueArticle} setValueCategory={setValueCategory} valueArticle={valueArticle} valueCategory={valueCategory} />
+        </>
+    )
 }
 
 export default VerEgreso

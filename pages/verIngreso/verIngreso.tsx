@@ -42,35 +42,35 @@ interface ITableDataDeps {
 }
 
 interface ITableDataDep {
-  filter: {
-      classroom: [{
-          id: number
-          code: string
-      }]
-  }
+    filter: {
+        classroom: [{
+            id: number
+            code: string
+        }]
+    }
 
-  list: {
-      grades: [{
-        curso: string,
-        aula: string,
-        fec_inicio: string,
-        fec_finalizacion: string,
-        ingreso: number
-      }]
-  }
+    list: {
+        grades: [{
+            curso: string,
+            aula: string,
+            fec_inicio: string,
+            fec_finalizacion: string,
+            ingreso: number
+        }]
+    }
 }
 
 interface ITableDataClassrooms {
-  list: {
-      classrooms: [{
-        aula: string
-        dni: string
-        fec_compra:string
-        ingreso: number
-        mail: string
-        nombre: string
-      }]
-  }
+    list: {
+        classrooms: [{
+            aula: string
+            dni: string
+            fec_compra: string
+            ingreso: number
+            mail: string
+            nombre: string
+        }]
+    }
 }
 
 const VerIngreso = () => {
@@ -80,7 +80,7 @@ const VerIngreso = () => {
     const [tableKey, setTableKey] = useState(0);
     const [dateSelected, setDateSelected] = useState<any[]>()
     const [contentModal, setContentModal] = useState()
-    const [optionsDeps, setOptionsDeps] = useState<{ value: string; label: string; }[]>([{value: '0', label: 'Todas'}])
+    const [optionsDeps, setOptionsDeps] = useState<{ value: string; label: string; }[]>([{ value: '0', label: 'Todas' }])
     const dateRef = useRef<any>()
     const tableRef = useRef<DataTableRef>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -104,12 +104,12 @@ const VerIngreso = () => {
                     ];
                     setTableLoader(true)
                     jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
-                    const options = [{value: '0', label: 'Todas'}, ...jsonData.filter.dependency.map((val) => ({
-                      value: val.id.toString(),
-                      label: val.name
+                    const options = [{ value: '0', label: 'Todas' }, ...jsonData.filter.dependency.map((val) => ({
+                        value: val.id.toString(),
+                        label: val.name
                     }))]
                     setOptionsDeps(options)
-                    
+
                     nextTableData = jsonData.list.deps.map((dato) => ({
                         dependencia: dato.dependencia,
                         fecha: dato.mes,

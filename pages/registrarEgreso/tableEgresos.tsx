@@ -30,7 +30,7 @@ const DataTableEgresos: React.FC<IDataTable> = ({ setData, data}) => {
         { data: 'amount', title: 'Cantidad' },
         { data: 'ingress', title: 'Monto' }
       ]);
-
+      // USAR TABLE LOADER CUANDO SE CONECTE CON EL BACK const [tableLoader, setTableLoader] = useState(true);
     const initializeDataTable = async () => {
         const jsonData = await GETFunction('egress') as Array<IRegisters>
         const nextTableData = jsonData.map((dato) => ({

@@ -3,8 +3,8 @@ import Select, { SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
 import { GETFunction, createOption, Option } from '@/utils/globals';
-import {RangeValue} from "@react-types/shared";
-import {parseDate} from "@internationalized/date";
+import { RangeValue } from "@react-types/shared";
+import { parseDate } from "@internationalized/date";
 
 interface IncomeRegisterOptionsClassrooms {
     aula: string
@@ -34,7 +34,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     const [optClassroom, setOptClassroom] = useState<any>(undefined)
     const [optCurse, setOptCurse] = useState<any>(undefined)
     const [optDependency, setOptDependency] = useState<any>(undefined)
-    
+
     const selectCurse = useRef(null)
     const selectDeps = useRef(null)
 
@@ -130,7 +130,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     useEffect(() => {
         setOptionsClassroom()
-    }, [])  
+    }, [])
 
     useEffect(() => {
         const option = {
@@ -138,7 +138,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
             label: contentModal.aula
         }
         selectOptionOfClassroom(option)
-    }, [contentModal])    
+    }, [contentModal])
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>

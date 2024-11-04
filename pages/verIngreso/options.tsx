@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { DateRangePicker } from "@nextui-org/react";
-import {RangeValue} from "@react-types/shared";
+import { RangeValue } from "@react-types/shared";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
-import {getLocalTimeZone, parseDate, today, DateValue, startOfYear} from "@internationalized/date";
+import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
 
 interface ISelects {
     changeJson: (value: string, ret?: boolean) => void
@@ -20,7 +20,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
         start: startOfYear(today(getLocalTimeZone())),
         end: today(getLocalTimeZone()),
-      });
+    });
     const [isDisabled, setIsDisabled] = useState(true)
     const [optCursos, setOptCursos] = useState([])
     let optionsCursos
@@ -31,7 +31,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
             setDateInitial({
                 start: startOfYear(today(getLocalTimeZone())),
                 end: today(getLocalTimeZone()),
-              });
+            });
             optionsCursos = data.map((opt: any, index: number) => {
                 return {
                     value: index + 1,
@@ -78,7 +78,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
                     <DateRangePicker visibleMonths={2} ref={dateRef} defaultValue={undefined} onChange={setDateInitial} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                         input: 'bg-background hover:bg-background focus:bg-background',
                         inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
-                    }} calendarProps={{classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200"}}} />
+                    }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
                 </I18nProvider>
             </div>
             <div className='flex flex-col'>

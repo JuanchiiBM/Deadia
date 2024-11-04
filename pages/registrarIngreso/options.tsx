@@ -21,7 +21,7 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ onOpen, s
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
             <h2 className='content-center text-xl'>Registrar Ingresos</h2>
             <Button onClick={resetModal} className='content-center h-full text-conntent2 text-md' color='primary' startContent={
-                <FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl'/>
+                <FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl' />
             }>Crear Registro</Button>
         </div>
     )
