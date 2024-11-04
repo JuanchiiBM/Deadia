@@ -24,7 +24,7 @@ let nextTableData: any = [];
 let newColumns: any = [];
 let jsonData
 
-interface tableDataDeps {
+interface ITableDataDeps {
     list: {
         deps: [{
             dependencia: string
@@ -41,12 +41,46 @@ interface tableDataDeps {
     }
 }
 
+interface ITableDataDep {
+  filter: {
+      classroom: [{
+          id: number
+          code: string
+      }]
+  }
+
+  list: {
+      grades: [{
+        curso: string,
+        aula: string,
+        fec_inicio: string,
+        fec_finalizacion: string,
+        ingreso: number
+      }]
+  }
+}
+
+interface ITableDataClassrooms {
+  list: {
+      classrooms: [{
+        aula: string
+        dni: string
+        fec_compra:string
+        ingreso: number
+        mail: string
+        nombre: string
+      }]
+  }
+}
+
 const VerIngreso = () => {
     const [ajaxUrl, setAjaxUrl] = useState(`http://localhost:3000/deps`); // URL por defecto
     const [tableData, setTableData] = useState([]);
+    const [tableLoader, setTableLoader] = useState(true);
     const [tableKey, setTableKey] = useState(0);
     const [dateSelected, setDateSelected] = useState<any[]>()
     const [contentModal, setContentModal] = useState()
+    const [optionsDeps, setOptionsDeps] = useState<{ value: string; label: string; }[]>([{value: '0', label: 'Todas'}])
     const dateRef = useRef<any>()
     const tableRef = useRef<DataTableRef>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,8 +89,6 @@ const VerIngreso = () => {
         { data: 'fecha', title: 'Fecha' },
         { data: 'ingreso', title: 'Ingreso Acumulado' },
     ]);
-
-
 
     // Función para actualizar el JSON y las columnas
     const changeJson = async (value: any, ret?: boolean) => {
@@ -69,16 +101,20 @@ const VerIngreso = () => {
                         { data: 'dependencia', title: 'Dependencia' },
                         { data: 'fecha', title: 'Fecha' },
                         { data: 'ingreso', title: 'Ingreso Acumulado' },
-                        { data: 'acciones', title: 'Acciones' }
                     ];
-                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`) as tableDataDeps
-                    console.log(jsonData)
+                    setTableLoader(true)
+                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
+                    const options = [{value: '0', label: 'Todas'}, ...jsonData.filter.dependency.map((val) => ({
+                      value: val.id.toString(),
+                      label: val.name
+                    }))]
+                    setOptionsDeps(options)
+                    
                     nextTableData = jsonData.list.deps.map((dato) => ({
                         dependencia: dato.dependencia,
                         fecha: dato.mes,
                         ingreso: dato.monto,
                     }));
-                    console.log(nextTableData)
                     break;
                 case '1':
                     newColumns = [
@@ -86,26 +122,16 @@ const VerIngreso = () => {
                         { data: 'aula', title: 'Aula' },
                         { data: 'fec_inicio', title: 'Fecha de Inicio' },
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
-                        { data: 'ingreso', title: 'Ingreso' },
-                        { data: 'acciones', title: 'Acciones' }
+                        { data: 'ingreso', title: 'Ingreso' }
                     ];
-                    jsonData = await GETFunction2('info');
-                    nextTableData = jsonData.map((dato) => ({
-                        curso: dato.curso,
-                        aula: dato.aula,
-                        fec_inicio: dato.fec_inicio,
-                        fec_finalizacion: dato.fec_finalizacion,
-                        ingreso: dato.ingreso,
-                        id: dato.id,
-                        acciones: () => {
-                            return ReactDOMServer.renderToString(
-                                <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                                    <button className="edit-btn btn-sigma" data-id={dato.id + '-' + dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
-                                        <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
-                                    <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
-                                </div>
-                            );
-                        }
+                    setTableLoader(true)
+                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
+                    nextTableData = jsonData.list.grades.map((grade) => ({
+                        curso: grade.curso,
+                        aula: grade.aula,
+                        fec_inicio: grade.fec_inicio,
+                        fec_finalizacion: grade.fec_finalizacion,
+                        ingreso: grade.ingreso
                     }));
                     break;
                 case '2':
@@ -114,8 +140,7 @@ const VerIngreso = () => {
                         { data: 'aula', title: 'Aula' },
                         { data: 'fec_inicio', title: 'Fecha de Inicio' },
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
-                        { data: 'ingreso', title: 'Ingreso' },
-                        { data: 'acciones', title: 'Acciones' }
+                        { data: 'ingreso', title: 'Ingreso' }
                     ];
                     jsonData = await GETFunction2('idio');
                     nextTableData = jsonData.map((dato) => ({
@@ -123,17 +148,7 @@ const VerIngreso = () => {
                         aula: dato.aula,
                         fec_inicio: dato.fec_inicio,
                         fec_finalizacion: dato.fec_finalizacion,
-                        ingreso: dato.ingreso,
-                        id: dato.id,
-                        acciones: () => {
-                            return ReactDOMServer.renderToString(
-                                <div id={`actions-${dato.aula}-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                                    <button className="edit-btn btn-sigma" data-id={dato.id + '-' + dato.aula} id={`edit-btn-${dato.aula}-${dato.id}`}>
-                                        <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
-                                    <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
-                                </div>
-                            );
-                        }
+                        ingreso: dato.ingreso
                     }));
                     break;
             }
@@ -167,6 +182,7 @@ const VerIngreso = () => {
 
     const changeDependencyRange = (range: string) => {
         if (nextTableData[0] && nextTableData[0].dependencia) {
+            console.log(range)
             const [minRange, maxRange] = range.split('-');
             const [minMonth, minYear] = minRange.split('/').map(Number);
             const [maxMonth, maxYear] = maxRange.split('/').map(Number);
@@ -273,8 +289,8 @@ const VerIngreso = () => {
         <>
             <h1 className='text-4xl'>Ingresos</h1>
             <Chart url={ajaxUrl} />
-            <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} />
-            <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} />
+            <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} />
+            <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />
             <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
         </>
     )

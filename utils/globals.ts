@@ -10,7 +10,7 @@ export const GETFunction = async (value: string) => {
     }
 }
 
-export const GETFunction2 = async (url: string) => {
+export const GETFunction2 = async (url: string, loader?: any) => {
     try {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
             method: "GET",
@@ -19,8 +19,7 @@ export const GETFunction2 = async (url: string) => {
                 'Authorization': `Bearer ${localStorage.getItem('userToken')}`
             }
         });
-
-        console.log(localStorage.getItem('userToken'))
+        if (loader) loader(false)
         return response.json();
     } catch (error) {
         console.error("Error:", error);

@@ -51,7 +51,6 @@ export const Login = () => {
                             <Input
                                 placeholder="Email"
                                 type="text"
-                                defaultValue="admin@acme.com"
                                 value={valueUser}
                                 onChange={(e) => setValueUser(e.currentTarget.value)}
                                 startContent={
@@ -60,7 +59,6 @@ export const Login = () => {
                             />
                             <Input
                                 placeholder="Password"
-                                defaultValue="admin"
                                 value={valuePassword}
                                 onChange={(e) => setValuePassword(e.currentTarget.value)}
                                 startContent={

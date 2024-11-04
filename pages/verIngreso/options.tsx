@@ -10,10 +10,11 @@ interface ISelects {
     changeJson: (value: string, ret?: boolean) => void
     changeJsonForCurse: (value: string) => void
     changeRange: () => void
-    dateRef: any
+    dateRef: any,
+    optionsDeps: { value: string; label: string; }[]
 }
 
-const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef }) => {
+const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef, optionsDeps }) => {
     const cursoSelect = useRef<SelectInstance<any> | null>(null);
     const depSelect = useRef<SelectInstance<any> | null>(null);
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
@@ -42,8 +43,8 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
             setOptCursos(optionsCursos)
         }
         else if (cursoSelect.current) {
-            cursoSelect.current.setValue('0', 'select-option')
             setIsDisabled(true)
+            cursoSelect.current.setValue('0', 'select-option')
         }
     }
 
@@ -65,16 +66,11 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
         dateInitial && dateInitial.start != undefined && changeRange()
     }, [dateInitial])
 
-    const optionsDependencias = [
-        { value: '0', label: 'Todas' },
-        { value: '1', label: 'Informatica' },
-        { value: '2', label: 'Idiomas' },
-    ]
     return (
         <div className='w-full my-[50px] h-[110px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
             <div className='flex flex-col'>
                 <label htmlFor="select-dependency">Dependencia:</label>
-                <Select className='w-[170px]' placeholder='Dependencias' ref={depSelect} noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeDependency} options={optionsDependencias} defaultValue={optionsDependencias[0]} isSearchable styles={colourStyles}></Select>
+                <Select className='w-[170px]' placeholder='Dependencias' ref={depSelect} noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeDependency} options={optionsDeps} defaultValue={optionsDeps[0]} isSearchable styles={colourStyles}></Select>
             </div>
             <div>
                 <I18nProvider locale='es-ES'>
