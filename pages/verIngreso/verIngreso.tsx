@@ -142,13 +142,14 @@ const VerIngreso = () => {
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
                     ];
-                    jsonData = await GETFunction2('idio');
-                    nextTableData = jsonData.map((dato) => ({
-                        curso: dato.curso,
-                        aula: dato.aula,
-                        fec_inicio: dato.fec_inicio,
-                        fec_finalizacion: dato.fec_finalizacion,
-                        ingreso: dato.ingreso
+                    setTableLoader(true)
+                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
+                    nextTableData = jsonData.list.grades.map((grade) => ({
+                        curso: grade.curso,
+                        aula: grade.aula,
+                        fec_inicio: grade.fec_inicio,
+                        fec_finalizacion: grade.fec_finalizacion,
+                        ingreso: grade.ingreso
                     }));
                     break;
             }
