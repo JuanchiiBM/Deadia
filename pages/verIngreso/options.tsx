@@ -12,9 +12,10 @@ interface ISelects {
     changeRange: () => void
     dateRef: any,
     optionsDeps: { value: string; label: string; }[]
+    lastTable: string
 }
 
-const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef, optionsDeps }) => {
+const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef, optionsDeps, lastTable }) => {
     const cursoSelect = useRef<SelectInstance<any> | null>(null);
     const depSelect = useRef<SelectInstance<any> | null>(null);
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
@@ -62,8 +63,17 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
         }
     }
 
+    const changeJsonForRange = async () => {
+            console.log(lastTable)
+            await changeJson(lastTable)
+        
+    }
+
     useEffect(() => {
-        dateInitial && dateInitial.start != undefined && changeRange()
+        if (dateInitial && dateInitial.start != undefined) {
+            changeRange()
+            changeJsonForRange()
+        }
     }, [dateInitial])
 
     return (

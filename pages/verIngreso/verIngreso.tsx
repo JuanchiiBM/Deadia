@@ -78,6 +78,7 @@ const VerIngreso = () => {
     const [tableData, setTableData] = useState([]);
     const [tableLoader, setTableLoader] = useState(true);
     const [tableKey, setTableKey] = useState(0);
+    const [lastTable, setLastTable] = useState('0');
     const [dateSelected, setDateSelected] = useState<any[]>()
     const [contentModal, setContentModal] = useState()
     const [optionsDeps, setOptionsDeps] = useState<{ value: string; label: string; }[]>([{ value: '0', label: 'Todas' }])
@@ -153,6 +154,7 @@ const VerIngreso = () => {
             }
             setTableKey(prevKey => prevKey + 1);
             setColumns(newColumns);
+            setLastTable((prev) => prev =value)
             setChartContent(nextTableData)
 
             if (ret = true)
@@ -217,7 +219,7 @@ const VerIngreso = () => {
                     groupedData.push({
                         dependencia,
                         ingreso: ingreso,
-                        fecha: `${minRange}-${maxRange}` // Mostrar el rango seleccionado
+                        fecha: `${minRange} - ${maxRange}` // Mostrar el rango seleccionado
                     });
                 }
             });
@@ -225,10 +227,9 @@ const VerIngreso = () => {
             // Formatear los ingresos a dos decimales y agregar el símbolo "$"
             mergedData = groupedData.map((item) => ({
                 ...item,
-                ingreso: `$${item.ingreso}`,
+                ingreso: `${item.ingreso}`,
                 acciones: null
             }));
-
             setTableData(mergedData); // Actualizar la tabla con los datos agrupados
         }
     }
@@ -295,7 +296,7 @@ const VerIngreso = () => {
         <>
             <h1 className='text-4xl'>Ingresos</h1>
             <Chart chartContent={chartContent} />
-            <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} />
+            <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} lastTable={lastTable} />
             <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />
             <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
         </>

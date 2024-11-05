@@ -187,7 +187,6 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
 
     useEffect(() => {
         showAllSeries()
-        console.log(chartContent)
         processDataForChart(chartContent)
     }, [chartContent]);
 
