@@ -10,12 +10,14 @@ interface ISelects {
     changeJson: (value: string, ret?: boolean) => void
     changeJsonForCurse: (value: string) => void
     changeRange: () => void
+    selectDateRange: () => void
     dateRef: any,
     optionsDeps: { value: string; label: string; }[]
     lastTable: string
+    tableLoader: boolean
 }
 
-const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef, optionsDeps, lastTable }) => {
+const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRange, dateRef, optionsDeps, lastTable, tableLoader, selectDateRange }) => {
     const cursoSelect = useRef<SelectInstance<any> | null>(null);
     const depSelect = useRef<SelectInstance<any> | null>(null);
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
@@ -23,6 +25,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
         end: today(getLocalTimeZone()),
     });
     const [isDisabled, setIsDisabled] = useState(true)
+    const [isDisabledDatePicker, setIsDisabledDatePicker] = useState(false)
     const [optCursos, setOptCursos] = useState([])
     let optionsCursos
 
@@ -52,6 +55,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
     const changeDependency = async (e: any) => {
         if (e.value != undefined) {
             const data = await changeJson(e.value, true)
+            setIsDisabledDatePicker(false)
             disabledCursos(e.value, data)
         }
     }
@@ -59,20 +63,19 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
 
     const changeCurse = async (e: any) => {
         if (e.value != undefined) {
+            setIsDisabledDatePicker(true)
             const data = await changeJsonForCurse(e.value)
         }
     }
 
-    const changeJsonForRange = async () => {
-            console.log(lastTable)
-            await changeJson(lastTable)
-        
+    const changeDatePicker = async (e: RangeValue<any>) => {
+            setDateInitial(e)
+            await selectDateRange()
     }
 
     useEffect(() => {
         if (dateInitial && dateInitial.start != undefined) {
             changeRange()
-            changeJsonForRange()
         }
     }, [dateInitial])
 
@@ -80,12 +83,12 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
         <div className='w-full my-[50px] h-[110px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
             <div className='flex flex-col'>
                 <label htmlFor="select-dependency">Dependencia:</label>
-                <Select className='w-[170px]' placeholder='Dependencias' ref={depSelect} noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeDependency} options={optionsDeps} defaultValue={optionsDeps[0]} isSearchable styles={colourStyles}></Select>
+                <Select className='w-[170px]' placeholder='Dependencias' ref={depSelect} isDisabled={tableLoader} noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeDependency} options={optionsDeps} defaultValue={optionsDeps[0]} isSearchable styles={colourStyles}></Select>
             </div>
             <div>
                 <I18nProvider locale='es-ES'>
                     <label htmlFor="datepicker">Seleccionar Rango:</label>
-                    <DateRangePicker visibleMonths={2} ref={dateRef} defaultValue={undefined} onChange={setDateInitial} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
+                    <DateRangePicker visibleMonths={2} ref={dateRef} defaultValue={undefined} isDisabled={tableLoader || isDisabledDatePicker} onChange={(e) => changeDatePicker(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                         input: 'bg-background hover:bg-background focus:bg-background',
                         inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                     }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
@@ -93,7 +96,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
             </div>
             <div className='flex flex-col'>
                 <label htmlFor="select-curso">Curso:</label>
-                <Select className='w-[170px]' isDisabled={isDisabled} ref={cursoSelect} placeholder='Cursos' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeCurse} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></Select>
+                <Select className='w-[170px]' isDisabled={isDisabled || tableLoader} ref={cursoSelect} placeholder='Cursos' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeCurse} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></Select>
             </div>
         </div>
     )

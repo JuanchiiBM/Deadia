@@ -29,8 +29,10 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
         let maxFecha;
         let allMonths: string[] = [];
         let series: SeriesData[] = [];
-        if (data[0].dependencia || data[0].curso) {
+        if (data[0] && (data[0].dependencia || data[0].curso)) {
+            //console.log('1')
             if (data[0].dependencia) {
+                //console.log('entra piola 2')
                 // Procesar el JSON por 'dependencia'
                 sortedData = data.sort((a, b) => {
                     const [monthA, yearA] = a.fecha.split("/").map(Number);
@@ -59,6 +61,7 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
                     return { name: dependencia, data: monthlyData };
                 });
             } else if (data[0].curso) {
+                //console.log('2')
                 // Procesar el JSON por 'curso'
                 sortedData = data.sort((a, b) => {
                     const [monthA, yearA] = a.fec_finalizacion.split("/").filter((dato: any, index: any) => { return index != 0 && dato}).map(Number)
@@ -91,6 +94,8 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
             }
     
             setChartData({ series, minFecha, maxFecha });
+        } else {
+            setChartData({ series, minFecha: '', maxFecha: '' })
         }
     };
 

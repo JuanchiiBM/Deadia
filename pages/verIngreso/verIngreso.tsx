@@ -1,15 +1,12 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
-import ReactDOMServer from 'react-dom/server';
 import Selects from './options';
 import { DataTableRef } from 'datatables.net-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { CalendarDate, now } from '@internationalized/date';
 import { useDisclosure } from '@nextui-org/react';
 import { GETFunction2 } from '@/utils/globals';
 import TableVerIngreso from './dataTable';
-import ModalVerIngreso from './modal';
 
 
 const Chart = dynamic(
@@ -73,23 +70,27 @@ interface ITableDataClassrooms {
     }
 }
 
+const today = now('UTC');
+const startOfYear = new CalendarDate(today.year, 1, 1);
+
 const VerIngreso = () => {
     const [chartContent, setChartContent] = useState([{}])
     const [tableData, setTableData] = useState([]);
     const [tableLoader, setTableLoader] = useState(true);
     const [tableKey, setTableKey] = useState(0);
     const [lastTable, setLastTable] = useState('0');
-    const [dateSelected, setDateSelected] = useState<any[]>()
-    const [contentModal, setContentModal] = useState()
+    const [dateSelected, setDateSelected] = useState<any[]>([
+        `${startOfYear.year}-${String(startOfYear.month).padStart(2, '0')}-${String(startOfYear.day).padStart(2, '0')}`,
+        `${today.year}-${String(today.month).padStart(2, '0')}-${String(today.day).padStart(2, '0')}`])
     const [optionsDeps, setOptionsDeps] = useState<{ value: string; label: string; }[]>([{ value: '0', label: 'Todas' }])
     const dateRef = useRef<any>()
     const tableRef = useRef<DataTableRef>(null);
-    const { isOpen, onOpen, onClose } = useDisclosure();
     const [columns, setColumns] = useState([
         { data: 'dependencia', title: 'Dependencia' },
         { data: 'fecha', title: 'Fecha' },
         { data: 'ingreso', title: 'Ingreso Acumulado' },
     ]);
+
 
     // Función para actualizar el JSON y las columnas
     const changeJson = async (value: any, ret?: boolean) => {
@@ -104,6 +105,7 @@ const VerIngreso = () => {
                         { data: 'fecha', title: 'Fecha' },
                         { data: 'ingreso', title: 'Ingreso Acumulado' },
                     ];
+                    console.log(`${dateSelected[0]} - ${dateSelected[1]}`)
                     jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
                     const options = [{ value: '0', label: 'Todas' }, ...jsonData.filter.dependency.map((val) => ({
                         value: val.id.toString(),
@@ -125,6 +127,7 @@ const VerIngreso = () => {
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
                     ];
+                    console.log(`${dateSelected[0]} - ${dateSelected[1]}`)
                     jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
                     nextTableData = jsonData.list.grades.map((grade) => ({
                         curso: grade.curso,
@@ -156,6 +159,7 @@ const VerIngreso = () => {
             setColumns(newColumns);
             setLastTable((prev) => prev =value)
             setChartContent(nextTableData)
+            console.log('fin Change')
 
             if (ret = true)
                 return nextTableData
@@ -190,7 +194,6 @@ const VerIngreso = () => {
 
     const changeDependencyRange = (range: string) => {
         if (nextTableData[0] && nextTableData[0].dependencia) {
-            console.log(range)
             const [minRange, maxRange] = range.split('-');
             const [minMonth, minYear] = minRange.split('/').map(Number);
             const [maxMonth, maxYear] = maxRange.split('/').map(Number);
@@ -234,7 +237,7 @@ const VerIngreso = () => {
         }
     }
 
-    const changeRange = () => {
+    const changeRange = async () => {
         const datePicked = dateRef.current?.innerText.split('\n').filter((date: string) => {
             return date != '/'
         }).filter((date: string, index: number) => {
@@ -257,48 +260,28 @@ const VerIngreso = () => {
     const selectDateRange = () => {
         setDateSelected((prev) => prev = dateRef.current.innerText.split('\n').join('').split('-').map((date: any) => {
             const partsOfDate = date.split('/').reverse()
+            partsOfDate[1].length == 1 ? partsOfDate[1] = `0${partsOfDate[1]}` : null
+            partsOfDate[2].length == 1 ? partsOfDate[2] = `0${partsOfDate[2]}` : null
             return `${partsOfDate[0]}-${partsOfDate[1]}-${partsOfDate[2]}`
         }))
-    }
-
-    const hydrateActions = () => {
-        Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
-        Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
-        nextTableData.forEach((dato: any) => {
-            if (document.getElementById(`actions-${dato.dependencia}-${dato.id}`)) {
-                document.getElementById(`edit-btn-${dato.dependencia}-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
-                document.getElementById(`edit-btn-${dato.dependencia}-${dato.id}`)?.addEventListener('click', () => onOpen())
-            } else if (document.getElementById(`actions-${dato.aula}-${dato.id}`)) {
-                document.getElementById(`edit-btn-${dato.aula}-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
-                document.getElementById(`edit-btn-${dato.aula}-${dato.id}`)?.addEventListener('click', () => onOpen())
-            }
-        })
+        console.log(dateSelected)
     }
 
     useEffect(() => {
-        hydrateActions()
-    }, [tableData])
+        changeJson(lastTable)
+    }, [dateSelected])
 
     useEffect(() => {
         setTableData((t) => t = nextTableData)
         changeRange()
     }, [columns])
 
-    useEffect(() => {
-        selectDateRange()
-    }, [])
-
-    useEffect(() => {
-        changeJson('0')
-    }, [dateSelected])
-
     return (
         <>
             <h1 className='text-4xl'>Ingresos</h1>
             <Chart chartContent={chartContent} />
-            <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} lastTable={lastTable} />
+            <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} lastTable={lastTable} tableLoader={tableLoader} selectDateRange={selectDateRange} />
             <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />
-            <ModalVerIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
         </>
     )
 }
