@@ -79,9 +79,7 @@ const VerIngreso = () => {
     const [tableLoader, setTableLoader] = useState(true);
     const [tableKey, setTableKey] = useState(0);
     const [lastTable, setLastTable] = useState('0');
-    const [dateSelected, setDateSelected] = useState<any[]>([
-        `${startOfYear.year}-${String(startOfYear.month).padStart(2, '0')}-${String(startOfYear.day).padStart(2, '0')}`,
-        `${today.year}-${String(today.month).padStart(2, '0')}-${String(today.day).padStart(2, '0')}`])
+    const [dateSelected, setDateSelected] = useState<any[]>()
     const [optionsDeps, setOptionsDeps] = useState<{ value: string; label: string; }[]>([{ value: '0', label: 'Todas' }])
     const dateRef = useRef<any>()
     const tableRef = useRef<DataTableRef>(null);
@@ -105,7 +103,6 @@ const VerIngreso = () => {
                         { data: 'fecha', title: 'Fecha' },
                         { data: 'ingreso', title: 'Ingreso Acumulado' },
                     ];
-                    console.log(`${dateSelected[0]} - ${dateSelected[1]}`)
                     jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
                     const options = [{ value: '0', label: 'Todas' }, ...jsonData.filter.dependency.map((val) => ({
                         value: val.id.toString(),
@@ -127,7 +124,6 @@ const VerIngreso = () => {
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
                     ];
-                    console.log(`${dateSelected[0]} - ${dateSelected[1]}`)
                     jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
                     nextTableData = jsonData.list.grades.map((grade) => ({
                         curso: grade.curso,
@@ -159,15 +155,12 @@ const VerIngreso = () => {
             setColumns(newColumns);
             setLastTable((prev) => prev =value)
             setChartContent(nextTableData)
-            console.log('fin Change')
-
             if (ret = true)
                 return nextTableData
         }
     };
 
     const changeJsonForCurse = async (value: any) => {
-        console.log(value)
         if (dateSelected) {
             newColumns = [
                 { data: 'dni', title: 'DNI' },
@@ -257,17 +250,17 @@ const VerIngreso = () => {
         changeDependencyRange(datePicked)
     }
 
-    const selectDateRange = () => {
-        setDateSelected((prev) => prev = dateRef.current.innerText.split('\n').join('').split('-').map((date: any) => {
+    const selectDateRange = async () => {
+        await setDateSelected(dateRef.current.innerText.split('\n').join('').split('-').map((date: any) => {
             const partsOfDate = date.split('/').reverse()
             partsOfDate[1].length == 1 ? partsOfDate[1] = `0${partsOfDate[1]}` : null
             partsOfDate[2].length == 1 ? partsOfDate[2] = `0${partsOfDate[2]}` : null
             return `${partsOfDate[0]}-${partsOfDate[1]}-${partsOfDate[2]}`
         }))
-        console.log(dateSelected)
     }
 
     useEffect(() => {
+        console.log('useEffect - DateSelected')
         changeJson(lastTable)
     }, [dateSelected])
 
