@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FormEvent } from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps, Input, DateRangePicker } from '@nextui-org/react'
 import { I18nProvider } from "@react-aria/i18n";
 import ModalSelectsRegistrarIngreso from './modalSelects';
@@ -6,6 +6,7 @@ import ModalResumenRegistrarIngreso from './modalResumen';
 import ModalSelects2 from './modalSelects2';
 import { RangeValue } from "@react-types/shared";
 import { createOption, Option } from '@/utils/globals';
+import { POSTFunction } from '@/utils/globals';
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
@@ -43,7 +44,15 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
         setValueDatePicker({ start: undefined, end: undefined })
     }, [isOpen])
 
-    const cargarIngreso = () => {
+    const cargarIngreso = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const _dataObject = {
+            id_classroom: valueClassroom,
+            id_dependency: valueDependency,
+            amount: valueMonto,
+            date: 
+        }
+        await POSTFunction(`api/income/register/form`, )
         SuccessAlert('Registro Cargado', '', 'Ok', () => {
             if (onClose)
                 onClose()
@@ -57,7 +66,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                     <>
                         <ModalHeader className="flex flex-col gap-1">{contentModal ? 'Editar Ingreso (cargado por)' : 'Registrar Ingreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-                            <form id='register-charge' className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
+                            <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
                                 <div className='mb-[75px]'>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del alumno:</h3>
                                     <div className='flex gap-2'>
@@ -95,7 +104,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                             <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                             </Button>
-                            <Button color="primary" type='submit' form='register-charge' onPress={cargarIngreso}>
+                            <Button color="primary" type='submit' form='register-charge'>
                                 Guardar
                             </Button>
                         </ModalFooter>

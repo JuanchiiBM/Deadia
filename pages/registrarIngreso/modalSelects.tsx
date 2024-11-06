@@ -133,11 +133,13 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     }, [])
 
     useEffect(() => {
-        const option = {
-            value: contentModal.aula,
-            label: contentModal.aula
+        if (contentModal && contentModal.aula) {
+            const option = {
+                value: contentModal.aula,
+                label: contentModal.aula
+            }
+            selectOptionOfClassroom(option)
         }
-        selectOptionOfClassroom(option)
     }, [contentModal])
 
     return (

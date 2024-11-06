@@ -260,7 +260,6 @@ const VerIngreso = () => {
     }
 
     useEffect(() => {
-        console.log('useEffect - DateSelected')
         changeJson(lastTable)
     }, [dateSelected])
 
