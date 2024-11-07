@@ -85,7 +85,6 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     }
 
     const hydrateActions = () => {
-        console.log('entra5')
         Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
         Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
         if (tableData != undefined) {
@@ -99,7 +98,6 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
 
     useEffect(() => {
         if (dateSelected) {
-            console.log('entra2')
             initializeDataTable()
         }
     }, [dateSelected])

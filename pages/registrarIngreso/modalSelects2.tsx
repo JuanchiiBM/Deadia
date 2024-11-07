@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
-import { GETFunction, createOption, Option } from '@/utils/globals';
+import { GETFunction2, GETFunction, Option } from '@/utils/globals';
+import { IncomeRegisterOptions } from './modalSelects';
 
 interface IUserCategory {
     name: string
@@ -23,13 +24,15 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optGrade, setOptGrade] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
+    const [jsonIsCharge, setJsonIsCharge] = useState<boolean>(true)
     const [isRequired, setIsRequired] = useState<boolean>(false)
 
     const chargeCategory = async () => {
-        const jsonData = await GETFunction('userCategory') as Array<IUserCategory>
-        const optionsCategory = jsonData.map((category) => ({
-            value: category.name,
-            label: category.name
+        const jsonData = await GETFunction2('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
+        console.log(jsonData)
+        const optionsCategory = jsonData.categories.map((category) => ({
+            value: category.id,
+            label: category.categoria
         }))
         setOptCategory(optionsCategory)
     }
@@ -76,7 +79,7 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>
-            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered} required></Select>
+            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharge} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered} required></Select>
             <Select maxMenuHeight={200} value={valueGrade} onChange={(newValue: any) => setValueGrade(newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
     )

@@ -6,9 +6,12 @@ import { GETFunction, GETFunction2, createOption, Option, formatDate } from '@/u
 import { RangeValue } from "@react-types/shared";
 import { parseDate } from "@internationalized/date";
 
-interface IncomeRegisterOptionsClassrooms {
+export interface IncomeRegisterOptions {
     classrooms: [
         IncomeRegisterOptionClassroom
+    ],
+    categories: [
+        IncomeRegisterOptionCategory
     ]
 }
 
@@ -20,11 +23,9 @@ interface IncomeRegisterOptionClassroom {
     id: number
 }
 
-interface IClassroomCreated {
-    curse: string
-    dependency: string
-    initDate: string
-    finalDate: string
+interface IncomeRegisterOptionCategory {
+    id: number
+    categoria: string
 }
 
 interface IModalSelectsRegistrarIngreso {
@@ -42,21 +43,21 @@ interface IModalSelectsRegistrarIngreso {
 
 const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ contentModal, setIsDisabled, isDisabled, valueClassroom, setValueClassroom, valueCurse, setValueCurse, valueDependency, setValueDependency, setValueDatePicker }) => {
     const [optClassroom, setOptClassroom] = useState<any>(undefined)
-    const [listOfClassrooms, setListOfClassrooms] = useState<IncomeRegisterOptionsClassrooms | undefined>(undefined)
+    const [listOfClassrooms, setListOfClassrooms] = useState<IncomeRegisterOptions | undefined>(undefined)
     const [optCurse, setOptCurse] = useState<any>(undefined)
     const [optDependency, setOptDependency] = useState<any>(undefined)
-
+    const [jsonIsCharge, setJsonIsCharge] = useState<boolean>(true)
     const selectCurse = useRef(null)
     const selectDeps = useRef(null)
 
-    const setOptionsClassroom = async () => {
-        const jsonData = await GETFunction2('api/income/register/form') as IncomeRegisterOptionsClassrooms
+    const setOptions = async () => {
+        const jsonData = await GETFunction2('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
         setListOfClassrooms(jsonData)
-        const options = jsonData.classrooms.map((opt) => ({
+        const optionsClassrooms = jsonData.classrooms.map((opt) => ({
             value: opt.id,
             label: opt.id
         }))
-        setOptClassroom(options)
+        setOptClassroom(optionsClassrooms)
     }
 
     const classroomCreated = (inputValue: string) => {
@@ -83,7 +84,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     const setOptionsDependency = async (setValue?: string) => {
         // En realidad acá tendría q ir otro endpoint que cargue los cursos DEPENDIENDO del UserToken (Te da los que puede utilizar el usuario)
-        /*const jsonData = await GETFunction('incomeRegisterOptionsClassrooms') as Array<IncomeRegisterOptionsClassrooms>
+        /*const jsonData = await GETFunction('incomeRegisterOptions') as Array<IncomeRegisterOptions>
         const options = jsonData.map((opt) => ({
             value: opt.aula,
             label: opt.aula
@@ -129,7 +130,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     }
 
     useEffect(() => {
-        setOptionsClassroom()
+        setOptions()
     }, [])
 
     useEffect(() => {
@@ -144,7 +145,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>
-            <CreatableSelect maxMenuHeight={140} value={valueClassroom} onChange={(newValue) => selectOptionOfClassroom(newValue)} onCreateOption={classroomCreated} className='w-[33%]' options={optClassroom} placeholder='Aula' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></CreatableSelect>
+            <CreatableSelect maxMenuHeight={140} value={valueClassroom} onChange={(newValue) => selectOptionOfClassroom(newValue)} isDisabled={jsonIsCharge} onCreateOption={classroomCreated} className='w-[33%]' options={optClassroom} placeholder='Aula' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></CreatableSelect>
             <Select maxMenuHeight={140} value={valueDependency} onChange={(newValue: any) => setValueDependency(newValue)} isClearable isDisabled={isDisabled} ref={selectDeps} className='w-[33%]' options={optDependency} placeholder='Dependencias' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
             <Select maxMenuHeight={140} value={valueCurse} onChange={(newValue: any) => setValueCurse(newValue)} isClearable isDisabled={isDisabled} ref={selectCurse} className='w-[33%]' options={optCurse} placeholder='Curso' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
