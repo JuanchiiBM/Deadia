@@ -53,3 +53,8 @@ export interface Option {
     readonly label: string | null | undefined;
     readonly value: string | null | undefined;
 }
+
+export const formatDate = (date: string) => {
+    const formatedDate = date.split('-').reverse()
+    return `${formatedDate[0]}-${formatedDate[1]}-${formatedDate[2]}`
+}

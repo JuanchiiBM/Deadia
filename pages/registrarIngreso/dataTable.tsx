@@ -36,8 +36,10 @@ export interface IRegisters {
     ]
 }
 
+let nextTableData: any
+
 const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClose, setContentModal, dateSelected, setTableLoader, tableLoader }) => {
-    const [tableData, setTableData] = useState<any>()
+    const [tableData, setTableData] = useState<any>(undefined)
     const [tableColumns, setTableColumns] = useState([
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
@@ -51,10 +53,10 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     ]);
 
     const initializeDataTable = async () => {
-        setTableLoader(true)
         if (dateSelected) {
-            const jsonData = await GETFunction2(`api/income/register?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`) as IRegisters
-            const nextTableData = jsonData.list.map((dato) => ({
+            setTableLoader(true)
+            const jsonData = await GETFunction2(`api/income/register?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as IRegisters
+            nextTableData = jsonData.list.map((dato) => ({
                 dni: dato.dni_alumno,
                 grado: dato.dni_alumno,
                 nombre: dato.nom_alumno,
@@ -76,19 +78,19 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
                     );
                 }
             }))
-            setTableData(nextTableData)
+            setTimeout(() => {
+                setTableData(nextTableData)
+            }, 100)
         }
-        setTableLoader(false)
     }
 
     const hydrateActions = () => {
+        console.log('entra5')
         Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
         Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
         if (tableData != undefined) {
             tableData.forEach((dato: any) => {
-                console.log(dato)
                 document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => setContentModal(dato))
-                document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => console.log('asd'))
                 if (onOpen)
                     document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => onOpen())
             })
@@ -96,11 +98,16 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     }
 
     useEffect(() => {
-        initializeDataTable()
+        if (dateSelected) {
+            console.log('entra2')
+            initializeDataTable()
+        }
     }, [dateSelected])
 
     useEffect(() => {
-        hydrateActions()
+        if (dateSelected) {
+            hydrateActions()
+        }
     }, [tableData])
 
     return (

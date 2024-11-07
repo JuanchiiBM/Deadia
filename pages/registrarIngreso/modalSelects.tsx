@@ -2,12 +2,22 @@ import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
-import { GETFunction, createOption, Option } from '@/utils/globals';
+import { GETFunction, GETFunction2, createOption, Option, formatDate } from '@/utils/globals';
 import { RangeValue } from "@react-types/shared";
 import { parseDate } from "@internationalized/date";
 
 interface IncomeRegisterOptionsClassrooms {
-    aula: string
+    classrooms: [
+        IncomeRegisterOptionClassroom
+    ]
+}
+
+interface IncomeRegisterOptionClassroom {
+    curso: string
+    dependencia: string
+    fec_finalizacion: string
+    fec_inicio: string
+    id: number
 }
 
 interface IClassroomCreated {
@@ -32,6 +42,7 @@ interface IModalSelectsRegistrarIngreso {
 
 const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ contentModal, setIsDisabled, isDisabled, valueClassroom, setValueClassroom, valueCurse, setValueCurse, valueDependency, setValueDependency, setValueDatePicker }) => {
     const [optClassroom, setOptClassroom] = useState<any>(undefined)
+    const [listOfClassrooms, setListOfClassrooms] = useState<IncomeRegisterOptionsClassrooms | undefined>(undefined)
     const [optCurse, setOptCurse] = useState<any>(undefined)
     const [optDependency, setOptDependency] = useState<any>(undefined)
 
@@ -39,10 +50,11 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     const selectDeps = useRef(null)
 
     const setOptionsClassroom = async () => {
-        const jsonData = await GETFunction('incomeRegisterOptionsClassrooms') as Array<IncomeRegisterOptionsClassrooms>
-        const options = jsonData.map((opt) => ({
-            value: opt.aula,
-            label: opt.aula
+        const jsonData = await GETFunction2('api/income/register/form') as IncomeRegisterOptionsClassrooms
+        setListOfClassrooms(jsonData)
+        const options = jsonData.classrooms.map((opt) => ({
+            value: opt.id,
+            label: opt.id
         }))
         setOptClassroom(options)
     }
@@ -62,38 +74,24 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
         setOptionsDependency()
     }
 
-    const setOptionsCurse = async (setValue?: Array<IClassroomCreated>) => {
-        // En realidad acá tendría q ir otro endpoint que cargue los cursos DEPENDIENDO del UserToken (Te da los que puede utilizar el usuario)
-        const jsonData = await GETFunction('incomeRegisterOptionsClassrooms') as Array<IncomeRegisterOptionsClassrooms>
-        const options = jsonData.map((opt) => ({
-            value: opt.aula,
-            label: opt.aula
-        }))
-        setOptCurse(options)
-
+    const setOptionsCurse = async (setValue?: string) => {
         if (setValue) {
-            const options = setValue.map((opt) => ({
-                value: opt.curse,
-                label: opt.curse
-            }))
+            const options = [{label: setValue, value: setValue}]
             setValueCurse(options[0])
         }
     }
 
-    const setOptionsDependency = async (setValue?: Array<IClassroomCreated>) => {
+    const setOptionsDependency = async (setValue?: string) => {
         // En realidad acá tendría q ir otro endpoint que cargue los cursos DEPENDIENDO del UserToken (Te da los que puede utilizar el usuario)
-        const jsonData = await GETFunction('incomeRegisterOptionsClassrooms') as Array<IncomeRegisterOptionsClassrooms>
+        /*const jsonData = await GETFunction('incomeRegisterOptionsClassrooms') as Array<IncomeRegisterOptionsClassrooms>
         const options = jsonData.map((opt) => ({
             value: opt.aula,
             label: opt.aula
         }))
-        setOptDependency(options)
+        setOptDependency(options)*/
 
         if (setValue) {
-            const options = setValue.map((opt) => ({
-                value: opt.dependency,
-                label: opt.dependency
-            }))
+            const options = [{label: setValue, value: setValue}]
             setValueDependency(options[0])
         }
     }
@@ -103,15 +101,17 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
         // Aca vendría un POST en el que mando el id del value y compruebo si ya esta cargado,
         // En caso de no estarlo, IsDisabled pasa a false, y ejecutará otra función con el userToken GET para recibir
         // las opciones que tiene disponible el usuario
-        if (newValue.label == 'Z-101' || newValue.label == 'Z-102') {
-            console.log('entra re piola')
+        if (listOfClassrooms?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id == newValue.value)) {
             setIsDisabled(true)
-            const jsonData = await GETFunction(`${newValue.label}`) as Array<IClassroomCreated>
-            setOptionsCurse(jsonData)
-            setOptionsDependency(jsonData)
-            setValueDatePicker({
-                start: parseDate(jsonData[0].initDate),
-                end: parseDate(jsonData[0].finalDate)
+            listOfClassrooms.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
+                if (opt.id == newValue.value) {
+                    setOptionsCurse(opt.curso)
+                    setOptionsDependency(opt.dependencia)
+                    setValueDatePicker({
+                        start: parseDate(formatDate(opt.fec_inicio)),
+                        end: parseDate(formatDate(opt.fec_finalizacion))
+                    })
+                }
             })
         } else {
             setIsDisabled(false)

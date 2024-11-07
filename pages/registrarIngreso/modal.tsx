@@ -50,9 +50,9 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
             id_classroom: valueClassroom,
             id_dependency: valueDependency,
             amount: valueMonto,
-            date: 
+            date: valueDatePicker
         }
-        await POSTFunction(`api/income/register/form`, )
+        await POSTFunction(`api/income/register/form`, _dataObject)
         SuccessAlert('Registro Cargado', '', 'Ok', () => {
             if (onClose)
                 onClose()
