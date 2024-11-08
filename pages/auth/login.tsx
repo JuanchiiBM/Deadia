@@ -34,7 +34,7 @@ export const Login = () => {
 
         if (response.token) {
             localStorage.setItem('userToken', response.token)
-            router.replace("/Inscripciones/verInscripciones");
+            router.replace("/Inscripciones/verInscripcion");
         } else {
             setIsFetching(() => false)
             ErrorAlert('Error', response.error)

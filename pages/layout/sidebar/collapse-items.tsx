@@ -40,12 +40,12 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
                         </div>
                     }
                 >
-                    <div className="pl-2">
+                    <div className="pl-4">
                         {items.map((item, index) => (
                             <SidebarItem
                                 title={item}
                                 key={item + ' ' + index}
-                                className="mb-2 min-h-[34px]"
+                                className="mb-2 min-h-[30px] text-sm"
                                 icon={<FontAwesomeIcon icon={faCircleDot} />}
                                 isActive={pathname === `${path[index]}`}
                                 href={path[index]}

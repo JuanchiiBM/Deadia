@@ -149,7 +149,7 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
                 }
             },
             title: {
-                text: 'Ingresos',
+                text: 'Egresos',
                 style: {
                     color: 'hsl(var(--nextui-content2))' // Color del título del eje Y
                 }

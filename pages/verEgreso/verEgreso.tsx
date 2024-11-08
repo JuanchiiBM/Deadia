@@ -270,7 +270,7 @@ const VerEgreso = () => {
 
     return (
         <>
-            <h1 className='text-4xl'>Inscripciones</h1>
+            <h1 className='text-4xl'>Egresos</h1>
             <Chart chartContent={chartContent} />
             <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} lastTable={lastTable} tableLoader={tableLoader} selectDateRange={selectDateRange} />
             <TableVerEgreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />

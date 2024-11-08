@@ -5,7 +5,7 @@ import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
-import { GETFunction } from '@/utils/globals';
+import { GETFunctionFake } from '@/utils/globals';
 
 DataTable.use(DT);
 
@@ -32,7 +32,7 @@ const DataTableEgresos: React.FC<IDataTable> = ({ setData, data}) => {
       ]);
       // USAR TABLE LOADER CUANDO SE CONECTE CON EL BACK const [tableLoader, setTableLoader] = useState(true);
     const initializeDataTable = async () => {
-        const jsonData = await GETFunction('egress') as Array<IRegisters>
+        const jsonData = await GETFunctionFake('egress') as Array<IRegisters>
         const nextTableData = jsonData.map((dato) => ({
             type: dato.type,
             article: dato.article,

@@ -29,7 +29,7 @@ export const SidebarItem = ({ icon, title, isActive, href = "", className }: Pro
                     isActive
                         ? "bg-background-200 [&_svg_path]:fill-primary"
                         : "hover:bg-background [&_svg_path]:fill-default-400",
-                    `${className} flex gap-2 w-full min-h-[44px] h-full items-center px-3.5 rounded-lg cursor-pointer text-content1 hover:text-content2 transition-all duration-150 active:scale-[0.98]`
+                    `${className} flex gap-2 w-full min-h-[44px] h-full items-center px-2 rounded-lg cursor-pointer text-content1 hover:text-content2 transition-all duration-150 active:scale-[0.98]`
                 )}
                 onClick={handleClick}
             >
