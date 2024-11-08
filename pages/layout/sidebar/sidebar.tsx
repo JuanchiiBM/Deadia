@@ -46,6 +46,12 @@ export const SidebarWrapper = () => {
                             path={["/Egresos/verEgreso", "/Egresos/registrarEgreso"]}
                             title="Egreso"
                         />
+                        <SidebarItem
+                            title="Inventario"
+                            icon={<HomeIcon />}
+                            isActive={pathname === "/"}
+                            href="/Inventario"
+                        />
                     </div>
                 </div>
             </div>
