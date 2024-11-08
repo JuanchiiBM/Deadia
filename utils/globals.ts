@@ -1,4 +1,4 @@
-export const GETFunction = async (value: string) => {
+export const GETFunctionFake = async (value: string) => {
     try {
         const response = await fetch(`http://localhost:3000/${value}`, {
             method: "GET",
@@ -10,7 +10,7 @@ export const GETFunction = async (value: string) => {
     }
 }
 
-export const GETFunction2 = async (url: string, loader?: any) => {
+export const GETFunction = async (url: string, loader?: any) => {
     try {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
             method: "GET",

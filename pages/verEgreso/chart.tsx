@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import Chart, { Props } from "react-apexcharts";
 import '@/styles/apexCharts.css';
 
-interface ChartEgresosProps {
+interface ChartIngresosProps {
     chartContent: Array<object>
 }
 
@@ -18,7 +18,7 @@ interface ChartData {
     maxFecha: string;
 }
 
-export const ChartEgresos: React.FC<ChartEgresosProps> = ({ chartContent }) => {
+export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) => {
     const chartRef = useRef<any>(null);
     const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
 
@@ -149,7 +149,7 @@ export const ChartEgresos: React.FC<ChartEgresosProps> = ({ chartContent }) => {
                 }
             },
             title: {
-                text: 'Egresos',
+                text: 'Ingresos',
                 style: {
                     color: 'hsl(var(--nextui-content2))' // Color del título del eje Y
                 }

@@ -5,12 +5,12 @@ import Selects from './options';
 import { DataTableRef } from 'datatables.net-react';
 import { CalendarDate, now } from '@internationalized/date';
 import { useDisclosure } from '@nextui-org/react';
-import { GETFunction2 } from '@/utils/globals';
+import { GETFunction } from '@/utils/globals';
 import TableVerIngreso from './dataTable';
 
 
 const Chart = dynamic(
-    () => import("@/pages/verInscripciones/chart").then((mod) => mod.ChartIngresos
+    () => import("@/pages/verInscripcion/chart").then((mod) => mod.ChartIngresos
     ),
     {
         ssr: false,
@@ -103,7 +103,7 @@ const VerIngreso = () => {
                         { data: 'fecha', title: 'Fecha' },
                         { data: 'ingreso', title: 'Ingreso Acumulado' },
                     ];
-                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
+                    jsonData = await GETFunction(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
                     const options = [{ value: '0', label: 'Todas' }, ...jsonData.filter.dependency.map((val) => ({
                         value: val.id.toString(),
                         label: val.name
@@ -124,7 +124,7 @@ const VerIngreso = () => {
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
                     ];
-                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
+                    jsonData = await GETFunction(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
                     nextTableData = jsonData.list.grades.map((grade) => ({
                         curso: grade.curso,
                         aula: grade.aula,
@@ -141,7 +141,7 @@ const VerIngreso = () => {
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
                     ];
-                    jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
+                    jsonData = await GETFunction(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_dependency=${value}`, setTableLoader) as ITableDataDep
                     nextTableData = jsonData.list.grades.map((grade) => ({
                         curso: grade.curso,
                         aula: grade.aula,
@@ -171,7 +171,7 @@ const VerIngreso = () => {
             ];
             setTableData([])
             setTableLoader(true)
-            jsonData = await GETFunction2(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_classroom=${value}`, setTableLoader) as ITableDataClassrooms
+            jsonData = await GETFunction(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}&id_classroom=${value}`, setTableLoader) as ITableDataClassrooms
             nextTableData = jsonData.list.classrooms.map((alumno) => ({
                 dni: alumno.dni,
                 nombre: alumno.nombre,

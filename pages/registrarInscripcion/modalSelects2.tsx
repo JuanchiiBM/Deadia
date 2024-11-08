@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
-import { GETFunction2, GETFunction, Option } from '@/utils/globals';
+import { GETFunction, GETFunctionFake, Option } from '@/utils/globals';
 import { IncomeRegisterOptions } from './modalSelects';
 
 interface IUserCategory {
@@ -28,7 +28,7 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
     const [isRequired, setIsRequired] = useState<boolean>(false)
 
     const chargeCategory = async () => {
-        const jsonData = await GETFunction2('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
+        const jsonData = await GETFunction('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
         console.log(jsonData)
         const optionsCategory = jsonData.categories.map((category) => ({
             value: category.id,
@@ -38,7 +38,7 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
     }
 
     const chargeGrade = async () => {
-        const jsonData = await GETFunction('userGrade') as Array<IUserGrade>
+        const jsonData = await GETFunctionFake('userGrade') as Array<IUserGrade>
         const optionsGrade = jsonData.map((grade) => ({
             value: grade.name,
             label: grade.name

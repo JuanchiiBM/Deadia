@@ -5,7 +5,7 @@ import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
-import { GETFunction2 } from '@/utils/globals';
+import { GETFunction } from '@/utils/globals';
 import { UseDisclosureProps } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -55,7 +55,7 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     const initializeDataTable = async () => {
         if (dateSelected) {
             setTableLoader(true)
-            const jsonData = await GETFunction2(`api/income/register?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as IRegisters
+            const jsonData = await GETFunction(`api/income/register?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as IRegisters
             nextTableData = jsonData.list.map((dato) => ({
                 dni: dato.dni_alumno,
                 grado: dato.dni_alumno,

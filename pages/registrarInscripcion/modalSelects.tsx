@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
-import { GETFunction, GETFunction2, createOption, Option, formatDate } from '@/utils/globals';
+import { GETFunction, createOption, Option, formatDate } from '@/utils/globals';
 import { RangeValue } from "@react-types/shared";
 import { parseDate } from "@internationalized/date";
 
@@ -51,7 +51,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     const selectDeps = useRef(null)
 
     const setOptions = async () => {
-        const jsonData = await GETFunction2('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
+        const jsonData = await GETFunction('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
         setListOfClassrooms(jsonData)
         const optionsClassrooms = jsonData.classrooms.map((opt) => ({
             value: opt.id,

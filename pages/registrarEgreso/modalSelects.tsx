@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
-import { GETFunction, Option } from '@/utils/globals';
+import { GETFunctionFake, Option } from '@/utils/globals';
 
 interface ITypes {
     idType: string
@@ -28,7 +28,7 @@ const ModalSelectsEgresos: React.FC<IModalSelectsEgresos> = ({ isDisabled, setIs
     const [optArticles, setOptArticles] = useState<any>(undefined)
 
     const setOptionsTypes = async () => {
-        const jsonData = await GETFunction('type') as Array<ITypes>
+        const jsonData = await GETFunctionFake('type') as Array<ITypes>
         const options = jsonData.map((opt) => ({
             value: opt.idType,
             label: opt.name
@@ -42,7 +42,7 @@ const ModalSelectsEgresos: React.FC<IModalSelectsEgresos> = ({ isDisabled, setIs
             setIsDisabled(true) 
         } else {
             //Aca dependiendo del valor se pasa por parametro en el head y me devuelve los de ese tipo
-            const jsonData = await GETFunction('article') as Array<IArticles>
+            const jsonData = await GETFunctionFake('article') as Array<IArticles>
             const options = jsonData.map((opt) => ({
                 value: opt.idArticle,
                 label: opt.name
