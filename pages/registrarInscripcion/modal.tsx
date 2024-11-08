@@ -6,8 +6,9 @@ import ModalResumenRegistrarIngreso from './modalResumen';
 import ModalSelects2 from './modalSelects2';
 import { RangeValue } from "@react-types/shared";
 import { createOption, Option } from '@/utils/globals';
-import { POSTFunction } from '@/utils/globals';
+import { POSTFunction, formatDateFromDatePicker } from '@/utils/globals';
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     contentModal: any
@@ -47,12 +48,14 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const _dataObject = {
-            id_classroom: valueClassroom,
-            id_dependency: valueDependency,
+            id_classroom: 1,
+            id_dependency: 1,
             amount: valueMonto,
-            date: valueDatePicker
+            date: formatDateFromDatePicker(today(getLocalTimeZone()))
         }
-        await POSTFunction(`api/income/register/form`, _dataObject)
+        console.log(_dataObject)
+        const response = await POSTFunction(`api/income/register/form`, _dataObject)
+        console.log(response)
         SuccessAlert('Registro Cargado', '', 'Ok', () => {
             if (onClose)
                 onClose()

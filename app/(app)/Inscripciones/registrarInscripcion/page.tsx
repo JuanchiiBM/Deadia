@@ -1,5 +1,5 @@
 import React from 'react'
-import RegistrarIngreso from '@/pages/registrarIngreso/registrarIngreso'
+import RegistrarIngreso from '@/pages/registrarInscripcion/registrarInscripcion'
 
 const registrarIngreso = () => {
   return (

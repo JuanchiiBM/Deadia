@@ -32,7 +32,8 @@ export const POSTFunction = async (url: string, _dataObject: object) => {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('userToken')}`
             },
             body: JSON.stringify(_dataObject)
         });
@@ -57,4 +58,8 @@ export interface Option {
 export const formatDate = (date: string) => {
     const formatedDate = date.split('-').reverse()
     return `${formatedDate[0]}-${formatedDate[1]}-${formatedDate[2]}`
+}
+
+export const formatDateFromDatePicker = (obj: {year: number, month: number, day: number}) => {
+    return `${obj.year}-${obj.month}-${obj.day}`
 }

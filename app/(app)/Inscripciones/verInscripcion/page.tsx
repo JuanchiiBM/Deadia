@@ -1,5 +1,5 @@
 import React from 'react'
-import VerIngreso from '@/pages/verIngreso/verIngreso'
+import VerIngreso from '@/pages/verInscripcion/verInscripcion'
 
 const verIngreso = () => {
   return (

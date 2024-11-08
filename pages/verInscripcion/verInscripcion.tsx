@@ -10,7 +10,7 @@ import TableVerIngreso from './dataTable';
 
 
 const Chart = dynamic(
-    () => import("@/pages/verIngreso/chart").then((mod) => mod.ChartIngresos
+    () => import("@/pages/verInscripciones/chart").then((mod) => mod.ChartIngresos
     ),
     {
         ssr: false,
@@ -270,7 +270,7 @@ const VerIngreso = () => {
 
     return (
         <>
-            <h1 className='text-4xl'>Ingresos</h1>
+            <h1 className='text-4xl'>Inscripciones</h1>
             <Chart chartContent={chartContent} />
             <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} lastTable={lastTable} tableLoader={tableLoader} selectDateRange={selectDateRange} />
             <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />
