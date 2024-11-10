@@ -51,6 +51,22 @@ export const POSTFunction = async (url: string, _dataObject: object) => {
     }
 }
 
+export const DELETEFunction = async (url: string) => {
+    try {
+        const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+            },
+        });
+
+        return response.json();
+    } catch (error) {
+        return error; // Retorna un string vacío en caso de error
+    }
+}
+
 export const createOption = (label: string | null | undefined) => ({
     label,
     value: label?.toLowerCase().replace(/\W/g, ''),

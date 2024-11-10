@@ -65,6 +65,20 @@ export interface IncomeRegisterOptionRank {
     id_categoria: number
 }
 
+export type dataObjectIds = {
+    id_classroom: number | null
+    id_dependency: number | null
+    id_grade: number | null
+    id_category: number | null
+}
+
+const initDataObject: dataObjectIds = {
+    id_classroom: null,
+    id_dependency: null,
+    id_grade: null,
+    id_category: null
+}
+
 
 const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, onOpen, contentModal }) => {
     const [valueDNI, setValueDNI] = useState<string | undefined>()
@@ -81,6 +95,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
         start: null,
         end: null,
     });
+    const [dataObject, setDataObject] = useState<dataObjectIds>(initDataObject)
     const [isDisabled, setIsDisabled] = useState(true)
     const [jsonData, setJsonData] = useState<any>(undefined)
     const [jsonIsCharged, setJsonIsCharged] = useState<boolean>(true)
@@ -102,12 +117,19 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const _dataObject = {
-            id_classroom: 1,
-            id_dependency: 1,
+            id_classroom: dataObject?.id_classroom,
+            id_dependency: dataObject?.id_dependency,
             amount: valueMonto,
-            date: formatDateFromDatePicker(today(getLocalTimeZone()))
+            date: formatDateFromDatePicker(today(getLocalTimeZone())),
+            dni: valueDNI,
+            name: valueNombre,
+            last_name: valueApellido,
+            email: valueMail,
+            id_category: dataObject?.id_category,
+            status: true
         }
         console.log(_dataObject)
+        
         const response = await POSTFunction(`api/income/register/form`, _dataObject)
         console.log(response)
         SuccessAlert('Registro Cargado', '', 'Ok', () => {
@@ -143,13 +165,13 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                                     </div>
                                     <div className="mt-7">
                                         <Input value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
-                                        <ModalSelects2 jsonData={jsonData} jsonIsCharged={jsonIsCharged} setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade} isOpen={isOpen} />
+                                        <ModalSelects2 setDataObject={setDataObject} jsonData={jsonData} jsonIsCharged={jsonIsCharged} setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade} isOpen={isOpen} />
                                     </div>
                                 </div>
 
                                 <div>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del curso:</h3>
-                                    <ModalSelectsRegistrarIngreso jsonData={jsonData} jsonIsCharged={jsonIsCharged} contentModal={contentModal} setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
+                                    <ModalSelectsRegistrarIngreso setDataObject={setDataObject} jsonData={jsonData} jsonIsCharged={jsonIsCharged} contentModal={contentModal} setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
                                         setValueCurse={setValueCurse} valueCurse={valueCurse} setValueDependency={setValueDependency} valueDependency={valueDependency} setValueDatePicker={setValueDatePicker} />
                                     <div className='flex gap-2'>
                                         <Input maxLength={20} value={valueMonto} onChange={(e) => setValueMonto(e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required />

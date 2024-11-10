@@ -18,7 +18,6 @@ export const SuccessAlert = (title?: string, text?: string | undefined, textBtn?
     focusConfirm: false,
     customClass: {
       popup: 'sweetAlertContainer',
-      confirmButton: 'sweetAlertConfirm'
     }
   }).then(() => {
     if (callBack)
@@ -29,6 +28,35 @@ export const SuccessAlert = (title?: string, text?: string | undefined, textBtn?
     MySwal
   )
 }
+
+export const QuestionAlert = (title?: string, text?: string | undefined, textBtn?: string | undefined, callBack?: () => void) => {
+  MySwal.fire({
+    title: <p>{title ? title : 'Genial!'}</p>,
+    text: `${text ? text : ''}`,
+    icon: 'question',
+    iconColor: 'hsl(var(--nextui-warning))',
+    backdrop: false,
+    background: 'hsl(var(--nextui-default-100))',
+    color: 'hsl(var(--nextui-default-800))',
+    showCancelButton: true,
+    confirmButtonText: `${textBtn ? textBtn : 'OK'}`,
+    confirmButtonColor: 'hsl(var(--nextui-warning))',
+    cancelButtonText: 'Cancelar',
+    focusConfirm: false,
+    customClass: {
+      popup: 'sweetAlertContainer',
+    }
+  }).then((result) => {
+    if (callBack && result.isConfirmed)
+      return callBack()
+  })
+
+  return (
+    MySwal
+  )
+}
+
+
 
 export const ErrorAlert = (title?: string, text?: string | undefined, textBtn?: string | undefined, callBack?: () => void) => {
   MySwal.fire({
@@ -44,7 +72,6 @@ export const ErrorAlert = (title?: string, text?: string | undefined, textBtn?: 
     focusConfirm: false,
     customClass: {
       popup: 'sweetAlertContainer',
-      confirmButton: 'sweetAlertConfirm sweetAlertConfirmLight'
     }
   }).then(() => {
     if (callBack)

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
 import { GETFunction, GETFunctionFake, Option } from '@/utils/globals';
-import { IncomeRegisterOptions } from './modal';
+import { IncomeRegisterOptions, dataObjectIds } from './modal';
 
 interface IUserCategory {
     name: string
@@ -13,16 +13,17 @@ interface IUserGrade {
 }
 
 interface IModalSelects2 {
-    setValueCategory: React.Dispatch<React.SetStateAction<Option | null | undefined>>,
+    setValueCategory: React.Dispatch<React.SetStateAction<Option | null | undefined>>
     valueCategory: Option | null | undefined
-    setValueGrade: React.Dispatch<React.SetStateAction<Option | null | undefined>>,
-    valueGrade: Option | null | undefined,
+    setValueGrade: React.Dispatch<React.SetStateAction<Option | null | undefined>>
+    valueGrade: Option | null | undefined
     isOpen: boolean | undefined
     jsonData: IncomeRegisterOptions
     jsonIsCharged: boolean
+    setDataObject: React.Dispatch<React.SetStateAction<dataObjectIds | any>>
 }
 
-const ModalSelects2: React.FC<IModalSelects2> = ({ jsonData, jsonIsCharged, setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen }) => {
+const ModalSelects2: React.FC<IModalSelects2> = ({ setDataObject, jsonData, jsonIsCharged, setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen }) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optGrade, setOptGrade] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
@@ -45,8 +46,8 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ jsonData, jsonIsCharged, setV
             value: grade.id,
             label: grade.grado
         }))
-        
-        setOptGrade(optionsGrade)        
+
+        setOptGrade(optionsGrade)
 
         switch (optionsGrade.length) {
             case 0:
@@ -63,6 +64,11 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ jsonData, jsonIsCharged, setV
 
     const selectCategory = (newValue: any) => {
         setValueCategory(newValue)
+        setDataObject((dataPrev: dataObjectIds) => {
+            dataPrev = dataPrev
+            dataPrev.id_category = newValue.value
+            return dataPrev
+        })
         chargeGrade(newValue.value)
     }
 
