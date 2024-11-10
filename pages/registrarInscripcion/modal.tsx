@@ -6,15 +6,67 @@ import ModalResumenRegistrarIngreso from './modalResumen';
 import ModalSelects2 from './modalSelects2';
 import { RangeValue } from "@react-types/shared";
 import { createOption, Option } from '@/utils/globals';
-import { POSTFunction, formatDateFromDatePicker } from '@/utils/globals';
+import { POSTFunction, formatDateFromDatePicker, GETFunction } from '@/utils/globals';
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     contentModal: any
+    setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClose, onOpen, contentModal }) => {
+export interface IncomeRegisterOptions {
+    classrooms: [
+        IncomeRegisterOptionClassroom
+    ],
+    categories: [
+        IncomeRegisterOptionCategory
+    ],
+    deps: [
+        IncomeRegisterOptionDep
+    ],
+    grades: [
+        IncomeRegisterOptionGrade
+    ],
+    ranks: [
+        IncomeRegisterOptionRank
+    ]
+}
+
+export interface IncomeRegisterOptionClassroom {
+    curso: string
+    dependencia: string
+    fec_finalizacion: string
+    fec_inicio: string
+    codigo: string
+    id: number
+    id_curso: number
+    id_dependencia: number
+}
+
+export interface IncomeRegisterOptionCategory {
+    id: number
+    categoria: string
+}
+
+export interface IncomeRegisterOptionDep {
+    id: number
+    dependencia: string
+}
+
+export interface IncomeRegisterOptionGrade {
+    id: number
+    curso: string
+}
+
+export interface IncomeRegisterOptionRank {
+    id: number
+    grado: string
+    id_categoria: number
+}
+
+
+const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, onOpen, contentModal }) => {
     const [valueDNI, setValueDNI] = useState<string | undefined>()
     const [valueNombre, setValueNombre] = useState<string | undefined>()
     const [valueApellido, setValueApellido] = useState<string | undefined>()
@@ -30,6 +82,8 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
         end: null,
     });
     const [isDisabled, setIsDisabled] = useState(true)
+    const [jsonData, setJsonData] = useState<any>(undefined)
+    const [jsonIsCharged, setJsonIsCharged] = useState<boolean>(true)
 
     useEffect(() => {
         setValueDNI(contentModal ? contentModal.dni : '')
@@ -62,12 +116,22 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
         })
     }
 
+    const initOptions = async () => {
+        const jsonDataResponse = await GETFunction('api/income/register/form', setJsonIsCharged) as IncomeRegisterOptions
+        setJsonData(jsonDataResponse)
+        setOptionsCharged(true)
+    }
+
+    useEffect(() => {
+        initOptions()
+    }, [])
+
     return (
         <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">{contentModal ? 'Editar Ingreso (cargado por)' : 'Registrar Ingreso'}</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{contentModal ? `Editar Ingreso (cargado por ${contentModal.usuario})` : 'Registrar Ingreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
                                 <div className='mb-[75px]'>
@@ -79,13 +143,13 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ isOpen, onClo
                                     </div>
                                     <div className="mt-7">
                                         <Input value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
-                                        <ModalSelects2 setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade} isOpen={isOpen} />
+                                        <ModalSelects2 jsonData={jsonData} jsonIsCharged={jsonIsCharged} setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade} isOpen={isOpen} />
                                     </div>
                                 </div>
 
                                 <div>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del curso:</h3>
-                                    <ModalSelectsRegistrarIngreso contentModal={contentModal} setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
+                                    <ModalSelectsRegistrarIngreso jsonData={jsonData} jsonIsCharged={jsonIsCharged} contentModal={contentModal} setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
                                         setValueCurse={setValueCurse} valueCurse={valueCurse} setValueDependency={setValueDependency} valueDependency={valueDependency} setValueDatePicker={setValueDatePicker} />
                                     <div className='flex gap-2'>
                                         <Input maxLength={20} value={valueMonto} onChange={(e) => setValueMonto(e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required />

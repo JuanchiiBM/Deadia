@@ -24,13 +24,15 @@ interface IDataTable extends UseDisclosureProps {
 export interface IRegisters {
     list: [
         {
-            dependencia: string
-            dni_alumno: string
-            nom_alumno: string
             aula: string
             curso: string
-            monto: number
+            dependencia: string
+            dni_alumno: string
             fec_compra: string
+            id: number
+            mail: string
+            monto: number
+            nom_alumno: string
             usuario: string
         }
     ]
@@ -57,10 +59,12 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
             setTableLoader(true)
             const jsonData = await GETFunction(`api/income/register?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as IRegisters
             nextTableData = jsonData.list.map((dato) => ({
+                id: dato.id,
+                usuario: dato.usuario,
                 dni: dato.dni_alumno,
                 grado: dato.dni_alumno,
                 nombre: dato.nom_alumno,
-                mail: dato.dni_alumno,
+                mail: dato.mail,
                 categoria: dato.dni_alumno, //dato.categoria == 'Militar' ? `${dato.categoria} (${dato.grado})` : `${dato.categoria}`,
                 categoriaSinGrado: dato.dni_alumno,
                 dependencia: dato.dependencia,
@@ -70,8 +74,8 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
                 monto: dato.monto,
                 acciones: () => {
                     return ReactDOMServer.renderToString(
-                        <div id={`actions-${dato.aula}-${dato.dni_alumno}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                            <button className="edit-btn btn-sigma" id={`edit-btn-${dato.aula}-${dato.dni_alumno}`}>
+                        <div id={`actions-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                            <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}>
                                 <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
                             <button className="delete-btn btn-sigma"> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
                         </div>
@@ -89,9 +93,9 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
         Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
         if (tableData != undefined) {
             tableData.forEach((dato: any) => {
-                document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => setContentModal(dato))
+                document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
                 if (onOpen)
-                    document.getElementById(`edit-btn-${dato.aula}-${dato.dni}`)?.addEventListener('click', () => onOpen())
+                    document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => onOpen())
             })
         }
     }

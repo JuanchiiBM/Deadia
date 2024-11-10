@@ -13,10 +13,11 @@ interface IOptionsRegistrarIngreso {
     onOpen: () => void
     setContentModal: React.Dispatch<React.SetStateAction<undefined>>
     dateRef: any
+    optionsCharged: boolean
     selectDateRange: () => Promise<void>
 }
 
-const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ onOpen, setContentModal, dateRef, selectDateRange }) => {
+const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCharged, onOpen, setContentModal, dateRef, selectDateRange }) => {
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
         start: startOfYear(today(getLocalTimeZone())),
         end: today(getLocalTimeZone()),
@@ -43,7 +44,7 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ onOpen, s
                     inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                 }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
             </I18nProvider>
-            <Button onClick={resetModal} className='content-center h-full text-content2 text-md rounded-md' color='primary' startContent={
+            <Button isDisabled={!optionsCharged} onClick={resetModal} className='content-center h-full text-content2 text-md rounded-md' color='primary' startContent={
                 <FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl' />
             }>Crear Registro</Button>
         </div>

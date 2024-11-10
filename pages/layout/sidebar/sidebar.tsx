@@ -37,20 +37,26 @@ export const SidebarWrapper = () => {
                         <CollapseItems
                             icon={<AccountsIcon />}
                             items={["Visualizar Inscripciones", "Registrar Inscripciones"]}
-                            path={["/Inscripciones/verInscripcion", "/Inscripciones/registrarInscripcion"]}
+                            path={["/inscripciones/verInscripcion", "/inscripciones/registrarInscripcion"]}
                             title="Inscripcion"
                         />
                         <CollapseItems
                             icon={<AccountsIcon />}
                             items={["Visualizar Egresos", "Registrar Egresos"]}
-                            path={["/Egresos/verEgreso", "/Egresos/registrarEgreso"]}
+                            path={["/egresos/verEgreso", "/egresos/registrarEgreso"]}
                             title="Egreso"
                         />
                         <SidebarItem
                             title="Inventario"
                             icon={<HomeIcon />}
-                            isActive={pathname === "/"}
+                            isActive={pathname === "/inventario"}
                             href="/Inventario"
+                        />
+                        <CollapseItems
+                            icon={<AccountsIcon />}
+                            items={["Usuarios"]}
+                            path={["/sistema/usuarios"]}
+                            title="Sistema"
                         />
                     </div>
                 </div>

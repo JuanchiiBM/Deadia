@@ -45,7 +45,7 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
                             <SidebarItem
                                 title={item}
                                 key={item + ' ' + index}
-                                className="mb-2 min-h-[30px] text-sm"
+                                className="mb-2 py-1 text-sm"
                                 icon={<FontAwesomeIcon icon={faCircleDot} />}
                                 isActive={pathname === `${path[index]}`}
                                 href={path[index]}

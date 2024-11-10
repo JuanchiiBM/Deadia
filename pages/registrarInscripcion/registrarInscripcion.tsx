@@ -10,6 +10,7 @@ const RegistrarIngreso = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [contentModal, setContentModal] = useState()
     const [dateSelected, setDateSelected] = useState<any[]>()
+    const [optionsCharged, setOptionsCharged] = useState<boolean>(false)
     const dateRef = useRef<any>()
     const [tableLoader, setTableLoader] = useState(true);
 
@@ -25,9 +26,9 @@ const RegistrarIngreso = () => {
     return (
         <>
             <h1 className='text-4xl'>Inscripciones</h1>
-            <OptionsRegistrarIngreso onOpen={onOpen} setContentModal={setContentModal} dateRef={dateRef} selectDateRange={selectDateRange} />
+            <OptionsRegistrarIngreso optionsCharged={optionsCharged} onOpen={onOpen} setContentModal={setContentModal} dateRef={dateRef} selectDateRange={selectDateRange} />
             <DataTableRegistrarIngreso setTableLoader={setTableLoader} tableLoader={tableLoader} isOpen={isOpen} onClose={onClose} onOpen={onOpen} setContentModal={setContentModal} dateSelected={dateSelected} />
-            <ModalRegistrarIngreso isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
+            <ModalRegistrarIngreso setOptionsCharged={setOptionsCharged} isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
         </>
     )
 }

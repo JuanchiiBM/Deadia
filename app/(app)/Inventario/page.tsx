@@ -1,12 +1,12 @@
 import React from 'react'
-import InventarioPage from '@/pages/inventario/inventario'
+import Inventario from '@/pages/inventario/inventario'
 
-const Inventario = () => {
+const inventario = () => {
     return (
         <div>
-            <InventarioPage />
+            <Inventario />
         </div>
     )
 }
 
-export default Inventario
+export default inventario

@@ -73,7 +73,7 @@ interface ITableDataClassrooms {
 const today = now('UTC');
 const startOfYear = new CalendarDate(today.year, 1, 1);
 
-const InventarioPage = () => {
+const Inventario = () => {
     const [chartContent, setChartContent] = useState([{}])
     const [tableData, setTableData] = useState([]);
     const [tableLoader, setTableLoader] = useState(true);
@@ -278,4 +278,4 @@ const InventarioPage = () => {
     )
 }
 
-export default InventarioPage
+export default Inventario

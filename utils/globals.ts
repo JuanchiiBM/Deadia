@@ -19,8 +19,14 @@ export const GETFunction = async (url: string, loader?: any) => {
                 'Authorization': `Bearer ${localStorage.getItem('userToken')}`
             }
         });
+        const finalResponse = response.json()
         if (loader) loader(false)
-        return response.json();
+
+        console.log(url)
+        console.log(finalResponse)
+        console.log('-_-_-_-_-_-_-_-_-_-_-_-_')
+
+        return finalResponse;
     } catch (error) {
         console.error("Error:", error);
         return []; // Retorna un string vacío en caso de error
@@ -60,6 +66,6 @@ export const formatDate = (date: string) => {
     return `${formatedDate[0]}-${formatedDate[1]}-${formatedDate[2]}`
 }
 
-export const formatDateFromDatePicker = (obj: {year: number, month: number, day: number}) => {
+export const formatDateFromDatePicker = (obj: { year: number, month: number, day: number }) => {
     return `${obj.year}-${obj.month}-${obj.day}`
 }

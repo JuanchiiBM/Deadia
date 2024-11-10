@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
 import { GETFunction, GETFunctionFake, Option } from '@/utils/globals';
-import { IncomeRegisterOptions } from './modalSelects';
+import { IncomeRegisterOptions } from './modal';
 
 interface IUserCategory {
     name: string
@@ -18,18 +18,17 @@ interface IModalSelects2 {
     setValueGrade: React.Dispatch<React.SetStateAction<Option | null | undefined>>,
     valueGrade: Option | null | undefined,
     isOpen: boolean | undefined
+    jsonData: IncomeRegisterOptions
+    jsonIsCharged: boolean
 }
 
-const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen }) => {
+const ModalSelects2: React.FC<IModalSelects2> = ({ jsonData, jsonIsCharged, setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen }) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optGrade, setOptGrade] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
-    const [jsonIsCharge, setJsonIsCharge] = useState<boolean>(true)
     const [isRequired, setIsRequired] = useState<boolean>(false)
 
     const chargeCategory = async () => {
-        const jsonData = await GETFunction('api/income/register/form', setJsonIsCharge) as IncomeRegisterOptions
-        console.log(jsonData)
         const optionsCategory = jsonData.categories.map((category) => ({
             value: category.id,
             label: category.categoria
@@ -37,49 +36,43 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setValueGrade, valueGrade, se
         setOptCategory(optionsCategory)
     }
 
-    const chargeGrade = async () => {
-        const jsonData = await GETFunctionFake('userGrade') as Array<IUserGrade>
-        const optionsGrade = jsonData.map((grade) => ({
-            value: grade.name,
-            label: grade.name
+    const chargeGrade = async (id_category: number) => {
+        const jsonGradeFiltered = jsonData.ranks.filter((grade) => {
+            return grade.id_categoria == id_category
+        })
+
+        const optionsGrade = jsonGradeFiltered.map((grade) => ({
+            value: grade.id,
+            label: grade.grado
         }))
-        setOptGrade(optionsGrade)
-    }
+        
+        setOptGrade(optionsGrade)        
 
-    const selectCategory = (newValue: any) => {
-        setValueCategory(newValue)
-
-        switch (newValue.value) {
-            case 'Militar':
-                setIsDisabled(false)
-                setIsRequired(true)
-                break;
-            default:
+        switch (optionsGrade.length) {
+            case 0:
                 setValueGrade(null)
                 setIsDisabled(true)
                 setIsRequired(false)
                 break;
+            default:
+                setIsDisabled(false)
+                setIsRequired(true)
+                break;
         }
+    }
+
+    const selectCategory = (newValue: any) => {
+        setValueCategory(newValue)
+        chargeGrade(newValue.value)
     }
 
     useEffect(() => {
         chargeCategory()
-        chargeGrade()
     }, [isOpen])
-
-    useEffect(() => {
-        if (valueCategory?.label == 'Militar') {
-            setIsDisabled(false)
-            setIsRequired(true)
-        } else {
-            setIsDisabled(true)
-            setIsRequired(false)
-        }
-    }, [valueCategory])
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>
-            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharge} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered} required></Select>
+            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharged} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered} required></Select>
             <Select maxMenuHeight={200} value={valueGrade} onChange={(newValue: any) => setValueGrade(newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
     )
