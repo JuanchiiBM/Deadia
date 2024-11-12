@@ -50,7 +50,7 @@ export const SidebarWrapper = () => {
                             title="Inventario"
                             icon={<HomeIcon />}
                             isActive={pathname === "/inventario"}
-                            href="/Inventario"
+                            href="/inventario"
                         />
                         <CollapseItems
                             icon={<AccountsIcon />}
