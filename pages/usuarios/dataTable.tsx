@@ -13,27 +13,31 @@ interface ITableUsers {
 }
 
 const TableUsers: React.FC<ITableUsers> = () => {
-    const {isLoading, jsonData} = useJsonData({url: 'asd'})
-    const {tableData, columnsData} = useTableDataForUsers(jsonData)
+    const { isLoading, jsonData } = useJsonData({ url: 'asd' })
+    //const {tableData, columnsData} = useTableDataForUsers(jsonData)
+
+    const tableData: any = []
+    const columnsData: any = []
 
     return (
-        <div className='h-[500px]'>
-            {isLoading == true && <SpinnerForTables />}
-            <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
-                destroy: true,
-                responsive: true,
-                language: {
-                    url: '../dataTableLanguaje.json',
-                },
-            }} >
-                <thead>
-                    <tr>
-                        {columnsData.map((col, index) => (
-                            <th key={index}>{col.data}</th>
-                        ))}
-                    </tr>
-                </thead>
-            </DataTable>
+        <div className='w-[75%]'>
+            {isLoading == true ? <SpinnerForTables /> :
+                <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
+                    destroy: true,
+                    responsive: true,
+                    language: {
+                        url: '../dataTableLanguaje.json',
+                    },
+                }} >
+                    <thead>
+                        <tr>
+                            {columnsData.map((col, index) => (
+                                <th key={index}>{col.data}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                </DataTable>
+            }
         </div>
     )
 }

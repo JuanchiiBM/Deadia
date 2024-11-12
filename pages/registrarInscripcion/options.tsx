@@ -37,7 +37,7 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCh
 
     return (
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
-            <h2 className='content-center text-xl'>Registrar Ingresos</h2>
+            <h2 className='content-center text-xl'>Registrar Inscripciones</h2>
             <I18nProvider locale='es-ES'>
                 <DateRangePicker ref={dateRef} visibleMonths={2} defaultValue={undefined} onChange={(e) => setDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                     input: 'bg-background hover:bg-background focus:bg-background',
