@@ -1,28 +1,29 @@
 import React from 'react'
+import ModalFillUsers from './modalFill'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
+import { IModalUsers } from '@/helpers/interfaces'
+import { useUserSelectOptions } from '@/hooks/useUserSelectOptions';
 
+const ModalUsers: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
+    const { options, isLoading } = useUserSelectOptions()
 
-interface IModalUsers extends UseDisclosureProps {
-
-}
-
-const ModalUsers:React.FC<IModalUsers> = ({ isOpen, onClose}) => {
-  return (
-    <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
+    return (
+        <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1"></ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">
+                            Registrar Usuario
+                        </ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-            
-
+                            <ModalFillUsers selectOptions={options} isLoading={isLoading} />
                         </ModalBody>
 
                         <ModalFooter>
                             <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                             </Button>
-                            <Button color="primary" type='submit' form='register-charge'>
+                            <Button color="primary" type='submit' form='user-form'>
                                 Guardar
                             </Button>
                         </ModalFooter>
@@ -30,7 +31,7 @@ const ModalUsers:React.FC<IModalUsers> = ({ isOpen, onClose}) => {
                 )}
             </ModalContent>
         </Modal>
-  )
+    )
 }
 
 export default ModalUsers

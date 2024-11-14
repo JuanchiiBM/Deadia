@@ -18,6 +18,7 @@ const Chart = dynamic(
 );
 
 let nextTableData: any = [];
+let filterCurse: any = []
 let newColumns: any = [];
 let jsonData
 
@@ -136,6 +137,10 @@ const VerIngreso = () => {
                         fec_finalizacion: grade.fec_finalizacion,
                         ingreso: grade.ingreso
                     }));
+                    filterCurse = jsonData.filter.classroom.map((grade) => ({
+                        id: grade.id,
+                        code: grade.code
+                    }))
                     break;
                 case '2':
                     newColumns = [
@@ -155,14 +160,19 @@ const VerIngreso = () => {
                         fec_finalizacion: grade.fec_finalizacion,
                         ingreso: grade.ingreso
                     }));
+                    filterCurse = jsonData.filter.classroom.map((grade) => ({
+                        id: grade.id,
+                        code: grade.code
+                    }))
                     break;
             }
             setTableKey(prevKey => prevKey + 1);
             setColumns(newColumns);
             setLastTable((prev) => prev =value)
             setChartContent(nextTableData)
+
             if (ret = true)
-                return nextTableData
+                return filterCurse
         }
     };
 
@@ -172,7 +182,7 @@ const VerIngreso = () => {
                 { data: 'dni', title: 'DNI' },
                 { data: 'nombre', title: 'Nombre' },
                 { data: 'mail', title: 'Mail' },
-                { data: 'fecha', title: 'Fecha de Inscripción'},
+                { data: 'fecha', title: 'Fecha de Pago'},
                 { data: 'ingreso', title: 'Ingreso' },
             ];
             setTableData([])

@@ -58,8 +58,8 @@ const ModalSelectsEgresos: React.FC<IModalSelectsEgresos> = ({ isDisabled, setIs
 
     return (
         <div className='flex gap-2 mb-2'>
-            <Select maxMenuHeight={140} value={valueType} onChange={(newValue: any) => setValueTypeAndDisabledArticle(newValue)} options={optTypes} isClearable className='w-[50%]' placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
-            <Select maxMenuHeight={140} value={valueArticle} onChange={(newValue: any) => setValueArticle(newValue)} options={optArticles} isDisabled={isDisabled} isClearable className='w-[50%]' placeholder='Articulo' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
+            <Select maxMenuHeight={140} value={valueType} onChange={(newValue: any) => setValueTypeAndDisabledArticle(newValue)} options={optTypes} isClearable className='w-[50%]' placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
+            <Select maxMenuHeight={140} value={valueArticle} onChange={(newValue: any) => setValueArticle(newValue)} options={optArticles} isDisabled={isDisabled} isClearable className='w-[50%]' placeholder='Articulo' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
     )
 }

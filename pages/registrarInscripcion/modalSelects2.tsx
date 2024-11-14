@@ -78,8 +78,8 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setDataObject, jsonData, json
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>
-            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharged} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered} required></Select>
-            <Select maxMenuHeight={200} value={valueGrade} onChange={(newValue: any) => setValueGrade(newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} isSearchable styles={colourStylesBordered}></Select>
+            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharged} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered} required></Select>
+            <Select maxMenuHeight={200} value={valueGrade} onChange={(newValue: any) => setValueGrade(newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
     )
 }

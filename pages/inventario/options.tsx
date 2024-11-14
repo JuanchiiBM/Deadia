@@ -78,7 +78,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
         <div className='w-full my-[50px] h-[110px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
             <div className='flex flex-col'>
                 <label id='label-dependency' htmlFor="select-dependency">Categoría:</label>
-                <Select aria-labelledby='label-dependency' className='w-[170px]' placeholder='Categorías' ref={depSelect} isDisabled={tableLoader} noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeDependency} options={optionsDeps} defaultValue={optionsDeps[0]} isSearchable styles={colourStyles}></Select>
+                <Select aria-labelledby='label-dependency' className='w-[170px]' placeholder='Categorías' ref={depSelect} isDisabled={tableLoader} noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} onChange={changeDependency} options={optionsDeps} defaultValue={optionsDeps[0]} isSearchable styles={colourStyles}></Select>
             </div>
             <div>
                 <I18nProvider locale='es-ES'>
@@ -91,7 +91,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
             </div>
             <div className='flex flex-col'>
                 <label id='label-curse' htmlFor="select-curso">Artículo:</label>
-                <Select aria-labelledby='label-curse' className='w-[170px]' isDisabled={isDisabled || tableLoader} ref={cursoSelect} placeholder='Artículos' noOptionsMessage={({ inputValue }) => !inputValue ? 'No existe esa opción' : 'No existe esa opción'} onChange={changeCurse} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></Select>
+                <Select aria-labelledby='label-curse' className='w-[170px]' isDisabled={isDisabled || tableLoader} ref={cursoSelect} placeholder='Artículos' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} onChange={changeCurse} options={optCursos} defaultValue={optCursos[0]} isSearchable styles={colourStyles}></Select>
             </div>
         </div>
     )
