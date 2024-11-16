@@ -20,7 +20,7 @@ const TableUsers: React.FC<ITableUsers> = () => {
     const columnsData: any = []
 
     return (
-        <div className='w-[75%] background-200 rounded-lg'>
+        <div className='w-[75%] bg-background-200 rounded-lg'>
             {isLoading == true ? <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,

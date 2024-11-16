@@ -134,7 +134,7 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
     }, [tableData])
 
     return (
-        <div>
+        <div className='bg-background-lg rounded-lg'>
             {showSpinner && <SpinnerC/>}
             {tableLoader == true ?
                 <SpinnerForTables /> :
