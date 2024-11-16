@@ -1,10 +1,10 @@
 import React from 'react'
-import ModalFillProfiles from './modalFill'
+import ModalFillActions from './modalFill'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
 import { IModalUsers } from '@/helpers/interfaces'
 import { useUserSelectOptions } from '@/hooks/useUserSelectOptions';
 
-const ModalProfiles: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
+const ModalActions: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
     const { options, isLoading } = useUserSelectOptions()
 
     return (
@@ -13,10 +13,10 @@ const ModalProfiles: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
                 {(onClose: any) => (
                     <>
                         <ModalHeader className="flex flex-col gap-1">
-                            Registrar Perfil
+                            Crear Accion
                         </ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-                            <ModalFillProfiles selectOptions={options} isLoading={isLoading} />
+                            <ModalFillActions selectOptions={options} isLoading={isLoading} />
                         </ModalBody>
 
                         <ModalFooter>
@@ -34,4 +34,4 @@ const ModalProfiles: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
     )
 }
 
-export default ModalProfiles
+export default ModalActions

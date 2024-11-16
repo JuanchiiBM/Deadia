@@ -8,7 +8,7 @@ import { RangeValue } from "@react-types/shared";
 import { createOption, Option } from '@/utils/globals';
 import { POSTFunction, formatDateFromDatePicker, GETFunction } from '@/utils/globals';
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
-import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
+import { getLocalTimeZone, today } from "@internationalized/date";
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     contentModal: any
@@ -128,8 +128,10 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
             id_category: dataObject?.id_category,
             status: true,
 
-            code: valueClassroom,
-            
+            code: valueClassroom?.label,
+            begin_date: formatDateFromDatePicker(valueDatePicker.start),
+            end_date: formatDateFromDatePicker(valueDatePicker.end),
+            id_grade_type: dataObject.id_grade
         }
         console.log(_dataObject)
         
@@ -152,7 +154,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
     }, [])
 
     return (
-        <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
+        <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background sm:my-0' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
                     <>

@@ -54,8 +54,8 @@ export const SidebarWrapper = () => {
                         />
                         <CollapseItems
                             icon={<AccountsIcon />}
-                            items={["Usuarios", "Perfiles"]}
-                            path={["/sistema/usuarios", "/sistema/perfiles"]}
+                            items={["Usuarios", "Perfiles", "Acciones"]}
+                            path={["/sistema/usuarios", "/sistema/perfiles", "/sistema/acciones"]}
                             title="Sistema"
                         />
                     </div>
