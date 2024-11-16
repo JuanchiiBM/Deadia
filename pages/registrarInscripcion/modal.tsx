@@ -126,7 +126,10 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
             last_name: valueApellido,
             email: valueMail,
             id_category: dataObject?.id_category,
-            status: true
+            status: true,
+
+            code: valueClassroom,
+            
         }
         console.log(_dataObject)
         

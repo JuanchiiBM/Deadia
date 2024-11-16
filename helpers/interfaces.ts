@@ -9,10 +9,6 @@ export interface IProfileUser {
     cant_users: number
 }
 
-export interface IOptionsUser extends UseDisclosureProps {
-
-}
-
 export interface IModalUsers extends UseDisclosureProps {
 
 }

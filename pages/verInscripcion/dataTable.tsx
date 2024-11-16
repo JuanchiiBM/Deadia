@@ -18,7 +18,7 @@ interface ITableVerIngreso {
 const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableKey, tableRef, tableData, columns, tableLoader }) => {
 
     return (
-        <div className='h-[500px]'>
+        <div className='h-[500px] background-200 rounded-lg'>
             {tableLoader == true ?
                 <SpinnerForTables /> :
                 <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column text-sm' columns={columns} options={{

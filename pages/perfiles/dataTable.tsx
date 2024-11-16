@@ -8,11 +8,11 @@ import { useTableDataForUsers } from '@/hooks/useTableDatas';
 
 DataTable.use(DT);
 
-interface ITableUsers {
+interface ITableProfiles {
 
 }
 
-const TableUsers: React.FC<ITableUsers> = () => {
+const TableProfiles: React.FC<ITableProfiles> = () => {
     const { isLoading, jsonData } = useJsonData({ url: 'asd' })
     //const {tableData, columnsData} = useTableDataForUsers(jsonData)
 
@@ -20,7 +20,7 @@ const TableUsers: React.FC<ITableUsers> = () => {
     const columnsData: any = []
 
     return (
-        <div className='w-[75%] background-200 rounded-lg'>
+        <div className='w-full bg-background-200 rounded-lg'>
             {isLoading == true ? <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
@@ -42,4 +42,4 @@ const TableUsers: React.FC<ITableUsers> = () => {
     )
 }
 
-export default TableUsers
+export default TableProfiles
