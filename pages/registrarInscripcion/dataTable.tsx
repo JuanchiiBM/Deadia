@@ -13,6 +13,9 @@ import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import ReactDOMServer from 'react-dom/server';
 import { ErrorAlert, QuestionAlert, SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 import SpinnerC from '@/components/spinner/Spinner';
+import { useJsonData } from '@/hooks/useJsonData';
+import { IRegister, IRegisters } from '@/helpers/interfaces';
+import { useDataTableInscription } from '@/hooks/useDTInscription';
 
 DataTable.use(DT);
 
@@ -23,29 +26,81 @@ interface IDataTable extends UseDisclosureProps {
     tableLoader: boolean
 }
 
-export interface IRegisters {
-    list: [
-        IRegister
-    ]
-}
-
-interface IRegister {
-    aula: string
-    curso: string
-    dependencia: string
-    dni_alumno: string
-    fec_compra: string
-    id: number
-    mail: string
-    monto: number
-    nom_alumno: string
-    usuario: string
-}
-
-let nextTableData: any
-
 const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClose, setContentModal, dateSelected, setTableLoader, tableLoader }) => {
-    const [tableData, setTableData] = useState<any>(undefined)
+    const {isLoading, jsonData} = useJsonData({url: `api/income/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`})
+    const {tableData, columnsData} = useDataTableInscription({jsonData: jsonData})
+    const [showSpinner, setShowSpinner] = useState(false)
+
+
+    const deleteRegister = (dato: IRegister) => {
+        QuestionAlert('Borrar registro', 'Esta usted seguro de proceder con la accion?', 'Confirmar', async () => {
+            setShowSpinner(true)
+            const response = await DELETEFunction(`api/income/register/${dato.id}`)
+            console.log(response)
+            setShowSpinner(false)
+            if (response.status == 'ok') {
+                SuccessAlert('Exito', 'Registro eliminado correctamente')
+            } else {
+                ErrorAlert('Error', response.error)
+            }
+        })
+    }
+    //FALTA UN useTableActions o algo x el estilo, you can!
+    const hydrateActions = () => {
+        Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
+        Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
+        if (tableData != undefined) {
+            tableData.forEach((dato: IRegister) => {
+                document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
+                document.getElementById(`delete-btn-${dato.id}`)?.addEventListener('click', () => deleteRegister(dato))
+                if (onOpen)
+                    document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => onOpen())
+            })
+        }
+    }
+    
+
+    useEffect(() => {
+        if (dateSelected) {
+            //initializeDataTable()
+        }
+    }, [dateSelected])
+
+    useEffect(() => {
+        if (dateSelected) {
+            console.log('asd')
+        }
+    }, [isLoading])
+
+    return (
+        <div className='bg-background-200 rounded-lg'>
+            {showSpinner && <SpinnerC />}
+            {isLoading == true ?
+                <SpinnerForTables /> :
+                <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
+                    destroy: true,
+                    responsive: true,
+                    language: {
+                        url: '../dataTableLanguaje.json',
+                    },
+                }} >
+                    <thead>
+                        <tr>
+                            {columnsData.map((col, index) => (
+                                <th className='truncate' key={index}>{col.data}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                </DataTable>
+            }
+        </div>
+    )
+}
+
+export default DataTableRegistrarIngreso
+
+/*
+const [tableData, setTableData] = useState<any>(undefined)
     const [tableColumns, setTableColumns] = useState([
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
@@ -132,30 +187,4 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClo
             hydrateActions()
         }
     }, [tableData])
-
-    return (
-        <div className='bg-background-200 rounded-lg'>
-            {showSpinner && <SpinnerC/>}
-            {tableLoader == true ?
-                <SpinnerForTables /> :
-                <DataTable data={tableData} className='order-column text-sm' columns={tableColumns} options={{
-                    destroy: true,
-                    responsive: true,
-                    language: {
-                        url: '../dataTableLanguaje.json',
-                    },
-                }} >
-                    <thead>
-                        <tr>
-                            {tableColumns.map((col, index) => (
-                                <th className='truncate' key={index}>{col.data}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                </DataTable>
-            }
-        </div>
-    )
-}
-
-export default DataTableRegistrarIngreso
+    */

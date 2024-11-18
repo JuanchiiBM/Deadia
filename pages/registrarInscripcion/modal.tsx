@@ -3,14 +3,17 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDi
 import { I18nProvider } from "@react-aria/i18n";
 import ModalSelectsRegistrarIngreso from './modalSelects';
 import ModalResumenRegistrarIngreso from './modalResumen';
-import ModalSelects2 from './modalSelects2';
+import ModalSelectsRegistrarIngreso2 from './modalSelects2';
 import { RangeValue } from "@react-types/shared";
 import { createOption, Option } from '@/utils/globals';
 import { POSTFunction, formatDateFromDatePicker, GETFunction } from '@/utils/globals';
-import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
+import { QuestionAlert, SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 import { getLocalTimeZone, today } from "@internationalized/date";
+import { useSearchDNI } from '@/hooks/useSearchDNI';
+import { useFormInscription } from '@/hooks/useFormInscription';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
+    setContentModal: any
     contentModal: any
     setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -65,82 +68,65 @@ export interface IncomeRegisterOptionRank {
     id_categoria: number
 }
 
-export type dataObjectIds = {
-    id_classroom: number | null
-    id_dependency: number | null
-    id_grade: number | null
-    id_category: number | null
-}
+const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, onOpen, contentModal, setContentModal }) => {
+    const { studentInfo, handleInputChange, setStudentInfo } = useFormInscription()
 
-const initDataObject: dataObjectIds = {
-    id_classroom: null,
-    id_dependency: null,
-    id_grade: null,
-    id_category: null
-}
-
-
-const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, onOpen, contentModal }) => {
-    const [valueDNI, setValueDNI] = useState<string | undefined>()
-    const [valueNombre, setValueNombre] = useState<string | undefined>()
-    const [valueApellido, setValueApellido] = useState<string | undefined>()
-    const [valueCategory, setValueCategory] = useState<Option | null>()
-    const [valueGrade, setValueGrade] = useState<Option | null>()
-    const [valueMail, setValueMail] = useState<string | undefined>()
-    const [valueClassroom, setValueClassroom] = useState<Option | null>();
-    const [valueCurse, setValueCurse] = useState<Option | null>();
-    const [valueDependency, setValueDependency] = useState<Option | null>();
-    const [valueMonto, setValueMonto] = useState<string | undefined>();
-    const [valueDatePicker, setValueDatePicker] = useState<RangeValue<any>>({
-        start: null,
-        end: null,
-    });
-    const [dataObject, setDataObject] = useState<dataObjectIds>(initDataObject)
     const [isDisabled, setIsDisabled] = useState(true)
     const [jsonData, setJsonData] = useState<any>(undefined)
     const [jsonIsCharged, setJsonIsCharged] = useState<boolean>(true)
 
+    const { checkExistDNI, isLoading } = useSearchDNI({ handleInputChange })
+
     useEffect(() => {
-        setValueDNI(contentModal ? contentModal.dni : '')
-        setValueNombre(contentModal ? contentModal.nombre.split(' ')[0] : '')
-        setValueApellido(contentModal ? contentModal.nombre.split(' ')[1] : '')
-        setValueCategory(contentModal ? createOption(contentModal.categoriaSinGrado) : null)
-        setValueGrade(contentModal && contentModal.grado != '' ? createOption(contentModal.grado) : null)
-        setValueMail(contentModal ? contentModal.mail : '')
-        setValueClassroom(contentModal ? createOption(contentModal.aula) : null)
-        setValueCurse(undefined)
-        setValueDependency(undefined)
-        setValueMonto(contentModal ? contentModal.monto : '')
-        setValueDatePicker({ start: undefined, end: undefined })
+        setStudentInfo({
+            dni: contentModal ? contentModal.dni : '',
+            name: contentModal ? contentModal.nombre.split(' ')[0] : '',
+            lastname: contentModal ? contentModal.nombre.split(' ')[1] : '',
+            mail: contentModal ? contentModal.mail : '',
+            category: contentModal ? createOption(contentModal.categoriaSinGrado) : null,
+            grade: contentModal && contentModal.grado != '' ? createOption(contentModal.grado) : null,
+            classroom: contentModal ? createOption(contentModal.aula) : null,
+            curse: null,
+            dependency: null,
+            amount: contentModal ? contentModal.monto : '',
+            datePicker: {
+                start: null,
+                end: null
+            }
+        })
     }, [isOpen])
 
-    const cargarIngreso = async (e: FormEvent<HTMLFormElement>) => {
+    const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
         const _dataObject = {
-            id_classroom: dataObject?.id_classroom,
-            id_dependency: dataObject?.id_dependency,
-            amount: valueMonto,
+            id_classroom: parseInt(studentInfo?.classroom?.value || ''),
+            id_dependency: parseInt(studentInfo?.dependency?.value || ''),
+            amount: studentInfo.amount,
             date: formatDateFromDatePicker(today(getLocalTimeZone())),
-            dni: valueDNI,
-            name: valueNombre,
-            last_name: valueApellido,
-            email: valueMail,
-            id_category: dataObject?.id_category,
-            status: true,
+            dni: studentInfo.dni,
+            name: studentInfo.name,
+            last_name: studentInfo.lastname,
+            email: studentInfo.mail,
+            id_category: parseInt(studentInfo?.category?.value || ''),
+            status: repetido == undefined ? 0 : 1,
 
-            code: valueClassroom?.label,
-            begin_date: formatDateFromDatePicker(valueDatePicker.start),
-            end_date: formatDateFromDatePicker(valueDatePicker.end),
-            id_grade_type: dataObject.id_grade
+            code: studentInfo.classroom?.label,
+            begin_date: formatDateFromDatePicker(studentInfo.datePicker.start),
+            end_date: formatDateFromDatePicker(studentInfo.datePicker.end),
+            id_grade_type: parseInt(studentInfo?.curse?.value || '')
         }
-        console.log(_dataObject)
-        
         const response = await POSTFunction(`api/income/register/form`, _dataObject)
         console.log(response)
-        SuccessAlert('Registro Cargado', '', 'Ok', () => {
-            if (onClose)
-                onClose()
-        })
+        if (response.status = 'ok') {
+            SuccessAlert('Registro Cargado', '', 'Ok', () => {
+                if (onClose)
+                    onClose()
+            })
+        } else {
+            QuestionAlert('Registro Repetido', 'Este alumno fue cargado hace menos de 14 días, ¿Esta usted seguro de que desea cargarlo?', 'Cargar', () => {
+                cargarIngreso(e, 1)
+            })
+        }
     }
 
     const initOptions = async () => {
@@ -164,24 +150,23 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                                 <div className='mb-[75px]'>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del alumno:</h3>
                                     <div className='flex gap-2'>
-                                        <Input maxLength={20} value={valueDNI} onChange={(e) => setValueDNI(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='DNI' required type="number" />
-                                        <Input maxLength={30} value={valueNombre} onChange={(e) => setValueNombre(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Nombre' required />
-                                        <Input maxLength={30} value={valueApellido} onChange={(e) => setValueApellido(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Apellido' required />
+                                        <Input maxLength={20} value={studentInfo.dni ? studentInfo.dni : ''} onChange={(e) => checkExistDNI(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='DNI' required type="number" />
+                                        <Input maxLength={30} isDisabled={isLoading} value={studentInfo.name ? studentInfo.name : ''} onChange={(e) => handleInputChange('name', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Nombre' required />
+                                        <Input maxLength={30} isDisabled={isLoading} value={studentInfo.lastname ? studentInfo.lastname : ''} onChange={(e) => handleInputChange('lastname', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Apellido' required />
                                     </div>
                                     <div className="mt-7">
-                                        <Input value={valueMail} onChange={(e) => setValueMail(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
-                                        <ModalSelects2 setDataObject={setDataObject} jsonData={jsonData} jsonIsCharged={jsonIsCharged} setValueCategory={setValueCategory} valueCategory={valueCategory} setValueGrade={setValueGrade} valueGrade={valueGrade} isOpen={isOpen} />
+                                        <Input isDisabled={isLoading} value={studentInfo.mail ? studentInfo.mail : ''} onChange={(e) => handleInputChange('mail', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
+                                        <ModalSelectsRegistrarIngreso2 jsonData={jsonData} jsonIsCharged={jsonIsCharged} studentInfo={studentInfo} handleInputChange={handleInputChange} isOpen={isOpen} />
                                     </div>
                                 </div>
 
                                 <div>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del curso:</h3>
-                                    <ModalSelectsRegistrarIngreso setDataObject={setDataObject} jsonData={jsonData} jsonIsCharged={jsonIsCharged} contentModal={contentModal} setValueClassroom={setValueClassroom} valueClassroom={valueClassroom} setIsDisabled={setIsDisabled} isDisabled={isDisabled}
-                                        setValueCurse={setValueCurse} valueCurse={valueCurse} setValueDependency={setValueDependency} valueDependency={valueDependency} setValueDatePicker={setValueDatePicker} />
+                                    <ModalSelectsRegistrarIngreso studentInfo={studentInfo} handleInputChange={handleInputChange} jsonData={jsonData} jsonIsCharged={jsonIsCharged} contentModal={contentModal} setIsDisabled={setIsDisabled} isDisabled={isDisabled} />
                                     <div className='flex gap-2'>
-                                        <Input maxLength={20} value={valueMonto} onChange={(e) => setValueMonto(e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required />
+                                        <Input maxLength={20} value={studentInfo.amount ? studentInfo.amount : ''} onChange={(e) => handleInputChange('amount', e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required />
                                         <I18nProvider locale='es-ES'>
-                                            <DateRangePicker visibleMonths={2} value={valueDatePicker} onChange={(e) => { setValueDatePicker(e) }} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
+                                            <DateRangePicker visibleMonths={2} value={studentInfo.datePicker} onChange={(e) => { handleInputChange('name', e) }} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
                                                 input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
                                                 inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
                                             }} />
@@ -189,9 +174,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                                     </div>
                                 </div>
                             </form>
-                            <ModalResumenRegistrarIngreso valueDNI={valueDNI} valueNombre={valueNombre} valueApellido={valueApellido} valueClassroom={valueClassroom}
-                                valueCurse={valueCurse} valueDependency={valueDependency} valueMonto={valueMonto} valueDatePicker={valueDatePicker}
-                                valueCategory={valueCategory} valueGrade={valueGrade} valueMail={valueMail} />
+                            <ModalResumenRegistrarIngreso studentInfo={studentInfo} />
                         </ModalBody>
 
                         <ModalFooter>

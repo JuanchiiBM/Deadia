@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
 import { GETFunction, GETFunctionFake, Option } from '@/utils/globals';
-import { IncomeRegisterOptions, dataObjectIds } from './modal';
+import { IncomeRegisterOptions } from './modal';
+import { IUseFormInscription } from '@/helpers/interfaces';
+import { RangeValue } from '@nextui-org/react';
 
 interface IUserCategory {
     name: string
@@ -13,17 +15,14 @@ interface IUserGrade {
 }
 
 interface IModalSelects2 {
-    setValueCategory: React.Dispatch<React.SetStateAction<Option | null | undefined>>
-    valueCategory: Option | null | undefined
-    setValueGrade: React.Dispatch<React.SetStateAction<Option | null | undefined>>
-    valueGrade: Option | null | undefined
+    studentInfo: IUseFormInscription
+    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option) => void
     isOpen: boolean | undefined
     jsonData: IncomeRegisterOptions
     jsonIsCharged: boolean
-    setDataObject: React.Dispatch<React.SetStateAction<dataObjectIds | any>>
 }
 
-const ModalSelects2: React.FC<IModalSelects2> = ({ setDataObject, jsonData, jsonIsCharged, setValueGrade, valueGrade, setValueCategory, valueCategory, isOpen }) => {
+const ModalSelectsRegistrarIngreso2: React.FC<IModalSelects2> = ({ jsonData, jsonIsCharged, studentInfo, handleInputChange, isOpen }) => {
     const [optCategory, setOptCategory] = useState<any>(undefined)
     const [optGrade, setOptGrade] = useState<any>(undefined)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
@@ -51,7 +50,7 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setDataObject, jsonData, json
 
         switch (optionsGrade.length) {
             case 0:
-                setValueGrade(null)
+                handleInputChange('grade', undefined)
                 setIsDisabled(true)
                 setIsRequired(false)
                 break;
@@ -62,14 +61,9 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setDataObject, jsonData, json
         }
     }
 
-    const selectCategory = (newValue: any) => {
-        setValueCategory(newValue)
-        setDataObject((dataPrev: dataObjectIds) => {
-            dataPrev = dataPrev
-            dataPrev.id_category = newValue.value
-            return dataPrev
-        })
-        chargeGrade(newValue.value)
+    const selectCategory = (newValue: Option) => {
+        handleInputChange('category', newValue)
+        chargeGrade(parseInt(newValue.value || ''))
     }
 
     useEffect(() => {
@@ -78,10 +72,10 @@ const ModalSelects2: React.FC<IModalSelects2> = ({ setDataObject, jsonData, json
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>
-            <Select maxMenuHeight={200} value={valueCategory} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharged} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered} required></Select>
-            <Select maxMenuHeight={200} value={valueGrade} onChange={(newValue: any) => setValueGrade(newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
+            <Select maxMenuHeight={200} value={studentInfo.category} onChange={(newValue: any) => selectCategory(newValue)} isDisabled={jsonIsCharged} className='w-[50%]' options={optCategory} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered} required></Select>
+            <Select maxMenuHeight={200} value={studentInfo.grade} onChange={(newValue: any) => handleInputChange('grade', newValue)} isDisabled={isDisabled} required={isRequired} className='w-[50%]' options={optGrade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
     )
 }
 
-export default ModalSelects2
+export default ModalSelectsRegistrarIngreso2

@@ -7,12 +7,16 @@ export const useJsonData = ({ url }: { url: string}) => {
     const [jsonData, setJsonData] = useState<any>(undefined)
 
     const getJsonData = async () => {
-        setJsonData(await GETFunction(url, setIsLoading))
+        if (!url.includes('undefined')) {
+            setIsLoading(true)
+            const json = await GETFunction(url, setIsLoading)
+            setJsonData(json)
+        }
     }
 
     useEffect(() => {
         getJsonData()
-    }, [])
+    }, [url])
 
     return {isLoading, jsonData}
 }

@@ -33,7 +33,7 @@ export const GETFunction = async (url: string, loader?: any) => {
     }
 }
 
-export const POSTFunction = async (url: string, _dataObject: object) => {
+export const POSTFunction = async (url: string, _dataObject: object, loader?: any) => {
     try {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
             method: "POST",
@@ -43,8 +43,14 @@ export const POSTFunction = async (url: string, _dataObject: object) => {
             },
             body: JSON.stringify(_dataObject)
         });
+        const finalResponse = response.json()
+        if (loader) loader(false)
 
-        return response.json();
+        console.log(url)
+        console.log(finalResponse)
+        console.log('-_-_-_-_-_-_-_-_-_-_-_-_')
+
+        return finalResponse;
     } catch (error) {
         console.error("Error:", error);
         return []; // Retorna un string vacío en caso de error

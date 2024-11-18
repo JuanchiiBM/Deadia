@@ -3,7 +3,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import SpinnerForModalTables from '@/components/spinnerTables/SpinnerForModalTables';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useTableDataForUsers } from '@/hooks/useTableDatas';
+import { useTableDataForUsers } from '@/hooks/useDTUsers';
 
 DataTable.use(DT);
 

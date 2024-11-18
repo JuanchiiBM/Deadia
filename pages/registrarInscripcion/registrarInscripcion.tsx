@@ -28,7 +28,7 @@ const RegistrarIngreso = () => {
             <h1 className='text-4xl'>Inscripciones</h1>
             <OptionsRegistrarIngreso optionsCharged={optionsCharged} onOpen={onOpen} setContentModal={setContentModal} dateRef={dateRef} selectDateRange={selectDateRange} />
             <DataTableRegistrarIngreso setTableLoader={setTableLoader} tableLoader={tableLoader} isOpen={isOpen} onClose={onClose} onOpen={onOpen} setContentModal={setContentModal} dateSelected={dateSelected} />
-            <ModalRegistrarIngreso setOptionsCharged={setOptionsCharged} isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
+            <ModalRegistrarIngreso setContentModal={setContentModal} setOptionsCharged={setOptionsCharged} isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
         </>
     )
 }

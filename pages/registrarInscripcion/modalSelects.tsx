@@ -3,29 +3,24 @@ import Select, { SelectInstance } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
 import { GETFunction, createOption, Option, formatDate } from '@/utils/globals';
-import { RangeValue } from "@react-types/shared";
 import { parseDate } from "@internationalized/date";
-import { IncomeRegisterOptions, IncomeRegisterOptionClassroom, dataObjectIds } from './modal';
+import { IncomeRegisterOptions, IncomeRegisterOptionClassroom } from './modal';
+import { IUseFormInscription } from '@/helpers/interfaces';
+import { RangeValue } from '@nextui-org/react';
 
 
 
 interface IModalSelectsRegistrarIngreso {
     setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
     isDisabled: boolean
-    setValueClassroom: React.Dispatch<React.SetStateAction<Option | null | undefined>>
-    valueClassroom: Option | null | undefined
-    setValueCurse: React.Dispatch<React.SetStateAction<Option | null | undefined>>
-    valueCurse: Option | null | undefined
-    setValueDependency: React.Dispatch<React.SetStateAction<Option | null | undefined>>
-    valueDependency: Option | null | undefined
-    setValueDatePicker: React.Dispatch<React.SetStateAction<RangeValue<any>>>
     contentModal: any
-    setDataObject: React.Dispatch<React.SetStateAction<dataObjectIds | any>>
     jsonIsCharged: boolean
     jsonData: IncomeRegisterOptions
+    studentInfo: IUseFormInscription
+    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option) => void
 }
 
-const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ setDataObject, jsonIsCharged, jsonData, contentModal, setIsDisabled, isDisabled, valueClassroom, setValueClassroom, valueCurse, setValueCurse, valueDependency, setValueDependency, setValueDatePicker }) => {
+const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ jsonIsCharged, jsonData, contentModal, setIsDisabled, isDisabled, studentInfo, handleInputChange }) => {
     const [optClassroom, setOptClassroom] = useState<any>(undefined)
     const [listOfData, setListOfData] = useState<IncomeRegisterOptions | undefined>(undefined)
     const [optCurse, setOptCurse] = useState<any>(undefined)
@@ -36,6 +31,7 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     const setOptions = async () => {
         setListOfData(jsonData)
+        console.log(jsonData)
         const optionsClassrooms = jsonData.classrooms.map((opt) => ({
             value: opt.id,
             label: opt.codigo
@@ -51,89 +47,62 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     const classroomCreated = (inputValue: string) => {
         const newOption = createOption(inputValue)
         setOptClassroom((prev: any) => [...prev, newOption]);
-        setValueClassroom(newOption);
-        setDataObject((dataPrev: dataObjectIds) => {
-            dataPrev = dataPrev
-            dataPrev.id_classroom = null
-            return dataPrev
-        })
-        setValueCurse(null)
-        setValueDependency(null)
-        setValueDatePicker({
-            start: null,
-            end: null
-        })
+        handleInputChange('classroom', newOption)
+        handleInputChange('curse', undefined)
+        handleInputChange('dependency', undefined)
+        handleInputChange('datePicker', { start: null, end: null })
         setIsDisabled(false)
         setOptionsCurse()
         setOptionsDependency()
     }
 
-    const setOptionsCurse = async (setValue?: string) => {
+    const setOptionsCurse = async (setValue?: IncomeRegisterOptionClassroom) => {
         if (setValue) {
-            const options = [{ label: setValue, value: setValue }]
-            setValueCurse(options[0])
+            const option: Option = { label: setValue.curso, value: setValue.id_curso.toString() }
+            handleInputChange('curse', option)
         }
     }
 
-    const setOptionsDependency = async (setValue?: string) => {
+    const setOptionsDependency = async (setValue?: IncomeRegisterOptionClassroom) => {
         if (setValue) {
-            const options = [{ label: setValue, value: setValue }]
-            setValueDependency(options[0])
+            const option: Option = { label: setValue.dependencia, value: setValue.id_dependencia.toString() }
+            handleInputChange('dependency', option)
         }
     }
 
-    const selectOptionOfClassroom = async (newValue: any) => {
-        setValueClassroom(newValue)
-        console.log(listOfData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id_curso == newValue.value))
-        if (listOfData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id_curso == newValue.value)) {
+    const selectOptionOfClassroom = async (newValue: Option) => {
+        handleInputChange('classroom', newValue)
+        console.log(listOfData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue.value))
+        if (listOfData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue.value)) {
             setIsDisabled(true)
             listOfData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
-                if (opt.id_curso == newValue.value) {
+                if (opt.id.toString() == newValue.value) {
 
-                    setOptionsCurse(opt.curso)
-                    setOptionsDependency(opt.dependencia)
-                    setValueDatePicker({
+                    setOptionsCurse(opt)
+                    setOptionsDependency(opt)
+                    handleInputChange('datePicker', {
                         start: parseDate(formatDate(opt.fec_inicio)),
                         end: parseDate(formatDate(opt.fec_finalizacion))
-                    })
-                    setDataObject((dataPrev: dataObjectIds) => {
-                        dataPrev = dataPrev
-                        dataPrev.id_classroom = opt.id
-                        dataPrev.id_dependency = opt.id_dependencia
-                        dataPrev.id_grade = opt.id_curso
-                        return dataPrev
                     })
                 }
             })
         } else {
             setIsDisabled(false)
-            setValueCurse(null)
-            setValueDependency(null)
-            setValueDatePicker({
-                start: null,
-                end: null
-            })
+            
+            handleInputChange('curse', undefined)
+            handleInputChange('dependency', undefined)
+            handleInputChange('datePicker', {start: null, end: null})
         }
     }
 
-    const selectOptionOfDependency = (newValue: any) => {
-        setValueDependency(newValue)
-        setDataObject((dataPrev: dataObjectIds) => {
-            dataPrev = dataPrev
-            dataPrev.id_dependency = newValue.value
-            return dataPrev
-        })
+    const selectOptionOfDependency = (newValue: Option) => {
+        handleInputChange('dependency', newValue)
         newValue != null ? setCurseDisabled(false) : setCurseDisabled(true)
         chargeOptionsCurse()
     }
 
-    const selectOptionOfCurse = (newValue: any) => {
-        setValueCurse(newValue)
-        setDataObject((dataPrev: dataObjectIds) => {
-            dataPrev = dataPrev
-            dataPrev.id_grade = newValue.value
-            return dataPrev
-        })
+    const selectOptionOfCurse = (newValue: Option) => {
+        handleInputChange('curse', newValue)
     }
 
     const chargeOptionsCurse = () => {
@@ -153,8 +122,8 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
         if (listOfData && contentModal && contentModal.aula) {
             const jsonClassroomFiltered = listOfData.classrooms.find((classroom) => { return classroom.codigo == contentModal.aula })
             console.log(jsonClassroomFiltered)
-            const option = {
-                value: jsonClassroomFiltered?.id_curso,
+            const option: Option = {
+                value: jsonClassroomFiltered?.id_curso.toString(),
                 label: jsonClassroomFiltered?.codigo
             }
             selectOptionOfClassroom(option)
@@ -163,9 +132,9 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
 
     return (
         <div className='flex gap-2 mb-2 mt-8'>
-            <CreatableSelect maxMenuHeight={140} value={valueClassroom} onChange={(newValue) => selectOptionOfClassroom(newValue)} isDisabled={jsonIsCharged} onCreateOption={classroomCreated} className='w-[33%]' options={optClassroom} placeholder='Aula' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></CreatableSelect>
-            <Select maxMenuHeight={140} value={valueDependency} onChange={(newValue: any) => selectOptionOfDependency(newValue)} isClearable isDisabled={isDisabled} ref={selectDeps} className='w-[33%]' options={optDependency} placeholder='Dependencias' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
-            <Select maxMenuHeight={140} value={valueCurse} onChange={(newValue: any) => selectOptionOfCurse(newValue)} isClearable isDisabled={isDisabled || curseDisabled} ref={selectCurse} className='w-[33%]' options={optCurse} placeholder='Curso' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
+            <CreatableSelect maxMenuHeight={140} value={studentInfo.classroom} onChange={(newValue: any) => selectOptionOfClassroom(newValue)} isDisabled={jsonIsCharged} onCreateOption={classroomCreated} className='w-[33%]' options={optClassroom} placeholder='Aula' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></CreatableSelect>
+            <Select maxMenuHeight={140} value={studentInfo.dependency} onChange={(newValue: any) => selectOptionOfDependency(newValue)} isClearable isDisabled={isDisabled} ref={selectDeps} className='w-[33%]' options={optDependency} placeholder='Dependencias' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
+            <Select maxMenuHeight={140} value={studentInfo.curse} onChange={(newValue: any) => selectOptionOfCurse(newValue)} isClearable isDisabled={isDisabled || curseDisabled} ref={selectCurse} className='w-[33%]' options={optCurse} placeholder='Curso' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
         </div>
     )
 }

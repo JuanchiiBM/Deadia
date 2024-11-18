@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { IUsersTable } from "@/helpers/interfaces"
 
-export const useTableDataForUsers = ({ jsonData }: { jsonData: IUsersTable | any}) => {
+export const useDataTableUsers = ({ jsonData }: { jsonData: IUsersTable | any}) => {
     const [tableData, setTableData] = useState<any[] | undefined>(undefined)
     const columnsData = [
         { data: '', title: '' },
