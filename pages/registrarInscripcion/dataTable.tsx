@@ -1,76 +1,29 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import DataTable from 'datatables.net-react';
 import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
-import { DELETEFunction, GETFunction } from '@/utils/globals';
 import { UseDisclosureProps } from '@nextui-org/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import ReactDOMServer from 'react-dom/server';
-import { ErrorAlert, QuestionAlert, SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
 import SpinnerC from '@/components/spinner/Spinner';
+import { IRegister } from '@/helpers/interfaces';
 import { useJsonData } from '@/hooks/useJsonData';
-import { IRegister, IRegisters } from '@/helpers/interfaces';
 import { useDataTableInscription } from '@/hooks/useDTInscription';
+import { useDataTableActionsInscription } from '@/hooks/useDTAInscription';
 
 DataTable.use(DT);
 
 interface IDataTable extends UseDisclosureProps {
     setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>
     dateSelected: any[] | undefined
-    setTableLoader: React.Dispatch<React.SetStateAction<boolean>>
-    tableLoader: boolean
 }
 
-const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, isOpen, onClose, setContentModal, dateSelected, setTableLoader, tableLoader }) => {
+const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentModal, dateSelected }) => {
     const {isLoading, jsonData} = useJsonData({url: `api/income/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`})
     const {tableData, columnsData} = useDataTableInscription({jsonData: jsonData})
-    const [showSpinner, setShowSpinner] = useState(false)
-
-
-    const deleteRegister = (dato: IRegister) => {
-        QuestionAlert('Borrar registro', 'Esta usted seguro de proceder con la accion?', 'Confirmar', async () => {
-            setShowSpinner(true)
-            const response = await DELETEFunction(`api/income/register/${dato.id}`)
-            console.log(response)
-            setShowSpinner(false)
-            if (response.status == 'ok') {
-                SuccessAlert('Exito', 'Registro eliminado correctamente')
-            } else {
-                ErrorAlert('Error', response.error)
-            }
-        })
-    }
-    //FALTA UN useTableActions o algo x el estilo, you can!
-    const hydrateActions = () => {
-        Array.from(document.getElementsByClassName('dt-paging-button')).forEach((button) => button.addEventListener('click', () => hydrateActions()))
-        Array.from(document.getElementsByClassName('dt-input')).forEach((button) => button.addEventListener('change', () => hydrateActions()))
-        if (tableData != undefined) {
-            tableData.forEach((dato: IRegister) => {
-                document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
-                document.getElementById(`delete-btn-${dato.id}`)?.addEventListener('click', () => deleteRegister(dato))
-                if (onOpen)
-                    document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => onOpen())
-            })
-        }
-    }
-    
-
-    useEffect(() => {
-        if (dateSelected) {
-            //initializeDataTable()
-        }
-    }, [dateSelected])
-
-    useEffect(() => {
-        if (dateSelected) {
-            console.log('asd')
-        }
-    }, [isLoading])
+    const {showSpinner} = useDataTableActionsInscription({ tableData: tableData, setContentModal: setContentModal, onOpen: onOpen})
 
     return (
         <div className='bg-background-200 rounded-lg'>

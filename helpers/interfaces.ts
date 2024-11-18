@@ -18,6 +18,12 @@ export interface IUseFormInscription {
     datePicker: RangeValue<any>
 }
 
+export interface IUseDTAInscription {
+    tableData: any[] | undefined,
+    setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>,
+    onOpen: (() => void) | undefined
+}
+
 
 export interface IRegisters {
     list: [

@@ -12,7 +12,6 @@ const RegistrarIngreso = () => {
     const [dateSelected, setDateSelected] = useState<any[]>()
     const [optionsCharged, setOptionsCharged] = useState<boolean>(false)
     const dateRef = useRef<any>()
-    const [tableLoader, setTableLoader] = useState(true);
 
     const selectDateRange = async () => {
         await setDateSelected(dateRef.current.innerText.split('\n').join('').split('-').map((date: any) => {
@@ -27,8 +26,8 @@ const RegistrarIngreso = () => {
         <>
             <h1 className='text-4xl'>Inscripciones</h1>
             <OptionsRegistrarIngreso optionsCharged={optionsCharged} onOpen={onOpen} setContentModal={setContentModal} dateRef={dateRef} selectDateRange={selectDateRange} />
-            <DataTableRegistrarIngreso setTableLoader={setTableLoader} tableLoader={tableLoader} isOpen={isOpen} onClose={onClose} onOpen={onOpen} setContentModal={setContentModal} dateSelected={dateSelected} />
-            <ModalRegistrarIngreso setContentModal={setContentModal} setOptionsCharged={setOptionsCharged} isOpen={isOpen} onClose={onClose} onOpen={onOpen} contentModal={contentModal} />
+            <DataTableRegistrarIngreso onOpen={onOpen} setContentModal={setContentModal} dateSelected={dateSelected} />
+            <ModalRegistrarIngreso setContentModal={setContentModal} setOptionsCharged={setOptionsCharged} isOpen={isOpen} onClose={onClose} contentModal={contentModal} />
         </>
     )
 }

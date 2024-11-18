@@ -4,7 +4,6 @@ import { I18nProvider } from "@react-aria/i18n";
 import ModalSelectsRegistrarIngreso from './modalSelects';
 import ModalResumenRegistrarIngreso from './modalResumen';
 import ModalSelectsRegistrarIngreso2 from './modalSelects2';
-import { RangeValue } from "@react-types/shared";
 import { createOption, Option } from '@/utils/globals';
 import { POSTFunction, formatDateFromDatePicker, GETFunction } from '@/utils/globals';
 import { QuestionAlert, SuccessAlert } from '@/components/sweetAlert/SweetsAlerts';
@@ -68,7 +67,7 @@ export interface IncomeRegisterOptionRank {
     id_categoria: number
 }
 
-const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, onOpen, contentModal, setContentModal }) => {
+const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, contentModal }) => {
     const { studentInfo, handleInputChange, setStudentInfo } = useFormInscription()
 
     const [isDisabled, setIsDisabled] = useState(true)

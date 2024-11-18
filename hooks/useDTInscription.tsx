@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-export const useDataTableInscription = ({ jsonData }: { jsonData: IRegisters | any}) => {
+export const useDataTableInscription = ({ jsonData }: { jsonData: IRegisters | any }) => {
     const [tableData, setTableData] = useState<any[] | undefined>(undefined)
     const columnsData = [
         { data: 'dni', title: 'DNI' },
@@ -45,9 +45,11 @@ export const useDataTableInscription = ({ jsonData }: { jsonData: IRegisters | a
                 }
             }))
             console.log('carga3')
-            setTableData(tableDataMapped)    
+            setTimeout(() => {
+                setTableData(tableDataMapped)
+            }, 100);
         }
     }, [jsonData])
 
-    return {tableData, columnsData}
+    return { tableData, columnsData }
 }
