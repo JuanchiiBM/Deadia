@@ -2,7 +2,7 @@ import React from 'react'
 import ModalFillUsers from './modalFill'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
 import { IModalUsers } from '@/helpers/interfaces'
-import { useUserSelectOptions } from '@/hooks/useUserSelectOptions';
+import { useUserSelectOptions } from '@/hooks/useSelectOptionsUser';
 
 const ModalUsers: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
     const { options, isLoading } = useUserSelectOptions()

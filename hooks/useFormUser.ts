@@ -1,21 +1,24 @@
 import { useState } from "react";
 
-export const useActionForm = () => {
-    const [actionForm, setActionForm] = useState({
+export const useFormUser = () => {
+    const [userForm, setUserForm] = useState({
         nombre: '',
-        descripcion: '',
-        permisos: []
+        apellido: '',
+        usuario: '',
+        mail: '',
+        perfil: null,
+        dependencia: null,
     })
 
     const handleInputChange = (field: string, value: string) => {
-        setActionForm(prev => ({
+        setUserForm(prev => ({
             ...prev,
             [field]: value,
         }))
     };
 
     return {
-        actionForm,
+        userForm,
         handleInputChange,
     };
 };

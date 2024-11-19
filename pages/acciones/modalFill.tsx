@@ -1,12 +1,12 @@
 import React from 'react'
 import { Input } from '@nextui-org/react'
 import { colourStylesBordered } from '@/helpers/selects';
-import { useActionForm } from '@/hooks/useActionForm';
+import { useFormAction } from '@/hooks/useFormAction';
 import { useSubmit } from '@/hooks/useSubmit';
 import { IModalFillUsers } from '@/helpers/interfaces';
 
 const ModalFillActions: React.FC<IModalFillUsers> = ({ isLoading, selectOptions }) => {
-    const { actionForm, handleInputChange } = useActionForm()
+    const { actionForm, handleInputChange } = useFormAction()
     const { handleSubmit } = useSubmit()
 
     return (

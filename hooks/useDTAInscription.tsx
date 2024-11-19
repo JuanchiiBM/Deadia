@@ -4,7 +4,7 @@ import { DELETEFunction } from "@/utils/globals"
 import { IUseDTAInscription } from "@/helpers/interfaces"
 import { useEffect, useState } from "react"
 
-export const useDataTableActionsInscription = ({ tableData, setContentModal, onOpen }: IUseDTAInscription) => {
+export const useDTAInscription = ({ tableData, setContentModal, onOpen }: IUseDTAInscription) => {
     const [showSpinner, setShowSpinner] = useState<boolean>(false)
 
     const deleteRegister = (dato: IRegister) => {

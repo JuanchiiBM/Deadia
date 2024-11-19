@@ -4,7 +4,7 @@ import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useDataTableUsers } from '@/hooks/useDTUsers';
+import { useDTUsers } from '@/hooks/useDTUsers';
 
 DataTable.use(DT);
 
@@ -14,7 +14,7 @@ interface ITableUsers {
 
 const TableUsers: React.FC<ITableUsers> = () => {
     const { isLoading, jsonData } = useJsonData({ url: 'asd' })
-    //const {tableData, columnsData} = useDataTableUsers(jsonData)
+    //const {tableData, columnsData} = useDTUsers(jsonData)
 
     const tableData: any = []
     const columnsData: any = []

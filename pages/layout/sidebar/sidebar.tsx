@@ -1,13 +1,13 @@
 import React from "react";
 import { Sidebar } from "./sidebar.styles";
 import { HomeIcon } from "@/components/icons/sidebar/home-icon";
-import { PaymentsIcon } from "@/components/icons/sidebar/payments-icon";
-import { AccountsIcon } from "@/components/icons/sidebar/accounts-icon";
 import { CollapseItems } from "./collapse-items";
 import { SidebarItem } from "./sidebar-item";
-import { SidebarMenu } from "./sidebar-menu";
 import { useSidebarContext } from "../layout-context";
 import { usePathname } from "next/navigation";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
 
 export const SidebarWrapper = () => {
     const pathname = usePathname();
@@ -30,30 +30,30 @@ export const SidebarWrapper = () => {
                     <div className={Sidebar.Body()}>
                         <SidebarItem
                             title="Home"
-                            icon={<HomeIcon />}
+                            icon={<FontAwesomeIcon icon={faHouse} />}
                             isActive={pathname === "/"}
                             href="/"
                         />
                         <CollapseItems
-                            icon={<AccountsIcon />}
+                            icon={1}
                             items={["Visualizar Inscripciones", "Registrar Inscripciones"]}
                             path={["/inscripciones/verInscripcion", "/inscripciones/registrarInscripcion"]}
                             title="Inscripcion"
                         />
                         <CollapseItems
-                            icon={<AccountsIcon />}
+                            icon={2}
                             items={["Visualizar Egresos", "Registrar Egresos"]}
                             path={["/egresos/verEgreso", "/egresos/registrarEgreso"]}
                             title="Egreso"
                         />
                         <SidebarItem
                             title="Inventario"
-                            icon={<HomeIcon />}
+                            icon={<FontAwesomeIcon icon={faBoxesStacked} />}
                             isActive={pathname === "/inventario"}
                             href="/inventario"
                         />
                         <CollapseItems
-                            icon={<AccountsIcon />}
+                            icon={3}
                             items={["Usuarios", "Perfiles", "Acciones"]}
                             path={["/sistema/usuarios", "/sistema/perfiles", "/sistema/acciones"]}
                             title="Sistema"

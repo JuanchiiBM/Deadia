@@ -44,6 +44,66 @@ export interface IRegister {
     usuario: string
 }
 
+
+export interface IncomeRegisterOptions {
+    classrooms: [
+        IncomeRegisterOptionClassroom
+    ],
+    categories: [
+        IncomeRegisterOptionCategory
+    ],
+    deps: [
+        IncomeRegisterOptionDep
+    ],
+    grades: [
+        IncomeRegisterOptionGrade
+    ],
+    ranks: [
+        IncomeRegisterOptionRank
+    ]
+}
+
+export interface IncomeRegisterOptionClassroom {
+    curso: string
+    dependencia: string
+    fec_finalizacion: string
+    fec_inicio: string
+    codigo: string
+    id: number
+    id_curso: number
+    id_dependencia: number
+}
+
+export interface IncomeRegisterOptionCategory {
+    id: number
+    categoria: string
+}
+
+export interface IncomeRegisterOptionDep {
+    id: number
+    dependencia: string
+}
+
+export interface IncomeRegisterOptionGrade {
+    id: number
+    curso: string
+}
+
+export interface IncomeRegisterOptionRank {
+    id: number
+    grado: string
+    id_categoria: number
+}
+
+export interface IModalSelects2Inscription {
+    studentInfo?: IUseFormInscription
+    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
+    isOpen: boolean | undefined
+    jsonData: IncomeRegisterOptions
+}
+
+
+
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 export interface IUsersTable {

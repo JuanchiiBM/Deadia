@@ -1,23 +1,32 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { ChevronDownIcon } from "@/components/icons/sidebar/chevron-down-icon";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleDot } from "@fortawesome/free-solid-svg-icons";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
-import clsx from "clsx";
+import { faCircleDot, faUserGraduate, faMoneyBillTransfer, faGears } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
-    icon: React.ReactNode;
+    icon: number;
     title: string;
     path: string[];
     items: string[];
 }
 
 export const CollapseItems = ({ icon, items, path, title }: Props) => {
-    const [open, setOpen] = useState(false);
     const pathname = usePathname();
+
+    const icons = (icon: number) => {
+        switch (icon) {
+            case 1:
+                return faUserGraduate
+            case 2:
+                return faMoneyBillTransfer
+            case 3:
+                return faGears
+        }
+        return faCircleDot
+    }
 
     return (
         <div className="flex gap-4 h-full items-center cursor-pointer">
@@ -35,7 +44,7 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
                     aria-label="Accordion 1"
                     title={
                         <div className="flex flex-row gap-2">
-                            <span>{icon}</span>
+                            <span><FontAwesomeIcon icon={icons(icon)} /></span>
                             <span>{title}</span>
                         </div>
                     }

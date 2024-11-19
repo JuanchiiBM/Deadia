@@ -21,7 +21,7 @@ export const useFormInscription = () => {
         }
     })
 
-    const handleInputChange = (field: string, value: string | RangeValue<any> | undefined | Option) => {
+    const handleInputChange = (field: string, value: string | RangeValue<any> | undefined | Option | null) => {
         setStudentInfo(prev => ({
             ...prev,
             [field]: value,

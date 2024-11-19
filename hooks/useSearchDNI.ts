@@ -3,7 +3,7 @@ import { GETFunction, Option } from "@/utils/globals"
 import { RangeValue } from "@nextui-org/react"
 import { IUseSearchDNI, IUseSearchDNIData, IUseFormInscription } from "@/helpers/interfaces"
 
-export const useSearchDNI = ({ handleInputChange }: { handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option) => void }) => {
+export const useSearchDNI = ({ handleInputChange }: { handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void }) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const checkExistDNI = async (value: string) => {

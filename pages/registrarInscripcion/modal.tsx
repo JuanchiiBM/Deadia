@@ -10,61 +10,12 @@ import { QuestionAlert, SuccessAlert } from '@/components/sweetAlert/SweetsAlert
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useSearchDNI } from '@/hooks/useSearchDNI';
 import { useFormInscription } from '@/hooks/useFormInscription';
+import { IRegister, IncomeRegisterOptions } from '@/helpers/interfaces';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
-    setContentModal: any
+    setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>
     contentModal: any
     setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export interface IncomeRegisterOptions {
-    classrooms: [
-        IncomeRegisterOptionClassroom
-    ],
-    categories: [
-        IncomeRegisterOptionCategory
-    ],
-    deps: [
-        IncomeRegisterOptionDep
-    ],
-    grades: [
-        IncomeRegisterOptionGrade
-    ],
-    ranks: [
-        IncomeRegisterOptionRank
-    ]
-}
-
-export interface IncomeRegisterOptionClassroom {
-    curso: string
-    dependencia: string
-    fec_finalizacion: string
-    fec_inicio: string
-    codigo: string
-    id: number
-    id_curso: number
-    id_dependencia: number
-}
-
-export interface IncomeRegisterOptionCategory {
-    id: number
-    categoria: string
-}
-
-export interface IncomeRegisterOptionDep {
-    id: number
-    dependencia: string
-}
-
-export interface IncomeRegisterOptionGrade {
-    id: number
-    curso: string
-}
-
-export interface IncomeRegisterOptionRank {
-    id: number
-    grado: string
-    id_categoria: number
 }
 
 const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, contentModal }) => {
@@ -155,7 +106,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                                     </div>
                                     <div className="mt-7">
                                         <Input isDisabled={isLoading} value={studentInfo.mail ? studentInfo.mail : ''} onChange={(e) => handleInputChange('mail', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
-                                        <ModalSelectsRegistrarIngreso2 jsonData={jsonData} jsonIsCharged={jsonIsCharged} studentInfo={studentInfo} handleInputChange={handleInputChange} isOpen={isOpen} />
+                                        <ModalSelectsRegistrarIngreso2 jsonData={jsonData} studentInfo={studentInfo} handleInputChange={handleInputChange} isOpen={isOpen} />
                                     </div>
                                 </div>
 
@@ -165,7 +116,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                                     <div className='flex gap-2'>
                                         <Input maxLength={20} value={studentInfo.amount ? studentInfo.amount : ''} onChange={(e) => handleInputChange('amount', e.currentTarget.value)} className='m-0' classNames={{ mainWrapper: 'flex justify-end' }} variant='bordered' labelPlacement='outside' placeholder='$' type="number" label='Monto' required />
                                         <I18nProvider locale='es-ES'>
-                                            <DateRangePicker visibleMonths={2} value={studentInfo.datePicker} onChange={(e) => { handleInputChange('name', e) }} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
+                                            <DateRangePicker visibleMonths={2} value={studentInfo.datePicker} onChange={(e) => { handleInputChange('datePicker', e) }} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
                                                 input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
                                                 inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
                                             }} />
