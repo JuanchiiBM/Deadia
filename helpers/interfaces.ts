@@ -18,6 +18,13 @@ export interface IUseFormInscription {
     datePicker: RangeValue<any>
 }
 
+export interface IUseSelectHandleChangeInscription {
+    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
+    jsonData: IncomeRegisterOptions
+    chargueNewClassroom: (value: Option) => void
+    contentModal: any
+}
+
 export interface IUseDTAInscription {
     tableData: any[] | undefined,
     setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>,
@@ -100,6 +107,16 @@ export interface IModalSelects2Inscription {
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
     isOpen: boolean | undefined
     jsonData: IncomeRegisterOptions
+}
+
+export interface IModalSelectsRegistrarIngreso {
+    setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
+    isDisabled: boolean
+    contentModal: any
+    jsonIsCharged: boolean
+    jsonData: IncomeRegisterOptions
+    studentInfo: IUseFormInscription
+    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
 }
 
 

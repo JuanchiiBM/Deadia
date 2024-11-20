@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
-import { IModalSelects2Inscription, IncomeRegisterOptions } from "@/helpers/interfaces"
-import { Option } from "@/utils/globals"
+import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom, IUseSelectHandleChangeInscription } from "@/helpers/interfaces"
+import { Option, createOption, formatDate } from "@/utils/globals"
+import { parseDate } from "@internationalized/date";
 
 export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegisterOptions}) => {
     const [options, setOptions] = useState<{
@@ -43,6 +44,84 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegis
     }, [])
 
     return {options, chargueNewClassroom}
+}
+
+export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, chargueNewClassroom, contentModal}: IUseSelectHandleChangeInscription) => {
+    const [curseDisabled, setCurseDisabled] = useState<boolean>(true)
+    const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+    const classroomCreated = (inputValue: string) => {
+        const newOption = createOption(inputValue)
+        chargueNewClassroom(newOption)
+        handleInputChange('classroom', newOption)
+        handleInputChange('curse', undefined)
+        handleInputChange('dependency', undefined)
+        handleInputChange('datePicker', { start: null, end: null })
+        setIsDisabled(false)
+        setOptionsCurse()
+        setOptionsDependency()
+    }
+
+    const setOptionsCurse = async (setValue?: IncomeRegisterOptionClassroom) => {
+        if (setValue) {
+            const option: Option = { label: setValue.curso, value: setValue.id_curso.toString() }
+            handleInputChange('curse', option)
+        }
+    }
+
+    const setOptionsDependency = async (setValue?: IncomeRegisterOptionClassroom) => {
+        if (setValue) {
+            const option: Option = { label: setValue.dependencia, value: setValue.id_dependencia.toString() }
+            handleInputChange('dependency', option)
+        }
+    }
+
+    const selectOptionOfClassroom = async (newValue: Option) => {
+        handleInputChange('classroom', newValue)
+        if (jsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue.value)) {
+            setIsDisabled(true)
+            jsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
+                if (opt.id.toString() == newValue.value) {
+
+                    setOptionsCurse(opt)
+                    setOptionsDependency(opt)
+                    handleInputChange('datePicker', {
+                        start: parseDate(formatDate(opt.fec_inicio)),
+                        end: parseDate(formatDate(opt.fec_finalizacion))
+                    })
+                }
+            })
+        } else {
+            setIsDisabled(false)
+            
+            handleInputChange('curse', undefined)
+            handleInputChange('dependency', undefined)
+            handleInputChange('datePicker', {start: null, end: null})
+        }
+    }
+
+    const selectOptionOfDependency = (newValue: Option) => {
+        handleInputChange('dependency', newValue)
+        newValue != null ? setCurseDisabled(false) : setCurseDisabled(true)
+    }
+
+    useEffect(() => {
+        if (jsonData && contentModal && contentModal.aula) {
+            const jsonClassroomFiltered = jsonData.classrooms.find((classroom) => { return classroom.codigo == contentModal.aula })
+            console.log(jsonClassroomFiltered)
+            const option: Option = {
+                value: jsonClassroomFiltered?.id_curso.toString(),
+                label: jsonClassroomFiltered?.codigo
+            }
+            selectOptionOfClassroom(option)
+        }
+    }, [jsonData])
+
+    useEffect(() => {
+        setIsDisabled(true)
+    }, [])
+
+    return {selectOptionOfClassroom, selectOptionOfDependency, classroomCreated, curseDisabled, isDisabled}
 }
 
 
