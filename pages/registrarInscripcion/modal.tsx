@@ -38,11 +38,11 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                                     <h3 className='w-full border-b-1 mb-2'>Datos del alumno:</h3>
                                     <div className='flex gap-2'>
                                         <Input maxLength={20} value={studentInfo.dni ? studentInfo.dni : ''} onChange={(e) => checkExistDNI(e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='DNI' required type="number" />
-                                        <Input maxLength={30} isDisabled={isLoading} value={studentInfo.name ? studentInfo.name : ''} onChange={(e) => handleInputChange('name', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Nombre' required />
-                                        <Input maxLength={30} isDisabled={isLoading} value={studentInfo.lastname ? studentInfo.lastname : ''} onChange={(e) => handleInputChange('lastname', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Apellido' required />
+                                        <Input maxLength={30} value={studentInfo.name ? studentInfo.name : ''} onChange={(e) => handleInputChange('name', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Nombre' required />
+                                        <Input maxLength={30} value={studentInfo.lastname ? studentInfo.lastname : ''} onChange={(e) => handleInputChange('lastname', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Apellido' required />
                                     </div>
                                     <div className="mt-7">
-                                        <Input isDisabled={isLoading} value={studentInfo.mail ? studentInfo.mail : ''} onChange={(e) => handleInputChange('mail', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
+                                        <Input value={studentInfo.mail ? studentInfo.mail : ''} onChange={(e) => handleInputChange('mail', e.currentTarget.value)} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='Mail' required type='mail' />
                                         <ModalSelectsRegistrarIngreso2 jsonData={jsonData} studentInfo={studentInfo} handleInputChange={handleInputChange} isOpen={isOpen} />
                                     </div>
                                 </div>

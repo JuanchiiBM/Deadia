@@ -33,6 +33,7 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentMod
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
                     responsive: true,
+                    order: [[6, 'desc']],
                     language: {
                         url: '../dataTableLanguaje.json',
                     },
