@@ -2,6 +2,23 @@ import { useState, useEffect } from "react"
 import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom, IUseSelectHandleChangeInscription } from "@/helpers/interfaces"
 import { Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
+import { GETFunction } from "@/utils/globals";
+
+export const useSelectOptionsInscriptionModal = ({ setOptionsCharged}: { setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>>}) => {
+    const [jsonData, setJsonData] = useState<any>(undefined)
+
+    const initOptions = async () => {
+        const jsonDataResponse = await GETFunction('api/income/register/form') as IncomeRegisterOptions
+        setJsonData(jsonDataResponse)
+        setOptionsCharged(true)
+    }
+
+    useEffect(() => {
+        initOptions()
+    }, [])
+
+    return { jsonData }
+}
 
 export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegisterOptions}) => {
     const [options, setOptions] = useState<{

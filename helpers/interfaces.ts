@@ -31,6 +31,17 @@ export interface IUseDTAInscription {
     onOpen: (() => void) | undefined
 }
 
+export interface IUseUpdateInscription {
+    setStudentInfo: React.Dispatch<React.SetStateAction<IUseFormInscription>>,
+    contentModal: any,
+    isOpen: boolean | undefined
+}
+
+export interface IUsePostInscription {
+    studentInfo: IUseFormInscription
+    onClose: (() => void) | undefined
+}
+
 
 export interface IRegisters {
     list: [
@@ -110,10 +121,7 @@ export interface IModalSelects2Inscription {
 }
 
 export interface IModalSelectsRegistrarIngreso {
-    setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>
-    isDisabled: boolean
     contentModal: any
-    jsonIsCharged: boolean
     jsonData: IncomeRegisterOptions
     studentInfo: IUseFormInscription
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
