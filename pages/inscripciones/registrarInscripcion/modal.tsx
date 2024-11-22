@@ -21,10 +21,10 @@ interface IModalRegistrarIngreso extends UseDisclosureProps {
 const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCharged, isOpen, onClose, contentModal }) => {
     const { studentInfo, handleInputChange, setStudentInfo } = useFormInscription()
 
-    const { checkExistDNI, isLoading } = useSearchDNI({ handleInputChange })
     const { oldRegister } = useUpdateInscription({ setStudentInfo, contentModal, isOpen })
     const { cargarIngreso, showSpinner } = usePostInscription({ studentInfo, oldRegister, onClose })
     const { jsonData } = useSelectOptionsInscriptionModal({ setOptionsCharged })
+    const { checkExistDNI } = useSearchDNI({ handleInputChange, jsonData })
 
 
     return (

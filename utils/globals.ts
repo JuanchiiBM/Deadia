@@ -98,10 +98,14 @@ export const DELETEFunction = async (url: string) => {
     }
 }
 
-export const createOption = (label: string | null | undefined) => ({
-    label,
-    value: label?.toLowerCase().replace(/\W/g, ''),
+export const createOption = (label: string | null | undefined, value?: string) => ({
+    label: label,
+    value: value ? value : label?.toLowerCase().replace(/\W/g, ''),
 })
+
+export const selectOption = (label: string) => {
+
+}
 
 export interface Option {
     readonly label: string | null | undefined;

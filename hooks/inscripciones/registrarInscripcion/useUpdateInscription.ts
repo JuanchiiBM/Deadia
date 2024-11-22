@@ -10,8 +10,8 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
             lastname: contentModal ? contentModal.nombre.split(' ')[1] : '',
             mail: contentModal ? contentModal.mail : '',
             category: contentModal ? createOption(contentModal.categoria) : null,
-            grade: contentModal && contentModal.grado != '-' ? createOption(contentModal.grado) : null,
-            classroom: contentModal ? createOption(contentModal.aula) : null,
+            grade: contentModal && contentModal.grado != '-' ? contentModal.grado : null,
+            classroom: contentModal ? contentModal.aula : null,
             curse: null,
             dependency: null,
             amount: contentModal ? contentModal.monto : '',
@@ -29,8 +29,8 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
         lastname: contentModal ? contentModal.nombre.split(' ')[1] : '',
         mail: contentModal ? contentModal.mail : '',
         category: contentModal ? createOption(contentModal.categoriaSinGrado) : null,
-        grade: contentModal && contentModal.grado != '' ? createOption(contentModal.grado) : null,
-        classroom: contentModal ? createOption(contentModal.aula) : null,
+        grade: contentModal && contentModal.grado != '' ? contentModal.grado : null,
+        classroom: contentModal ? contentModal.aula : null,
         amount: contentModal ? contentModal.monto : '',
     }
 

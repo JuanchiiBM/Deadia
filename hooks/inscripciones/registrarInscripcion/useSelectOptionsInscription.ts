@@ -96,6 +96,7 @@ export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, c
     const selectOptionOfClassroom = async (newValue: Option) => {
         handleInputChange('classroom', newValue)
         if (jsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue.value)) {
+            
             setIsDisabled(true)
             jsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
                 if (opt.id.toString() == newValue.value) {
