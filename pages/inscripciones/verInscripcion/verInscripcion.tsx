@@ -87,7 +87,6 @@ const VerIngreso = () => {
     const [columns, setColumns] = useState([
         { data: 'dependencia', title: 'Dependencia' },
         { data: 'fecha', title: 'Fecha' },
-        { data:'cant_alumnos', title: 'Alumnos'},
         { data: 'ingreso', title: 'Ingreso Acumulado' },
     ]);
 
@@ -103,7 +102,6 @@ const VerIngreso = () => {
                     newColumns = [
                         { data: 'dependencia', title: 'Dependencia' },
                         { data: 'fecha', title: 'Fecha' },
-                        { data:'cant_alumnos', title: 'Alumnos'},
                         { data: 'ingreso', title: 'Ingreso Acumulado' },
                     ];
                     jsonData = await GETFunction(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
@@ -225,16 +223,14 @@ const VerIngreso = () => {
             let mergedData: any = []
 
             tableFiltered.forEach((dato: any) => {
-                const { dependencia, ingreso, cant_alumnos } = dato;
+                const { dependencia, ingreso } = dato;
                 const existingEntry = groupedData.find((item) => item.dependencia === dependencia);
 
                 if (existingEntry) {
                     existingEntry.ingreso += ingreso;
-                    existingEntry.cant_alumnos += cant_alumnos
                 } else {
                     groupedData.push({
                         dependencia,
-                        cant_alumnos: cant_alumnos,
                         ingreso: ingreso,
                         fecha: `${minRange} - ${maxRange}` // Mostrar el rango seleccionado
                     });

@@ -1,11 +1,14 @@
-import { FormEvent } from "react"
-import { formatDateFromDatePicker } from "@/utils/globals"
+import { FormEvent, useState } from "react"
+import { formatDateFromDatePicker, PUTFunction } from "@/utils/globals"
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { SuccessAlert, QuestionAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
 import { IUsePostInscription } from "@/helpers/interfaces";
+import { useUpdateContext } from "./useUpdateContext";
 
-export const usePostInscription = ({ studentInfo, onClose}: IUsePostInscription) => {
+export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePostInscription) => {
+    const [showSpinner, setShowSpinner] = useState<boolean>(false)
+    const { update, setUpdate, setRefreshData } = useUpdateContext()
 
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
@@ -26,10 +29,22 @@ export const usePostInscription = ({ studentInfo, onClose}: IUsePostInscription)
             end_date: formatDateFromDatePicker(studentInfo.datePicker.end),
             id_grade_type: parseInt(studentInfo?.curse?.value || '')
         }
+        setShowSpinner(true)
+        if (!update) {
+            newRegister(_dataObject, e)
+        } else {
+            updateRegister(_dataObject, e)
+        }
+
+    }
+
+    const newRegister = async (_dataObject: any, e: FormEvent<HTMLFormElement>) => {
         const response = await POSTFunction(`api/income/register/form`, _dataObject)
         console.log(response)
+        setShowSpinner(false)
         if (response.status = 'ok') {
             SuccessAlert('Registro Cargado', '', 'Ok', () => {
+                setRefreshData((prev) => prev = prev+1)
                 if (onClose)
                     onClose()
             })
@@ -40,5 +55,22 @@ export const usePostInscription = ({ studentInfo, onClose}: IUsePostInscription)
         }
     }
 
-    return { cargarIngreso }
+    const updateRegister = async (_dataObject: any, e: FormEvent<HTMLFormElement>) => {
+        const response = await PUTFunction(`api/income/register/form/${oldRegister.id}`, {oldRecords: oldRegister, newRecords: _dataObject})
+        console.log(response)
+        setShowSpinner(false)
+        if (response.status = 'ok') {
+            SuccessAlert('Registro Cargado', '', 'Ok', () => {
+                setRefreshData((prev) => prev = prev+1)
+                if (onClose)
+                    onClose()
+            })
+        } else {
+            QuestionAlert('Registro Repetido', 'Este alumno fue cargado hace menos de 14 días, ¿Esta usted seguro de que desea cargarlo?', 'Cargar', () => {
+                cargarIngreso(e, 1)
+            })
+        }
+    }
+
+    return { cargarIngreso, showSpinner }
 }

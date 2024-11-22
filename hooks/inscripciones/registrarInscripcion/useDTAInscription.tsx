@@ -3,9 +3,12 @@ import { QuestionAlert, SuccessAlert, ErrorAlert } from "@/components/sweetAlert
 import { DELETEFunction } from "@/utils/globals"
 import { IUseDTAInscription } from "@/helpers/interfaces"
 import { useEffect, useState } from "react"
+import { useUpdateContext } from "./useUpdateContext"
+import { useSidebarContext } from "@/pages/layout/layout-context"
 
 export const useDTAInscription = ({ tableData, setContentModal, onOpen }: IUseDTAInscription) => {
-    const [showSpinner, setShowSpinner] = useState<boolean>(false)
+    const { setShowSpinner } = useSidebarContext()
+    const { update, setUpdate, setRefreshData } = useUpdateContext()
 
     const deleteRegister = (dato: IRegister) => {
         QuestionAlert('Borrar registro', 'Esta usted seguro de proceder con la accion?', 'Confirmar', async () => {
@@ -14,6 +17,7 @@ export const useDTAInscription = ({ tableData, setContentModal, onOpen }: IUseDT
             console.log(response)
             setShowSpinner(false)
             if (response.status == 'ok') {
+                setRefreshData((prev) => prev = prev+1)
                 SuccessAlert('Exito', 'Registro eliminado correctamente')
             } else {
                 ErrorAlert('Error', response.error)
@@ -28,6 +32,7 @@ export const useDTAInscription = ({ tableData, setContentModal, onOpen }: IUseDT
         if (tableData != undefined) {
             tableData.forEach((dato: IRegister) => {
                 document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => setContentModal(dato))
+                document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => setUpdate(true))
                 document.getElementById(`delete-btn-${dato.id}`)?.addEventListener('click', () => deleteRegister(dato))
                 if (onOpen)
                     document.getElementById(`edit-btn-${dato.id}`)?.addEventListener('click', () => onOpen())
@@ -39,5 +44,5 @@ export const useDTAInscription = ({ tableData, setContentModal, onOpen }: IUseDT
         hydrateActions()
     }, [tableData])
 
-    return {showSpinner}
+    return true
 }

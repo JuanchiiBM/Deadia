@@ -57,6 +57,31 @@ export const POSTFunction = async (url: string, _dataObject: object, loader?: an
     }
 }
 
+export const PUTFunction = async (url: string, _dataObject: object, loader?: any) => {
+    console.log(_dataObject)
+    try {
+        const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+            },
+            body: JSON.stringify(_dataObject)
+        });
+        const finalResponse = response.json()
+        if (loader) loader(false)
+
+        console.log(url)
+        console.log(finalResponse)
+        console.log('-_-_-_-_-_-_-_-_-_-_-_-_')
+
+        return finalResponse;
+    } catch (error) {
+        console.error("Error:", error);
+        return []; // Retorna un string vacío en caso de error
+    }
+}
+
 export const DELETEFunction = async (url: string) => {
     try {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {

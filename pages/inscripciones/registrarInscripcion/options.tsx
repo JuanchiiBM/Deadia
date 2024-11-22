@@ -8,6 +8,7 @@ import { RangeValue } from '@nextui-org/react'
 import { DateRangePicker } from "@nextui-org/react";
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
+import { useUpdateContext } from '@/hooks/inscripciones/registrarInscripcion/useUpdateContext'
 
 interface IOptionsRegistrarIngreso {
     onOpen: () => void
@@ -18,6 +19,8 @@ interface IOptionsRegistrarIngreso {
 }
 
 const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCharged, onOpen, setContentModal, dateRef, selectDateRange }) => {
+    const { update, setUpdate } = useUpdateContext()
+
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
         start: startOfYear(today(getLocalTimeZone())),
         end: today(getLocalTimeZone()),
@@ -25,6 +28,7 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCh
 
     const resetModal = () => {
         setContentModal(undefined)
+        setUpdate(false)
         onOpen()
     }
 

@@ -40,6 +40,7 @@ export interface IUseUpdateInscription {
 export interface IUsePostInscription {
     studentInfo: IUseFormInscription
     onClose: (() => void) | undefined
+    oldRegister: any
 }
 
 
@@ -55,6 +56,8 @@ export interface IRegister {
     dependencia: string
     dni_alumno: string
     fec_compra: string
+    categoria: string
+    grado: string
     id: number
     mail: string
     monto: number

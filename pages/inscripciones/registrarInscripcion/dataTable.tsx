@@ -7,7 +7,6 @@ import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import { UseDisclosureProps } from '@nextui-org/react';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import SpinnerC from '@/components/spinner/Spinner';
 import { IRegister } from '@/helpers/interfaces';
 import { useJsonData } from '@/hooks/useJsonData';
 import { useDTInscription } from '@/hooks/inscripciones/registrarInscripcion/useDTInscription';
@@ -23,11 +22,10 @@ interface IDataTable extends UseDisclosureProps {
 const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentModal, dateSelected }) => {
     const {isLoading, jsonData} = useJsonData({url: `api/income/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`})
     const {tableData, columnsData} = useDTInscription({jsonData: jsonData})
-    const {showSpinner} = useDTAInscription({ tableData: tableData, setContentModal: setContentModal, onOpen: onOpen})
+    const {} = useDTAInscription({ tableData: tableData, setContentModal: setContentModal, onOpen: onOpen})
 
     return (
         <div className='bg-background-200 rounded-lg'>
-            {showSpinner && <SpinnerC />}
             {isLoading == true ?
                 <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{

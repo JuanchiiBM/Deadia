@@ -10,6 +10,7 @@ import { IRegister } from '@/helpers/interfaces';
 import { useUpdateInscription } from '@/hooks/inscripciones/registrarInscripcion/useUpdateInscription';
 import { usePostInscription } from '@/hooks/inscripciones/registrarInscripcion/usePostInscription';
 import { useSelectOptionsInscriptionModal } from '@/hooks/inscripciones/registrarInscripcion/useSelectOptionsInscription';
+import SpinnerC from '@/components/spinner/Spinner';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>
@@ -21,10 +22,10 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
     const { studentInfo, handleInputChange, setStudentInfo } = useFormInscription()
 
     const { checkExistDNI, isLoading } = useSearchDNI({ handleInputChange })
-    const {} = useUpdateInscription({ setStudentInfo, contentModal, isOpen})
-    const { cargarIngreso } = usePostInscription({ studentInfo, onClose})
+    const { oldRegister } = useUpdateInscription({ setStudentInfo, contentModal, isOpen })
+    const { cargarIngreso, showSpinner } = usePostInscription({ studentInfo, oldRegister, onClose })
     const { jsonData } = useSelectOptionsInscriptionModal({ setOptionsCharged })
-   
+
 
     return (
         <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background sm:my-0' isOpen={isOpen} onClose={onClose}>
@@ -33,6 +34,8 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                     <>
                         <ModalHeader className="flex flex-col gap-1">{contentModal ? `Editar Ingreso (cargado por ${contentModal.usuario})` : 'Registrar Ingreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
+                            {showSpinner && <SpinnerC />}
+
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
                                 <div className='mb-[75px]'>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del alumno:</h3>

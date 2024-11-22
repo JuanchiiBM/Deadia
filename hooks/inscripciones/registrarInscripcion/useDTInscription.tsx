@@ -6,6 +6,7 @@ import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) => {
     const [tableData, setTableData] = useState<any[] | undefined>(undefined)
+
     const columnsData = [
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
@@ -24,12 +25,11 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
                 id: dato.id,
                 usuario: dato.usuario,
                 dni: dato.dni_alumno,
-                grado: dato.dni_alumno,
                 nombre: dato.nom_alumno,
                 mail: dato.mail,
-                categoria: dato.dni_alumno, //dato.categoria == 'Militar' ? `${dato.categoria} (${dato.grado})` : `${dato.categoria}`,
-                categoriaSinGrado: dato.dni_alumno,
                 dependencia: dato.dependencia,
+                categoria: dato.grado == '-' ? dato.categoria : `${dato.categoria} (${dato.grado})`,
+                grado: dato.grado,
                 curso: dato.curso,
                 aula: dato.aula,
                 fecha: dato.fec_compra,
