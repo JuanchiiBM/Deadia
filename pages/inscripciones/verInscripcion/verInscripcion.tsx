@@ -164,7 +164,8 @@ const VerIngreso = () => {
                     }));
                     filterCurse = jsonData.filter.classroom.map((grade) => ({
                         id: grade.id,
-                        code: grade.code
+                        code: grade.code,
+                        grade: grade.grade
                     }))
                     break;
             }

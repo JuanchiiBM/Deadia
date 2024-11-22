@@ -14,7 +14,7 @@ export const useSearchDNI = ({ handleInputChange }: { handleInputChange: (field:
             const response: IUseSearchDNI = await GETFunction(`api/pupil?dni=${value}`)
             console.log(response)
             setIsLoading(false)
-            if (response.list.pupil[0]) {
+            if (response.list && response.list.pupil[0]) {
                 const data = response.list.pupil[0]
                 handleInputChange('name', data.nombre)
                 handleInputChange('lastname', data.apellido)

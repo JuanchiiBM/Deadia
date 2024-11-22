@@ -11,7 +11,7 @@ export interface ProvidersProps {
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   return (
-    <NextUIProvider>
+    <NextUIProvider locale="es-ES">
       <NextThemesProvider
         defaultTheme='system'
         attribute='class'

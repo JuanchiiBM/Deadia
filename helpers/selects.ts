@@ -41,6 +41,7 @@ export const colourStylesBordered: StylesConfig = {
         transition: 'all 0.15s ease',
         border: state.isFocused ? '2px solid hsl(var(--nextui-default-800))' : '2px solid hsl(var(--nextui-default-200))',
         borderRadius: '12px',
+        fontSize: '0.875rem',
         display: 'flex',
         outline: 'none',
         color: 'hsl(var(--nextui-content1))'
@@ -48,6 +49,7 @@ export const colourStylesBordered: StylesConfig = {
     input: (baseStyles, state) => ({
         ...baseStyles,
         cursor: 'text',
+        fontSize: '0.875rem',
         color: 'hsl(var(--nextui-content1))'
     }),
     singleValue: (baseStyles, state) => ({
@@ -57,6 +59,7 @@ export const colourStylesBordered: StylesConfig = {
     menu: (baseStyles, state) => ({
         ...baseStyles,
         zIndex: '21',
+        fontSize: '0.875rem',
         background: 'hsl(var(--nextui-background-100))'
     }),
     option: (baseStyles, state) => ({

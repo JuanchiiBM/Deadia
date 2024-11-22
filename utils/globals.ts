@@ -84,7 +84,7 @@ export interface Option {
 }
 
 export const formatDate = (date: string) => {
-    const formatedDate = date.split('-').reverse()
+    const formatedDate = date.split('/').reverse()
     return `${formatedDate[0]}-${formatedDate[1]}-${formatedDate[2]}`
 }
 
