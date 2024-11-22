@@ -6,10 +6,10 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
     useEffect(() => {
         setStudentInfo({
             dni: contentModal ? contentModal.dni : '',
-            name: contentModal ? contentModal.nombre.split(' ')[0] : '',
-            lastname: contentModal ? contentModal.nombre.split(' ')[1] : '',
+            name: contentModal ? contentModal.nombre.split(' ')[1] : '',
+            lastname: contentModal ? contentModal.nombre.split(' ')[0] : '',
             mail: contentModal ? contentModal.mail : '',
-            category: contentModal ? createOption(contentModal.categoria) : null,
+            category: contentModal ? contentModal.categoria.includes('(') ? contentModal.categoria.split(' ')[0] : contentModal.categoria : null,
             grade: contentModal && contentModal.grado != '-' ? contentModal.grado : null,
             classroom: contentModal ? contentModal.aula : null,
             curse: null,
@@ -25,11 +25,11 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
     let oldRegister = {
         id: contentModal ? contentModal.id : '',
         dni: contentModal ? contentModal.dni : '',
-        name: contentModal ? contentModal.nombre.split(' ')[0] : '',
-        lastname: contentModal ? contentModal.nombre.split(' ')[1] : '',
+        name: contentModal ? contentModal.nombre.split(' ')[1] : '',
+        lastname: contentModal ? contentModal.nombre.split(' ')[0] : '',
         mail: contentModal ? contentModal.mail : '',
-        category: contentModal ? createOption(contentModal.categoriaSinGrado) : null,
-        grade: contentModal && contentModal.grado != '' ? contentModal.grado : null,
+        category: contentModal ? contentModal.categoria.includes('(') ? contentModal.categoria.split(' ')[0] : contentModal.categoria : null,
+        grade: contentModal && contentModal.grado != '-' ? contentModal.grado : null,
         classroom: contentModal ? contentModal.aula : null,
         amount: contentModal ? contentModal.monto : '',
     }
