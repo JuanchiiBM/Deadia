@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
 import { Input } from '@nextui-org/react';
 import { IModalSelects2Inscription } from '@/helpers/interfaces';
-import { useSelectOptionsInscription2 } from '@/hooks/useSelectOptionsInscription';
+import { useSelectOptionsInscription2 } from '@/hooks/inscripciones/registrarInscripcion/useSelectOptionsInscription';
 
 const ModalSelectsRegistrarIngreso2: React.FC<IModalSelects2Inscription> = ({ jsonData, studentInfo, handleInputChange, isOpen }) => {
     const { options, isDisabled, selectCategory } = useSelectOptionsInscription2({ jsonData: jsonData, isOpen: isOpen, handleInputChange: handleInputChange })

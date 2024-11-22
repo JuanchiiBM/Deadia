@@ -1,28 +1,30 @@
 import React from 'react'
 import DataTable from 'datatables.net-react';
+import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
-import SpinnerForModalTables from '@/components/spinnerTables/SpinnerForModalTables';
+import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useTableDataForUsers } from '@/hooks/useDTUsers';
+import { useDTUsers } from '@/hooks/sistema/usuarios/useDTUser';
 
 DataTable.use(DT);
 
+interface ITableUsers {
 
-const ModalTableProfiles = () => {
+}
+
+const TableUsers: React.FC<ITableUsers> = () => {
     const { isLoading, jsonData } = useJsonData({ url: 'asd' })
-    //const {tableData, columnsData} = useTableDataForUsers(jsonData)
+    //const {tableData, columnsData} = useDTUsers(jsonData)
 
     const tableData: any = []
     const columnsData: any = []
 
     return (
-        <div className='w-full'>
-            {isLoading == true ? <SpinnerForModalTables /> :
+        <div className='w-[75%] bg-background-200 rounded-lg'>
+            {isLoading == true ? <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
                     responsive: true,
-                    paging: false,
-                    scrollY: '250',
                     language: {
                         url: '../dataTableLanguaje.json',
                     },
@@ -40,4 +42,4 @@ const ModalTableProfiles = () => {
     )
 }
 
-export default ModalTableProfiles
+export default TableUsers

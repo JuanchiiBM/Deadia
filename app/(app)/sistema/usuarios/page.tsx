@@ -1,5 +1,5 @@
 import React from 'react'
-import Usuarios from '@/pages/usuarios/usuarios'
+import Usuarios from '@/pages/sistema/usuarios/usuarios'
 
 const usuarios = () => {
   return (

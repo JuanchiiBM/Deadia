@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input } from '@nextui-org/react'
 import { colourStylesBordered } from '@/helpers/selects';
-import { useProfileForm } from '@/hooks/useProfileForm';
+import { useProfileForm } from '@/hooks/sistema/perfiles/useProfileForm';
 import { useSubmit } from '@/hooks/useSubmit';
 import { IModalFillUsers } from '@/helpers/interfaces';
 import ModalTableProfiles from './modalDataTable';

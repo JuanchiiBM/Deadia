@@ -3,7 +3,7 @@ import { Input } from '@nextui-org/react'
 import Select from 'react-select';
 import ModalResumenUsers from './modalResumen';
 import { colourStylesBordered } from '@/helpers/selects';
-import { useFormUser } from '@/hooks/useFormUser';
+import { useFormUser } from '@/hooks/sistema/usuarios/useFormUser';
 import { useSubmit } from '@/hooks/useSubmit';
 import { IModalFillUsers } from '@/helpers/interfaces';
 

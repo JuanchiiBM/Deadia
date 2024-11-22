@@ -3,7 +3,7 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
 import { IModalSelectsRegistrarIngreso } from '@/helpers/interfaces';
-import { useSelectHandleChangeInscription, useSelectOptionsInscription } from '@/hooks/useSelectOptionsInscription';
+import { useSelectHandleChangeInscription, useSelectOptionsInscription } from '@/hooks/inscripciones/registrarInscripcion/useSelectOptionsInscription';
 
 const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({ jsonData, contentModal, studentInfo, handleInputChange }) => {
     const { options, chargueNewClassroom } = useSelectOptionsInscription({ jsonData })

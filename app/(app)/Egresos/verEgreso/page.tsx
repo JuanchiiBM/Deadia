@@ -1,5 +1,5 @@
 import React from 'react'
-import VerEgreso from '@/pages/verEgreso/verEgreso'
+import VerEgreso from '@/pages/egresos/verEgreso/verEgreso'
 
 const verEgreso = () => {
   return (

@@ -4,15 +4,15 @@ import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useTableDataForUsers } from '@/hooks/useDTUsers';
+import { useDTUsers } from '@/hooks/sistema/usuarios/useDTUser';
 
 DataTable.use(DT);
 
-interface ITableActions {
+interface ITableProfiles {
 
 }
 
-const TableActions: React.FC<ITableActions> = () => {
+const TableProfiles: React.FC<ITableProfiles> = () => {
     const { isLoading, jsonData } = useJsonData({ url: 'asd' })
     //const {tableData, columnsData} = useTableDataForUsers(jsonData)
 
@@ -42,4 +42,4 @@ const TableActions: React.FC<ITableActions> = () => {
     )
 }
 
-export default TableActions
+export default TableProfiles

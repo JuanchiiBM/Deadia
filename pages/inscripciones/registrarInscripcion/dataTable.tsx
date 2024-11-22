@@ -2,7 +2,7 @@
 
 import React from 'react'
 import DataTable from 'datatables.net-react';
-import '../../styles/dataTables.css'
+import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import { UseDisclosureProps } from '@nextui-org/react';
@@ -10,8 +10,8 @@ import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import SpinnerC from '@/components/spinner/Spinner';
 import { IRegister } from '@/helpers/interfaces';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useDTInscription } from '@/hooks/useDTInscription';
-import { useDTAInscription } from '@/hooks/useDTAInscription';
+import { useDTInscription } from '@/hooks/inscripciones/registrarInscripcion/useDTInscription';
+import { useDTAInscription } from '@/hooks/inscripciones/registrarInscripcion/useDTAInscription';
 
 DataTable.use(DT);
 

@@ -1,18 +1,18 @@
 import React from 'react'
 import DataTable from 'datatables.net-react';
-import '../../styles/dataTables.css'
+import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useTableDataForUsers } from '@/hooks/useDTUsers';
+import { useDTUsers } from '@/hooks/sistema/usuarios/useDTUser';
 
 DataTable.use(DT);
 
-interface ITableProfiles {
+interface ITableActions {
 
 }
 
-const TableProfiles: React.FC<ITableProfiles> = () => {
+const TableActions: React.FC<ITableActions> = () => {
     const { isLoading, jsonData } = useJsonData({ url: 'asd' })
     //const {tableData, columnsData} = useTableDataForUsers(jsonData)
 
@@ -42,4 +42,4 @@ const TableProfiles: React.FC<ITableProfiles> = () => {
     )
 }
 
-export default TableProfiles
+export default TableActions

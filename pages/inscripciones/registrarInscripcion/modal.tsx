@@ -4,12 +4,12 @@ import { I18nProvider } from "@react-aria/i18n";
 import ModalSelectsRegistrarIngreso from './modalSelects';
 import ModalResumenRegistrarIngreso from './modalResumen';
 import ModalSelectsRegistrarIngreso2 from './modalSelects2';
-import { useSearchDNI } from '@/hooks/useSearchDNI';
-import { useFormInscription } from '@/hooks/useFormInscription';
+import { useSearchDNI } from '@/hooks/inscripciones/registrarInscripcion/useSearchDNI';
+import { useFormInscription } from '@/hooks/inscripciones/registrarInscripcion/useFormInscription';
 import { IRegister } from '@/helpers/interfaces';
-import { useUpdateInscription } from '@/hooks/useUpdateInscription';
-import { usePostInscription } from '@/hooks/usePostInscription';
-import { useSelectOptionsInscriptionModal } from '@/hooks/useSelectOptionsInscription';
+import { useUpdateInscription } from '@/hooks/inscripciones/registrarInscripcion/useUpdateInscription';
+import { usePostInscription } from '@/hooks/inscripciones/registrarInscripcion/usePostInscription';
+import { useSelectOptionsInscriptionModal } from '@/hooks/inscripciones/registrarInscripcion/useSelectOptionsInscription';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>

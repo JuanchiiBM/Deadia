@@ -3,14 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Selects from './options';
 import { DataTableRef } from 'datatables.net-react';
-import { CalendarDate, now } from '@internationalized/date';
+import { CalendarDate, now, startOfYear, today, getLocalTimeZone } from '@internationalized/date';
 import { useDisclosure } from '@nextui-org/react';
 import { GETFunction } from '@/utils/globals';
-import TableVerEgreso from './dataTable';
+import TableVerIngreso from './dataTable';
 
 
 const Chart = dynamic(
-    () => import("@/pages/verEgreso/chart").then((mod) => mod.ChartIngresos
+    () => import("@/pages/inscripciones/verInscripcion/chart").then((mod) => mod.ChartIngresos
     ),
     {
         ssr: false,
@@ -18,6 +18,7 @@ const Chart = dynamic(
 );
 
 let nextTableData: any = [];
+let filterCurse: any = []
 let newColumns: any = [];
 let jsonData
 
@@ -25,6 +26,7 @@ interface ITableDataDeps {
     list: {
         deps: [{
             dependencia: string
+            cant_alumnos: number
             mes: string
             monto: number
         }]
@@ -43,15 +45,17 @@ interface ITableDataDep {
         classroom: [{
             id: number
             code: string
+            grade: string
         }]
     }
 
     list: {
         grades: [{
-            curso: string,
-            aula: string,
-            fec_inicio: string,
-            fec_finalizacion: string,
+            curso: string
+            aula: string
+            cant_alumnos: number
+            fec_inicio: string
+            fec_finalizacion: string
             ingreso: number
         }]
     }
@@ -70,10 +74,7 @@ interface ITableDataClassrooms {
     }
 }
 
-const today = now('UTC');
-const startOfYear = new CalendarDate(today.year, 1, 1);
-
-const VerEgreso = () => {
+const VerIngreso = () => {
     const [chartContent, setChartContent] = useState([{}])
     const [tableData, setTableData] = useState([]);
     const [tableLoader, setTableLoader] = useState(true);
@@ -86,6 +87,7 @@ const VerEgreso = () => {
     const [columns, setColumns] = useState([
         { data: 'dependencia', title: 'Dependencia' },
         { data: 'fecha', title: 'Fecha' },
+        { data:'cant_alumnos', title: 'Alumnos'},
         { data: 'ingreso', title: 'Ingreso Acumulado' },
     ]);
 
@@ -101,6 +103,7 @@ const VerEgreso = () => {
                     newColumns = [
                         { data: 'dependencia', title: 'Dependencia' },
                         { data: 'fecha', title: 'Fecha' },
+                        { data:'cant_alumnos', title: 'Alumnos'},
                         { data: 'ingreso', title: 'Ingreso Acumulado' },
                     ];
                     jsonData = await GETFunction(`api/income?start_date=${dateSelected[0]}&end_date=${dateSelected[1]}`, setTableLoader) as ITableDataDeps
@@ -112,6 +115,7 @@ const VerEgreso = () => {
 
                     nextTableData = jsonData.list.deps.map((dato) => ({
                         dependencia: dato.dependencia,
+                        cant_alumnos: dato.cant_alumnos,
                         fecha: dato.mes,
                         ingreso: dato.monto,
                     }));
@@ -120,6 +124,7 @@ const VerEgreso = () => {
                     newColumns = [
                         { data: 'curso', title: 'Curso' },
                         { data: 'aula', title: 'Aula' },
+                        { data:'cant_alumnos', title: 'Alumnos'},
                         { data: 'fec_inicio', title: 'Fecha de Inicio' },
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
@@ -128,15 +133,22 @@ const VerEgreso = () => {
                     nextTableData = jsonData.list.grades.map((grade) => ({
                         curso: grade.curso,
                         aula: grade.aula,
+                        cant_alumnos: grade.cant_alumnos,
                         fec_inicio: grade.fec_inicio,
                         fec_finalizacion: grade.fec_finalizacion,
                         ingreso: grade.ingreso
                     }));
+                    filterCurse = jsonData.filter.classroom.map((grade) => ({
+                        id: grade.id,
+                        code: grade.code,
+                        grade: grade.grade
+                    }))
                     break;
                 case '2':
                     newColumns = [
                         { data: 'curso', title: 'Curso' },
                         { data: 'aula', title: 'Aula' },
+                        { data:'cant_alumnos', title: 'Alumnos'},
                         { data: 'fec_inicio', title: 'Fecha de Inicio' },
                         { data: 'fec_finalizacion', title: 'Fecha de Finalizacion' },
                         { data: 'ingreso', title: 'Ingreso' }
@@ -145,18 +157,24 @@ const VerEgreso = () => {
                     nextTableData = jsonData.list.grades.map((grade) => ({
                         curso: grade.curso,
                         aula: grade.aula,
+                        cant_alumnos: grade.cant_alumnos,
                         fec_inicio: grade.fec_inicio,
                         fec_finalizacion: grade.fec_finalizacion,
                         ingreso: grade.ingreso
                     }));
+                    filterCurse = jsonData.filter.classroom.map((grade) => ({
+                        id: grade.id,
+                        code: grade.code
+                    }))
                     break;
             }
             setTableKey(prevKey => prevKey + 1);
             setColumns(newColumns);
             setLastTable((prev) => prev =value)
             setChartContent(nextTableData)
+
             if (ret = true)
-                return nextTableData
+                return filterCurse
         }
     };
 
@@ -166,7 +184,7 @@ const VerEgreso = () => {
                 { data: 'dni', title: 'DNI' },
                 { data: 'nombre', title: 'Nombre' },
                 { data: 'mail', title: 'Mail' },
-                { data: 'fecha', title: 'Fecha de Inscripción'},
+                { data: 'fecha', title: 'Fecha de Pago'},
                 { data: 'ingreso', title: 'Ingreso' },
             ];
             setTableData([])
@@ -206,14 +224,16 @@ const VerEgreso = () => {
             let mergedData: any = []
 
             tableFiltered.forEach((dato: any) => {
-                const { dependencia, ingreso } = dato;
+                const { dependencia, ingreso, cant_alumnos } = dato;
                 const existingEntry = groupedData.find((item) => item.dependencia === dependencia);
 
                 if (existingEntry) {
                     existingEntry.ingreso += ingreso;
+                    existingEntry.cant_alumnos += cant_alumnos
                 } else {
                     groupedData.push({
                         dependencia,
+                        cant_alumnos: cant_alumnos,
                         ingreso: ingreso,
                         fecha: `${minRange} - ${maxRange}` // Mostrar el rango seleccionado
                     });
@@ -270,12 +290,12 @@ const VerEgreso = () => {
 
     return (
         <>
-            <h1 className='text-4xl'>Egresos</h1>
+            <h1 className='text-4xl'>Inscripciones</h1>
             <Chart chartContent={chartContent} />
             <Selects changeJson={changeJson} changeJsonForCurse={changeJsonForCurse} changeRange={changeRange} dateRef={dateRef} optionsDeps={optionsDeps} lastTable={lastTable} tableLoader={tableLoader} selectDateRange={selectDateRange} />
-            <TableVerEgreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />
+            <TableVerIngreso tableKey={tableKey} tableData={tableData} tableRef={tableRef} columns={columns} tableLoader={tableLoader} />
         </>
     )
 }
 
-export default VerEgreso
+export default VerIngreso

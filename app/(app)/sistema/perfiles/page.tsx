@@ -1,5 +1,5 @@
 import React from 'react'
-import Perfiles from '@/pages/perfiles/perfiles'
+import Perfiles from '@/pages/sistema/perfiles/perfiles'
 
 const perfiles = () => {
     return (

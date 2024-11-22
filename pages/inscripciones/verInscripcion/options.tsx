@@ -37,7 +37,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
                 return {
                     value: opt.id,
                     type: 'curso',
-                    label: `${opt.code} | `
+                    label: `${opt.code} | ${opt.grade}`
                 };
             });
             cursoSelect.current.setValue('0', 'select-option')

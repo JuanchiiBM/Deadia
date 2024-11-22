@@ -5,7 +5,7 @@ import OptionsRegistrarIngreso from './options'
 import DataTableRegistrarIngreso from './dataTable'
 import ModalRegistrarIngreso from './modal'
 import { useDisclosure } from '@nextui-org/react'
-import { useDatePickerInscription } from '@/hooks/useDatePickerInscription'
+import { useDatePickerInscription } from '@/hooks/inscripciones/registrarInscripcion/useDatePickerInscription'
 
 const RegistrarIngreso = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();

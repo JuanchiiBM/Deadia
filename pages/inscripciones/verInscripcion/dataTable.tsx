@@ -1,8 +1,7 @@
 import React from 'react'
 import DataTable from 'datatables.net-react';
-import '../../styles/dataTables.css'
+import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
-import { Spinner } from '@nextui-org/react';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 
 DataTable.use(DT);
