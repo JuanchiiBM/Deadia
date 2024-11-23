@@ -130,6 +130,79 @@ export interface IModalSelectsRegistrarIngreso {
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
 }
 
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+export interface ITableDataDeps {
+    list: {
+        deps: [
+            ITableDataDepsInsideDeps
+        ]
+    }
+
+    filter: {
+        dependency: [
+            ITableDataDepsInsideFilter
+        ]
+    }
+}
+
+export interface ITableDataDepsInsideDeps {
+    dependencia: string
+    cant_alumnos: number
+    mes: string
+    monto: number
+}
+
+export interface ITableDataDepsInsideFilter {
+    id: number
+    name: string
+}
+
+export interface ITableDataDep {
+    filter: {
+        classroom: [
+            ITableDataDepInsideFilter
+        ]
+    }
+
+    list: {
+        grades: [
+            ITableDataDepInsideGrades
+        ]
+    }
+}
+
+export interface ITableDataDepInsideFilter {
+    id: number
+    code: string
+    grade: string
+}
+
+export interface ITableDataDepInsideGrades {
+    curso: string
+    aula: string
+    cant_alumnos: number
+    fec_inicio: string
+    fec_finalizacion: string
+    ingreso: number
+}
+
+export interface ITableDataClassrooms {
+    list: {
+        classrooms: [
+            ITableDataClassroomsInside
+        ]
+    }
+}
+
+export interface ITableDataClassroomsInside {
+    aula: string
+    dni: string
+    fec_compra: string
+    ingreso: number
+    mail: string
+    nombre: string
+}
 
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

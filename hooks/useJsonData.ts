@@ -9,8 +9,10 @@ export const useJsonData = ({ url }: { url: string}) => {
     const { refreshData } = useUpdateContext()
 
     const getJsonData = async () => {
+        console.log(url)
         if (!url.includes('undefined')) {
             setIsLoading(true)
+            console.log(url)
             const json = await GETFunction(url, setIsLoading)
             setJsonData(json)
         }

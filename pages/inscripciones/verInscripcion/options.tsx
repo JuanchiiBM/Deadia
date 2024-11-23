@@ -67,6 +67,7 @@ const Selects: React.FC<ISelects> = ({ changeJson, changeJsonForCurse, changeRan
 
     const changeDatePicker = (e: RangeValue<any>) => {
             setDateInitial(e)
+            
     }
 
     useEffect(() => {

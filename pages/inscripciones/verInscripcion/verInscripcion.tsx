@@ -3,11 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import dynamic from "next/dynamic";
 import Selects from './options';
 import { DataTableRef } from 'datatables.net-react';
-import { CalendarDate, now, startOfYear, today, getLocalTimeZone } from '@internationalized/date';
-import { useDisclosure } from '@nextui-org/react';
 import { GETFunction } from '@/utils/globals';
 import TableVerIngreso from './dataTable';
-
+import { ITableDataClassrooms, ITableDataDep, ITableDataDeps } from '@/helpers/interfaces';
 
 const Chart = dynamic(
     () => import("@/pages/inscripciones/verInscripcion/chart").then((mod) => mod.ChartIngresos
@@ -22,57 +20,7 @@ let filterCurse: any = []
 let newColumns: any = [];
 let jsonData
 
-interface ITableDataDeps {
-    list: {
-        deps: [{
-            dependencia: string
-            cant_alumnos: number
-            mes: string
-            monto: number
-        }]
-    }
 
-    filter: {
-        dependency: [{
-            id: number
-            name: string
-        }]
-    }
-}
-
-interface ITableDataDep {
-    filter: {
-        classroom: [{
-            id: number
-            code: string
-            grade: string
-        }]
-    }
-
-    list: {
-        grades: [{
-            curso: string
-            aula: string
-            cant_alumnos: number
-            fec_inicio: string
-            fec_finalizacion: string
-            ingreso: number
-        }]
-    }
-}
-
-interface ITableDataClassrooms {
-    list: {
-        classrooms: [{
-            aula: string
-            dni: string
-            fec_compra: string
-            ingreso: number
-            mail: string
-            nombre: string
-        }]
-    }
-}
 
 const VerIngreso = () => {
     const [chartContent, setChartContent] = useState([{}])

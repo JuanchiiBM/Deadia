@@ -28,13 +28,13 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCh
 
     const resetModal = () => {
         setContentModal(undefined)
+        if (setUpdate)
         setUpdate(false)
         onOpen()
     }
 
     useEffect(() => {
         if (dateInitial && dateInitial.start != undefined) {
-            console.log('entra1')
             selectDateRange()
         }
     }, [dateInitial])

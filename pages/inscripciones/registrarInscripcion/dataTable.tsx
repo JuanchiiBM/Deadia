@@ -2,6 +2,7 @@
 
 import React from 'react'
 import DataTable from 'datatables.net-react';
+import moment from 'moment';
 import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
@@ -32,6 +33,28 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentMod
                     destroy: true,
                     responsive: true,
                     order: [[6, 'desc']],
+                    columnDefs: [
+                        {
+                          targets: 6, // La columna que contiene las fechas
+                          render: function (data, type, row) {
+                            // Convertimos el valor en formato DD/MM/YYYY a un objeto Date
+                            const date = moment(data, 'DD/MM/YYYY');
+                            
+                            if (!date.isValid()) {
+                              return data; // Si no es una fecha válida, devolvemos el valor tal cual
+                            }
+                    
+                            // Para tipo `sort`, devolver ISO (YYYY-MM-DD)
+                            if (type === 'sort' || type === 'type') {
+                              return date.format('YYYY-MM-DD');
+                            }
+                    
+                            // Para mostrar, devolver en el formato deseado (DD/MM/YYYY)
+                            return date.format('DD/MM/YYYY');
+                          },
+                        },
+                      ],
+                    
                     language: {
                         url: '../dataTableLanguaje.json',
                     },
