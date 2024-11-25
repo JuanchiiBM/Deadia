@@ -64,7 +64,6 @@ export const useDepAcc = ({ tableDataMapped, dateRef }: { tableDataMapped: ITabl
             ...item,
             monto: `${item.monto}`,
         }));
-        console.log(mergedData)
         return mergedData; // Actualizar la tabla con los datos agrupados
     }
 

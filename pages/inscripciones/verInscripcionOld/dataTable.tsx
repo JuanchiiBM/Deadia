@@ -3,24 +3,24 @@ import DataTable from 'datatables.net-react';
 import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import { useDTInscription } from '@/hooks/inscripciones/verInscripcion/useDT';
-import { ITableDataDep, ITableDataDeps } from '@/helpers/interfaces';
 
 DataTable.use(DT);
 
 interface ITableVerIngreso {
+    tableKey: React.Key | null | undefined
+    tableRef: any
     tableLoader: boolean
-    dateRef: React.MutableRefObject<any>
+    tableData: any[]
+    columns: any[]
 }
 
-const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableLoader, dateRef }) => {
-    const { tableData, columnsData } = useDTInscription({dateRef})
+const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableKey, tableRef, tableData, columns, tableLoader }) => {
 
     return (
         <div className='bg-background-200 rounded-lg'>
             {tableLoader == true ?
                 <SpinnerForTables /> :
-                <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
+                <DataTable key={tableKey} ref={tableRef} data={tableData} className='order-column text-sm' columns={columns} options={{
                     destroy: true,
                     responsive: true,
                     language: {
@@ -29,7 +29,7 @@ const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableLoader, dateRef }) =
                 }} >
                     <thead>
                         <tr>
-                            {columnsData.map((col, index) => (
+                            {columns.map((col, index) => (
                                 <th key={index}>{col.data}</th>
                             ))}
                         </tr>

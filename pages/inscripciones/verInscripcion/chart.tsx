@@ -29,19 +29,20 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
         let maxFecha;
         let allMonths: string[] = [];
         let series: SeriesData[] = [];
+        console.log(data[0])
         if (data[0] && (data[0].dependencia || data[0].curso)) {
             //console.log('1')
             if (data[0].dependencia) {
                 //console.log('entra piola 2')
                 // Procesar el JSON por 'dependencia'
                 sortedData = data.sort((a, b) => {
-                    const [monthA, yearA] = a.fecha.split("/").map(Number);
-                    const [monthB, yearB] = b.fecha.split("/").map(Number);
+                    const [monthA, yearA] = a.mes.split("/").map(Number);
+                    const [monthB, yearB] = b.mes.split("/").map(Number);
                     return yearA !== yearB ? yearA - yearB : monthA - monthB;
                 });
     
-                minFecha = sortedData[0].fecha;
-                maxFecha = sortedData[sortedData.length - 1].fecha;
+                minFecha = sortedData[0].mes;
+                maxFecha = sortedData[sortedData.length - 1].mes;
     
                 let current = dayjs(`${minFecha.split("/")[1]}-${minFecha.split("/")[0]}-01`);
                 const end = dayjs(`${maxFecha.split("/")[1]}-${maxFecha.split("/")[0]}-01`);
@@ -54,8 +55,8 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
                 series = dependencias.map(dependencia => {
                     const monthlyData = allMonths.map(month => {
                         const monthlySum = data
-                            .filter(item => item.dependencia === dependencia && item.fecha === month)
-                            .reduce((acc, curr) => acc + Number(curr.ingreso), 0);
+                            .filter(item => item.dependencia === dependencia && item.mes === month)
+                            .reduce((acc, curr) => acc + Number(curr.monto), 0);
                         return monthlySum || 0;
                     });
                     return { name: dependencia, data: monthlyData };

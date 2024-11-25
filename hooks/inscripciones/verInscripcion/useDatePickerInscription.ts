@@ -11,7 +11,6 @@ export const useDatePickerInscription = () => {
             partsOfDate[2].length == 1 ? partsOfDate[2] = `0${partsOfDate[2]}` : null
             return `${partsOfDate[0]}-${partsOfDate[1]}-${partsOfDate[2]}`
         }))
-        console.log(dateSelected)
     }
 
     return {dateSelected, dateRef, selectDateRange}
