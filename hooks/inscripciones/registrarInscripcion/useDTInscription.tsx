@@ -15,7 +15,7 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
         { data: 'curso', title: 'Curso' },
         { data: 'aula', title: 'Aula' },
         { data: 'fecha', title: 'Fecha' },
-        { data: 'monto', title: 'Monto' },
+        { data: 'monto_acumulado', title: 'Monto' },
         { data: 'acciones', title: 'Acciones' }
     ])
 
@@ -32,7 +32,7 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
             curso: dato.curso,
             aula: dato.aula,
             fecha: moment(moment(dato.fec_compra, "DD/MM/YYYY").toDate()).format("DD/MM/YYYY"),
-            monto: dato.monto,
+            monto_acumulado: dato.monto_acumulado.replace('/', 'de'),
             acciones: () => {
                 return ReactDOMServer.renderToString(
                     <div id={`actions-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>

@@ -136,29 +136,27 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
         },
         xaxis: {
             type: 'category',
-            categories: months, // Meses con años desde 2022 hasta el mes actual
+            categories: months,
             labels: {
                 style: {
-                    colors: 'hsl(var(--nextui-content2))', // Color de los meses en modo oscuro
+                    colors: 'hsl(var(--nextui-content2))',
                 }
             }
         },
         yaxis: {
             labels: {
                 style: {
-                    colors: 'hsl(var(--nextui-content2))' // Color de los números del eje Y
+                    colors: 'hsl(var(--nextui-content2))'
                 }
             },
             title: {
                 text: 'Ingresos de las Inscripciones',
                 style: {
-                    color: 'hsl(var(--nextui-content2))' // Color del título del eje Y
+                    color: 'hsl(var(--nextui-content2))'
                 }
             }
         },
-        tooltip: {
-
-        },
+        tooltip: {},
         dataLabels: {
             enabled: false,
         },
@@ -179,7 +177,11 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
             },
             position: 'top',
         },
-        colors: ['#00E396', '#008FFB', '#FFA500', '#EE82EE'], // Colores para las series
+        colors: chartData.series.map((serie) => {
+            if (serie.name === 'Informática') return '#318CE7'; // Azul Francia
+            if (serie.name === 'Idiomas') return '#33FF57'; // Verde
+            return '#008FFB'; // Azul predeterminado
+        }),
     };
 
     const showAllSeries = () => {

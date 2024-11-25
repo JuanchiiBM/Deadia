@@ -61,6 +61,7 @@ export interface IRegister {
     id: number
     mail: string
     monto: number
+    monto_acumulado: string
     nom_alumno: string
     usuario: string
 }
