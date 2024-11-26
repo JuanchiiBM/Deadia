@@ -8,12 +8,19 @@ import 'datatables.net-responsive-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useDT } from '@/hooks/egresos/registrarEgreso/useDT';
 import { useEgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext';
+import { useDTA } from '@/hooks/egresos/registrarEgreso/useDTA';
 
 DataTable.use(DT);
 
-const DataTableEgresos = () => {
+interface DTEgress {
+    onOpen: () => void,
+    setContentModal: React.Dispatch<React.SetStateAction<undefined>>
+}
+
+const DataTableEgresos: React.FC<DTEgress> = ({ onOpen, setContentModal}) => {
     const { jsonIsLoading } = useEgressRegisterContext()
     const { tableData, columns } = useDT()
+    const {} = useDTA({ tableData: tableData, setContentModal: setContentModal, onOpen: onOpen})
 
     return (
         <div className='bg-background-200 rounded-lg'>

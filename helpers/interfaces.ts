@@ -242,6 +242,65 @@ export interface ITableDataEgressInside {
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Ver Egreso
+
+export interface IDataEgressView {
+    filter: {
+        category: [
+            IDataEgressViewCatFilter
+        ],
+        article: [
+            IDataEgressViewArtFilter
+        ]
+    },
+
+    list: {
+        categories: [
+            IDataEgressViewCatList
+        ],
+        articles: [
+            IDataEgressViewArtList
+        ],
+        products: [
+            IDataEgressViewProducts
+        ]
+    }
+}
+
+export interface IDataEgressViewCatFilter {
+    id: number
+    categoria: string
+}
+
+export interface IDataEgressViewCatList {
+    categoria: string
+    mes: string
+    monto: number
+    unidades_compradas: number
+}
+
+export interface IDataEgressViewArtFilter {
+    id: number
+    articulo: string
+}
+
+export interface IDataEgressViewArtList {
+    articulo: string
+    categoria: string
+    mes: string
+    monto: number
+    unidades_compradas: number
+}
+
+export interface IDataEgressViewProducts {
+    articulo: string
+    unidades_compradas: number
+    categoria: string
+    monto: number
+    usuario: string
+}
+
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 //Usuarios
 
 export interface IUsersTable {

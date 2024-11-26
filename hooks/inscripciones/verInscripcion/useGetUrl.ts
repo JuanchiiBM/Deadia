@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react"
-import { useUpdateContext } from "../registrarInscripcion/useUpdateContext"
 
 export const useGetUrl = ({dateSelected, value}: {dateSelected: any | undefined, value: { value: string, type: string}}) => {
-    const { refreshData } = useUpdateContext()
     const [url, setUrl] = useState(`api/income?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`)
 
     const changeUrlDeps = () => {

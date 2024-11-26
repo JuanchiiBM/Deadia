@@ -3,15 +3,14 @@
 import React, { useState } from 'react'
 import dynamic from "next/dynamic";
 import Options from './options'
-import TableVerIngreso from './dataTable';
-
-import { InscriptionContext } from '@/hooks/inscripciones/verInscripcion/useInscriptionContext';
+import Table from './dataTable';
+import { EgressView } from '@/hooks/egresos/verEgreso/useContext';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useGetUrl } from '@/hooks/inscripciones/verInscripcion/useGetUrl';
-import { useDatePickerInscription } from '@/hooks/inscripciones/verInscripcion/useDatePickerInscription';
+import { useGetUrl } from '@/hooks/egresos/verEgreso/useGetUrl';
+import { useDatePicker } from '@/hooks/egresos/verEgreso/useDatePicker';
 
 const Chart = dynamic(
-    () => import("@/pages/inscripciones/verInscripcion/chart").then((mod) => mod.ChartIngresos
+    () => import("@/pages/egresos/verEgreso/chart").then((mod) => mod.ChartFinal
     ),
     {
         ssr: false,
@@ -19,19 +18,19 @@ const Chart = dynamic(
 );
 
 
-const verInscripcion = () => {
+const verEgreso = () => {
     const [refreshData, setRefreshData] = useState<number>(0)
     const [chartContent, setChartContent] = useState([{}])
-    const { dateSelected, dateRef, selectDateRange } = useDatePickerInscription()
+    const { dateSelected, dateRef, selectDateRange } = useDatePicker()
     const [valueOption, setValueOption] = useState({
         value: '0',
-        type: 'Deps'
+        type: 'Categories'
     })
     const { url } = useGetUrl({ dateSelected, value: valueOption})
     const {isLoading, jsonData} = useJsonData({url})
 
     return (
-        <InscriptionContext.Provider value={{
+        <EgressView.Provider value={{
             refreshData: refreshData,
             setRefreshData: setRefreshData,
             jsonData: jsonData,
@@ -39,12 +38,12 @@ const verInscripcion = () => {
             chartContent: chartContent,
             setChartContent: setChartContent
         }}>
-            <h1 className='text-4xl'>Inscripciones</h1>
+            <h1 className='text-4xl'>Egresos</h1>
             <Chart chartContent={chartContent} />
             <Options setValueOption={setValueOption} dateRef={dateRef} selectDateRange={selectDateRange} />
-            <TableVerIngreso tableLoader={isLoading} dateRef={dateRef} />
-        </InscriptionContext.Provider>
+            <Table tableLoader={isLoading} dateRef={dateRef} />
+        </EgressView.Provider>
     )
 }
 
-export default verInscripcion
+export default verEgreso

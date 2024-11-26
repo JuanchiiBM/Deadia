@@ -3,18 +3,17 @@ import DataTable from 'datatables.net-react';
 import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import { useDTInscription } from '@/hooks/inscripciones/verInscripcion/useDT';
-import { ITableDataDep, ITableDataDeps } from '@/helpers/interfaces';
+import { useDT } from '@/hooks/egresos/verEgreso/useDT';
 
 DataTable.use(DT);
 
-interface ITableVerIngreso {
+interface ITable {
     tableLoader: boolean
     dateRef: React.MutableRefObject<any>
 }
 
-const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableLoader, dateRef }) => {
-    const { tableColumns, tableData, tableKey } = useDTInscription({dateRef})
+const Table: React.FC<ITable> = ({ tableLoader, dateRef }) => {
+    const { tableColumns, tableData, tableKey } = useDT({dateRef})
 
     return (
         <div className='bg-background-200 rounded-lg'>
@@ -40,4 +39,4 @@ const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableLoader, dateRef }) =
     )
 }
 
-export default TableVerIngreso
+export default Table
