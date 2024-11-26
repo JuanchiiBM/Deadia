@@ -134,6 +134,7 @@ export interface IncomeRegisterOptionRank {
 }
 
 export interface IModalSelects2Inscription {
+    isLoadingDni?: boolean
     studentInfo?: IUseFormInscription
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
     isOpen: boolean | undefined

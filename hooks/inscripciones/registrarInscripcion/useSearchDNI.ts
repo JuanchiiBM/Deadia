@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react"
 import { createOption, GETFunction, Option } from "@/utils/globals"
 import { RangeValue } from "@nextui-org/react"
 import { IUseSearchDNI, IUseSearchDNIData, IUseFormInscription } from "@/helpers/interfaces"
+import { useDebounce } from "@/hooks/useDebounce"
+
 
 export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void, jsonData: any }) => {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoadingDni, setIsLoading] = useState(false)
+    const [dni, setDni] = useState("")
+    const debouncedDni = useDebounce(dni, 500)
 
     const findOption = (id: number, type: string) => {
         let option
@@ -24,30 +28,32 @@ export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChang
         return option
     }
 
-    const checkExistDNI = async (value: string) => {
-        handleInputChange('dni', value)
-
-        if (value.length > 7) {
-            setIsLoading(true)
-            const response: IUseSearchDNI = await GETFunction(`api/pupil?dni=${value}`)
-            console.log(response)
-            setIsLoading(false)
-            if (response.list && response.list.pupil[0]) {
-                const data = response.list.pupil[0]
-                handleInputChange('name', data.nombre)
-                handleInputChange('lastname', data.apellido)
-                handleInputChange('mail', data.mail)
-                handleInputChange('category', findOption(data.id_categoria, 'categories'))
-                handleInputChange('grade', findOption(data.id_rango, 'ranks'))
-            } else {
-                handleInputChange('name', '')
-                handleInputChange('lastname', '')
-                handleInputChange('mail', '')
-                handleInputChange('category', null)
-                handleInputChange('grade', null)
+    useEffect(() => {
+        const checkExistDNI = async () => {
+            if (debouncedDni.length > 7) {
+                setIsLoading(true)
+                const response: IUseSearchDNI = await GETFunction(`api/pupil?dni=${debouncedDni}`)
+                console.log(response)
+                setIsLoading(false)
+                if (response.list && response.list.pupil[0]) {
+                    const data = response.list.pupil[0]
+                    handleInputChange('name', data.nombre)
+                    handleInputChange('lastname', data.apellido)
+                    handleInputChange('mail', data.mail)
+                    handleInputChange('category', findOption(data.id_categoria, 'categories'))
+                    handleInputChange('grade', findOption(data.id_rango, 'ranks'))
+                } else {
+                    handleInputChange('name', '')
+                    handleInputChange('lastname', '')
+                    handleInputChange('mail', '')
+                    handleInputChange('category', null)
+                    handleInputChange('grade', null)
+                }
             }
         }
-    }
 
-    return { checkExistDNI }
+        checkExistDNI();
+    }, [debouncedDni])
+
+    return { isLoadingDni, setDni }
 }
