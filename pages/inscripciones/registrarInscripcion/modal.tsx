@@ -11,6 +11,7 @@ import { useUpdateInscription } from '@/hooks/inscripciones/registrarInscripcion
 import { usePostInscription } from '@/hooks/inscripciones/registrarInscripcion/usePostInscription';
 import { useSelectOptionsInscriptionModal } from '@/hooks/inscripciones/registrarInscripcion/useSelectOptionsInscription';
 import SpinnerC from '@/components/spinner/Spinner';
+import { createPortal } from 'react-dom';
 
 interface IModalRegistrarIngreso extends UseDisclosureProps {
     setContentModal: React.Dispatch<React.SetStateAction<IRegister | any>>
@@ -27,7 +28,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
     const { checkExistDNI } = useSearchDNI({ handleInputChange, jsonData })
 
 
-    return (
+    return createPortal (
         <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background sm:my-0' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
@@ -78,7 +79,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                     </>
                 )}
             </ModalContent>
-        </Modal>
+        </Modal>, document.body
     )
 }
 

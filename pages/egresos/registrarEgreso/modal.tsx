@@ -4,6 +4,7 @@ import ModalSelectsEgresos from './modalSelects'
 import ModalInputsEgresos from './modalInputs'
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts'
 import { Option } from '@/utils/globals'
+import { createPortal } from 'react-dom'
 
 const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
     const [valueType, setValueType] = useState<Option | null>();
@@ -17,7 +18,7 @@ const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen })
         })
     }
 
-    return (
+    return createPortal(
         <Modal isDismissable={false} backdrop='blur' size='xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
@@ -40,7 +41,7 @@ const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen })
                     </>
                 )}
             </ModalContent>
-        </Modal>
+        </Modal>, document.body
     )
 }
 

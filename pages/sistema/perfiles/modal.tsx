@@ -3,11 +3,12 @@ import ModalFillProfiles from './modalFill'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
 import { IModalUsers } from '@/helpers/interfaces'
 import { useUserSelectOptions } from '@/hooks/sistema/usuarios/useSelectOptionsUser';
+import { createPortal } from 'react-dom';
 
 const ModalProfiles: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
     const { options, isLoading } = useUserSelectOptions()
 
-    return (
+    return createPortal(
         <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background sm:my-0' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
@@ -30,7 +31,7 @@ const ModalProfiles: React.FC<IModalUsers> = ({ isOpen, onClose }) => {
                     </>
                 )}
             </ModalContent>
-        </Modal>
+        </Modal>, document.body
     )
 }
 
