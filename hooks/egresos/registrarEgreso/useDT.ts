@@ -1,41 +1,36 @@
 import { useEffect, useState } from "react"
 import { useEgressRegisterContext } from "./useContext"
-
-interface IRegisters {
-    type: string
-    article: string
-    date: string
-    amount: string
-    ingress: string
-}
-
+import { ITableDataEgress, ITableDataEgressInside } from "@/helpers/interfaces"
 
 export const useDT = () => {
-    const [tableData, setTableData] = useState<IRegisters[] | undefined>()
+    const [tableData, setTableData] = useState<ITableDataEgressInside[] | undefined>()
     const columns = [
-        { data: 'type', title: 'Tipo' },
-        { data: 'article', title: 'Articulo' },
-        { data: 'date', title: 'Fecha' },
-        { data: 'amount', title: 'Cantidad' },
-        { data: 'ingress', title: 'Monto' }
+        { data: 'id', title: 'Nro.' },
+        { data: 'categoria', title: 'Categoría' },
+        { data: 'articulo', title: 'Articulo' },
+        { data: 'usuario', title: 'Cargado por' },
+        { data: 'fec_compra', title: 'Fecha' },
+        { data: 'cantidad', title: 'Cantidad' },
+        { data: 'monto', title: 'Monto' }
     ]
-    const {jsonData, refreshData}: {jsonData: IRegisters[], refreshData: number} = useEgressRegisterContext()
+    const {jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData: number} = useEgressRegisterContext()
 
     const initializeDataTable = async () => {
-        const nextTableData = jsonData.map((dato) => ({
-            type: dato.type,
-            article: dato.article,
-            date: dato.date,
-            amount: dato.amount,
-            ingress: dato.ingress
-        }))
-        setTableData(nextTableData)
+        setTableData(jsonData.list.map((dato) => ({
+            id: dato.id,
+            categoria: dato.categoria,
+            articulo: dato.articulo,
+            usuario: dato.usuario,
+            fec_compra: dato.fec_compra,
+            cantidad: dato.cantidad,
+            monto: dato.monto
+        })) as ITableDataEgressInside[])
     }
 
     useEffect(() => {
         if (jsonData)
         initializeDataTable()
-    }, [])
+    }, [jsonData])
 
     useEffect(() => {
         if (jsonData)

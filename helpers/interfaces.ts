@@ -3,6 +3,7 @@ import { RangeValue, UseDisclosureProps } from "@nextui-org/react"
 
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Registrar Inscripcion
 
 export interface IUseFormInscription {
     dni: string | undefined | null
@@ -66,6 +67,21 @@ export interface IRegister {
     usuario: string
 }
 
+export interface IUseSearchDNI {
+    list: {
+        pupil: [
+            IUseSearchDNIData
+        ]
+    }
+}
+
+export interface IUseSearchDNIData {
+    apellido: string,
+    id_categoria: number,
+    id_rango: number,
+    mail: string,
+    nombre: string
+}
 
 export interface IncomeRegisterOptions {
     classrooms: [
@@ -132,6 +148,7 @@ export interface IModalSelectsRegistrarIngreso {
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Ver Inscripcion
 
 export interface ITableDataDeps {
     list: {
@@ -205,14 +222,34 @@ export interface ITableDataClassroomsInside {
     nombre: string
 }
 
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Registrar Egreso
+
+export interface ITableDataEgress {
+    list: [
+        ITableDataEgressInside
+    ]
+}
+
+export interface ITableDataEgressInside {
+    articulo: string
+    cantidad: number
+    categoria: string
+    fec_compra: string
+    id: number
+    monto: number
+    usuario: string
+}
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Usuarios
 
 export interface IUsersTable {
     sarasa: []
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Perfiles
 
 export interface IProfileUser {
     perfil: string
@@ -240,20 +277,4 @@ export interface IModalResumenUsers {
         perfil: null;
         dependencia: null;
     }
-}
-
-export interface IUseSearchDNI {
-    list: {
-        pupil: [
-            IUseSearchDNIData
-        ]
-    }
-}
-
-export interface IUseSearchDNIData {
-    apellido: string,
-    id_categoria: number,
-    id_rango: number,
-    mail: string,
-    nombre: string
 }

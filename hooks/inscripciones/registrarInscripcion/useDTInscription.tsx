@@ -8,6 +8,7 @@ import moment from "moment";
 export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) => {
     const [tableData, setTableData] = useState<any[] | undefined>(undefined)
     const [columnsData, setColumnsData] = useState([
+        { data: 'id', title: 'Nro.'},
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
         { data: 'categoria', title: 'Categoría' },

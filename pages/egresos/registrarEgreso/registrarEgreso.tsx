@@ -7,12 +7,14 @@ import ModalEgresos from './modal';
 import { useDisclosure } from '@nextui-org/react';
 import { useJsonData } from '@/hooks/useJsonData';
 import { EgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext';
-
+import { useDatePicker } from '@/hooks/useDatePicker';
 
 const RegistrarEgreso = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { jsonData, isLoading } = useJsonData({ url: 'egress' })
 	const [refreshData, setRefreshData] = useState(0)
+	const [contentModal, setContentModal] = useState()
+	const {dateSelected, dateRef, selectDateRange} = useDatePicker()
+	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}` })
 
 	return (
 		<EgressRegisterContext.Provider value={{
@@ -22,7 +24,7 @@ const RegistrarEgreso = () => {
 			setRefreshData: setRefreshData
 		}}>
 			<h1 className='text-4xl'>Egresos</h1>
-			<OptionsRegistrarEgreso onOpen={onOpen} />
+			<OptionsRegistrarEgreso onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} setContentModal={setContentModal} />
 			<DataTableEgresos />
 			<ModalEgresos isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
 		</EgressRegisterContext.Provider>

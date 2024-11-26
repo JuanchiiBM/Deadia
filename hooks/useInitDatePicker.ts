@@ -5,10 +5,11 @@ import { RangeValue } from '@nextui-org/react'
 interface IUseInitDatePicker {
     setContentModal: React.Dispatch<React.SetStateAction<undefined>>
     onOpen: () => void
-    selectDateRange:  () => Promise<void>
+    selectDateRange: () => Promise<void>
+    setRefreshData: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal}: IUseInitDatePicker) => {
+export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal, setRefreshData}: IUseInitDatePicker) => {
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
         start: startOfYear(today(getLocalTimeZone())),
         end: today(getLocalTimeZone()),
@@ -19,11 +20,16 @@ export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal}: IU
         onOpen()
     }
 
+    const handlerDateInitial = (e: any) => {
+        setDateInitial(e)
+        setRefreshData((prev) => prev = prev+1)
+    }
+
     useEffect(() => {
         if (dateInitial && dateInitial.start != undefined) {
             selectDateRange()
         }
     }, [dateInitial])
 
-    return { setDateInitial, dateInitial, resetModal}
+    return { handlerDateInitial, dateInitial, resetModal}
 }

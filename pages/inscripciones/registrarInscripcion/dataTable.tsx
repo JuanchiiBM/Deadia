@@ -32,29 +32,19 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentMod
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
                     responsive: true,
-                    order: [[6, 'desc']],
+                    order: [[0, 'desc']],
                     columnDefs: [
-                        {
-                          targets: 6, // La columna que contiene las fechas
-                          render: function (data, type, row) {
-                            // Convertimos el valor en formato DD/MM/YYYY a un objeto Date
-                            const date = moment(data, 'DD/MM/YYYY');
-                            
-                            if (!date.isValid()) {
-                              return data; // Si no es una fecha válida, devolvemos el valor tal cual
-                            }
-                    
-                            // Para tipo `sort`, devolver ISO (YYYY-MM-DD)
-                            if (type === 'sort' || type === 'type') {
-                              return date.format('YYYY-MM-DD');
-                            }
-                    
-                            // Para mostrar, devolver en el formato deseado (DD/MM/YYYY)
-                            return date.format('DD/MM/YYYY');
-                          },
-                        },
-                      ],
-                    
+                        { "width": "5%", "targets": 0 },
+                        { "width": "10%", "targets": 1 },
+                        { "width": "20%", "targets": 2 },
+                        { "width": "10%", "targets": 3 },
+                        { "width": "5%", "targets": 4 },
+                        { "width": "5%", "targets": 5 },
+                        { "width": "10%", "targets": 6 },
+                        { "width": "10%", "targets": 7 },
+                        { "width": "20%", "targets": 8 },
+                        { "width": "5%", "targets": 9 },
+                    ],
                     language: {
                         url: '../dataTableLanguaje.json',
                     },
