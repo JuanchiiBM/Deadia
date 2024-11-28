@@ -318,6 +318,8 @@ export interface IDataEgressViewArtList {
 export interface IDataEgressViewProducts {
     articulo: string
     unidades_compradas: number
+    descripcion: string
+    fec_compra: string
     categoria: string
     monto: number
     usuario: string

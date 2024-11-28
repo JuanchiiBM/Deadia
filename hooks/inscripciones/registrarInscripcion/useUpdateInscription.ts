@@ -9,12 +9,12 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
             name: contentModal ? contentModal.nombre.split(' ')[1] : '',
             lastname: contentModal ? contentModal.nombre.split(' ')[0] : '',
             mail: contentModal ? contentModal.mail : '',
-            category: contentModal ? contentModal.categoria.includes('(') ? contentModal.categoria.split(' ')[0] : contentModal.categoria : null,
-            grade: contentModal && contentModal.grado != '-' ? contentModal.grado : null,
+            category: contentModal ? contentModal.categoria.includes('(') ? contentModal.categoria.split(' ')[0] : contentModal.categoria : '',
+            grade: contentModal && contentModal.grado != '-' ? contentModal.grado : '',
             classroom: contentModal ? contentModal.aula : null,
             curse: null,
             dependency: null,
-            amount: contentModal ? contentModal.monto : '',
+            amount: contentModal ? contentModal.monto_acumulado.split(' de ')[0] : '',
             datePicker: {
                 start: null,
                 end: null
@@ -29,10 +29,9 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
         lastname: contentModal ? contentModal.nombre.split(' ')[0] : '',
         mail: contentModal ? contentModal.mail : '',
         category: contentModal ? contentModal.categoria.includes('(') ? contentModal.categoria.split(' ')[0] : contentModal.categoria : null,
-        grade: contentModal && contentModal.grado != '-' ? contentModal.grado : null,
+        grade: contentModal && contentModal.grado != '-' ? contentModal.grado : '',
         classroom: contentModal ? contentModal.aula : null,
-        amount: contentModal ? contentModal.monto : '',
+        amount: contentModal ? contentModal.monto_acumulado.split(' de ')[0] : '',
     }
-
     return {oldRegister}
 }

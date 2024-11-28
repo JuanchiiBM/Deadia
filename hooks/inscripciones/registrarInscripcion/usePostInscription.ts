@@ -67,9 +67,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
                     onClose()
             })
         } else {
-            QuestionAlert('Registro Repetido', 'Este alumno fue cargado hace menos de 14 días, ¿Esta usted seguro de que desea cargarlo?', 'Cargar', () => {
-                cargarIngreso(e, 1)
-            })
+            cargarIngreso(e, 1)
         }
     }
 

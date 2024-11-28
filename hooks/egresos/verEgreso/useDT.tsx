@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { useDepAcc } from "./useDepAcc"
 import { useEgressView } from "./useContext"
 import { IDataEgressView, IDataEgressViewArtList, IDataEgressViewCatList, IDataEgressViewProducts } from "@/helpers/interfaces"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import ReactDOMServer from 'react-dom/server';
 
 export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => {
     const [tableKey, setTableKey] = useState(0)
@@ -77,18 +80,22 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
             setTableKey((prev) => prev = prev + 1)
             const columns = [
                 { data: 'articulo', title: 'Artículo' },
+                { data: 'fec_compra', title: 'Fecha de compra'},
                 { data: 'usuario', title: 'Cargado por' },
                 { data: 'unidades_compradas', title: 'Unidades Totales' },
-                { data: 'monto', title: 'Monto' }
+                { data: 'monto', title: 'Monto' },
+
             ]
             setTableColumns(columns)
 
             const finalData = jsonData.list.products.map((dato) => ({
                 articulo: dato.articulo,
+                fec_compra: dato.fec_compra,
+                descripcion: dato.descripcion,
                 unidades_compradas: dato.unidades_compradas,
                 categoria: dato.categoria,
                 usuario: dato.usuario,
-                monto: dato.monto
+                monto: dato.monto,
             }));
 
             setTableData(undefined)
