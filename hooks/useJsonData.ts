@@ -3,11 +3,9 @@ import { useEffect, useState } from "react"
 import { useUpdateContext } from "./inscripciones/registrarInscripcion/useUpdateContext"
 
 
-export const useJsonData = ({ url }: { url: string}) => {
+export const useJsonData = ({ url, refreshData }: { url: string, refreshData?: number}) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [jsonData, setJsonData] = useState<any>(undefined)
-    const { refreshData } = useUpdateContext()
-
     const getJsonData = async () => {
         console.log(url)
         if (!url.includes('undefined')) {

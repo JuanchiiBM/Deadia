@@ -1,3 +1,7 @@
+import { DateValue } from "@nextui-org/react";
+import { parseDate } from "@internationalized/date";
+
+
 export const GETFunctionFake = async (value: string) => {
     try {
         const response = await fetch(`http://localhost:3000/${value}`, {
@@ -101,7 +105,7 @@ export const DELETEFunction = async (url: string) => {
 export const createOption = (label: string | null | undefined, value?: string) => ({
     label: label,
     value: value ? value : label?.toLowerCase().replace(/\W/g, ''),
-})
+}) as Option
 
 export const selectOption = (label: string) => {
 
@@ -120,3 +124,14 @@ export const formatDate = (date: string) => {
 export const formatDateFromDatePicker = (obj: { year: number, month: number, day: number }) => {
     return `${obj.year}-${obj.month}-${obj.day}`
 }
+
+export const transformToDateValue = (dateString: string): DateValue => {
+    // Convierte el string `dd/mm/yyyy` a `yyyy-mm-dd`
+    const [day, month, year] = dateString.split("/").map(Number);
+    const formattedDate = `${year}-${String(month).padStart(2, "0")}-${String(
+      day
+    ).padStart(2, "0")}`;
+  
+    // Usa parseDate para convertirlo a un DateValue
+    return parseDate(formattedDate);
+  };

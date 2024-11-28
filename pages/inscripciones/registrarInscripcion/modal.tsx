@@ -34,7 +34,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">{contentModal ? `Editar Ingreso (cargado por ${contentModal.usuario})` : 'Registrar Ingreso'}</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{contentModal ? `Editar inscripción cargada por ${contentModal.usuario}` : 'Registrar inscripción'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
                             {showSpinner && <SpinnerC />}
 

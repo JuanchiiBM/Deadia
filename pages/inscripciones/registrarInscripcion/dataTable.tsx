@@ -12,6 +12,7 @@ import { IRegister } from '@/helpers/interfaces';
 import { useJsonData } from '@/hooks/useJsonData';
 import { useDTInscription } from '@/hooks/inscripciones/registrarInscripcion/useDTInscription';
 import { useDTAInscription } from '@/hooks/inscripciones/registrarInscripcion/useDTAInscription';
+import { useUpdateContext } from '@/hooks/inscripciones/registrarInscripcion/useUpdateContext';
 
 DataTable.use(DT);
 
@@ -21,7 +22,8 @@ interface IDataTable extends UseDisclosureProps {
 }
 
 const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentModal, dateSelected }) => {
-    const {isLoading, jsonData} = useJsonData({url: `api/income/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`})
+    const { refreshData } = useUpdateContext()
+    const {isLoading, jsonData} = useJsonData({url: `api/income/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData})
     const {tableData, columnsData} = useDTInscription({jsonData: jsonData})
     const {} = useDTAInscription({ tableData: tableData, setContentModal: setContentModal, onOpen: onOpen})
 

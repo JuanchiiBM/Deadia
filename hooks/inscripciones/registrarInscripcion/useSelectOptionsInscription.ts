@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom, IUseSelectHandleChangeInscription } from "@/helpers/interfaces"
+import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom } from "@/helpers/interfaces"
+import { RangeValue } from "@nextui-org/react";
 import { Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import { GETFunction } from "@/utils/globals";
@@ -62,6 +63,14 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegis
 
     return {options, chargueNewClassroom}
 }
+
+interface IUseSelectHandleChangeInscription {
+    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
+    jsonData: IncomeRegisterOptions
+    chargueNewClassroom: (value: Option) => void
+    contentModal: any
+}
+
 
 export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, chargueNewClassroom, contentModal}: IUseSelectHandleChangeInscription) => {
     const [curseDisabled, setCurseDisabled] = useState<boolean>(true)

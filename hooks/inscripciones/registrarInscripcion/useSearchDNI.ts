@@ -11,21 +11,21 @@ export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChang
     const debouncedDni = useDebounce(dni, 500)
 
     const findOption = (id: number, type: string) => {
-        let option
-        if (type == 'categories') {
-            option = jsonData.categories.map((cat: any) => {
+        let optionSelected
+        if (type == 'category') {
+            const option = jsonData.categories.map((cat: any) => {
                 if (cat.id == id) {
-                    return createOption(cat.categoria, cat.id)
+                    optionSelected = createOption(cat.categoria, cat.id.toString())
                 }
             })
         } else {
-            option = jsonData.ranks.map((cat: any) => {
+            const option = jsonData.ranks.map((cat: any) => {
                 if (cat.id == id) {
-                    return createOption(cat.grado, cat.id)
+                    optionSelected = createOption(cat.grado, cat.id.toString())
                 }
             })
         }
-        return option
+        return optionSelected
     }
 
     useEffect(() => {
@@ -40,8 +40,8 @@ export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChang
                     handleInputChange('name', data.nombre)
                     handleInputChange('lastname', data.apellido)
                     handleInputChange('mail', data.mail)
-                    handleInputChange('category', findOption(data.id_categoria, 'categories'))
-                    handleInputChange('grade', findOption(data.id_rango, 'ranks'))
+                    handleInputChange('category', findOption(data.id_categoria, 'category'))
+                    handleInputChange('grade', findOption(data.id_rango, 'grade'))
                 } else {
                     handleInputChange('name', '')
                     handleInputChange('lastname', '')

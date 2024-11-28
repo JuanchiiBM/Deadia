@@ -21,7 +21,7 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
     ])
 
     const mapData = () => { 
-        setTableData(jsonData.list.map((dato: IRegister) => ({
+        const tableDataMapped = jsonData.list.map((dato: IRegister) => ({
             id: dato.id,
             usuario: dato.usuario,
             dni: dato.dni_alumno,
@@ -43,8 +43,11 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
                     </div>
                 );
             }
-        })))
-        setColumnsData(columnsData)
+        }))
+
+        setTimeout(() => {
+            setTableData(tableDataMapped)
+        }, 100)
     }
 
     useEffect(() => {

@@ -3,38 +3,37 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDi
 import ModalSelectsEgresos from './modalSelects'
 import ModalInputsEgresos from './modalInputs'
 import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts'
-import { Option } from '@/utils/globals'
+import SpinnerC from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
+import { useForm } from '@/hooks/egresos/registrarEgreso/useForm'
+import { useUpdate } from '@/hooks/egresos/registrarEgreso/useUpdate'
+import { useEgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext'
+import { usePost } from '@/hooks/egresos/registrarEgreso/usePost'
 
 const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
-    const [valueType, setValueType] = useState<Option | null>();
-    const [valueArticle, setValueArticle] = useState<Option | null>();
-    const [isDisabled, setIsDisabled] = useState(true)
-
-    const cargarEgreso = () => {
-        SuccessAlert('Registro Cargado', '', 'Ok', () => {
-            if (onClose)
-                onClose()
-        })
-    }
+    const { contentModal } = useEgressRegisterContext()
+    const { dataForm, handleInputChange, setDataForm } = useForm()
+    const { oldRegister } = useUpdate({ setDataForm, contentModal, isOpen })
+    const { cargarIngreso, showSpinner } = usePost({ dataForm, oldRegister, onClose })
 
     return createPortal(
         <Modal isDismissable={false} backdrop='blur' size='xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">Registrar Egreso</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{ contentModal ? `Editar egreso cargado por ${contentModal.usuario}` : 'Registrar Egreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-                            <form action="" className='w-full'>
-                                <ModalSelectsEgresos valueArticle={valueArticle} valueType={valueType} setValueArticle={setValueArticle} setValueType={setValueType} isDisabled={isDisabled} setIsDisabled={setIsDisabled}/>
-                                <ModalInputsEgresos />
+                            {showSpinner && <SpinnerC />}
+                            <form id='register-egress-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full'>
+                                <ModalSelectsEgresos dataForm={dataForm} handleInputChange={handleInputChange} />
+                                <ModalInputsEgresos dataForm={dataForm} handleInputChange={handleInputChange} />
                             </form>
                         </ModalBody>
                         <ModalFooter>
                             <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                             </Button>
-                            <Button color="primary" type='submit' form='register-charge' onPress={() => cargarEgreso()}>
+                            <Button color="primary" type='submit' form='register-egress-charge'>
                                 Guardar
                             </Button>
                         </ModalFooter>

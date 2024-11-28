@@ -30,6 +30,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
             id_grade_type: parseInt(studentInfo?.curse?.value || '')
         }
         setShowSpinner(true)
+        console.log(_dataObject)
         if (!update) {
             newRegister(_dataObject, e)
         } else {
@@ -42,7 +43,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
         const response = await POSTFunction(`api/income/register/form`, _dataObject)
         console.log(response)
         setShowSpinner(false)
-        if (response.status = 'ok') {
+        if (response.status == 'ok') {
             SuccessAlert('Registro Cargado', '', 'Ok', () => {
                 setRefreshData((prev) => prev = prev+1)
                 if (onClose)
@@ -59,7 +60,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
         const response = await PUTFunction(`api/income/register/form/${oldRegister.id}`, {oldRecords: oldRegister, newRecords: _dataObject})
         console.log(response)
         setShowSpinner(false)
-        if (response.status = 'ok') {
+        if (response.status == 'ok') {
             SuccessAlert('Registro Cargado', '', 'Ok', () => {
                 setRefreshData((prev) => prev = prev+1)
                 if (onClose)

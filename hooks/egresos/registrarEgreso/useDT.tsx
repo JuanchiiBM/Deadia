@@ -22,10 +22,13 @@ export const useDT = () => {
     const initializeDataTable = async () => {
         setTableData(jsonData.list.map((dato) => ({
             id: dato.id,
+            id_articulo: dato.id_articulo,
+            id_categoria: dato.id_categoria,
             categoria: dato.categoria,
             articulo: dato.articulo,
             usuario: dato.usuario,
             fec_compra: dato.fec_compra,
+            descripcion: dato.descripcion,
             cantidad: dato.cantidad,
             monto: dato.monto,
             acciones: () => {
@@ -44,11 +47,6 @@ export const useDT = () => {
         if (jsonData)
         initializeDataTable()
     }, [jsonData])
-
-    useEffect(() => {
-        if (jsonData)
-        initializeDataTable()
-    }, [refreshData])
 
     return { tableData, columns}
 }

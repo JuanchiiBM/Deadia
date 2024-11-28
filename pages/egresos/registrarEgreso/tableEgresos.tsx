@@ -14,13 +14,12 @@ DataTable.use(DT);
 
 interface DTEgress {
     onOpen: () => void,
-    setContentModal: React.Dispatch<React.SetStateAction<undefined>>
 }
 
-const DataTableEgresos: React.FC<DTEgress> = ({ onOpen, setContentModal}) => {
-    const { jsonIsLoading } = useEgressRegisterContext()
+const DataTableEgresos: React.FC<DTEgress> = ({ onOpen}) => {
+    const { jsonIsLoading, setContentModal } = useEgressRegisterContext()
     const { tableData, columns } = useDT()
-    const {} = useDTA({ tableData: tableData, setContentModal: setContentModal, onOpen: onOpen})
+    const {} = useDTA({ tableData, setContentModal, onOpen})
 
     return (
         <div className='bg-background-200 rounded-lg'>

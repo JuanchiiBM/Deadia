@@ -15,7 +15,7 @@ const RegistrarEgreso = () => {
 	const [isUpdate, setIsUpdate] = useState(false)
 	const [contentModal, setContentModal] = useState()
 	const {dateSelected, dateRef, selectDateRange} = useDatePicker()
-	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}` })
+	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
 
 	return (
 		<EgressRegisterContext.Provider value={{
@@ -24,11 +24,13 @@ const RegistrarEgreso = () => {
 			update: isUpdate,
 			setUpdate: setIsUpdate,
 			refreshData: refreshData,
-			setRefreshData: setRefreshData
+			setRefreshData: setRefreshData,
+			contentModal: contentModal,
+			setContentModal: setContentModal
 		}}>
 			<h1 className='text-4xl'>Egresos</h1>
-			<OptionsRegistrarEgreso onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} setContentModal={setContentModal} />
-			<DataTableEgresos setContentModal={setContentModal} onOpen={onOpen}/>
+			<OptionsRegistrarEgreso onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
+			<DataTableEgresos onOpen={onOpen}/>
 			<ModalEgresos isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
 		</EgressRegisterContext.Provider>
 	)

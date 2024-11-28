@@ -1,5 +1,5 @@
 import { Option } from "@/utils/globals"
-import { RangeValue, UseDisclosureProps } from "@nextui-org/react"
+import { RangeValue, UseDisclosureProps, CalendarDate, DateValue } from "@nextui-org/react"
 
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -17,13 +17,6 @@ export interface IUseFormInscription {
     dependency: Option | undefined | null
     amount: string | undefined | null
     datePicker: RangeValue<any>
-}
-
-export interface IUseSelectHandleChangeInscription {
-    handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
-    jsonData: IncomeRegisterOptions
-    chargueNewClassroom: (value: Option) => void
-    contentModal: any
 }
 
 export interface IUseDTAInscription {
@@ -226,6 +219,15 @@ export interface ITableDataClassroomsInside {
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 //Registrar Egreso
 
+export interface IUseFormEgressRegister {
+    category: Option | undefined | null
+    article: Option | undefined | null
+    description: string | undefined | null
+    amount: string | undefined | null
+    price: string | undefined | null
+    datePicker: DateValue | undefined | null
+}
+
 export interface ITableDataEgress {
     list: [
         ITableDataEgressInside
@@ -235,11 +237,31 @@ export interface ITableDataEgress {
 export interface ITableDataEgressInside {
     articulo: string
     cantidad: number
+    id_articulo: number
+    id_categoria: number
     categoria: string
     fec_compra: string
+    descripcion: string
     id: number
     monto: number
     usuario: string
+}
+
+export interface IDataEgressRegister {
+    categories: [
+        IDataEgressViewCatFilter
+    ],
+
+    list: {
+        article: [
+            IDataEgressRegisterArticle
+        ]
+    }
+}
+
+export interface IDataEgressRegisterArticle {
+    id: number
+    name: string
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

@@ -1,27 +1,33 @@
 import React from 'react'
-import { Input, DatePicker } from '@nextui-org/react'
+import { Input, DatePicker, RangeValue, CalendarDate, DateValue } from '@nextui-org/react'
 import { I18nProvider } from "@react-aria/i18n";
+import { IUseFormEgressRegister } from '@/helpers/interfaces';
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { Option } from '@/utils/globals';
 
-const ModalInputsEgresos = () => {
+interface IModalInputs {
+    dataForm: IUseFormEgressRegister
+    handleInputChange: (field: string, value: string | RangeValue<any> | DateValue | undefined | Option | null) => void
+}
+
+const ModalInputsEgresos: React.FC<IModalInputs> = ({ dataForm, handleInputChange }) => {
     return (
-        <div className='w-full m-0 flex gap-2'>
-            <I18nProvider locale='es-ES'>
-                <DatePicker label="Fecha de Compra" showMonthAndYearPickers labelPlacement='outside' variant='bordered' classNames={{
-                    input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
-                    inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
-                }} />
-            </I18nProvider>
-            <Input variant='bordered' placeholder='---' label='Cantidad' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
-            <Input variant='bordered' placeholder='$' label='Monto' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
-        </div>
+        <>
+            <div className='w-full m-0 flex gap-2'>
+                <I18nProvider locale='es-ES'>
+                    <DatePicker label="Fecha de Compra" value={dataForm.datePicker} onChange={(e) => {handleInputChange('datePicker', e)}} maxValue={today(getLocalTimeZone())} showMonthAndYearPickers labelPlacement='outside' variant='bordered' classNames={{
+                        input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
+                        inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
+                    }} />
+                </I18nProvider>
+                <Input variant='bordered' value={dataForm.amount ? dataForm.amount : ''} onChange={(e) => {handleInputChange('amount', e.currentTarget.value)}} placeholder='---' label='Cantidad' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
+                <Input variant='bordered' value={dataForm.price ? dataForm.price : ''} onChange={(e) => {handleInputChange('price', e.currentTarget.value)}} placeholder='$' label='Monto' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
+            </div>
+            <div className='w-full mt-2 flex gap-2'>
+                <Input variant='bordered' value={dataForm.description ? dataForm.description : ''} onChange={(e) => {handleInputChange('description', e.currentTarget.value)}} placeholder=' ' label='Descripción' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
+            </div>
+        </>
     )
 }
 
 export default ModalInputsEgresos
-
-/*<I18nProvider locale='es-ES'>
- <DateRangePicker visibleMonths={2} value={valueDatePicker} onChange={(e) => {setValueDatePicker(e)}} isDisabled={isDisabled} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs transition-all" classNames={{
-    input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
-    inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
-}} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
-</I18nProvider>*/

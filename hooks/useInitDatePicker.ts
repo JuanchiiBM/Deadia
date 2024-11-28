@@ -15,11 +15,6 @@ export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal, set
         end: today(getLocalTimeZone()),
     });
 
-    const resetModal = () => {
-        setContentModal(undefined)
-        onOpen()
-    }
-
     const handlerDateInitial = (e: any) => {
         setDateInitial(e)
         setRefreshData((prev) => prev = prev+1)
@@ -31,5 +26,5 @@ export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal, set
         }
     }, [dateInitial])
 
-    return { handlerDateInitial, dateInitial, resetModal}
+    return { handlerDateInitial, dateInitial}
 }
