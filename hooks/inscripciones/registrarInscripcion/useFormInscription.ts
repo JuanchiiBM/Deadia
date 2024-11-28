@@ -13,6 +13,7 @@ export const useFormInscription = () => {
         grade: undefined,
         classroom: undefined,
         curse: undefined,
+        id_pupil: undefined,
         dependency: undefined,
         amount: undefined,
         datePicker: {

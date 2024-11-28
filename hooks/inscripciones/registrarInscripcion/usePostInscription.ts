@@ -22,6 +22,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
             last_name: studentInfo.lastname,
             email: studentInfo.mail,
             id_category: parseInt(studentInfo?.category?.value || ''),
+            id_pupil: parseInt(studentInfo?.id_pupil || ''),
             status: repetido == undefined ? 0 : 1,
 
             code: studentInfo.classroom?.label,

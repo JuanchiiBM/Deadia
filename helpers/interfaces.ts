@@ -10,6 +10,7 @@ export interface IUseFormInscription {
     name: string | undefined | null
     lastname: string | undefined | null
     mail: string | undefined | null
+    id_pupil: string | undefined | null
     category: Option | undefined | null
     grade: Option | undefined | null
     classroom: Option | undefined | null
@@ -70,6 +71,7 @@ export interface IUseSearchDNI {
 
 export interface IUseSearchDNIData {
     apellido: string,
+    id: number
     id_categoria: number,
     id_rango: number,
     mail: string,

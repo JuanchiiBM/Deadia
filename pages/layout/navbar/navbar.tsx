@@ -30,7 +30,7 @@ export const NavbarWrapper = ({ children }: Props) => {
                     <UserDropdown />
                 </NavbarContent>
             </Navbar>
-            <section className="px-20 py-10 my-10 z-[29]">
+            <section className="px-10 py-10 my-10 z-[29] dashboard">
                 {children}
             </section>
         </div>

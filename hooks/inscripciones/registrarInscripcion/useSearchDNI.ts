@@ -40,6 +40,7 @@ export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChang
                     handleInputChange('name', data.nombre)
                     handleInputChange('lastname', data.apellido)
                     handleInputChange('mail', data.mail)
+                    handleInputChange('id_pupil', data.id.toString())
                     handleInputChange('category', findOption(data.id_categoria, 'category'))
                     handleInputChange('grade', findOption(data.id_rango, 'grade'))
                 } else {
