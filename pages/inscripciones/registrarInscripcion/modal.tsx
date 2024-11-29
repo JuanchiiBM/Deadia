@@ -31,12 +31,13 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
 
     return createPortal (
         <Modal isDismissable={false} backdrop='blur' size='4xl' className='bg-background sm:my-0' isOpen={isOpen} onClose={onClose}>
+            {showSpinner && <SpinnerC />}
             <ModalContent>
                 {(onClose: any) => (
-                    <>
+                    <>                        
                         <ModalHeader className="flex flex-col gap-1">{contentModal ? `Editar inscripción cargada por ${contentModal.usuario}` : 'Registrar inscripción'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-                            {showSpinner && <SpinnerC />}
+                            
 
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
                                 <div className='mb-[75px]'>

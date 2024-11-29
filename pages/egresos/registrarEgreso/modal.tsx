@@ -18,12 +18,12 @@ const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen })
 
     return createPortal(
         <Modal isDismissable={false} backdrop='blur' size='xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
+            {showSpinner && <SpinnerC />}
             <ModalContent>
                 {(onClose: any) => (
                     <>
                         <ModalHeader className="flex flex-col gap-1">{ contentModal ? `Editar egreso cargado por ${contentModal.usuario}` : 'Registrar Egreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-                            {showSpinner && <SpinnerC />}
                             <form id='register-egress-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full'>
                                 <ModalSelectsEgresos dataForm={dataForm} handleInputChange={handleInputChange} />
                                 <ModalInputsEgresos dataForm={dataForm} handleInputChange={handleInputChange} />
