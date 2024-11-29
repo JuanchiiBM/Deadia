@@ -15,8 +15,8 @@ const ModalSelectsRegistrarIngreso: React.FC<IModalSelectsRegistrarIngreso> = ({
     const { options, chargueNewClassroom } = useSelectOptionsInscription({ jsonData })
     const { selectOptionOfClassroom, selectOptionOfDependency, classroomCreated, isDisabled, curseDisabled }
         = useSelectHandleChangeInscription({ jsonData, contentModal, chargueNewClassroom, handleInputChange })
-    const { update, setUpdate } = useUpdateContext()
-    const { } = useChargeSelect({ studentInfo, jsonData, selectOptionOfClassroom })
+    const { update } = useUpdateContext()
+    useChargeSelect({ studentInfo, jsonData, selectOptionOfClassroom })
 
 
     return (

@@ -4,19 +4,20 @@ import { RangeValue } from "@nextui-org/react";
 import { Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import { GETFunction } from "@/utils/globals";
+import { useJsonData } from "@/hooks/useJsonData";
+import { useUpdateContext } from "./useUpdateContext";
 
 export const useSelectOptionsInscriptionModal = ({ setOptionsCharged}: { setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>>}) => {
-    const [jsonData, setJsonData] = useState<any>(undefined)
-
-    const initOptions = async () => {
-        const jsonDataResponse = await GETFunction('api/income/register/form') as IncomeRegisterOptions
-        setJsonData(jsonDataResponse)
-        setOptionsCharged(true)
-    }
-
+    const { refreshData } = useUpdateContext()
+    const { jsonData, isLoading } = useJsonData({ url: 'api/income/register/form', refreshData})
+    
     useEffect(() => {
-        initOptions()
-    }, [])
+        if (isLoading) {
+            setOptionsCharged(false)
+        } else {
+            setOptionsCharged(true)
+        }
+    }, [isLoading])
 
     return { jsonData }
 }
@@ -59,7 +60,7 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegis
 
     useEffect(() => {
         chargueOptions()
-    }, [])
+    }, [jsonData])
 
     return {options, chargueNewClassroom}
 }
