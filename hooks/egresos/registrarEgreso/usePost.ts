@@ -30,6 +30,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
         }
         setShowSpinner(true)
         if (!update) {
+            console.log(_dataObject)
             newRegister(_dataObject, e)
         } else {
             updateRegister(_dataObject, e)

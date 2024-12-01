@@ -20,7 +20,7 @@ export const useDT = () => {
     const {jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData: number} = useEgressRegisterContext()
 
     const initializeDataTable = async () => {
-        setTableData(jsonData.list.map((dato) => ({
+        const tableDataMapped = jsonData.list.map((dato) => ({
             id: dato.id,
             id_articulo: dato.id_articulo,
             id_categoria: dato.id_categoria,
@@ -40,7 +40,11 @@ export const useDT = () => {
                     </div>
                 );
             }
-        })) as ITableDataEgressInside[])
+        })) as ITableDataEgressInside[]
+
+        setTimeout(() => {
+            setTableData(tableDataMapped)
+        }, 100)
     }
 
     useEffect(() => {
