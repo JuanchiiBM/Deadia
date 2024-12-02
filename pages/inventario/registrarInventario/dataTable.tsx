@@ -12,11 +12,11 @@ import { useDTA } from '@/hooks/egresos/registrarEgreso/useDTA';
 
 DataTable.use(DT);
 
-interface DTEgress {
+interface ITableData {
     onOpen: () => void,
 }
 
-const DataTableEgresos: React.FC<DTEgress> = ({ onOpen}) => {
+const TableData: React.FC<ITableData> = ({ onOpen}) => {
     const { jsonIsLoading, setContentModal } = useContextRegister()
     const { tableData, columns } = useDT()
     const {} = useDTA({ tableData, setContentModal, onOpen})
@@ -55,4 +55,4 @@ const DataTableEgresos: React.FC<DTEgress> = ({ onOpen}) => {
     )
 }
 
-export default DataTableEgresos
+export default TableData

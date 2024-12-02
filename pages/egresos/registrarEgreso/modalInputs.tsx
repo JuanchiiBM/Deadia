@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, DatePicker, RangeValue, CalendarDate, DateValue } from '@nextui-org/react'
+import { Input, DatePicker, RangeValue, DateValue } from '@nextui-org/react'
 import { I18nProvider } from "@react-aria/i18n";
 import { IUseFormEgressRegister } from '@/helpers/interfaces';
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -10,7 +10,7 @@ interface IModalInputs {
     handleInputChange: (field: string, value: string | RangeValue<any> | DateValue | undefined | Option | null) => void
 }
 
-const ModalInputsEgresos: React.FC<IModalInputs> = ({ dataForm, handleInputChange }) => {
+const ModalInputs: React.FC<IModalInputs> = ({ dataForm, handleInputChange }) => {
     return (
         <>
             <div className='w-full m-0 flex gap-2'>
@@ -30,4 +30,4 @@ const ModalInputsEgresos: React.FC<IModalInputs> = ({ dataForm, handleInputChang
     )
 }
 
-export default ModalInputsEgresos
+export default ModalInputs

@@ -12,13 +12,13 @@ import { useContextRegister } from '@/hooks/useContextRegister'
 import { useResetModal } from '@/hooks/useResetModal'
 
 
-interface IOptionRegistrarEgreso {
+interface IOptions {
     onOpen: () => void
     dateRef: any
     selectDateRange: () => Promise<void>
 }
 
-const OptionsRegistrarEgreso: React.FC<IOptionRegistrarEgreso> = ({ onOpen, selectDateRange, dateRef }) => {
+const Options: React.FC<IOptions> = ({ onOpen, selectDateRange, dateRef }) => {
     const { setRefreshData, setContentModal, setUpdate, jsonIsLoading } = useContextRegister()
     const {handlerDateInitial, dateInitial} = useInitDatePicker({selectDateRange, onOpen, setContentModal, setRefreshData})
     const {resetModal} = useResetModal({ setContentModal, setUpdate, onOpen})
@@ -39,4 +39,4 @@ const OptionsRegistrarEgreso: React.FC<IOptionRegistrarEgreso> = ({ onOpen, sele
     )
 }
 
-export default OptionsRegistrarEgreso
+export default Options

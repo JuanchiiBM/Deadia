@@ -1,15 +1,15 @@
 "use client"
 
 import React, { useState } from 'react'
-import OptionsRegistrarEgreso from './options'
-import DataTableEgresos from './tableEgresos';
-import ModalEgresos from './modal';
+import Options from './options'
+import TableData from './dataTable';
+import ModalView from './modal';
 import { useDisclosure } from '@nextui-org/react';
 import { useJsonData } from '@/hooks/useJsonData';
 import { ContextRegister } from '@/hooks/useContextRegister';
 import { useDatePicker } from '@/hooks/useDatePicker';
 
-const RegistrarEgreso = () => {
+const registrarEgreso = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [refreshData, setRefreshData] = useState(0)
 	const [isUpdate, setIsUpdate] = useState(false)
@@ -29,11 +29,11 @@ const RegistrarEgreso = () => {
 			setContentModal: setContentModal
 		}}>
 			<h1 className='text-4xl'>Egresos</h1>
-			<OptionsRegistrarEgreso onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
-			<DataTableEgresos onOpen={onOpen}/>
-			<ModalEgresos isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+			<Options onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
+			<TableData onOpen={onOpen}/>
+			<ModalView isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
 		</ContextRegister.Provider>
 	)
 }
 
-export default RegistrarEgreso
+export default registrarEgreso

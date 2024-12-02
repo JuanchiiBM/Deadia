@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useEgressRegisterContext } from "./useContext"
+import { useContextRegister } from "@/hooks/useContextRegister"
 import { ITableDataEgress, ITableDataEgressInside } from "@/helpers/interfaces"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
@@ -17,7 +17,7 @@ export const useDT = () => {
         { data: 'monto', title: 'Monto' },
         { data: 'acciones', title: 'Acciones' }
     ]
-    const {jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData: number} = useEgressRegisterContext()
+    const {jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData: number} = useContextRegister()
 
     const initializeDataTable = async () => {
         const tableDataMapped = jsonData.list.map((dato) => ({

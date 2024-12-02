@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import CreatableSelect from 'react-select/creatable';
 import { colourStylesBordered } from '@/helpers/selects';
 import { IUseFormEgressRegister } from '@/helpers/interfaces';
@@ -6,12 +6,12 @@ import { RangeValue, CalendarDate } from '@nextui-org/react';
 import { Option } from '@/utils/globals';
 import { useSelectHandleChange, useSelectOptions } from '@/hooks/egresos/registrarEgreso/useSelectOptions';
 
-interface IModalSelectsEgresos {
+interface IModalSelects {
     dataForm: IUseFormEgressRegister
     handleInputChange: (field: string, value: string | RangeValue<any> | CalendarDate | undefined | Option | null) => void
 }
 
-const ModalSelectsEgresos: React.FC<IModalSelectsEgresos> = ({ dataForm, handleInputChange }) => {
+const ModalSelects: React.FC<IModalSelects> = ({ dataForm, handleInputChange }) => {
     const {options, jsonData, isLoading, chargueNewCategory, chargueNewArticle, chargueOptionsArticle} = useSelectOptions()
     const {selectOptionOfCategory, categoryCreated, articleCreated, isDisabled} = useSelectHandleChange({jsonData, handleInputChange, chargueNewCategory, chargueNewArticle, chargueOptionsArticle})
 
@@ -23,4 +23,4 @@ const ModalSelectsEgresos: React.FC<IModalSelectsEgresos> = ({ dataForm, handleI
     )
 }
 
-export default ModalSelectsEgresos
+export default ModalSelects

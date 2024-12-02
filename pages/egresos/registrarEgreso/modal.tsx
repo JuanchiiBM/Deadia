@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
-import ModalSelectsEgresos from './modalSelects'
-import ModalInputsEgresos from './modalInputs'
-import { SuccessAlert } from '@/components/sweetAlert/SweetsAlerts'
+import ModalSelects from './modalSelects'
+import ModalInputs from './modalInputs'
 import SpinnerC from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
 import { useForm } from '@/hooks/egresos/registrarEgreso/useForm'
@@ -11,7 +10,7 @@ import { useContextRegister } from '@/hooks/useContextRegister'
 import { usePost } from '@/hooks/egresos/registrarEgreso/usePost'
 import { ITableDataEgressInside } from '@/helpers/interfaces'
 
-const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
+const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
     const { contentModal }: { contentModal: ITableDataEgressInside} = useContextRegister()
     const { dataForm, handleInputChange, setDataForm } = useForm()
     const { oldRegister } = useUpdate({ setDataForm, contentModal, isOpen })
@@ -26,8 +25,8 @@ const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen })
                         <ModalHeader className="flex flex-col gap-1">{ contentModal ? `Editar egreso cargado por ${contentModal.usuario}` : 'Registrar Egreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
                             <form id='register-egress-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full'>
-                                <ModalSelectsEgresos dataForm={dataForm} handleInputChange={handleInputChange} />
-                                <ModalInputsEgresos dataForm={dataForm} handleInputChange={handleInputChange} />
+                                <ModalSelects dataForm={dataForm} handleInputChange={handleInputChange} />
+                                <ModalInputs dataForm={dataForm} handleInputChange={handleInputChange} />
                             </form>
                         </ModalBody>
                         <ModalFooter>
@@ -45,4 +44,4 @@ const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen })
     )
 }
 
-export default ModalEgresos
+export default ModalView

@@ -3,12 +3,12 @@ import { DELETEFunction } from "@/utils/globals"
 import { IUseDTAInscription } from "@/helpers/interfaces"
 import { ITableDataEgressInside } from "@/helpers/interfaces"
 import { useEffect, useState } from "react"
-import { useEgressRegisterContext } from "./useContext"
+import { useContextRegister } from "@/hooks/useContextRegister"
 import { useSidebarContext } from "@/pages/layout/layout-context"
 
 export const useDTA = ({ tableData, setContentModal, onOpen }: IUseDTAInscription) => {
     const { setShowSpinner } = useSidebarContext()
-    const { setUpdate, setRefreshData } = useEgressRegisterContext()
+    const { setUpdate, setRefreshData } = useContextRegister()
 
     const deleteRegister = (dato: ITableDataEgressInside) => {
         QuestionAlert('Borrar registro', 'Esta usted seguro de proceder con la accion?', 'Confirmar', async () => {
