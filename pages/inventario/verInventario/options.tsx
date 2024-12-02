@@ -6,7 +6,7 @@ import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
 import { useDatePickerCharge } from '@/hooks/egresos/verEgreso/useDatePickerCharge';
 import { useChargeOptions } from '@/hooks/egresos/verEgreso/useChargeOptions';
-import { useEgressView } from '@/hooks/egresos/verEgreso/useContext';
+import { useContextView } from '@/hooks/useContextView';
 import { useHandlerOptions } from '@/hooks/egresos/verEgreso/useHandlerOptions';
 
 interface IOptions {
@@ -19,7 +19,7 @@ interface IOptions {
 }
 
 const Options: React.FC<IOptions> = ({ setValueOption, dateRef, selectDateRange }) => {
-    const { jsonIsLoading } = useEgressView()
+    const { jsonIsLoading } = useContextView()
     const { valueSelects, handleValueSelect, disabledClassrooms } = useHandlerOptions()
     const { dateInitial, handleDateInitial } = useDatePickerCharge({selectDateRange}) 
     const { options } = useChargeOptions()

@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDepAcc } from "./useDepAcc"
-import { useEgressView } from "./useContext"
+import { useContextView } from "@/hooks/useContextView"
 import { IDataEgressView, IDataEgressViewArtList, IDataEgressViewCatList, IDataEgressViewProducts } from "@/helpers/interfaces"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import ReactDOMServer from 'react-dom/server';
 
 export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => {
     const [tableKey, setTableKey] = useState(0)
@@ -15,7 +12,7 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
         { data: 'monto', title: 'Ingreso Acumulado' },
     ])
     const [tableData, setTableData] = useState<IDataEgressViewCatList[] | IDataEgressViewArtList[] | IDataEgressViewProducts[] | undefined>()
-    const { jsonData, setChartContent }: { jsonData: IDataEgressView, setChartContent: any } = useEgressView()
+    const { jsonData, setChartContent }: { jsonData: IDataEgressView, setChartContent: any } = useContextView()
 
     const switchToCategory = async () => {
         if (jsonData) {

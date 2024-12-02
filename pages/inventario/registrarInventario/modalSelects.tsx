@@ -4,7 +4,7 @@ import { colourStylesBordered } from '@/helpers/selects';
 import { IUseFormEgressRegister } from '@/helpers/interfaces';
 import { RangeValue, CalendarDate } from '@nextui-org/react';
 import { Option } from '@/utils/globals';
-import { useSelectHandleChange, useSelectOptions } from '@/hooks/egresos/registrarEgreso/useSelectOptions';
+import { useSelectHandleChange, useSelectOptions } from '@/hooks/inventario/registrarInventario/useSelectOptions';
 
 interface IModalSelects {
     dataForm: IUseFormEgressRegister

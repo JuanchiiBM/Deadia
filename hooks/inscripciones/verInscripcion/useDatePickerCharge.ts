@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { RangeValue } from "@react-types/shared";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
-import { useInscriptionContext } from "./useInscriptionContext";
-
+import { useContextView } from "@/hooks/useContextView";
 
 export const useDatePickerCharge = ({ selectDateRange }: { selectDateRange: () => Promise<void>}) => {
-    const { setRefreshData } = useInscriptionContext()
+    const { setRefreshData } = useContextView()
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
         start: startOfYear(today(getLocalTimeZone())),
         end: today(getLocalTimeZone()),

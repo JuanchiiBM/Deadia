@@ -3,16 +3,16 @@ import DataTable from 'datatables.net-react';
 import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import { useDT } from '@/hooks/egresos/verEgreso/useDT.tsx';
+import { useDT } from '@/hooks/egresos/verEgreso/useDT';
 
 DataTable.use(DT);
 
-interface ITable {
+interface ITableData {
     tableLoader: boolean
     dateRef: React.MutableRefObject<any>
 }
 
-const Table: React.FC<ITable> = ({ tableLoader, dateRef }) => {
+const TableData: React.FC<ITableData> = ({ tableLoader, dateRef }) => {
     const { tableColumns, tableData, tableKey } = useDT({dateRef})
 
     return (
@@ -39,4 +39,4 @@ const Table: React.FC<ITable> = ({ tableLoader, dateRef }) => {
     )
 }
 
-export default Table
+export default TableData

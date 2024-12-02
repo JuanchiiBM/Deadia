@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { ITableDataClassrooms, ITableDataClassroomsInside, ITableDataDep, ITableDataDepInsideGrades, ITableDataDeps, ITableDataDepsInsideDeps } from "@/helpers/interfaces"
 import { useDepAcc } from "./useDepAcc"
-import { useInscriptionContext } from "./useInscriptionContext"
+import { useContextView } from "@/hooks/useContextView"
 
 export const useDTInscription = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => {
     const [tableKey, setTableKey] = useState(0)
@@ -10,7 +10,7 @@ export const useDTInscription = ({ dateRef }: { dateRef: React.MutableRefObject<
         { data: 'mes', title: 'Fecha' },
         { data: 'monto', title: 'Ingreso Acumulado' }])
     const [tableData, setTableData] = useState<ITableDataDepsInsideDeps[] | ITableDataDepInsideGrades[] | ITableDataClassroomsInside[] | undefined>()
-    const { jsonData, setChartContent }: { jsonData: ITableDataDep & ITableDataDeps & ITableDataClassrooms, setChartContent: any} = useInscriptionContext()
+    const { jsonData, setChartContent }: { jsonData: ITableDataDep & ITableDataDeps & ITableDataClassrooms, setChartContent: any} = useContextView()
 
     const switchToDeps = async () => {
         if (jsonData) {

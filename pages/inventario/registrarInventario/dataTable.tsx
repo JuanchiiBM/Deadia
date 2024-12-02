@@ -6,9 +6,9 @@ import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import { useDT } from '@/hooks/egresos/registrarEgreso/useDT';
+import { useDT } from '@/hooks/inventario/registrarInventario/useDT';
 import { useContextRegister } from '@/hooks/useContextRegister';
-import { useDTA } from '@/hooks/egresos/registrarEgreso/useDTA';
+import { useDTA } from '@/hooks/inventario/registrarInventario/useDTA';
 
 DataTable.use(DT);
 

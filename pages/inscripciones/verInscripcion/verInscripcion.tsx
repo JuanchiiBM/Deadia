@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Options from './options'
 import TableVerIngreso from './dataTable';
 
-import { InscriptionContext } from '@/hooks/inscripciones/verInscripcion/useInscriptionContext';
+import { ContextView } from '@/hooks/useContextView';
 import { useJsonData } from '@/hooks/useJsonData';
 import { useGetUrl } from '@/hooks/inscripciones/verInscripcion/useGetUrl';
 import { useDatePickerInscription } from '@/hooks/inscripciones/verInscripcion/useDatePickerInscription';
@@ -31,7 +31,7 @@ const verInscripcion = () => {
     const {isLoading, jsonData} = useJsonData({url})
 
     return (
-        <InscriptionContext.Provider value={{
+        <ContextView.Provider value={{
             refreshData: refreshData,
             setRefreshData: setRefreshData,
             jsonData: jsonData,
@@ -43,7 +43,7 @@ const verInscripcion = () => {
             <Chart chartContent={chartContent} />
             <Options setValueOption={setValueOption} dateRef={dateRef} selectDateRange={selectDateRange} />
             <TableVerIngreso tableLoader={isLoading} dateRef={dateRef} />
-        </InscriptionContext.Provider>
+        </ContextView.Provider>
     )
 }
 

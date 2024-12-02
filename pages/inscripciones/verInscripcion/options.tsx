@@ -7,7 +7,7 @@ import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
 import { useDatePickerCharge } from '@/hooks/inscripciones/verInscripcion/useDatePickerCharge';
 import { useChargeOptions } from '@/hooks/inscripciones/verInscripcion/useChargeOptions';
-import { useInscriptionContext } from '@/hooks/inscripciones/verInscripcion/useInscriptionContext';
+import { useContextView } from '@/hooks/useContextView';
 import { useHandlerOptions } from '@/hooks/inscripciones/verInscripcion/useHandlerOptions';
 
 interface IOptionsVerInsc {
@@ -20,7 +20,7 @@ interface IOptionsVerInsc {
 }
 
 const Options: React.FC<IOptionsVerInsc> = ({ setValueOption, dateRef, selectDateRange }) => {
-    const { jsonIsLoading } = useInscriptionContext()
+    const { jsonIsLoading } = useContextView()
     const { valueSelects, handleValueSelect, disabledClassrooms } = useHandlerOptions()
     const { dateInitial, handleDateInitial } = useDatePickerCharge({selectDateRange}) 
     const { options } = useChargeOptions()

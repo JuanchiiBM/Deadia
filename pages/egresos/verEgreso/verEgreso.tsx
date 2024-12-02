@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import dynamic from "next/dynamic";
 import Options from './options'
 import Table from './dataTable';
-import { EgressView } from '@/hooks/egresos/verEgreso/useContext';
+import { ContextView } from '@/hooks/useContextView';
 import { useJsonData } from '@/hooks/useJsonData';
 import { useGetUrl } from '@/hooks/egresos/verEgreso/useGetUrl';
 import { useDatePicker } from '@/hooks/egresos/verEgreso/useDatePicker';
@@ -30,7 +30,7 @@ const verEgreso = () => {
     const {isLoading, jsonData} = useJsonData({url})
 
     return (
-        <EgressView.Provider value={{
+        <ContextView.Provider value={{
             refreshData: refreshData,
             setRefreshData: setRefreshData,
             jsonData: jsonData,
@@ -42,7 +42,7 @@ const verEgreso = () => {
             <Chart chartContent={chartContent} />
             <Options setValueOption={setValueOption} dateRef={dateRef} selectDateRange={selectDateRange} />
             <Table tableLoader={isLoading} dateRef={dateRef} />
-        </EgressView.Provider>
+        </ContextView.Provider>
     )
 }
 

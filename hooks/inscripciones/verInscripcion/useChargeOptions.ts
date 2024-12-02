@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { useInscriptionContext } from "./useInscriptionContext"
+import { useContextView } from "@/hooks/useContextView"
 import { Option } from "@/utils/globals"
 import { ITableDataClassrooms, ITableDataDep, ITableDataDepInsideFilter, ITableDataDeps, ITableDataDepsInsideFilter } from "@/helpers/interfaces"
 
 export const useChargeOptions = () => {
-    const { jsonData, refreshData }: { jsonData: ITableDataDeps & ITableDataDep & ITableDataClassrooms, refreshData: number } = useInscriptionContext()
+    const { jsonData, refreshData }: { jsonData: ITableDataDeps & ITableDataDep & ITableDataClassrooms, refreshData: number } = useContextView()
     const [options, setOptions] = useState({
         deps: [{ value: '0', label: 'Todas' }],
         grades: [{}]

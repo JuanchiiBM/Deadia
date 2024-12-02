@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { useEgressView } from "./useContext"
+import { useContextView } from "@/hooks/useContextView"
 import { Option } from "@/utils/globals"
 import { IDataEgressView, IDataEgressViewCatFilter, IDataEgressViewArtFilter } from "@/helpers/interfaces"
 
 export const useChargeOptions = () => {
-    const { jsonData, refreshData }: { jsonData: IDataEgressView, refreshData: number } = useEgressView()
+    const { jsonData, refreshData }: { jsonData: IDataEgressView, refreshData: number } = useContextView()
     const [options, setOptions] = useState({
         categories: [{ value: '0', label: 'Todas' }],
         articles: [{}]

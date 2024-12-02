@@ -4,10 +4,10 @@ import ModalSelects from './modalSelects'
 import ModalInputs from './modalInputs'
 import SpinnerC from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
-import { useForm } from '@/hooks/egresos/registrarEgreso/useForm'
-import { useUpdate } from '@/hooks/egresos/registrarEgreso/useUpdate'
+import { useForm } from '@/hooks/inventario/registrarInventario/useForm'
+import { useUpdate } from '@/hooks/inventario/registrarInventario/useUpdate'
 import { useContextRegister } from '@/hooks/useContextRegister'
-import { usePost } from '@/hooks/egresos/registrarEgreso/usePost'
+import { usePost } from '@/hooks/inventario/registrarInventario/usePost'
 import { ITableDataEgressInside } from '@/helpers/interfaces'
 
 const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {

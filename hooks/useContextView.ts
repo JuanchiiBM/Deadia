@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
 
-interface IEgressView {
+interface IContextView {
     refreshData: number
     setRefreshData: React.Dispatch<React.SetStateAction<number>>;
     jsonData: any
@@ -10,7 +10,7 @@ interface IEgressView {
 }
 
 
-export const EgressView = createContext<IEgressView>({
+export const ContextView = createContext<IContextView>({
     refreshData: 2,
     setRefreshData: () => { },
     jsonData: undefined,
@@ -19,6 +19,6 @@ export const EgressView = createContext<IEgressView>({
     setChartContent: undefined
 });
 
-export const useEgressView = () => {
-    return useContext(EgressView);
+export const useContextView = () => {
+    return useContext(ContextView);
 };
