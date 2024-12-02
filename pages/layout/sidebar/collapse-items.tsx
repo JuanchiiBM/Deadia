@@ -4,7 +4,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
-import { faCircleDot, faUserGraduate, faMoneyBillTransfer, faGears } from "@fortawesome/free-solid-svg-icons";
+import { faCircleDot, faUserGraduate, faMoneyBillTransfer, faGears, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
     icon: number;
@@ -24,6 +24,8 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
                 return faMoneyBillTransfer
             case 3:
                 return faGears
+            case 4:
+                return faBoxesStacked
         }
         return faCircleDot
     }

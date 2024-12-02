@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react"
 import { PUTFunction } from "@/utils/globals"
 import { SuccessAlert, QuestionAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
-import { useContextRegister } from "@/hooks/useContextRegister";
+import { useEgressRegisterContext } from "./useContext";
 import { IUseFormEgressRegister } from "@/helpers/interfaces";
 
 export interface IUsePost {
@@ -13,7 +13,7 @@ export interface IUsePost {
 
 export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
     const [showSpinner, setShowSpinner] = useState<boolean>(false)
-    const { update, setRefreshData } = useContextRegister()
+    const { update, setRefreshData } = useEgressRegisterContext()
 
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()

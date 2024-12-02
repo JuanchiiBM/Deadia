@@ -8,7 +8,7 @@ import { DateRangePicker } from "@nextui-org/react";
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useInitDatePicker } from '@/hooks/useInitDatePicker'
-import { useContextRegister } from '@/hooks/useContextRegister'
+import { useEgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext'
 import { useResetModal } from '@/hooks/useResetModal'
 
 
@@ -19,7 +19,7 @@ interface IOptionRegistrarEgreso {
 }
 
 const OptionsRegistrarEgreso: React.FC<IOptionRegistrarEgreso> = ({ onOpen, selectDateRange, dateRef }) => {
-    const { setRefreshData, setContentModal, setUpdate, jsonIsLoading } = useContextRegister()
+    const { setRefreshData, setContentModal, setUpdate, jsonIsLoading } = useEgressRegisterContext()
     const {handlerDateInitial, dateInitial} = useInitDatePicker({selectDateRange, onOpen, setContentModal, setRefreshData})
     const {resetModal} = useResetModal({ setContentModal, setUpdate, onOpen})
     

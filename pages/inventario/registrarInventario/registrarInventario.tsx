@@ -6,10 +6,10 @@ import DataTableEgresos from './tableEgresos';
 import ModalEgresos from './modal';
 import { useDisclosure } from '@nextui-org/react';
 import { useJsonData } from '@/hooks/useJsonData';
-import { ContextRegister } from '@/hooks/useContextRegister';
+import { EgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext';
 import { useDatePicker } from '@/hooks/useDatePicker';
 
-const RegistrarEgreso = () => {
+const RegistrarInventario = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [refreshData, setRefreshData] = useState(0)
 	const [isUpdate, setIsUpdate] = useState(false)
@@ -18,7 +18,7 @@ const RegistrarEgreso = () => {
 	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
 
 	return (
-		<ContextRegister.Provider value={{
+		<EgressRegisterContext.Provider value={{
 			jsonData: jsonData,
 			jsonIsLoading: isLoading,
 			update: isUpdate,
@@ -32,8 +32,8 @@ const RegistrarEgreso = () => {
 			<OptionsRegistrarEgreso onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
 			<DataTableEgresos onOpen={onOpen}/>
 			<ModalEgresos isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-		</ContextRegister.Provider>
+		</EgressRegisterContext.Provider>
 	)
 }
 
-export default RegistrarEgreso
+export default RegistrarInventario

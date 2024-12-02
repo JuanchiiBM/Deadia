@@ -48,11 +48,11 @@ export const SidebarWrapper = () => {
                             path={["/egresos/verEgreso", "/egresos/registrarEgreso"]}
                             title="Egreso"
                         />
-                        <SidebarItem
+                        <CollapseItems
+                            icon={4}
+                            items={["Visualizar Inventario", "Registrar Inventario"]}
+                            path={["/inventario/verInventario", "/inventario/registrarInventario"]}
                             title="Inventario"
-                            icon={<FontAwesomeIcon icon={faBoxesStacked} />}
-                            isActive={pathname === "/inventario"}
-                            href="/inventario"
                         />
                         <CollapseItems
                             icon={3}

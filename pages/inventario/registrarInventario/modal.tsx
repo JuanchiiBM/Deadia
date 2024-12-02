@@ -7,12 +7,11 @@ import SpinnerC from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
 import { useForm } from '@/hooks/egresos/registrarEgreso/useForm'
 import { useUpdate } from '@/hooks/egresos/registrarEgreso/useUpdate'
-import { useContextRegister } from '@/hooks/useContextRegister'
+import { useEgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext'
 import { usePost } from '@/hooks/egresos/registrarEgreso/usePost'
-import { ITableDataEgressInside } from '@/helpers/interfaces'
 
 const ModalEgresos: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
-    const { contentModal }: { contentModal: ITableDataEgressInside} = useContextRegister()
+    const { contentModal } = useEgressRegisterContext()
     const { dataForm, handleInputChange, setDataForm } = useForm()
     const { oldRegister } = useUpdate({ setDataForm, contentModal, isOpen })
     const { cargarIngreso, showSpinner } = usePost({ dataForm, oldRegister, onClose })

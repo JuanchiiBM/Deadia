@@ -4,7 +4,8 @@ import { GETFunction, Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import { useJsonData } from "@/hooks/useJsonData";
 import { RangeValue } from "@nextui-org/react";
-import { useContextRegister } from "@/hooks/useContextRegister";
+import { useEgressRegisterContext } from "./useContext";
+
 
 export const useSelectOptions = () => {
     const {jsonData, isLoading}: {jsonData: IDataEgressRegister, isLoading: boolean} = useJsonData({url: 'api/loss/register/form'})
@@ -80,7 +81,7 @@ interface IUseSelectHandleChange{
 
 
 export const useSelectHandleChange = ({jsonData, handleInputChange, chargueNewCategory, chargueNewArticle ,chargueOptionsArticle}: IUseSelectHandleChange) => {
-    const { contentModal }: {contentModal: IUseFormEgressRegister} = useContextRegister()
+    const { contentModal }: {contentModal: IUseFormEgressRegister} = useEgressRegisterContext()
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
     const categoryCreated = (inputValue: string) => {

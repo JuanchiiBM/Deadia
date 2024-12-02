@@ -1,10 +1,9 @@
-import { ITableDataEgressInside } from "@/helpers/interfaces";
 import React, { createContext, useContext } from "react";
 
-interface IRegisterEgressContext {
+interface IContextRegister {
     refreshData: number
     setRefreshData: React.Dispatch<React.SetStateAction<number>>
-    contentModal: ITableDataEgressInside | undefined
+    contentModal: any | undefined
     setContentModal: React.Dispatch<React.SetStateAction<any>>
     update: boolean
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,7 +12,7 @@ interface IRegisterEgressContext {
 }
 
 
-export const EgressRegisterContext = createContext<IRegisterEgressContext>({
+export const ContextRegister = createContext<IContextRegister>({
     refreshData: 2,
     setRefreshData: () => { },
     contentModal: undefined,
@@ -24,6 +23,6 @@ export const EgressRegisterContext = createContext<IRegisterEgressContext>({
     jsonIsLoading: false,
 });
 
-export const useEgressRegisterContext = () => {
-    return useContext(EgressRegisterContext);
+export const useContextRegister = () => {
+    return useContext(ContextRegister);
 };

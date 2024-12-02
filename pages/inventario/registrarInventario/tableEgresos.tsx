@@ -7,7 +7,7 @@ import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useDT } from '@/hooks/egresos/registrarEgreso/useDT';
-import { useContextRegister } from '@/hooks/useContextRegister';
+import { useEgressRegisterContext } from '@/hooks/egresos/registrarEgreso/useContext';
 import { useDTA } from '@/hooks/egresos/registrarEgreso/useDTA';
 
 DataTable.use(DT);
@@ -17,7 +17,7 @@ interface DTEgress {
 }
 
 const DataTableEgresos: React.FC<DTEgress> = ({ onOpen}) => {
-    const { jsonIsLoading, setContentModal } = useContextRegister()
+    const { jsonIsLoading, setContentModal } = useEgressRegisterContext()
     const { tableData, columns } = useDT()
     const {} = useDTA({ tableData, setContentModal, onOpen})
 
