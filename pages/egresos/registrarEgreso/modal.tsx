@@ -24,7 +24,7 @@ const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) =>
                     <>
                         <ModalHeader className="flex flex-col gap-1">{ contentModal ? `Editar egreso cargado por ${contentModal.usuario}` : 'Registrar Egreso'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center'>
-                            <form id='register-egress-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full'>
+                            <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full'>
                                 <ModalSelects dataForm={dataForm} handleInputChange={handleInputChange} />
                                 <ModalInputs dataForm={dataForm} handleInputChange={handleInputChange} />
                             </form>
@@ -33,7 +33,7 @@ const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) =>
                             <Button color="danger" variant="light" onPress={onClose}>
                                 Cerrar
                             </Button>
-                            <Button color="primary" type='submit' form='register-egress-charge'>
+                            <Button color="primary" type='submit' form='register-charge'>
                                 Guardar
                             </Button>
                         </ModalFooter>

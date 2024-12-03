@@ -28,7 +28,7 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
             nombre: dato.nom_alumno,
             mail: dato.mail,
             dependencia: dato.dependencia,
-            categoria: dato.grado == '-' ? dato.categoria : `${dato.categoria} (${dato.grado})`,
+            categoria: dato.grado == null ? dato.categoria : `${dato.categoria} (${dato.grado})`,
             grado: dato.grado,
             curso: dato.curso,
             aula: dato.aula,

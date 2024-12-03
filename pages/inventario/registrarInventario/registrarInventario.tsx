@@ -28,7 +28,7 @@ const registrarInventario = () => {
 			contentModal: contentModal,
 			setContentModal: setContentModal
 		}}>
-			<h1 className='text-4xl'>Egresos</h1>
+			<h1 className='text-4xl'>Inventario</h1>
 			<Options onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
 			<TableData onOpen={onOpen}/>
 			<ModalView isOpen={isOpen} onClose={onClose} onOpen={onOpen} />

@@ -52,6 +52,7 @@ export const colourStylesBordered: StylesConfig = {
         border: state.isFocused ? '2px solid hsl(var(--nextui-default-800))' : '2px solid hsl(var(--nextui-default-200))',
         borderRadius: '12px',
         fontSize: '0.875rem',
+        height: '40px',
         display: 'flex',
         outline: 'none',
         color: 'hsl(var(--nextui-content1))'

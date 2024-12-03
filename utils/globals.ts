@@ -37,7 +37,7 @@ export const GETFunction = async (url: string, loader?: any) => {
     }
 }
 
-export const POSTFunction = async (url: string, _dataObject: object, loader?: any) => {
+export const POSTFunction = async (url: string, _dataObject: any, loader?: any) => {
     try {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
             method: "POST",
@@ -61,7 +61,7 @@ export const POSTFunction = async (url: string, _dataObject: object, loader?: an
     }
 }
 
-export const PUTFunction = async (url: string, _dataObject: object, loader?: any) => {
+export const PUTFunction = async (url: string, _dataObject: any, loader?: any) => {
     console.log(_dataObject)
     try {
         const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
@@ -72,7 +72,7 @@ export const PUTFunction = async (url: string, _dataObject: object, loader?: any
             },
             body: JSON.stringify(_dataObject)
         });
-        const finalResponse = response.json()
+        const finalResponse = await response.json()
         if (loader) loader(false)
 
         console.log(url)

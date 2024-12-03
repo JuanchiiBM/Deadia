@@ -40,7 +40,7 @@ const ModalRegistrarIngreso: React.FC<IModalRegistrarIngreso> = ({ setOptionsCha
                             
 
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='flex flex-col justify-evenly w-[70%] border-r-1 pr-8'>
-                                <div className='mb-[75px]'>
+                                <div className='mb-8'>
                                     <h3 className='w-full border-b-1 mb-2'>Datos del alumno:</h3>
                                     <div className='flex gap-2'>
                                         <Input maxLength={20} value={studentInfo.dni ? studentInfo.dni : ''} onChange={(e) => {setDni(e.currentTarget.value); handleInputChange('dni', e.currentTarget.value)}} variant='bordered' classNames={{ mainWrapper: 'flex justify-end mt-2' }} labelPlacement='outside' label='DNI' required type="number" isDisabled={update}/>

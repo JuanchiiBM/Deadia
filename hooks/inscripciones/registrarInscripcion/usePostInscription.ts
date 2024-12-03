@@ -22,13 +22,13 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
             last_name: studentInfo.lastname,
             email: studentInfo.mail,
             id_category: parseInt(studentInfo?.category?.value || ''),
-            id_pupil: parseInt(studentInfo?.id_pupil || ''),
+            id_pupil: !Number.isNaN(parseInt(studentInfo?.id_pupil || '')) ? parseInt(studentInfo?.id_pupil || '') : '',
             status: repetido == undefined ? 0 : 1,
 
             code: studentInfo.classroom?.label,
             begin_date: formatDateFromDatePicker(studentInfo.datePicker.start),
             end_date: formatDateFromDatePicker(studentInfo.datePicker.end),
-            id_grade_type: parseInt(studentInfo?.curse?.value || '')
+            id_rank: studentInfo?.curse?.value ? parseInt(studentInfo?.curse?.value || '') : null
         }
         setShowSpinner(true)
         console.log(_dataObject)

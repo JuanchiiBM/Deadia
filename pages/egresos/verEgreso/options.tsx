@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { DateRangePicker } from "@nextui-org/react";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
-import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
+import { getLocalTimeZone, today } from "@internationalized/date";
 import { useDatePickerCharge } from '@/hooks/egresos/verEgreso/useDatePickerCharge';
 import { useChargeOptions } from '@/hooks/egresos/verEgreso/useChargeOptions';
 import { useContextView } from '@/hooks/useContextView';

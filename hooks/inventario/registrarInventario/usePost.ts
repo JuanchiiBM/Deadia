@@ -3,10 +3,10 @@ import { PUTFunction } from "@/utils/globals"
 import { SuccessAlert, QuestionAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
 import { useContextRegister } from "@/hooks/useContextRegister";
-import { IUseFormEgressRegister } from "@/helpers/interfaces";
+import { IUseFormInventoryRegister } from "@/helpers/interfaces";
 
 export interface IUsePost {
-    dataForm: IUseFormEgressRegister
+    dataForm: IUseFormInventoryRegister
     onClose: (() => void) | undefined
     oldRegister: any
 }
@@ -18,6 +18,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
         const _dataObject = {
+            /* Hay que trabajar los datos que se van a enviar al backend
             id_article: !Number.isNaN(parseInt(dataForm.article?.value || '')) ? parseInt(dataForm.article?.value || '') : '',
             id_art_type: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
             name_art: dataForm.article?.label,
@@ -27,6 +28,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             quantity: dataForm.amount,
             date: dataForm.datePicker?.toString(),
             status: repetido == undefined ? 0 : 1,
+            */
         }
         setShowSpinner(true)
         if (!update) {

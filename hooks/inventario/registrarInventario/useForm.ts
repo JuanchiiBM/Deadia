@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react"
-import { IUseFormEgressRegister } from "@/helpers/interfaces";
+import { useState } from "react"
+import { IUseFormInventoryRegister } from "@/helpers/interfaces";
 import { RangeValue, DateValue } from "@nextui-org/react";
-import { parseDate } from "@internationalized/date";
 import { Option } from "@/utils/globals";
 
 
 
 export const useForm = () => {
-    const [dataForm, setDataForm] = useState<IUseFormEgressRegister>({
+    const [dataForm, setDataForm] = useState<IUseFormInventoryRegister>({
         category: undefined,
         article: undefined,
-        description: undefined,
-        amount: undefined,
-        price: undefined,
-        datePicker: undefined
+        section: undefined,
+        action: undefined,
+        c_act: undefined,
+        c_nueva: undefined
     })
 
     const handleInputChange = (field: string, value: string | RangeValue<any> | DateValue | undefined | Option | null) => {

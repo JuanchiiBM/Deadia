@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { createOption, formatDate, transformToDateValue } from "@/utils/globals"
-import { ITableDataEgressInside, IUseFormEgressRegister } from "@/helpers/interfaces"
+import { ITableDataEgressInside, IUseFormInventoryRegister } from "@/helpers/interfaces"
 
 interface IUseUpdate {
-    setDataForm: React.Dispatch<React.SetStateAction<IUseFormEgressRegister>>,
+    setDataForm: React.Dispatch<React.SetStateAction<IUseFormInventoryRegister>>,
     contentModal: ITableDataEgressInside | undefined,
     isOpen: boolean | undefined
 }
@@ -11,6 +11,8 @@ interface IUseUpdate {
 
 export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => {
     useEffect(() => {
+        // Se deja por si se llega a hacer un update
+        /*
         setDataForm({
             category: contentModal ? createOption(contentModal.categoria, contentModal.id_categoria.toString()) : null,
             article: contentModal ? createOption(contentModal.articulo, contentModal.id_articulo.toString()) : null,
@@ -19,6 +21,7 @@ export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => 
             price: contentModal ? contentModal.monto.toString() : '',
             datePicker: contentModal ? transformToDateValue(contentModal.fec_compra) : null
         })
+            */
     }, [isOpen])
 
     let oldRegister
@@ -39,15 +42,3 @@ export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => 
 
     return { oldRegister }
 }
-
-/*
-id_article: !Number.isNaN(parseInt(dataForm.article?.value || '')) ? parseInt(dataForm.article?.value || '') : '',
-            id_art_type: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
-            name_art: dataForm.article?.label,
-            name_art_type: dataForm.category?.label,
-            description: dataForm.description,
-            amount: dataForm.price,
-            quantity: dataForm.amount,
-            date: dataForm.datePicker?.toString(),
-            status: repetido == undefined ? 0 : 1,
-            */

@@ -23,10 +23,10 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             name_art: dataForm.article?.label,
             name_art_type: dataForm.category?.label,
             description: dataForm.description,
-            amount: dataForm.price,
-            quantity: dataForm.amount,
+            amount: parseInt(dataForm.price || ''),
+            quantity: parseInt(dataForm.amount || ''),
             date: dataForm.datePicker?.toString(),
-            status: repetido == undefined ? 0 : 1,
+            status: repetido == undefined ? 0 : 1
         }
         setShowSpinner(true)
         if (!update) {
@@ -48,8 +48,8 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                 if (onClose)
                     onClose()
             })
-        } else {
-            QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response[0].fecha} por ${response[0].usuario} con una cantidad de ${response[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
+        } else if (response.result && response.result[0]) {
+            QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
         }
@@ -65,8 +65,8 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                 if (onClose)
                     onClose()
             })
-        } else {
-            QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response[0].fecha} por ${response[0].usuario} con una cantidad de ${response[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
+        } else if (response.result && response.result[0]) {
+            QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
         }

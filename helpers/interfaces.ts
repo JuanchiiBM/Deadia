@@ -328,6 +328,54 @@ export interface IDataEgressViewProducts {
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Registrar Inventario
+
+export interface IUseFormInventoryRegister {
+    category: Option | undefined | null
+    article: Option | undefined | null
+    section: Option | undefined | null
+    action: string | undefined | null
+    c_act: string | undefined | null
+    c_nueva: DateValue | undefined | null
+}
+
+export interface ITableDataEgress {
+    list: [
+        ITableDataEgressInside
+    ]
+}
+
+export interface ITableDataEgressInside {
+    articulo: string
+    cantidad: number
+    id_articulo: number
+    id_categoria: number
+    categoria: string
+    fec_compra: string
+    descripcion: string
+    id: number
+    monto: number
+    usuario: string
+}
+
+export interface IDataEgressRegister {
+    categories: [
+        IDataEgressViewCatFilter
+    ],
+
+    list: {
+        article: [
+            IDataEgressRegisterArticle
+        ]
+    }
+}
+
+export interface IDataEgressRegisterArticle {
+    id: number
+    name: string
+}
+
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 //Usuarios
 
 export interface IUsersTable {

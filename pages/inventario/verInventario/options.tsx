@@ -3,11 +3,11 @@ import Select from 'react-select';
 import { DateRangePicker } from "@nextui-org/react";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
-import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
-import { useDatePickerCharge } from '@/hooks/egresos/verEgreso/useDatePickerCharge';
-import { useChargeOptions } from '@/hooks/egresos/verEgreso/useChargeOptions';
+import { getLocalTimeZone, today } from "@internationalized/date";
+import { useDatePickerCharge } from '@/hooks/inventario/verInventario/useDatePickerCharge';
+import { useChargeOptions } from '@/hooks/inventario/verInventario/useChargeOptions';
 import { useContextView } from '@/hooks/useContextView';
-import { useHandlerOptions } from '@/hooks/egresos/verEgreso/useHandlerOptions';
+import { useHandlerOptions } from '@/hooks/inventario/verInventario/useHandlerOptions';
 
 interface IOptions {
     setValueOption: React.Dispatch<React.SetStateAction<{
