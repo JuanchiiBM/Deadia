@@ -14,6 +14,7 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
             classroom: contentModal ? contentModal.aula : null,
             curse: null,
             dependency: null,
+            id_pupil: null,
             amount: contentModal ? contentModal.monto_acumulado.split(' de ')[0] : '',
             datePicker: {
                 start: null,

@@ -7,10 +7,10 @@ import { GETFunction } from "@/utils/globals";
 import { useJsonData } from "@/hooks/useJsonData";
 import { useUpdateContext } from "./useUpdateContext";
 
-export const useSelectOptionsInscriptionModal = ({ setOptionsCharged}: { setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>>}) => {
+export const useSelectOptionsInscriptionModal = ({ setOptionsCharged }: { setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const { refreshData } = useUpdateContext()
-    const { jsonData, isLoading } = useJsonData({ url: 'api/income/register/form', refreshData})
-    
+    const { jsonData, isLoading } = useJsonData({ url: 'api/income/register/form', refreshData })
+
     useEffect(() => {
         if (isLoading) {
             setOptionsCharged(false)
@@ -22,12 +22,13 @@ export const useSelectOptionsInscriptionModal = ({ setOptionsCharged}: { setOpti
     return { jsonData }
 }
 
-export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegisterOptions}) => {
+export const useSelectOptionsInscription = ({ jsonData }: { jsonData: IncomeRegisterOptions }) => {
     const [options, setOptions] = useState<{
         classroom: Option[] | undefined,
         dependency: Option[] | undefined,
-        grade: Option[] | undefined
-    }>({classroom: undefined, dependency: undefined, grade: undefined})
+        grade: Option[] | undefined,
+        value: Option[] | undefined
+    }>({ classroom: undefined, dependency: undefined, grade: undefined, value: undefined })
 
     const chargueOptions = async () => {
         const optionsClassrooms = jsonData.classrooms.map((opt) => ({
@@ -42,12 +43,13 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegis
             value: opt.id.toString(),
             label: opt.curso
         })) as Option[]
-        
+
         setOptions(prev => ({
+            ...prev,
             classroom: optionsClassrooms,
             dependency: optionsDeps,
-            grade: optionsGrades
-        })) 
+            grade: optionsGrades,
+        }))
     }
 
     const chargueNewClassroom = (newOption: Option) => {
@@ -55,14 +57,14 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData:IncomeRegis
         setOptions(prev => ({
             ...prev,
             classroom: [...prevClassrooms, newOption]
-        })) 
+        }))
     }
 
     useEffect(() => {
         chargueOptions()
     }, [jsonData])
 
-    return {options, chargueNewClassroom}
+    return { options, chargueNewClassroom }
 }
 
 interface IUseSelectHandleChangeInscription {
@@ -73,26 +75,29 @@ interface IUseSelectHandleChangeInscription {
 }
 
 
-export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, chargueNewClassroom, contentModal}: IUseSelectHandleChangeInscription) => {
+export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, chargueNewClassroom, contentModal }: IUseSelectHandleChangeInscription) => {
     const [curseDisabled, setCurseDisabled] = useState<boolean>(true)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
+    const [optionsAmount, setOptionsAmount] = useState<Option[] | undefined>(undefined)
 
     const classroomCreated = (inputValue: string) => {
         const newOption = createOption(inputValue)
         chargueNewClassroom(newOption)
         handleInputChange('classroom', newOption)
-        handleInputChange('curse', undefined)
-        handleInputChange('dependency', undefined)
+        handleInputChange('amount', undefined)
+        selectOptionOfDependency(null)
+        selectOptionOfCurse(null)
         handleInputChange('datePicker', { start: null, end: null })
         setIsDisabled(false)
         setOptionsCurse()
         setOptionsDependency()
+        setOptionsAmount(undefined)
     }
 
     const setOptionsCurse = async (setValue?: IncomeRegisterOptionClassroom) => {
         if (setValue) {
             const option: Option = { label: setValue.curso, value: setValue.id_curso.toString() }
-            handleInputChange('curse', option)
+            selectOptionOfCurse(option)
         }
     }
 
@@ -106,8 +111,9 @@ export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, c
     const selectOptionOfClassroom = async (newValue: Option) => {
         handleInputChange('classroom', newValue)
         if (jsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue.value)) {
-            
+
             setIsDisabled(true)
+            setCurseDisabled(true)
             jsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
                 if (opt.id.toString() == newValue.value) {
 
@@ -121,16 +127,31 @@ export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, c
             })
         } else {
             setIsDisabled(false)
-            
-            handleInputChange('curse', undefined)
-            handleInputChange('dependency', undefined)
-            handleInputChange('datePicker', {start: null, end: null})
+            handleInputChange('amount', undefined)
+            selectOptionOfDependency(null)
+            selectOptionOfCurse(null)
+            handleInputChange('datePicker', { start: null, end: null })
         }
     }
 
-    const selectOptionOfDependency = (newValue: Option) => {
+    const selectOptionOfDependency = (newValue: Option | null) => {
         handleInputChange('dependency', newValue)
         newValue != null ? setCurseDisabled(false) : setCurseDisabled(true)
+    }
+
+    const selectOptionOfCurse = (newValue: Option | null) => {
+        const grade = jsonData.grades.find((grade) => grade.id.toString() === newValue?.value)
+        handleInputChange('curse', newValue)
+        if (grade) {
+            setOptionsAmount([{
+                value: '0',
+                label: `Por mes: $${grade.precio_mes.toString()}`
+            }, {
+                value: '1',
+                label: `Total: $${(grade.precio_mes*grade.duracion).toString()}`
+            }])
+        }
+        console.log(optionsAmount)
     }
 
     useEffect(() => {
@@ -149,15 +170,15 @@ export const useSelectHandleChangeInscription = ({jsonData, handleInputChange, c
         setIsDisabled(true)
     }, [])
 
-    return {selectOptionOfClassroom, selectOptionOfDependency, classroomCreated, curseDisabled, isDisabled}
+    return { selectOptionOfClassroom, selectOptionOfDependency, selectOptionOfCurse, classroomCreated, curseDisabled, optionsAmount, isDisabled }
 }
 
 
-export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChange}: IModalSelects2Inscription) => {
+export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChange }: IModalSelects2Inscription) => {
     const [options, setOptions] = useState<{
         category: Option[] | undefined,
         grade: Option[] | undefined
-    }>({category: undefined, grade: undefined})
+    }>({ category: undefined, grade: undefined })
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
     const chargeCategory = async () => {
@@ -165,7 +186,7 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
             value: category.id.toString(),
             label: category.categoria
         })) as Option[]
-        
+
         setOptions(prev => ({
             ...prev,
             category: optionsCategory,
@@ -202,10 +223,10 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
         handleInputChange('category', newValue)
         chargeGrade(parseInt(newValue.value || ''))
     }
-    
+
     useEffect(() => {
         chargeCategory()
     }, [isOpen])
 
-    return {options, isDisabled, selectCategory}
+    return { options, isDisabled, selectCategory }
 }

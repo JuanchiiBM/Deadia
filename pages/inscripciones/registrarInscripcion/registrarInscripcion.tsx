@@ -22,6 +22,7 @@ const RegistrarIngreso = () => {
             <UpdateContext.Provider value={{
                 refreshData: refreshData,
                 setRefreshData: setRefreshData,
+                contentModal: contentModal,
                 update: isUpdate,
                 setUpdate: setIsUpdate
             }}>

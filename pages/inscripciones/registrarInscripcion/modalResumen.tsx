@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { faCalendarCheck, faCalendarXmark } from '@fortawesome/free-regular-svg-icons'
 import Image from 'next/image'
-import { Option } from '@/utils/globals'
-import { RangeValue } from "@react-types/shared";
 import { IUseFormInscription } from '@/helpers/interfaces'
 
 const ModalResumenRegistrarIngreso: React.FC<{studentInfo: IUseFormInscription}> = ({ studentInfo }) => {
@@ -32,7 +30,7 @@ const ModalResumenRegistrarIngreso: React.FC<{studentInfo: IUseFormInscription}>
                     <div className='w-full mt-5'>
                         <h3 className='text-lg text-center'>{studentInfo.dependency?.label ? studentInfo.dependency?.label : 'Dependencia'}</h3>
                         <div className='flex flex-col w-full text-start border-t-1'>
-                            <p className='truncate'><FontAwesomeIcon icon={faDollarSign} className='mr-3' />{studentInfo.amount ? studentInfo.amount : '-'}</p>
+                            <p className='truncate'><FontAwesomeIcon icon={faDollarSign} className='mr-3' />{studentInfo.amount?.label && studentInfo.amount.label}</p>
                         </div>
                     </div>
                 </div>

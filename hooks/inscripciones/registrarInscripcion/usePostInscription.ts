@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react"
 import { formatDateFromDatePicker, PUTFunction } from "@/utils/globals"
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { SuccessAlert, QuestionAlert } from "@/components/sweetAlert/SweetsAlerts";
+import { SuccessAlert, QuestionAlert, ErrorAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
 import { IUsePostInscription } from "@/helpers/interfaces";
 import { useUpdateContext } from "./useUpdateContext";
@@ -15,7 +15,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
         const _dataObject = {
             id_classroom: parseInt(studentInfo?.classroom?.value || ''),
             id_dependency: parseInt(studentInfo?.dependency?.value || ''),
-            amount: studentInfo.amount,
+            amount: parseInt(studentInfo?.amount?.label?.split('$')[1] || ''),
             date: formatDateFromDatePicker(today(getLocalTimeZone())),
             dni: studentInfo.dni,
             name: studentInfo.name,
@@ -50,10 +50,12 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
                 if (onClose)
                     onClose()
             })
-        } else {
-            QuestionAlert('Registro Repetido', 'Este alumno fue cargado hace menos de 14 días, ¿Esta usted seguro de que desea cargarlo?', 'Cargar', () => {
+        } else if (response.result[0]) {
+            QuestionAlert('Registro Repetido', `Este alumno fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario}, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
+        } else if (response.error) {
+            ErrorAlert('Error', response.error, 'Ok')
         }
     }
 
@@ -67,8 +69,12 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
                 if (onClose)
                     onClose()
             })
-        } else {
-            cargarIngreso(e, 1)
+        } else if (response.result[0]) {
+            QuestionAlert('Registro Repetido', `Este alumno fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario}, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
+                cargarIngreso(e, 1)
+            })
+        } else if (response.error) {
+            ErrorAlert('Error', response.error, 'Ok')
         }
     }
 

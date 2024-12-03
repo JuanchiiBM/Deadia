@@ -3,14 +3,14 @@ import { createOption } from "@/utils/globals"
 import { useEffect, useState } from "react"
 import { useUpdateContext } from "./useUpdateContext"
 
-export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom }: { studentInfo: IUseFormInscription, jsonData: any, selectOptionOfClassroom: any }) => {
-    const { update } = useUpdateContext()
+export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom, handleInputChange, optionsAmount }: { studentInfo: IUseFormInscription, jsonData: any, selectOptionOfClassroom: any, handleInputChange: any, optionsAmount: any }) => {
+    const { update, contentModal } = useUpdateContext()
 
     const findOption = () => {
         const option = jsonData.classrooms.find((cat: any) =>
             cat.codigo == studentInfo.classroom
         )
-        
+
         if (option && option.codigo) {
             const finalOption = {
                 value: option.id.toString(),
@@ -20,14 +20,35 @@ export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom
         }
     }
 
+    const findOptionForAmount = () => {
+        if (contentModal) {
+            const option = optionsAmount.find((cat: any) =>
+                cat.label.split('$')[1] == contentModal.monto_acumulado.split(' de ')[0]
+            )
+
+            if (option) {
+                handleInputChange('amount', optionsAmount[1])
+            } else {
+                handleInputChange('amount', optionsAmount[0])
+            }
+        }
+    }
+
     useEffect(() => {
         if (update) {
             findOption()
         }
     }, [studentInfo])
 
+    useEffect(() => {
+        if (update && optionsAmount) {
+            findOptionForAmount()
+        }
+    }, [optionsAmount])
+
     return {}
 }
+
 
 export const useChargeSelect2 = ({ studentInfo, jsonData, selectCategory, handleInputChange }: { studentInfo: IUseFormInscription | undefined, jsonData: any, selectCategory: any, handleInputChange: any }) => {
 
@@ -39,7 +60,7 @@ export const useChargeSelect2 = ({ studentInfo, jsonData, selectCategory, handle
         const option = jsonData.categories.find((cat: any) =>
             cat.categoria == studentInfo?.category
         )
-        
+
         if (option && option.categoria) {
             const finalOption = {
                 value: option.id.toString(),
@@ -48,7 +69,7 @@ export const useChargeSelect2 = ({ studentInfo, jsonData, selectCategory, handle
             selectCategory(finalOption)
         }
 
-        const optionGrade = jsonData.ranks.find((cat: any) => 
+        const optionGrade = jsonData.ranks.find((cat: any) =>
             cat.grado == studentInfo?.grade
         )
 
