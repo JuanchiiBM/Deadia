@@ -50,7 +50,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
                 if (onClose)
                     onClose()
             })
-        } else if (response.result[0]) {
+        } else if (response.result) {
             QuestionAlert('Registro Repetido', `Este alumno fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario}, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
@@ -69,7 +69,7 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
                 if (onClose)
                     onClose()
             })
-        } else if (response.result[0]) {
+        } else if (response.result) {
             QuestionAlert('Registro Repetido', `Este alumno fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario}, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })

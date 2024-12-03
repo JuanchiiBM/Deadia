@@ -48,7 +48,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                 if (onClose)
                     onClose()
             })
-        } else if (response.result && response.result[0]) {
+        } else if (response.result) {
             QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
@@ -67,7 +67,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                 if (onClose)
                     onClose()
             })
-        } else if (response.result && response.result[0]) {
+        } else if (response.result) {
             QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
