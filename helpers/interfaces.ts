@@ -339,40 +339,75 @@ export interface IUseFormInventoryRegister {
     c_nueva: DateValue | undefined | null
 }
 
-export interface ITableDataEgress {
+export interface ITableDataInventory {
     list: [
-        ITableDataEgressInside
+        ITableDataInventoryInside
     ]
 }
 
-export interface ITableDataEgressInside {
+export interface ITableDataInventoryInside {
+    accion: string
     articulo: string
     cantidad: number
+    categoria: string
+    dependencia: string
+    fec_asignacion: string
+    id: number
     id_articulo: number
     id_categoria: number
-    categoria: string
-    fec_compra: string
-    descripcion: string
-    id: number
-    monto: number
-    usuario: string
+    id_dependencia: number
+    saldo_actual: number
+    saldo_restante: number
+    total_comprado: number
 }
 
-export interface IDataEgressRegister {
-    categories: [
-        IDataEgressViewCatFilter
-    ],
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Ver Inventario
+
+export interface IDataInventoryView {
+    filter: {
+        dependency: [
+            IDataInventoryViewDepFilter
+        ],
+        category: [
+            IDataInventoryViewCatFilter
+        ]
+    },
 
     list: {
-        article: [
-            IDataEgressRegisterArticle
-        ]
+        deps: [
+            IDataInventoryViewDepList
+        ],
+        categories: [
+            IDataInventoryViewCatList
+        ],
     }
 }
 
-export interface IDataEgressRegisterArticle {
+export interface IDataInventoryViewDepFilter {
     id: number
     name: string
+}
+
+export interface IDataInventoryViewDepList {
+    dependencia: string
+    mes: string
+    tipos_producto: number
+    total_asignado: number
+    total_consumido: number
+}
+
+export interface IDataInventoryViewCatFilter {
+    id: number
+    categoria: string
+}
+
+export interface IDataInventoryViewCatList {
+    categoria: string
+    mes: string
+    tipos_producto: number
+    total_asignado: number
+    total_consumido: number
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

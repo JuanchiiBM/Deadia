@@ -15,7 +15,7 @@ const registrarInventario = () => {
 	const [isUpdate, setIsUpdate] = useState(false)
 	const [contentModal, setContentModal] = useState()
 	const {dateSelected, dateRef, selectDateRange} = useDatePicker()
-	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
+	const { jsonData, isLoading } = useJsonData({ url: `api/inventory/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
 
 	return (
 		<ContextRegister.Provider value={{

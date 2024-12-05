@@ -1,36 +1,39 @@
 import { useEffect, useState } from "react"
 import { useContextRegister } from "@/hooks/useContextRegister"
-import { ITableDataEgress, ITableDataEgressInside } from "@/helpers/interfaces"
+import { ITableDataInventory, ITableDataInventoryInside } from "@/helpers/interfaces"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import ReactDOMServer from 'react-dom/server';
 
 export const useDT = () => {
-    const [tableData, setTableData] = useState<ITableDataEgressInside[] | undefined>()
+    const [tableData, setTableData] = useState<ITableDataInventoryInside[] | undefined>()
     const columns = [
         { data: 'id', title: 'Nro.' },
+        { data: 'dependencia', title: 'Dependencia' },
         { data: 'categoria', title: 'Categoría' },
         { data: 'articulo', title: 'Articulo' },
-        { data: 'usuario', title: 'Cargado por' },
-        { data: 'fec_compra', title: 'Fecha' },
-        { data: 'cantidad', title: 'Cantidad' },
-        { data: 'monto', title: 'Monto' },
+        { data: 'fec_asignacion', title: 'Fecha' },
+        { data: 'cantidad', title: 'Asignado' },
+        { data: 'saldo_actual', title: 'Cantidad Total' },
         { data: 'acciones', title: 'Acciones' }
     ]
-    const {jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData: number} = useContextRegister()
+    const {jsonData, refreshData}: {jsonData: ITableDataInventory, refreshData: number} = useContextRegister()
 
     const initializeDataTable = async () => {
         const tableDataMapped = jsonData.list.map((dato) => ({
             id: dato.id,
             id_articulo: dato.id_articulo,
             id_categoria: dato.id_categoria,
+            id_dependencia: dato.id_dependencia,
             categoria: dato.categoria,
             articulo: dato.articulo,
-            usuario: dato.usuario,
-            fec_compra: dato.fec_compra,
-            descripcion: dato.descripcion,
+            dependencia: dato.dependencia,
+            fec_asignacion: dato.fec_asignacion,
             cantidad: dato.cantidad,
-            monto: dato.monto,
+            saldo_actual: dato.saldo_actual,
+            saldo_restante: dato.saldo_restante,
+            total_comprado: dato.total_comprado,
+            accion: dato.accion,
             acciones: () => {
                 return ReactDOMServer.renderToString(
                     <div id={`actions-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
@@ -40,7 +43,7 @@ export const useDT = () => {
                     </div>
                 );
             }
-        })) as ITableDataEgressInside[]
+        })) as ITableDataInventoryInside[]
 
         setTimeout(() => {
             setTableData(tableDataMapped)

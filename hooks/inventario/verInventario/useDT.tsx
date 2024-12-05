@@ -15,6 +15,7 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
     const { jsonData, setChartContent }: { jsonData: IDataEgressView, setChartContent: any } = useContextView()
 
     const switchToCategory = async () => {
+        console.log(jsonData)
         if (jsonData) {
             setTableKey((prev) => prev = prev + 1)
             const columns = [
@@ -103,6 +104,7 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
     }
 
     useEffect(() => {
+        console.log(jsonData)
         if (jsonData && jsonData.list.categories && !jsonData.list.products) {
             switchToCategory()
         } else if (jsonData && jsonData.list.articles) {

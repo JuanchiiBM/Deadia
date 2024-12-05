@@ -28,7 +28,7 @@ const Options: React.FC<IOptions> = ({ setValueOption, dateRef, selectDateRange 
         <div className='w-full my-[50px] h-[110px] bg-background-200 flex justify-around p-5 rounded-lg shadow-md'>
             <div className='flex flex-col'>
                 <label id='label-dependency' htmlFor="select-dependency">Categoría:</label>
-                <Select maxMenuHeight={300} isDisabled={jsonIsLoading} aria-labelledby='label-dependency' value={valueSelects.categories} onChange={(e: any) => {setValueOption({value: e.value, type: 'Categories'}); handleValueSelect('categories', e)}} defaultValue={options.categories[0]} options={options.categories} className='w-[170px]' placeholder='Categorías' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStyles}></Select>
+                <Select maxMenuHeight={300} isDisabled={jsonIsLoading} aria-labelledby='label-dependency' value={valueSelects.dependencies} onChange={(e: any) => {setValueOption({value: e.value, type: 'Dependencies'}); handleValueSelect('dependencies', e)}} defaultValue={options.dependencies[0]} options={options.dependencies} className='w-[170px]' placeholder='Dependencias' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStyles}></Select>
             </div>
             <div>
                 <I18nProvider locale='es-ES'>
@@ -41,7 +41,7 @@ const Options: React.FC<IOptions> = ({ setValueOption, dateRef, selectDateRange 
             </div>
             <div className='flex flex-col'>
                 <label id='label-curse' htmlFor="select-curso">Artículo:</label>
-                <Select maxMenuHeight={300} isDisabled={jsonIsLoading || disabledClassrooms} aria-labelledby='label-curse' value={valueSelects.articles} onChange={(e: any) => {setValueOption({value: e.value, type: 'Articles'});  handleValueSelect('articles', e)}} options={options.articles} className='w-[170px]' placeholder='Artículos' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStyles}></Select>
+                <Select maxMenuHeight={300} isDisabled={jsonIsLoading || disabledClassrooms} aria-labelledby='label-curse' value={valueSelects.categories} onChange={(e: any) => {setValueOption({value: e.value, type: 'Categories'});  handleValueSelect('categories', e)}} options={options.categories} className='w-[170px]' placeholder='Categorías' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStyles}></Select>
             </div>
         </div>
     )

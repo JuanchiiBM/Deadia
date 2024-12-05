@@ -24,7 +24,7 @@ const verInventario = () => {
     const { dateSelected, dateRef, selectDateRange } = useDatePicker()
     const [valueOption, setValueOption] = useState({
         value: '0',
-        type: 'Categories'
+        type: 'Dependencies'
     })
     const { url } = useGetUrl({ dateSelected, value: valueOption})
     const {isLoading, jsonData} = useJsonData({url})

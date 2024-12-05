@@ -4,20 +4,20 @@ import { useState } from "react";
 export const useHandlerOptions = () => {
     const [disabledClassrooms, setDisabledClassrooms] = useState(true)
     const [valueSelects, setValueSelects] = useState<{
-        categories: null | {
+        dependencies: null | {
             value: string,
             label: string
         },
-        articles: null | {
+        categories: null | {
             value: string,
             label: string
         }
     }>({
-        categories: {
+        dependencies: {
             value: '0',
             label: 'Todas'
         },
-        articles: null
+        categories: null
     })
 
     const setDisabled = (value: Option) => {
@@ -28,16 +28,16 @@ export const useHandlerOptions = () => {
         }
         setValueSelects((prev) => ({
             ...prev,
-            articles: null
+            categories: null
         }))
     }
 
-    const handleValueSelect = (select: 'categories' | 'articles', value: Option) => {
+    const handleValueSelect = (select: 'dependencies' | 'categories', value: Option) => {
         setValueSelects((prev) => ({
             ...prev,
             [select]: value
         }))
-        if (select == 'categories')
+        if (select == 'dependencies')
         setDisabled(value)
     }
 
