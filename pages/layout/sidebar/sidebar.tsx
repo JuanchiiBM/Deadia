@@ -33,8 +33,8 @@ export const SidebarWrapper = () => {
                         <SidebarItem
                             title="Home"
                             icon={<FontAwesomeIcon icon={faHouse} />}
-                            isActive={pathname === "/"}
-                            href="/"
+                            isActive={pathname === "/home"}
+                            href="/home"
                         />
                         <CollapseItems
                             icon={1}

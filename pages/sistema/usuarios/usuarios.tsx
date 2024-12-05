@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import ModalUsers from './modal'
 import { useDisclosure } from '@nextui-org/react'
 import StatsUsers from './stats'
-import TableUsers from './dataTable'
+import TableData from './dataTable'
 import OptionsUsers from './options'
 
 const Usuarios = () => {
@@ -18,7 +18,7 @@ const Usuarios = () => {
                 <div className='w-[25%] h-auto mr-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
                     <StatsUsers />
                 </div>
-                <TableUsers />
+                <TableData />
             </div>
             <ModalUsers isOpen={isOpen} onClose={onClose} />
         </>
