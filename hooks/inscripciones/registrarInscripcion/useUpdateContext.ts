@@ -3,6 +3,7 @@ import React, { createContext, useContext } from "react";
 interface IUpdateContext {
     refreshData: number
     setRefreshData: React.Dispatch<React.SetStateAction<number>>;
+    contentModal: any
     update: boolean;
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -11,6 +12,7 @@ interface IUpdateContext {
 export const UpdateContext = createContext<IUpdateContext>({
     refreshData: 2,
     setRefreshData: () => { },
+    contentModal: undefined,
     update: false,
     setUpdate: () => { },
 });

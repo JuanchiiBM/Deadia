@@ -16,7 +16,7 @@ export interface IUseFormInscription {
     classroom: Option | undefined | null
     curse: Option | undefined | null
     dependency: Option | undefined | null
-    amount: string | undefined | null
+    amount: Option | undefined | null
     datePicker: RangeValue<any>
 }
 
@@ -110,6 +110,7 @@ export interface IncomeRegisterOptionClassroom {
 export interface IncomeRegisterOptionCategory {
     id: number
     categoria: string
+    descuento_mes: number
 }
 
 export interface IncomeRegisterOptionDep {
@@ -119,7 +120,10 @@ export interface IncomeRegisterOptionDep {
 
 export interface IncomeRegisterOptionGrade {
     id: number
+    id_dependencia: number
     curso: string
+    duracion: number
+    precio_mes: number
 }
 
 export interface IncomeRegisterOptionRank {

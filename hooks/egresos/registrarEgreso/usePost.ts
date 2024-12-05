@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react"
 import { PUTFunction } from "@/utils/globals"
-import { SuccessAlert, QuestionAlert } from "@/components/sweetAlert/SweetsAlerts";
+import { SuccessAlert, QuestionAlert, ErrorAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
 import { useContextRegister } from "@/hooks/useContextRegister";
 import { IUseFormEgressRegister } from "@/helpers/interfaces";
@@ -48,10 +48,12 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                 if (onClose)
                     onClose()
             })
-        } else if (response.result && response.result[0]) {
+        } else if (response.result) {
             QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
+        } else if (response.error) {
+            ErrorAlert('Error', response.error, 'Ok')
         }
     }
 
@@ -65,10 +67,12 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                 if (onClose)
                     onClose()
             })
-        } else if (response.result && response.result[0]) {
+        } else if (response.result) {
             QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
+        } else if (response.error) {
+            ErrorAlert('Error', response.error, 'Ok')
         }
     }
 
