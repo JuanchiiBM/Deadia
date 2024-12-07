@@ -1,37 +1,37 @@
 import { useEffect, useState } from "react"
 import { useDepAcc } from "./useDepAcc"
 import { useContextView } from "@/hooks/useContextView"
-import { IDataEgressView, IDataEgressViewArtList, IDataEgressViewCatList, IDataEgressViewProducts } from "@/helpers/interfaces"
+import { IDataInventoryView, IDataInventoryViewDepList, IDataInventoryViewArtList, IDataInventoryViewCatList } from "@/helpers/interfaces"
 
 export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => {
     const [tableKey, setTableKey] = useState(0)
     const [tableColumns, setTableColumns] = useState([
-        { data: 'categoria', title: 'Categoria' },
+        { data: 'dependencia', title: 'Sector' },
         { data: 'mes', title: 'Fecha' },
-        { data: 'unidades_compradas', title: 'Unidades Totales' },
-        { data: 'monto', title: 'Ingreso Acumulado' },
+        { data: 'total_asignado', title: 'Artículos Asignados' },
     ])
-    const [tableData, setTableData] = useState<IDataEgressViewCatList[] | IDataEgressViewArtList[] | IDataEgressViewProducts[] | undefined>()
-    const { jsonData, setChartContent }: { jsonData: IDataEgressView, setChartContent: any } = useContextView()
+    const [tableData, setTableData] = useState<IDataInventoryViewDepList[] | IDataInventoryViewCatList[] | IDataInventoryViewArtList[] | undefined>()
+    const { jsonData, setChartContent }: { jsonData: IDataInventoryView, setChartContent: any } = useContextView()
 
     const switchToCategory = async () => {
         console.log(jsonData)
         if (jsonData) {
             setTableKey((prev) => prev = prev + 1)
             const columns = [
-                { data: 'categoria', title: 'Categoria' },
+                { data: 'dependencia', title: 'Sector' },
                 { data: 'mes', title: 'Fecha' },
-                { data: 'unidades_compradas', title: 'Unidades Totales' },
-                { data: 'monto', title: 'Ingreso Acumulado' },
+                { data: 'total_asignado', title: 'Artículos Asignados' },
             ]
             setTableColumns(columns)
 
-            const tableDataMapped = jsonData.list.categories.map((dato) => ({
-                categoria: dato.categoria,
-                monto: dato.monto,
-                unidades_compradas: dato.unidades_compradas,
-                mes: dato.mes
+            const tableDataMapped = jsonData.list.deps.map((dato) => ({
+                dependencia: dato.dependencia,
+                mes: dato.mes,
+                tipos_producto: dato.tipos_producto,
+                total_asignado: dato.total_asignado,
+                total_consumido: dato.total_consumido
             }))
+            console.log(tableDataMapped)
             const { changeRange } = useDepAcc({ tableDataMapped, dateRef })
             const promiseData = await changeRange()
 
@@ -47,19 +47,18 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
         if (jsonData) {
             setTableKey((prev) => prev = prev + 1)
             const columns = [
-                { data: 'articulo', title: 'Artículo' },
+                { data: 'categoria', title: 'Rubro' },
                 { data: 'mes', title: 'Fecha' },
-                { data: 'unidades_compradas', title: 'Unidades Totales' },
-                { data: 'monto', title: 'Ingreso Acumulado' }
+                { data: 'total_asignado', title: 'Artículos Asignados' },
             ]
             setTableColumns(columns)
 
-            const tableDataMapped = jsonData.list.articles.map((dato) => ({
-                articulo: dato.articulo,
+            const tableDataMapped = jsonData.list.categories.map((dato) => ({
                 categoria: dato.categoria,
                 mes: dato.mes,
-                unidades_compradas: dato.unidades_compradas,
-                monto: dato.monto
+                tipos_producto: dato.tipos_producto,
+                total_asignado: dato.total_asignado,
+                total_consumido: dato.total_consumido
             }))
             const { changeRange } = useDepAcc({ tableDataMapped, dateRef })
             const promiseData = await changeRange()
@@ -78,22 +77,18 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
             setTableKey((prev) => prev = prev + 1)
             const columns = [
                 { data: 'articulo', title: 'Artículo' },
-                { data: 'fec_compra', title: 'Fecha de compra'},
-                { data: 'usuario', title: 'Cargado por' },
-                { data: 'unidades_compradas', title: 'Unidades Totales' },
-                { data: 'monto', title: 'Monto' },
-
+                { data: 'mes', title: 'Fecha de Asignación'},
+                { data: 'total_asignado', title: 'Cantidad Asignada' },
+                { data: 'stock', title: 'Stock Disponible' },
             ]
             setTableColumns(columns)
 
-            const finalData = jsonData.list.products.map((dato) => ({
+            const finalData = jsonData.list.articles.map((dato) => ({
                 articulo: dato.articulo,
-                fec_compra: dato.fec_compra,
-                descripcion: dato.descripcion,
-                unidades_compradas: dato.unidades_compradas,
-                categoria: dato.categoria,
-                usuario: dato.usuario,
-                monto: dato.monto,
+                mes: dato.mes,
+                stock: dato.stock,
+                total_asignado: dato.total_asignado,
+                total_consumido: dato.total_consumido
             }));
 
             setTableData(undefined)
@@ -105,11 +100,11 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
 
     useEffect(() => {
         console.log(jsonData)
-        if (jsonData && jsonData.list.categories && !jsonData.list.products) {
+        if (jsonData && jsonData.list.deps && !jsonData.list.articles) {
             switchToCategory()
-        } else if (jsonData && jsonData.list.articles) {
+        } else if (jsonData && jsonData.list.categories) {
             switchToArticle()
-        } else if (jsonData && jsonData.list.products) {
+        } else if (jsonData && jsonData.list.articles) {
             switchToProducts()
         }
     }, [jsonData])

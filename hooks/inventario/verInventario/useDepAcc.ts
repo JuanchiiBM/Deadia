@@ -1,6 +1,6 @@
-import { IDataEgressViewArtList, IDataEgressViewCatList } from "@/helpers/interfaces";
+import { IDataInventoryViewCatList, IDataInventoryViewDepList } from "@/helpers/interfaces";
 
-export const useDepAcc = ({ tableDataMapped, dateRef }: { tableDataMapped: (IDataEgressViewCatList[] | IDataEgressViewArtList[]), dateRef: React.MutableRefObject<any> }) => {
+export const useDepAcc = ({ tableDataMapped, dateRef }: { tableDataMapped: (IDataInventoryViewDepList[] | IDataInventoryViewCatList[]), dateRef: React.MutableRefObject<any> }) => {
     let mergedData: any = []
 
     const changeRange = async () => {
@@ -39,42 +39,45 @@ export const useDepAcc = ({ tableDataMapped, dateRef }: { tableDataMapped: (IDat
             return false;
         })
         // Agrupar dependencias y sumar los ingresos en un array
-        const groupedData: IDataEgressViewCatList[] & IDataEgressViewArtList[] = [];
+        const groupedData: IDataInventoryViewDepList[] & IDataInventoryViewCatList[] = [];
 
         //@ts-ignore
-        if (tableFiltered[0].articulo) {
+        if (tableFiltered[0].dependencia) {
             //@ts-ignore
-            tableFiltered.forEach((dato: IDataEgressViewArtList) => {
-                const { articulo, monto, unidades_compradas } = dato;
+            tableFiltered.forEach((dato: IDataInventoryViewDepList) => {
+                const { dependencia, total_asignado } = dato;
                 //@ts-ignore
-                const existingEntry = groupedData.find((item) => item.articulo === articulo);
+                const existingEntry = groupedData.find((item) => item.dependencia === dependencia);
 
                 if (existingEntry) {
-                    existingEntry.monto += monto;
-                    existingEntry.unidades_compradas += unidades_compradas
+                    existingEntry.total_asignado += total_asignado;
                 } else {
                     //@ts-ignore
                     groupedData.push({
-                        articulo,
-                        monto: monto,
-                        unidades_compradas: unidades_compradas,
+                        dependencia,
+                        total_asignado: total_asignado,
+                        tipos_producto: dato.tipos_producto,
+                        total_consumido: dato.total_consumido,
                         mes: `${minRange} - ${maxRange}` // Mostrar el rango seleccionado
                     });
                 }
             });
         } else {
-            tableFiltered.forEach((dato: IDataEgressViewCatList) => {
-                const { categoria, monto, unidades_compradas } = dato;
+            //@ts-ignore
+            tableFiltered.forEach((dato: IDataInventoryViewCatList) => {
+                const { categoria, total_asignado } = dato;
+                //@ts-ignore
                 const existingEntry = groupedData.find((item) => item.categoria === categoria);
 
                 if (existingEntry) {
-                    existingEntry.monto += monto;
-                    existingEntry.unidades_compradas += unidades_compradas
+                    existingEntry.total_asignado += total_asignado;
                 } else {
+                    //@ts-ignore
                     groupedData.push({
                         categoria,
-                        monto: monto,
-                        unidades_compradas: unidades_compradas,
+                        total_asignado: total_asignado,
+                        tipos_producto: dato.tipos_producto,
+                        total_consumido: dato.total_consumido,
                         mes: `${minRange} - ${maxRange}` // Mostrar el rango seleccionado
                     });
                 }
@@ -85,7 +88,7 @@ export const useDepAcc = ({ tableDataMapped, dateRef }: { tableDataMapped: (IDat
         // Formatear los ingresos a dos decimales y agregar el símbolo "$"
         mergedData = groupedData.map((item) => ({
             ...item,
-            monto: `${item.monto}`,
+            total_asignado: `${item.total_asignado}`,
         }));
         return mergedData; // Actualizar la tabla con los datos agrupados
     }

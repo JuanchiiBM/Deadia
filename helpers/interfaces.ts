@@ -385,6 +385,9 @@ export interface IDataInventoryView {
         categories: [
             IDataInventoryViewCatList
         ],
+        articles: [
+            IDataInventoryViewArtList
+        ]
     }
 }
 
@@ -412,6 +415,14 @@ export interface IDataInventoryViewCatList {
     tipos_producto: number
     total_asignado: number
     total_consumido: number
+}
+
+export interface IDataInventoryViewArtList {
+    articulo: string
+    mes: string
+    total_asignado: number
+    total_consumido: number
+    stock: number
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
