@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Button, Input } from "@nextui-org/react";
+import React, { FormEvent, useState } from "react";
+import { Button, Input, Form } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faUser } from "@fortawesome/free-regular-svg-icons";
@@ -15,21 +15,27 @@ export const Login = () => {
     const [valueUser, setValueUser] = useState<string | undefined>()
     const [valuePassword, setValuePassword] = useState<string | undefined>()
     const [isFetching, setIsFetching] = useState<boolean>(false)
+    const [errors, setErrors] = React.useState({});
 
     // Mostrar o no la contraseña
     const [isVisible, setIsVisible] = React.useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
 
-    const handleLogin = () => {
-        setIsFetching(true)
-        fetching()
-    }
-
-    const fetching = async () => {
+    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const _dataObject = {
             username: valueUser,
             password: valuePassword
         }
+
+        if (!_dataObject.username) {
+            setErrors({username: "Ingrese el usuario"});
+            return;
+        } else if (!_dataObject.password) {
+            setErrors({password: "Ingrese la contraseña"});
+            return;
+        }
+        setIsFetching(true)
         const response = await POSTFunction('api/auth/login', _dataObject)
 
         if (response.token) {
@@ -45,13 +51,15 @@ export const Login = () => {
             {isFetching == true ? <SpinnerC /> : undefined}
             <div className="text-center text-[25px] font-bold mb-6">Login</div>
 
-            <form className="w-full" action={handleLogin} id="formLogin">
+            <Form className="w-full" onSubmit={handleLogin} validationErrors={errors}>
                 <div className="flex flex-col w-full px-[20%]">
                     <div className="flex flex-col gap-4 mb-4 w-full">
                         <Input
                             placeholder="Email"
                             type="text"
                             value={valueUser}
+                            isRequired
+                            name="username"
                             onChange={(e) => setValueUser(e.currentTarget.value)}
                             startContent={
                                 <FontAwesomeIcon icon={faUser} className="text-2xl text-default-400 pointer-events-none flex-shrink-0 pr-2" />
@@ -60,6 +68,8 @@ export const Login = () => {
                         <Input
                             placeholder="Password"
                             value={valuePassword}
+                            isRequired
+                            name="password"
                             onChange={(e) => setValuePassword(e.currentTarget.value)}
                             startContent={
                                 <FontAwesomeIcon icon={faFingerprint} className="text-2xl text-default-400 pointer-events-none flex-shrink-0 pr-2" />
@@ -90,11 +100,11 @@ export const Login = () => {
                         />
                     </div>
 
-                    <Button type="submit" form="formLogin" variant="shadow" color="primary" className="text-content1">
+                    <Button type="submit" variant="shadow" color="primary" className="text-content1">
                         Login
                     </Button>
                 </div>
-            </form>
+            </Form>
         </div>
     );
 };
