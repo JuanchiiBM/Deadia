@@ -27,6 +27,9 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             quantity: parseInt(dataForm.amount || ''),
             date: dataForm.datePicker?.toString(),
             status: repetido == undefined ? 0 : 1
+            // nro_renglon: dataForm.nro_renglon,
+            // nro_proceso: dataForm.nro_proceso,
+            // date_vencimiento: dataForm.datePickerVencimiento?.toString()
         }
         setShowSpinner(true)
         if (!update) {

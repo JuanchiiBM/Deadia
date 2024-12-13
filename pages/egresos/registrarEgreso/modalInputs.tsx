@@ -20,10 +20,22 @@ const ModalInputs: React.FC<IModalInputs> = ({ dataForm, handleInputChange }) =>
                         inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
                     }} />
                 </I18nProvider>
+                <I18nProvider locale='es-ES'>
+                    <DatePicker label="Fecha de Vencimiento" value={dataForm.datePickerVencimiento} onChange={(e) => {handleInputChange('datePickerVencimiento', e)}} showMonthAndYearPickers labelPlacement='outside' variant='bordered' classNames={{
+                        input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
+                        inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
+                    }} />
+                </I18nProvider>
+            </div>
+            <div className='w-full mt-3 flex gap-2'>
                 <Input variant='bordered' value={dataForm.amount ? dataForm.amount : ''} onChange={(e) => {handleInputChange('amount', e.currentTarget.value)}} placeholder='---' label='Cantidad' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
                 <Input variant='bordered' value={dataForm.price ? dataForm.price : ''} onChange={(e) => {handleInputChange('price', e.currentTarget.value)}} placeholder='$' label='Monto' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
             </div>
-            <div className='w-full mt-2 flex gap-2'>
+            <div className='w-full mt-3 flex gap-2'>
+                <Input variant='bordered' value={dataForm.nro_proceso ? dataForm.nro_proceso : ''} onChange={(e) => {handleInputChange('nro_proceso', e.currentTarget.value)}} placeholder='---' label='Nro. Proceso' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
+                <Input variant='bordered' value={dataForm.nro_renglon ? dataForm.nro_renglon : ''} onChange={(e) => {handleInputChange('nro_renglon', e.currentTarget.value)}} placeholder='---' label='Nro. Renglon' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
+            </div>
+            <div className='w-full mt-3 flex gap-2'>
                 <Input variant='bordered' value={dataForm.description ? dataForm.description : ''} onChange={(e) => {handleInputChange('description', e.currentTarget.value)}} placeholder=' ' label='Descripción' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
             </div>
         </>

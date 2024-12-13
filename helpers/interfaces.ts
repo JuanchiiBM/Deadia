@@ -231,7 +231,10 @@ export interface IUseFormEgressRegister {
     description: string | undefined | null
     amount: string | undefined | null
     price: string | undefined | null
+    nro_renglon: string | undefined | null
+    nro_proceso: string | undefined | null
     datePicker: DateValue | undefined | null
+    datePickerVencimiento: DateValue | undefined | null
 }
 
 export interface ITableDataEgress {

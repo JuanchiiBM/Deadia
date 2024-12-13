@@ -12,7 +12,10 @@ export const useForm = () => {
         description: undefined,
         amount: undefined,
         price: undefined,
-        datePicker: undefined
+        nro_renglon: undefined,
+        nro_proceso: undefined,
+        datePicker: undefined,
+        datePickerVencimiento: undefined
     })
 
     const handleInputChange = (field: string, value: string | RangeValue<any> | DateValue | undefined | Option | null) => {
