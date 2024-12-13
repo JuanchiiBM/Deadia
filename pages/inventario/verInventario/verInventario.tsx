@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
 import Options from './options'
 import TableData from './dataTable';
@@ -28,6 +28,8 @@ const verInventario = () => {
     })
     const { url } = useGetUrl({ dateSelected, value: valueOption})
     const {isLoading, jsonData} = useJsonData({url})
+
+    useEffect(() => {console.log(localStorage.getItem('userToken'))},[])
 
     return (
         <ContextView.Provider value={{

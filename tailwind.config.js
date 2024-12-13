@@ -35,7 +35,7 @@ module.exports = {
       light: {
         colors: {
           background: {
-            DEFAULT: '#F5FAF8', // Primary background
+            DEFAULT: '#ffffff', // Primary background
             100: '#EDF3F4', // Primary background hover
             200: '#D1E5EB', // Secondary background
             300: '#C0D8DF', // Secondary background hover
