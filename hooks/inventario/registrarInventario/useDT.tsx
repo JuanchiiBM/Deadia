@@ -4,9 +4,12 @@ import { ITableDataInventory, ITableDataInventoryInside } from "@/helpers/interf
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import ReactDOMServer from 'react-dom/server';
+import { MODULES } from "@/helpers/enums"
+import { useHandlerPermissions } from "@/hooks/useHandlerPermissions"
 
 export const useDT = () => {
     const [tableData, setTableData] = useState<ITableDataInventoryInside[] | undefined>()
+    const { hasPermission } = useHandlerPermissions()
     const columns = [
         { data: 'id', title: 'Nro.' },
         { data: 'dependencia', title: 'Dependencia' },
@@ -37,9 +40,8 @@ export const useDT = () => {
             acciones: () => {
                 return ReactDOMServer.renderToString(
                     <div id={`actions-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                        <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}>
-                            <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>
-                        <button className="delete-btn btn-sigma" id={`delete-btn-${dato.id}`}> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>
+                        {hasPermission(MODULES.MODULEINVENTORY, 'PUT') && <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}> <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>}
+                        {hasPermission(MODULES.MODULEINVENTORY, 'DELETE') && <button className="delete-btn btn-sigma" id={`delete-btn-${dato.id}`}> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>}
                     </div>
                 );
             }

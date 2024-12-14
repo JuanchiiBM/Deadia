@@ -37,10 +37,11 @@ export const Login = () => {
         }
         setIsFetching(true)
         const response = await POSTFunction('api/auth/login', _dataObject)
-
+        console.log(response)
         if (response.token) {
+            localStorage.setItem('permission', JSON.stringify(response.permission))
             localStorage.setItem('userToken', response.token)
-            router.replace("/inscripciones/verInscripcion");
+            router.replace("/home");
         } else {
             setIsFetching(() => false)
             ErrorAlert('Error', response.error)

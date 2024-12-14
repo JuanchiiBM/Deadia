@@ -10,6 +10,8 @@ import { getLocalTimeZone, today } from "@internationalized/date";
 import { useInitDatePicker } from '@/hooks/useInitDatePicker'
 import { useContextRegister } from '@/hooks/useContextRegister'
 import { useResetModal } from '@/hooks/useResetModal'
+import { MODULES } from '@/helpers/enums'
+import { useHandlerPermissions } from '@/hooks/useHandlerPermissions'
 
 
 interface IOptions {
@@ -22,6 +24,7 @@ const Options: React.FC<IOptions> = ({ onOpen, selectDateRange, dateRef }) => {
     const { setRefreshData, setContentModal, setUpdate, jsonIsLoading } = useContextRegister()
     const {handlerDateInitial, dateInitial} = useInitDatePicker({selectDateRange, onOpen, setContentModal, setRefreshData})
     const {resetModal} = useResetModal({ setContentModal, setUpdate, onOpen})
+    const {hasPermission} = useHandlerPermissions()
     
     return (
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
@@ -32,9 +35,11 @@ const Options: React.FC<IOptions> = ({ onOpen, selectDateRange, dateRef }) => {
                     inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                 }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
             </I18nProvider>
-            <Button onClick={resetModal} isDisabled={jsonIsLoading} className='content-center h-full text-conntent2 text-md' color='primary' startContent={
-                <FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl'/>
-            }>Crear Registro</Button>
+            {hasPermission(MODULES.MODULEEGRESS, 'POST') &&
+            <Button onPress={resetModal} isDisabled={jsonIsLoading} className='content-center h-full text-conntent2 text-md' color='primary' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl'/>}>
+                Crear Registro
+            </Button>
+            }
         </div>
     )
 }

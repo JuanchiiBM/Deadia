@@ -465,3 +465,12 @@ export interface IModalResumenUsers {
         dependencia: null;
     }
 }
+
+//-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+//Permisos
+
+export interface IPermissionsContent {
+    module: string
+    action: 'VIEW' | 'POST' | 'PUT' | 'DELETE'
+}
+
