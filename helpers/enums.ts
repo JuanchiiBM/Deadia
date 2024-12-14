@@ -4,3 +4,11 @@ export const MODULES = {
     MODULEINVENTORY: 'inventario',
     MODULEUSER: 'usuario'
 }
+
+export const ACTIONS = {
+    CREATE: 'POST',
+    READ: 'VIEW',
+    UPDATE: 'PUT',
+    DELETE: 'DELETE',
+    REGISTER: 'REGISTER'
+} 

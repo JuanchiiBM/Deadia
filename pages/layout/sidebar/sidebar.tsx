@@ -15,7 +15,7 @@ import { useHandlerPermissions } from "@/hooks/layout/useHandlerPermissions";
 export const SidebarWrapper = () => {
     const pathname = usePathname();
     const { collapsed, setCollapsed } = useSidebarContext();
-    const { permissions, sistemaItems, sistemaPaths } = useHandlerPermissions();
+    const { permissions, sistema, inscripcion, egreso, inventario } = useHandlerPermissions();
 
     return (
         <aside className={Sidebar.Aside({
@@ -40,35 +40,35 @@ export const SidebarWrapper = () => {
                             isActive={pathname === "/home"}
                             href="/home"
                         />
-                        {permissions.some((permission: IPermissionsContent) => permission.module == 'ingreso' && permission.action == 'VIEW') && 
+                        {inscripcion.items.length > 0 &&
                         <CollapseItems
                             icon={1}
-                            items={["Visualizar Inscripciones", "Registrar Inscripciones"]}
-                            path={["/inscripciones/verInscripcion", "/inscripciones/registrarInscripcion"]}
+                            items={inscripcion.items}
+                            path={inscripcion.paths}
                             title="Inscripcion"
                         />}
                         
-                        {permissions.some((permission: IPermissionsContent) => permission.module == 'egreso' && permission.action == 'VIEW') && 
+                        {egreso.items.length > 0 &&
                         <CollapseItems
                             icon={2}
-                            items={["Visualizar Egresos", "Registrar Egresos"]}
-                            path={["/egresos/verEgreso", "/egresos/registrarEgreso"]}
+                            items={egreso.items}
+                            path={egreso.paths}
                             title="Egreso"
                         />}
 
-                        {permissions.some((permission: IPermissionsContent) => permission.module == 'inventario' && permission.action == 'VIEW') && 
+                        {inventario.items.length > 0 &&
                         <CollapseItems
-                            icon={4}
-                            items={["Visualizar Inventario", "Registrar Inventario"]}
-                            path={["/inventario/verInventario", "/inventario/registrarInventario"]}
+                            icon={3}
+                            items={inventario.items}
+                            path={inventario.paths}
                             title="Inventario"
                         />}
 
-                        {sistemaItems.length > 0 &&
+                        {sistema.items.length > 0 &&
                         <CollapseItems
-                            icon={3}
-                            items={sistemaItems}
-                            path={sistemaPaths}
+                            icon={4}
+                            items={sistema.items}
+                            path={sistema.paths}
                             title="Sistema"
                         />}
                     </div>

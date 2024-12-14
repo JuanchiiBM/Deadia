@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import moment from "moment";
 import { useHandlerPermissions } from "@/hooks/useHandlerPermissions";
-import { MODULES } from "@/helpers/enums";
+import { MODULES, ACTIONS } from "@/helpers/enums";
 
 export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) => {
     const { hasPermission } = useHandlerPermissions()
@@ -40,8 +40,8 @@ export const useDTInscription = ({ jsonData }: { jsonData: IRegisters | any }) =
             acciones: () => {
                 return ReactDOMServer.renderToString(
                     <div id={`actions-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                        {hasPermission(MODULES.MODULEINSCRIPTION, 'PUT') && <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}> <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>}
-                        {hasPermission(MODULES.MODULEINSCRIPTION, 'DELETE') && <button className="delete-btn btn-sigma" id={`delete-btn-${dato.id}`}> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>}
+                        {hasPermission(MODULES.MODULEINSCRIPTION, ACTIONS.UPDATE) && <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}> <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>}
+                        {hasPermission(MODULES.MODULEINSCRIPTION, ACTIONS.DELETE) && <button className="delete-btn btn-sigma" id={`delete-btn-${dato.id}`}> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>}
                     </div>
                 );
             }

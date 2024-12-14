@@ -10,7 +10,7 @@ import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
 import { useUpdateContext } from '@/hooks/inscripciones/registrarInscripcion/useUpdateContext'
 import { useHandlerPermissions } from '@/hooks/useHandlerPermissions'
-import { MODULES } from '@/helpers/enums'
+import { MODULES, ACTIONS } from '@/helpers/enums'
 
 interface IOptionsRegistrarIngreso {
     onOpen: () => void
@@ -52,7 +52,7 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCh
                 }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
             </I18nProvider>
             
-            {hasPermission(MODULES.MODULEINSCRIPTION, 'POST') &&
+            {hasPermission(MODULES.MODULEINSCRIPTION, ACTIONS.CREATE) &&
             <Button isDisabled={!optionsCharged} onPress={resetModal} className='content-center h-full text-content2 text-md rounded-md' color='primary' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl' />}>
                 Crear Registro
             </Button>

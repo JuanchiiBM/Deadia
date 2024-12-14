@@ -23,9 +23,9 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
             case 2:
                 return faMoneyBillTransfer
             case 3:
-                return faGears
-            case 4:
                 return faBoxesStacked
+            case 4:
+                return faGears
         }
         return faCircleDot
     }

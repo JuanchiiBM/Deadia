@@ -10,7 +10,7 @@ import { getLocalTimeZone, today } from "@internationalized/date";
 import { useInitDatePicker } from '@/hooks/useInitDatePicker'
 import { useContextRegister } from '@/hooks/useContextRegister'
 import { useResetModal } from '@/hooks/useResetModal'
-import { MODULES } from '@/helpers/enums'
+import { MODULES, ACTIONS } from '@/helpers/enums'
 import { useHandlerPermissions } from '@/hooks/useHandlerPermissions'
 
 
@@ -35,7 +35,7 @@ const Options: React.FC<IOptions> = ({ onOpen, selectDateRange, dateRef }) => {
                     inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                 }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
             </I18nProvider>
-            {hasPermission(MODULES.MODULEEGRESS, 'POST') &&
+            {hasPermission(MODULES.MODULEEGRESS, ACTIONS.CREATE) &&
             <Button onPress={resetModal} isDisabled={jsonIsLoading} className='content-center h-full text-conntent2 text-md' color='primary' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl'/>}>
                 Crear Registro
             </Button>

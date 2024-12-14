@@ -471,6 +471,6 @@ export interface IModalResumenUsers {
 
 export interface IPermissionsContent {
     module: string
-    action: 'VIEW' | 'POST' | 'PUT' | 'DELETE'
+    action: 'VIEW' | 'POST' | 'PUT' | 'DELETE' | 'REGISTER'
 }
 
