@@ -8,20 +8,25 @@ interface IUseUpdate {
     isOpen: boolean | undefined
 }
 
-
+ /*
+    category: contentModal ? createOption(contentModal.categoria, contentModal.id_categoria.toString()) : null,
+    article: contentModal ? createOption(contentModal.articulo, contentModal.id_articulo.toString()) : null,
+    description: contentModal ? contentModal.descripcion : '',
+    amount: contentModal ? contentModal.cantidad.toString() : '',
+    price: contentModal ? contentModal.monto.toString() : '',
+    datePicker: contentModal ? transformToDateValue(contentModal.fec_compra) : null
+*/
 export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => {
     useEffect(() => {
-        // Se deja por si se llega a hacer un update
-        /*
         setDataForm({
-            category: contentModal ? createOption(contentModal.categoria, contentModal.id_categoria.toString()) : null,
-            article: contentModal ? createOption(contentModal.articulo, contentModal.id_articulo.toString()) : null,
-            description: contentModal ? contentModal.descripcion : '',
-            amount: contentModal ? contentModal.cantidad.toString() : '',
-            price: contentModal ? contentModal.monto.toString() : '',
-            datePicker: contentModal ? transformToDateValue(contentModal.fec_compra) : null
+            category: null,
+            article: null,
+            section: null,
+            action: null,
+            c_act: null,
+            c_nueva: null
         })
-            */
+        
     }, [isOpen])
 
     let oldRegister

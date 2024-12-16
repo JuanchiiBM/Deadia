@@ -22,7 +22,7 @@ const ModalFisrtSection: React.FC<IModalFisrtSection> = ({ dataForm, handleInput
                 <Select maxMenuHeight={140} value={dataForm.article} onChange={(newValue: any) => handleInputChange('article', newValue)} options={options.article} isDisabled={isDisabled}  className='w-[50%]' placeholder='Articulo' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered} required></Select>
             </div>
             <div className='flex justify-end gap-2 my-2 w-full'>
-                <Select maxMenuHeight={140} value={dataForm.section} onChange={(newValue: any) => handleInputChange('section', newValue)} options={options.deps} styles={colourStylesBordered} className='w-[50%] self-end' placeholder='Sector' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable required></Select>
+                <Select maxMenuHeight={140} value={dataForm.section} onChange={(newValue: any) => handleInputChange('section', newValue)} options={options.deps} isDisabled={isLoading} styles={colourStylesBordered} className='w-[50%] self-end' placeholder='Sector' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable required></Select>
                 <Input variant='bordered' label='Acción' labelPlacement='outside' className='w-[50%]' classNames={{ mainWrapper: 'flex justify-end' }} required />            
             </div>
         </>

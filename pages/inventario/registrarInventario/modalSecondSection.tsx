@@ -1,9 +1,8 @@
 import React from 'react'
 import { Input, RangeValue, DateValue } from '@nextui-org/react'
-import Select from 'react-select/creatable';
-import { colourStylesBordered } from '@/helpers/selects';
 import { IUseFormInventoryRegister } from '@/helpers/interfaces';
 import { Option } from '@/utils/globals';
+import { useArtcilesOfSection } from '@/hooks/inventario/registrarInventario/useArticlesOfSection';
 
 interface IModalSecondSection {
     dataForm: IUseFormInventoryRegister
@@ -11,6 +10,8 @@ interface IModalSecondSection {
 }
 
 const ModalSecondSection: React.FC<IModalSecondSection> = ({ dataForm, handleInputChange }) => {
+    const {jsonData: jsonDataArticles, isLoading: isLoadingArticles} = useArtcilesOfSection(dataForm)
+
     return (
         <>
             <div className='flex justify-end gap-2 my-2 w-full'>

@@ -39,8 +39,8 @@ export const useDT = () => {
             accion: dato.accion,
             acciones: () => {
                 return ReactDOMServer.renderToString(
+                    //{hasPermission(MODULES.MODULEINVENTORY, ACTIONS.UPDATE) && <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}> <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>}
                     <div id={`actions-${dato.id}`} style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                        {hasPermission(MODULES.MODULEINVENTORY, ACTIONS.UPDATE) && <button className="edit-btn btn-sigma" id={`edit-btn-${dato.id}`}> <FontAwesomeIcon icon={faPenToSquare} className="text-2xl text-default-400" /></button>}
                         {hasPermission(MODULES.MODULEINVENTORY, ACTIONS.DELETE) && <button className="delete-btn btn-sigma" id={`delete-btn-${dato.id}`}> <FontAwesomeIcon icon={faTrashCan} className="text-2xl text-default-400" /> </button>}
                     </div>
                 );
