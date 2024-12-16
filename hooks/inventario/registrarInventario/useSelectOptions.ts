@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { IDataEgressRegister, IDataEgressViewArtFilter, IDataEgressViewCatFilter, IUseFormEgressRegister } from "@/helpers/interfaces"
+import { IDataInventoryRegister, IDataEgressViewCatFilter, IUseFormEgressRegister } from "@/helpers/interfaces"
 import { GETFunction, Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import { useJsonData } from "@/hooks/useJsonData";
@@ -7,11 +7,12 @@ import { RangeValue } from "@nextui-org/react";
 import { useContextRegister } from "@/hooks/useContextRegister";
 
 export const useSelectOptions = () => {
-    const {jsonData, isLoading}: {jsonData: IDataEgressRegister, isLoading: boolean} = useJsonData({url: 'api/loss/register/form'})
+    const {jsonData, isLoading}: {jsonData: IDataInventoryRegister, isLoading: boolean} = useJsonData({url: 'api/inventory/register/form'})
     const [options, setOptions] = useState<{
         category: Option[] | undefined,
         article: Option[] | undefined,
-    }>({category: undefined, article: undefined})
+        deps: Option[] | undefined,
+    }>({category: undefined, article: undefined, deps: undefined})
 
     const chargueOptionsCategory = async () => {
         const optionsCategories = jsonData.categories.map((opt) => ({
@@ -26,7 +27,7 @@ export const useSelectOptions = () => {
         })) 
     }
 
-    const chargueOptionsArticle = async (optArticles: IDataEgressRegister | null) => {
+    const chargueOptionsArticle = async (optArticles: IDataInventoryRegister | null) => {
         if (optArticles) {
             const optionsArticles = optArticles.list.article.map((opt) => ({
                 value: opt.id.toString(),
@@ -45,58 +46,38 @@ export const useSelectOptions = () => {
         }
     }
 
-    const chargueNewCategory = (newOption: Option) => {
-        const prevClassrooms = options.category ? [...options.category] : []
+    const chargueOptionsDeps = async () => {
+        const optionsDeps = jsonData.deps.map((opt) => ({
+            value: opt.id.toString(),
+            label: opt.dependencia
+        })) as Option[]
+        
         setOptions(prev => ({
             ...prev,
-            category: [...prevClassrooms, newOption]
-        }))
-        chargueOptionsArticle(null)
-    }
-
-    const chargueNewArticle = (newOption: Option) => {
-        const prevClassrooms = options.article ? [...options.article] : []
-        setOptions(prev => ({
-            ...prev,
-            article: [...prevClassrooms, newOption]
+            deps: optionsDeps,
         })) 
     }
 
     useEffect(() => {
-        if (jsonData)
-        chargueOptionsCategory()
+        if (jsonData) {
+            chargueOptionsCategory()
+            chargueOptionsDeps()
+        }
     }, [jsonData])
 
-    return {options, jsonData, isLoading, chargueNewCategory, chargueNewArticle,chargueOptionsArticle}
+    return {options, jsonData, isLoading, chargueOptionsArticle}
 }
 
 interface IUseSelectHandleChange{
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
-    jsonData: IDataEgressRegister
-    chargueNewCategory: (value: Option) => void
-    chargueNewArticle: (value: Option) => void
+    jsonData: IDataInventoryRegister
     chargueOptionsArticle: (optArticles: any) => Promise<void>
 }
 
 
-export const useSelectHandleChange = ({jsonData, handleInputChange, chargueNewCategory, chargueNewArticle ,chargueOptionsArticle}: IUseSelectHandleChange) => {
+export const useSelectHandleChange = ({jsonData, handleInputChange, chargueOptionsArticle}: IUseSelectHandleChange) => {
     const { contentModal }: {contentModal: IUseFormEgressRegister} = useContextRegister()
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
-
-    const categoryCreated = (inputValue: string) => {
-        const newOption = createOption(inputValue)
-        chargueNewCategory(newOption)
-        handleInputChange('category', newOption)
-        handleInputChange('article', null)
-        setIsDisabled(false)
-    }
-
-    const articleCreated = (inputValue: string) => {
-        const newOption = createOption(inputValue)
-        chargueNewArticle(newOption)
-        handleInputChange('article', newOption)
-        setIsDisabled(false)
-    }
 
     const selectOptionOfCategory = async (newValue: Option) => {
         handleInputChange('category', newValue)
@@ -130,5 +111,5 @@ export const useSelectHandleChange = ({jsonData, handleInputChange, chargueNewCa
         setIsDisabled(true)
     }, [])
 
-    return {selectOptionOfCategory, categoryCreated, articleCreated, isDisabled}
+    return {selectOptionOfCategory, isDisabled}
 }

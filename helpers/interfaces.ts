@@ -407,6 +407,22 @@ export interface IDataInventoryViewDepList {
     total_consumido: number
 }
 
+export interface IDataInventoryRegister {
+    categories: [
+        IDataEgressViewCatFilter
+    ],
+
+    deps: [
+        IncomeRegisterOptionDep
+    ],
+
+    list: {
+        article: [
+            IDataEgressRegisterArticle
+        ]
+    }
+}
+
 export interface IDataInventoryViewCatFilter {
     id: number
     categoria: string

@@ -14,10 +14,6 @@ const ModalSecondSection: React.FC<IModalSecondSection> = ({ dataForm, handleInp
     return (
         <>
             <div className='flex justify-end gap-2 my-2 w-full'>
-                <Select maxMenuHeight={140} styles={colourStylesBordered} className='w-[50%] self-end' placeholder='Sector' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable ></Select>
-                <Input variant='bordered' label='Acción' labelPlacement='outside' className='w-[50%]' classNames={{ mainWrapper: 'flex justify-end' }} required />            
-            </div>
-            <div className='flex justify-end gap-2 my-2 w-full'>
                 <Input variant='bordered' label='Cant. Actual' labelPlacement='outside' className='w-[50%]' classNames={{ mainWrapper: 'flex justify-end' }} required isDisabled={true} />            
                 <Input variant='bordered' label='Cant. Nueva' labelPlacement='outside' className='w-[50%]' classNames={{ mainWrapper: 'flex justify-end' }} required isDisabled={true} />            
             </div>
