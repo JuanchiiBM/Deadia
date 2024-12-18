@@ -48,64 +48,60 @@ export const Login = () => {
         }
     }
     return (
-        <div className="bg-background-200 w-[70%] h-[70%] flex justify-center flex-col items-center rounded-lg">
+        <Form className="w-full" onSubmit={handleLogin} validationErrors={errors}>
             {isFetching == true ? <SpinnerC /> : undefined}
-            <div className="text-center text-[25px] font-bold mb-6">Login</div>
-
-            <Form className="w-full" onSubmit={handleLogin} validationErrors={errors}>
-                <div className="flex flex-col w-full px-[20%]">
-                    <div className="flex flex-col gap-4 mb-4 w-full">
-                        <Input
-                            placeholder="Email"
-                            type="text"
-                            value={valueUser}
-                            isRequired
-                            name="username"
-                            onChange={(e) => setValueUser(e.currentTarget.value)}
-                            startContent={
-                                <FontAwesomeIcon icon={faUser} className="text-2xl text-default-400 pointer-events-none flex-shrink-0 pr-2" />
-                            }
-                        />
-                        <Input
-                            placeholder="Password"
-                            value={valuePassword}
-                            isRequired
-                            name="password"
-                            onChange={(e) => setValuePassword(e.currentTarget.value)}
-                            startContent={
-                                <FontAwesomeIcon icon={faFingerprint} className="text-2xl text-default-400 pointer-events-none flex-shrink-0 pr-2" />
-                            }
-                            endContent={
-                                <button
-                                    className="focus:outline-none"
-                                    type="button"
-                                    onClick={toggleVisibility}
-                                    aria-label="toggle password visibility"
-                                >
-                                    {isVisible
-                                        ? (
-                                            <FontAwesomeIcon
-                                                icon={faEye}
-                                                className="text-2xl text-default-400 pointer-events-none flex-shrink-0"
-                                            />
-                                        )
-                                        : (
-                                            <FontAwesomeIcon
-                                                icon={faEyeSlash}
-                                                className="text-2xl text-default-400 pointer-events-none flex-shrink-0"
-                                            />
-                                        )}
-                                </button>
-                            }
-                            type={isVisible ? "text" : "password"}
-                        />
-                    </div>
-
-                    <Button type="submit" variant="shadow" color="primary" className="text-content1">
-                        Login
-                    </Button>
+            <div className="flex flex-col w-full px-[10%]">
+                <div className="flex flex-col gap-4 mb-4 w-full">
+                    <Input
+                        placeholder="Email"
+                        type="text"
+                        value={valueUser}
+                        isRequired
+                        name="username"
+                        onChange={(e) => setValueUser(e.currentTarget.value)}
+                        startContent={
+                            <FontAwesomeIcon icon={faUser} className="text-2xl text-default-400 pointer-events-none flex-shrink-0 pr-2" />
+                        }
+                    />
+                    <Input
+                        placeholder="Password"
+                        value={valuePassword}
+                        isRequired
+                        name="password"
+                        onChange={(e) => setValuePassword(e.currentTarget.value)}
+                        startContent={
+                            <FontAwesomeIcon icon={faFingerprint} className="text-2xl text-default-400 pointer-events-none flex-shrink-0 pr-2" />
+                        }
+                        endContent={
+                            <button
+                                className="focus:outline-none"
+                                type="button"
+                                onClick={toggleVisibility}
+                                aria-label="toggle password visibility"
+                            >
+                                {isVisible
+                                    ? (
+                                        <FontAwesomeIcon
+                                            icon={faEye}
+                                            className="text-2xl text-default-400 pointer-events-none flex-shrink-0"
+                                        />
+                                    )
+                                    : (
+                                        <FontAwesomeIcon
+                                            icon={faEyeSlash}
+                                            className="text-2xl text-default-400 pointer-events-none flex-shrink-0"
+                                        />
+                                    )}
+                            </button>
+                        }
+                        type={isVisible ? "text" : "password"}
+                    />
                 </div>
-            </Form>
-        </div>
+
+                <Button type="submit" variant="shadow" color="primary" className="text-content1">
+                    Ingresar
+                </Button>
+            </div>
+        </Form>
     );
 };
