@@ -1,9 +1,11 @@
 import { FormEvent, useState } from "react"
-import { PUTFunction } from "@/utils/globals"
+import { formatDateFromDatePicker, PUTFunction } from "@/utils/globals"
 import { SuccessAlert, QuestionAlert, ErrorAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
 import { useContextRegister } from "@/hooks/useContextRegister";
 import { IUseFormInventoryRegister } from "@/helpers/interfaces";
+import { getLocalTimeZone, today } from "@internationalized/date";
+
 
 export interface IUsePost {
     dataForm: IUseFormInventoryRegister
@@ -18,17 +20,12 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
         const _dataObject = {
-            /* Hay que trabajar los datos que se van a enviar al backend
             id_article: !Number.isNaN(parseInt(dataForm.article?.value || '')) ? parseInt(dataForm.article?.value || '') : '',
-            id_art_type: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
-            name_art: dataForm.article?.label,
-            name_art_type: dataForm.category?.label,
-            description: dataForm.description,
-            amount: dataForm.price,
-            quantity: dataForm.amount,
-            date: dataForm.datePicker?.toString(),
+            id_dependency: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
+            quantity: Number(dataForm.action) > 0 ? Number(dataForm.action) : Number(dataForm.action) * -1,
+            date: formatDateFromDatePicker(today(getLocalTimeZone())),
+            type: Number(dataForm.action) > 0 ? 'assign' : 'consume',
             status: repetido == undefined ? 0 : 1,
-            */
         }
         setShowSpinner(true)
         if (!update) {
@@ -51,7 +48,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
                     onClose()
             })
         } else if (response.result && response.result[0]) {
-            QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
+            QuestionAlert('Registro Repetido', `Este articulo fue asignado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
                 cargarIngreso(e, 1)
             })
         } else if (response.error) {

@@ -25,5 +25,5 @@ export const useJsonData = ({ url, refreshData }: { url: string | undefined, ref
         getJsonData()
     }, [refreshData])
 
-    return {isLoading, jsonData}
+    return {isLoading, jsonData, setIsLoading}
 }

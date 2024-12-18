@@ -1,7 +1,6 @@
 import React from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
 import ModalFirstSection from './modalFirstSection'
-import ModalSecondSection from './modalSecondSection'
 import ModalResumen from './modalResumen'
 import SpinnerC from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
@@ -27,7 +26,6 @@ const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) =>
                         <ModalBody className='flex flex-row justify-center gap-0'>
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full flex flex-col justify-evenly border-r-1 pr-6'>
                                 <ModalFirstSection dataForm={dataForm} handleInputChange={handleInputChange} />
-                                <ModalSecondSection dataForm={dataForm} handleInputChange={handleInputChange} />
                             </form>
                             <ModalResumen dataForm={dataForm}/>
                         </ModalBody>
