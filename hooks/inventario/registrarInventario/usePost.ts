@@ -21,7 +21,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
         e.preventDefault()
         const _dataObject = {
             id_article: !Number.isNaN(parseInt(dataForm.article?.value || '')) ? parseInt(dataForm.article?.value || '') : '',
-            id_dependency: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
+            id_dependency: !Number.isNaN(parseInt(dataForm.section?.value || '')) ? parseInt(dataForm.section?.value || '') : '',
             quantity: Number(dataForm.action) > 0 ? Number(dataForm.action) : Number(dataForm.action) * -1,
             date: formatDateFromDatePicker(today(getLocalTimeZone())),
             type: Number(dataForm.action) > 0 ? 'assign' : 'consume',

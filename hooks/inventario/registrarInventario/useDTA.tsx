@@ -13,7 +13,7 @@ export const useDTA = ({ tableData, setContentModal, onOpen }: IUseDTAInscriptio
     const deleteRegister = (dato: ITableDataEgressInside) => {
         QuestionAlert('Borrar registro', 'Esta usted seguro de proceder con la accion?', 'Confirmar', async () => {
             setShowSpinner(true)
-            const response = await DELETEFunction(`api/loss/register/${dato.id}`)
+            const response = await DELETEFunction(`api/inventory/register/${dato.id}`)
             console.log(response)
             setShowSpinner(false)
             if (response.status == 'ok') {

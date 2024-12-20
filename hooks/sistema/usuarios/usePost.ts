@@ -29,7 +29,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             status: repetido == undefined ? 0 : 1,
         }
          */
-        setShowSpinner(true)
+        //setShowSpinner(true)
         if (!update) {
             //console.log(_dataObject)
             //newRegister(_dataObject, e)

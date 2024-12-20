@@ -5,6 +5,7 @@ import { IUseFormUsers } from '@/helpers/interfaces';
 import { RangeValue, CalendarDate, Input } from '@nextui-org/react';
 import { Option } from '@/utils/globals';
 import { useSelectOptions } from '@/hooks/sistema/usuarios/useSelectOptions';
+import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 
 interface IModalFisrtSection {
     dataForm: IUseFormUsers
@@ -13,6 +14,7 @@ interface IModalFisrtSection {
 
 const ModalFisrtSection: React.FC<IModalFisrtSection> = ({ dataForm, handleInputChange }) => {
     const {options, isLoading } = useSelectOptions()
+    const { handlePasswordChange, validatePassword } = usePasswordValidation();
 
     return (
         <>
@@ -23,14 +25,14 @@ const ModalFisrtSection: React.FC<IModalFisrtSection> = ({ dataForm, handleInput
             </div>
             <div className='flex gap-[10px] mt-2 w-full'>
                 <Input required variant='bordered' label='Usuario' labelPlacement='outside' value={dataForm.user} onChange={(e) => handleInputChange('user', e.target.value)} />
-                <Input required variant='bordered' label='Contraseña' labelPlacement='outside' value={dataForm.password} onChange={(e) => handleInputChange('password', e.target.value)} />
+                <Input required variant='bordered' label='Contraseña' labelPlacement='outside' value={dataForm.password} onChange={(e) => handlePasswordChange(e, handleInputChange)} validate={validatePassword} />
             </div>
             <div className='flex gap-[10px] mt-2 w-full'>
                 <Input required variant='bordered' label='Mail' labelPlacement='outside' value={dataForm.mail} onChange={(e) => handleInputChange('mail', e.target.value)} />
             </div>
             <div className='flex gap-[10px] mt-8 w-full'>
-                <Select menuPlacement="top" styles={colourStylesBordered} className='w-[50%]' value={dataForm.profile} onChange={(e: any) => handleInputChange('profile', e)} isClearable isSearchable maxMenuHeight={140} placeholder={'Perfil'} isDisabled={isLoading} options={options.profile} noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} />
-                <Select menuPlacement="top" styles={colourStylesBordered} className='w-[50%]' value={dataForm.dependency} onChange={(e: any) => handleInputChange('dependency', e)} isClearable isSearchable maxMenuHeight={140} placeholder={'Dependencia'} isDisabled={isLoading} options={options.deps} noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} />
+                <Select menuPlacement="top" styles={colourStylesBordered} className='w-[50%]' value={dataForm.profile} onChange={(e: any) => handleInputChange('profile', e)} isClearable isSearchable maxMenuHeight={140} placeholder={'Perfil'} isDisabled={isLoading} options={options.profile} noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} required/>
+                <Select menuPlacement="top" styles={colourStylesBordered} className='w-[50%]' value={dataForm.dependency} onChange={(e: any) => handleInputChange('dependency', e)} isClearable isSearchable maxMenuHeight={140} placeholder={'Dependencia'} isDisabled={isLoading} options={options.deps} noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} required/>
             </div>
         </>
     )

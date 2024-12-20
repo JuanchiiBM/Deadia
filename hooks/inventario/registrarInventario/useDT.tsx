@@ -16,7 +16,8 @@ export const useDT = () => {
         { data: 'categoria', title: 'Categoría' },
         { data: 'articulo', title: 'Articulo' },
         { data: 'fec_asignacion', title: 'Fecha' },
-        { data: 'cantidad', title: 'Asignado' },
+        { data: 'accion', title: 'Consumo/Asignado' },
+        { data: 'cantidad', title: 'Cantidad' },
         { data: 'saldo_actual', title: 'Cantidad Total' },
         { data: 'acciones', title: 'Acciones' }
     ]
