@@ -9,10 +9,14 @@ import { useUpdate } from '@/hooks/inventario/registrarInventario/useUpdate'
 import { useContextRegister } from '@/hooks/useContextRegister'
 import { usePost } from '@/hooks/inventario/registrarInventario/usePost'
 import { ITableDataEgressInside } from '@/helpers/interfaces'
+import { useArtcilesOfSection } from '@/hooks/inventario/registrarInventario/useArticlesOfSection'
+import { useResetData } from '@/hooks/inventario/registrarInventario/useResetData'
 
 const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) => {
     const { contentModal }: { contentModal: ITableDataEgressInside} = useContextRegister()
     const { dataForm, handleInputChange, setDataForm } = useForm()
+    const {finalData: jsonDataArticles, isLoading: isLoadingArticles, setFinalData} = useArtcilesOfSection(dataForm)
+    useResetData(setFinalData, isOpen)
     const { oldRegister } = useUpdate({ setDataForm, contentModal, isOpen })
     const { cargarIngreso, showSpinner } = usePost({ dataForm, oldRegister, onClose })
 
@@ -22,12 +26,12 @@ const ModalView: React.FC<UseDisclosureProps> = ({ isOpen, onClose, onOpen }) =>
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">{ contentModal ? `Editar nventario cargado por ${contentModal.usuario}` : 'Registrar Inventario'}</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{ contentModal ? `Editar inventario cargado por ${contentModal.usuario}` : 'Registrar Inventario'}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center gap-0'>
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full flex flex-col justify-evenly border-r-1 pr-6'>
-                                <ModalFirstSection dataForm={dataForm} handleInputChange={handleInputChange} />
+                                <ModalFirstSection dataForm={dataForm} handleInputChange={handleInputChange} jsonDataArticles={jsonDataArticles} isLoadingArticles={isLoadingArticles} />
                             </form>
-                            <ModalResumen dataForm={dataForm}/>
+                            <ModalResumen dataForm={dataForm} jsonDataArticles={jsonDataArticles} isLoadingArticles={isLoadingArticles} />
                         </ModalBody>
                         <ModalFooter>
                             <Button color="danger" variant="light" onPress={onClose}>

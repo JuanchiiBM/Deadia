@@ -13,12 +13,16 @@ interface IData {
 
 export const useArtcilesOfSection = (dataForm: IUseFormInventoryRegister) => {
     const [url, setUrl] = useState<string | undefined>()
-    const { jsonData, isLoading, setIsLoading } = useJsonData({url: url})
+    const [refreshData, setRefreshData] = useState<number>(0)
+    const { jsonData, isLoading, setIsLoading } = useJsonData({url: url, refreshData: refreshData})
     const [finalData, setFinalData] = useState<IData>()
 
     useEffect(() => {
+        console.log('asdasdasd')
         if (dataForm.section?.value && dataForm.article?.value) {
+            const prevUrl = url
             setUrl(`api/inventorybalance?id_dependency=${dataForm.section?.value}&id_article=${dataForm.article?.value}`)
+            if (prevUrl == url) setRefreshData(refreshData + 1)
         }
     }, [dataForm.section, dataForm.article])
 
@@ -31,5 +35,5 @@ export const useArtcilesOfSection = (dataForm: IUseFormInventoryRegister) => {
         setIsLoading(false)  
     }, [])
     
-    return {finalData, isLoading}
+    return {finalData, isLoading, setFinalData}
 }

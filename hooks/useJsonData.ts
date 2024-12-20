@@ -10,7 +10,6 @@ export const useJsonData = ({ url, refreshData }: { url: string | undefined, ref
         if (url && !url.includes('undefined')) {
             console.log(url)
             setIsLoading(true)
-            console.log(url)
             const json = await GETFunction(url, setIsLoading)
             setJsonData(json)
         }

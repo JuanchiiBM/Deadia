@@ -2,10 +2,8 @@ import React from 'react'
 import { IUseFormInventoryRegister } from '@/helpers/interfaces'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRotate, faBoxOpen, faBoxArchive, faClock } from '@fortawesome/free-solid-svg-icons'
-import { useArtcilesOfSection } from '@/hooks/inventario/registrarInventario/useArticlesOfSection'
 
-const ModalResumen: React.FC<{dataForm: IUseFormInventoryRegister}> = ({ dataForm }) => {
-    const {finalData: jsonDataArticles, isLoading: isLoadingArticles} = useArtcilesOfSection(dataForm)
+const ModalResumen: React.FC<{dataForm: IUseFormInventoryRegister, jsonDataArticles: any, isLoadingArticles: boolean}> = ({ dataForm, jsonDataArticles, isLoadingArticles }) => {
 
     return (
         <section className='flex flex-col gap-2 w-[50%] h-auto m-0 pl-6'>
