@@ -3,12 +3,12 @@ import { formatDateFromDatePicker, PUTFunction } from "@/utils/globals"
 import { SuccessAlert, QuestionAlert, ErrorAlert } from "@/components/sweetAlert/SweetsAlerts";
 import { POSTFunction } from "@/utils/globals";
 import { useContextRegister } from "@/hooks/useContextRegister";
-import { IUseFormInventoryRegister } from "@/helpers/interfaces";
+import { IUseFormUsers } from "@/helpers/interfaces";
 import { getLocalTimeZone, today } from "@internationalized/date";
 
 
 export interface IUsePost {
-    dataForm: IUseFormInventoryRegister
+    dataForm: IUseFormUsers
     onClose: (() => void) | undefined
     oldRegister: any
 }
@@ -19,6 +19,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
 
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
+        /*
         const _dataObject = {
             id_article: !Number.isNaN(parseInt(dataForm.article?.value || '')) ? parseInt(dataForm.article?.value || '') : '',
             id_dependency: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
@@ -27,10 +28,11 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             type: Number(dataForm.action) > 0 ? 'assign' : 'consume',
             status: repetido == undefined ? 0 : 1,
         }
+         */
         setShowSpinner(true)
         if (!update) {
-            console.log(_dataObject)
-            newRegister(_dataObject, e)
+            //console.log(_dataObject)
+            //newRegister(_dataObject, e)
         } else {
             //updateRegister(_dataObject, e)
         }
@@ -55,7 +57,7 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             ErrorAlert('Error', response.error, 'Ok')
         }
     }
-    /*
+
     const updateRegister = async (_dataObject: any, e: FormEvent<HTMLFormElement>) => {
         const response = await PUTFunction(`api/inventory/register/form/${oldRegister.id}`, { oldRecords: oldRegister, newRecords: _dataObject })
         console.log(response)
@@ -72,7 +74,6 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
             })
         }
     }
-        */
 
     return { cargarIngreso, showSpinner }
 }

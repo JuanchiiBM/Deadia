@@ -2,7 +2,7 @@ import React from 'react'
 import ModalFillProfiles from './modalFill'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, UseDisclosureProps } from '@nextui-org/react'
 import { IModalUsers } from '@/helpers/interfaces'
-import { useUserSelectOptions } from '@/hooks/sistema/usuarios/useSelectOptionsUser';
+import { useUserSelectOptions } from '@/hooks/sistema/usuariosOld/useSelectOptionsUser';
 import { createPortal } from 'react-dom';
 
 const ModalProfiles: React.FC<IModalUsers> = ({ isOpen, onClose }) => {

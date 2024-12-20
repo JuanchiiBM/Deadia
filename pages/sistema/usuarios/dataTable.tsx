@@ -6,9 +6,9 @@ import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import 'datatables.net-responsive-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import { useDT } from '@/hooks/inventario/registrarInventario/useDT';
+import { useDT } from '@/hooks/sistema/usuarios/useDT';
 import { useContextRegister } from '@/hooks/useContextRegister';
-import { useDTA } from '@/hooks/inventario/registrarInventario/useDTA';
+import { useDTA } from '@/hooks/sistema/usuarios/useDTA';
 
 DataTable.use(DT);
 
@@ -16,7 +16,7 @@ interface ITableData {
     onOpen: () => void,
 }
 
-const TableData: React.FC<any> = ({ onOpen}) => {
+const TableData: React.FC<ITableData> = ({ onOpen}) => {
     const { jsonIsLoading, setContentModal } = useContextRegister()
     const { tableData, columns } = useDT()
     const {} = useDTA({ tableData, setContentModal, onOpen})

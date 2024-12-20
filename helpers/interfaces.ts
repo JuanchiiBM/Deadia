@@ -451,6 +451,16 @@ export interface IUsersTable {
     sarasa: []
 }
 
+export interface IUseFormUsers {
+    name: string,
+    lastname: string,
+    user: string,
+    mail: string,
+    password: string,
+    profile: Option | null | undefined,
+    dependency: Option | null | undefined
+}
+
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 //Perfiles
 

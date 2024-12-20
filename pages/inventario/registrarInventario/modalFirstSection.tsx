@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from 'react-select/creatable';
+import Select from 'react-select';
 import { colourStylesBordered } from '@/helpers/selects';
 import { IUseFormInventoryRegister } from '@/helpers/interfaces';
 import { RangeValue, CalendarDate, Input } from '@nextui-org/react';

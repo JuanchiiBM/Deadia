@@ -4,7 +4,7 @@ import '../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
 import { useJsonData } from '@/hooks/useJsonData';
-import { useDTUsers } from '@/hooks/sistema/usuarios/useDTUser';
+import { useDTUsers } from '@/hooks/sistema/usuariosOld/useDTUser';
 
 DataTable.use(DT);
 
