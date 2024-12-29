@@ -1,7 +1,5 @@
 import { GETFunction } from "@/utils/globals"
 import { useEffect, useState } from "react"
-import { useUpdateContext } from "./inscripciones/registrarInscripcion/useUpdateContext"
-
 
 export const useJsonData = ({ url, refreshData }: { url: string | undefined, refreshData?: number}) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)

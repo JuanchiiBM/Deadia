@@ -447,8 +447,38 @@ export interface IDataInventoryViewArtList {
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 //Usuarios
 
+export interface IDataUsersRegister {
+    deps: [
+        IncomeRegisterOptionDep
+    ],
+    profiles: [
+        ContentProfile
+    ]
+}
+
+export interface ContentProfile {
+    id: number,
+    perfil: string
+}
+
 export interface IUsersTable {
-    sarasa: []
+    list: [
+        IUsersTableInside
+    ]
+}
+
+export interface IUsersTableInside {
+    apellido: string
+    dependencia: string
+    estado: string
+    fec_creacion: string
+    id: number
+    id_dependencia: number
+    id_perfil: number
+    mail: string
+    nickname: string
+    nombre: string
+    perfil: string
 }
 
 export interface IUseFormUsers {

@@ -1,10 +1,10 @@
 import { useEffect } from "react"
 import { createOption, formatDate, transformToDateValue } from "@/utils/globals"
-import { ITableDataEgressInside, IUseFormUsers } from "@/helpers/interfaces"
+import { IUsersTableInside, IUseFormUsers } from "@/helpers/interfaces"
 
 interface IUseUpdate {
     setDataForm: React.Dispatch<React.SetStateAction<IUseFormUsers>>,
-    contentModal: ITableDataEgressInside | undefined,
+    contentModal: IUsersTableInside | undefined,
     isOpen: boolean | undefined
 }
 // ACTUALIZAR CUANDO SE EMPIECE USUARIOS!!!!
@@ -19,12 +19,12 @@ interface IUseUpdate {
 export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => {
     useEffect(() => {
         setDataForm({
-            name: '',
-            lastname: '',
-            user: '',
-            mail: '',
-            profile: null,
-            dependency: null,
+            name: contentModal?.nombre || '',
+            lastname: contentModal?.apellido || '',
+            user: contentModal?.nickname || '',
+            mail: contentModal?.mail || '',
+            profile: contentModal ? createOption(contentModal.perfil, contentModal.id_perfil.toString()) : null,
+            dependency: contentModal ? createOption(contentModal.dependencia, contentModal.id_dependencia.toString()) : null,
             password: ''
         })
         
@@ -35,14 +35,12 @@ export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => 
     if (contentModal) {
         oldRegister = {
             id: contentModal.id,
-            id_article: contentModal.id_articulo,
-            id_art_type: contentModal.id_categoria,
-            name_art: contentModal.articulo,
-            name_art_type: contentModal.categoria,
-            description: contentModal.descripcion,
-            amount: contentModal.monto,
-            quantity: contentModal.cantidad,
-            date: formatDate(contentModal.fec_compra.toString()),
+            id_profile: contentModal.id_perfil,
+            id_dependency: contentModal.id_dependencia,
+            name: contentModal.nombre,
+            lastname: contentModal.apellido,
+            user: contentModal.nickname,
+            mail: contentModal.mail,
         }
     }
 

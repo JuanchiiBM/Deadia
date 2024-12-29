@@ -30,7 +30,7 @@ const Options: React.FC<IOptions> = ({ onOpen, selectDateRange, dateRef }) => {
         <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
             <h2 className='content-center text-xl'>Registrar Inventario</h2>
             <I18nProvider locale='es-ES'>
-                <DateRangePicker ref={dateRef} isDisabled={jsonIsLoading} visibleMonths={2} defaultValue={undefined} onChange={(e) => handlerDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
+                <DateRangePicker ref={dateRef} isDisabled={jsonIsLoading} visibleMonths={2} defaultValue={undefined} onChange={(e: any) => handlerDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                     input: 'bg-background hover:bg-background focus:bg-background',
                     inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                 }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />

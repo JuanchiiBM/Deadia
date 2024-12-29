@@ -4,7 +4,6 @@ import { SuccessAlert, QuestionAlert, ErrorAlert } from "@/components/sweetAlert
 import { POSTFunction } from "@/utils/globals";
 import { useContextRegister } from "@/hooks/useContextRegister";
 import { IUseFormUsers } from "@/helpers/interfaces";
-import { getLocalTimeZone, today } from "@internationalized/date";
 
 
 export interface IUsePost {
@@ -19,20 +18,20 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
 
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
-        /*
         const _dataObject = {
-            id_article: !Number.isNaN(parseInt(dataForm.article?.value || '')) ? parseInt(dataForm.article?.value || '') : '',
-            id_dependency: !Number.isNaN(parseInt(dataForm.category?.value || '')) ? parseInt(dataForm.category?.value || '') : '',
-            quantity: Number(dataForm.action) > 0 ? Number(dataForm.action) : Number(dataForm.action) * -1,
-            date: formatDateFromDatePicker(today(getLocalTimeZone())),
-            type: Number(dataForm.action) > 0 ? 'assign' : 'consume',
+            name: dataForm.name,
+            last_name: dataForm.lastname,
+            password: dataForm.password,
+            username: dataForm.user,
+            mail: dataForm.mail,
+            id_profile: dataForm.profile?.value && Number(dataForm.profile.value),
+            id_dependency: dataForm.dependency?.value && Number(dataForm.dependency.value),
             status: repetido == undefined ? 0 : 1,
         }
-         */
-        //setShowSpinner(true)
+        setShowSpinner(true)
         if (!update) {
-            //console.log(_dataObject)
-            //newRegister(_dataObject, e)
+            console.log(_dataObject)
+            newRegister(_dataObject, e)
         } else {
             //updateRegister(_dataObject, e)
         }
@@ -40,18 +39,14 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
     }
 
     const newRegister = async (_dataObject: any, e: FormEvent<HTMLFormElement>) => {
-        const response = await POSTFunction(`api/inventory/register/form`, _dataObject)
+        const response = await POSTFunction(`api/user/register/form`, _dataObject)
         console.log(response)
         setShowSpinner(false)
         if (response.status == 'ok') {
-            SuccessAlert('Registro Cargado', '', 'Ok', () => {
+            SuccessAlert('Usuario Creado', '', 'Ok', () => {
                 setRefreshData((prev) => prev = prev + 1)
                 if (onClose)
                     onClose()
-            })
-        } else if (response.result && response.result[0]) {
-            QuestionAlert('Registro Repetido', `Este articulo fue asignado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario} con una cantidad de ${response.result[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
-                cargarIngreso(e, 1)
             })
         } else if (response.error) {
             ErrorAlert('Error', response.error, 'Ok')
@@ -59,19 +54,17 @@ export const usePost = ({ dataForm, onClose, oldRegister }: IUsePost) => {
     }
 
     const updateRegister = async (_dataObject: any, e: FormEvent<HTMLFormElement>) => {
-        const response = await PUTFunction(`api/inventory/register/form/${oldRegister.id}`, { oldRecords: oldRegister, newRecords: _dataObject })
+        const response = await PUTFunction(`api/user/register/form/${oldRegister.id}`, { oldRecords: oldRegister, newRecords: _dataObject })
         console.log(response)
         setShowSpinner(false)
         if (response.status == 'ok') {
-            SuccessAlert('Registro Cargado', '', 'Ok', () => {
+            SuccessAlert('Usuario Cargado', '', 'Ok', () => {
                 setRefreshData((prev) => prev = prev + 1)
                 if (onClose)
                     onClose()
             })
-        } else {
-            QuestionAlert('Registro Repetido', `Este articulo fue cargado por ultima vez el dia ${response[0].fecha} por ${response[0].usuario} con una cantidad de ${response[0].cantidad} unidades, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
-                cargarIngreso(e, 1)
-            })
+        } else if (response.error) {
+            ErrorAlert('Error', response.error, 'Ok')
         }
     }
 
