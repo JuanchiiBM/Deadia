@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom } from "@/helpers/interfaces"
 import { RangeValue } from "@nextui-org/react";
 import { Option, createOption, formatDate } from "@/utils/globals"
@@ -72,10 +72,11 @@ interface IUseSelectHandleChangeInscription {
     jsonData: IncomeRegisterOptions
     chargueNewClassroom: (value: Option) => void
     contentModal: any
+    studentInfo: any
 }
 
 
-export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, chargueNewClassroom, contentModal }: IUseSelectHandleChangeInscription) => {
+export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, chargueNewClassroom, contentModal, studentInfo }: IUseSelectHandleChangeInscription) => {
     const [curseDisabled, setCurseDisabled] = useState<boolean>(true)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
     const [optionsAmount, setOptionsAmount] = useState<Option[] | undefined>(undefined)
@@ -86,7 +87,8 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
         handleInputChange('classroom', newOption)
         handleInputChange('amount', undefined)
         selectOptionOfDependency(null)
-        selectOptionOfCurse(null)
+        console.log('aca44')
+        selectOptionOfCurse(null, 0)
         handleInputChange('datePicker', { start: null, end: null })
         setIsDisabled(false)
         setOptionsCurse()
@@ -94,10 +96,10 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
         setOptionsAmount(undefined)
     }
 
-    const setOptionsCurse = async (setValue?: IncomeRegisterOptionClassroom) => {
+    const setOptionsCurse = async (setValue?: IncomeRegisterOptionClassroom, monthlyDiscount: number = 0) => {
         if (setValue) {
             const option: Option = { label: setValue.curso, value: setValue.id_curso.toString() }
-            selectOptionOfCurse(option)
+            selectOptionOfCurse(option, monthlyDiscount)
         }
     }
 
@@ -108,16 +110,16 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
         }
     }
 
-    const selectOptionOfClassroom = async (newValue: Option) => {
+    const selectOptionOfClassroom = async (newValue: Option | null, monthlyDiscount: number) => {
         handleInputChange('classroom', newValue)
-        if (jsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue.value)) {
+        if (jsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue?.value)) {
 
             setIsDisabled(true)
             setCurseDisabled(true)
             jsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
-                if (opt.id.toString() == newValue.value) {
+                if (opt.id.toString() == newValue?.value) {
 
-                    setOptionsCurse(opt)
+                    setOptionsCurse(opt, monthlyDiscount)
                     setOptionsDependency(opt)
                     handleInputChange('datePicker', {
                         start: parseDate(formatDate(opt.fec_inicio)),
@@ -129,7 +131,8 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
             setIsDisabled(false)
             handleInputChange('amount', undefined)
             selectOptionOfDependency(null)
-            selectOptionOfCurse(null)
+            selectOptionOfCurse(null, monthlyDiscount)
+            handleInputChange('amount', null)
             handleInputChange('datePicker', { start: null, end: null })
         }
     }
@@ -139,17 +142,21 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
         newValue != null ? setCurseDisabled(false) : setCurseDisabled(true)
     }
 
-    const selectOptionOfCurse = (newValue: Option | null) => {
+    const selectOptionOfCurse = (newValue: Option | null, monthlyDiscount: number) => {
         const grade = jsonData.grades.find((grade) => grade.id.toString() === newValue?.value)
         handleInputChange('curse', newValue)
         if (grade) {
+            const discountedPricePerMonth = grade.precio_mes - monthlyDiscount;
+            console.log('entradescuento', monthlyDiscount)
             setOptionsAmount([{
                 value: '0',
-                label: `Por mes: $${grade.precio_mes.toString()}`
+                label: `Por mes: $${discountedPricePerMonth.toString()}`
             }, {
                 value: '1',
-                label: `Total: $${(grade.precio_mes*grade.duracion).toString()}`
+                label: `Total: $${(discountedPricePerMonth * grade.duracion).toString()}`
             }])
+        } else {
+            setOptionsAmount([]);
         }
         console.log(optionsAmount)
     }
@@ -162,9 +169,13 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
                 value: jsonClassroomFiltered?.id_curso.toString(),
                 label: jsonClassroomFiltered?.codigo
             }
-            selectOptionOfClassroom(option)
+            selectOptionOfClassroom(option, 0)
         }
     }, [jsonData])
+
+    useEffect(() => {
+        selectOptionOfClassroom(null, 0)
+    }, [studentInfo.category])
 
     useEffect(() => {
         setIsDisabled(true)
@@ -184,9 +195,9 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
     const chargeCategory = async () => {
         const optionsCategory = jsonData.categories.map((category) => ({
             value: category.id.toString(),
-            label: category.categoria
+            label: category.categoria,
+            discount: category.descuento_mes
         })) as Option[]
-
         setOptions(prev => ({
             ...prev,
             category: optionsCategory,
@@ -221,7 +232,7 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
 
     const selectCategory = (newValue: Option) => {
         handleInputChange('category', newValue)
-        chargeGrade(parseInt(newValue.value || ''))
+        chargeGrade(parseInt(newValue.value || ''))        
     }
 
     useEffect(() => {

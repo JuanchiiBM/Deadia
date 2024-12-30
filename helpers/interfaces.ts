@@ -11,7 +11,7 @@ export interface IUseFormInscription {
     lastname: string | undefined | null
     mail: string | undefined | null
     id_pupil: string | undefined | null
-    category: Option | undefined | null
+    category: Option | undefined | null | any
     grade: Option | undefined | null
     classroom: Option | undefined | null
     curse: Option | undefined | null

@@ -8,7 +8,7 @@ const StatsUsers = () => {
 
     return (
         <>
-            <h2 className='mb-4'>Contador de Usuarios</h2>
+            <h2 className='mb-2 pb-2 border-b-2 border-background-100'>Contador de Usuarios</h2>
             <div className='flex items-start flex-col gap-[10px] text-sm'>
                 {stats && stats.map((data: any) => (
                     <ProfileUser key={data.perfil} perfil={data.perfil} cant_users={data.count} />
