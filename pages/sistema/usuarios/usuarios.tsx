@@ -32,7 +32,7 @@ const usuarios = () => {
 			<h1 className='text-4xl'>Usuarios</h1>
 			<Options onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
 			<div className='flex'>
-                <div className='w-[25%] h-auto mr-[50px] bg-background-200 flex justify-between p-5 rounded-lg shadow-md'>
+                <div className='w-[25%] h-auto mr-[50px] bg-background-200 flex flex-col justify-start p-5 rounded-lg shadow-md'>
                     <StatsUsers />
                 </div>
                 <TableData onOpen={onOpen}/>

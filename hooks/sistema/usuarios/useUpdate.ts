@@ -7,15 +7,7 @@ interface IUseUpdate {
     contentModal: IUsersTableInside | undefined,
     isOpen: boolean | undefined
 }
-// ACTUALIZAR CUANDO SE EMPIECE USUARIOS!!!!
- /*
-    category: contentModal ? createOption(contentModal.categoria, contentModal.id_categoria.toString()) : null,
-    article: contentModal ? createOption(contentModal.articulo, contentModal.id_articulo.toString()) : null,
-    description: contentModal ? contentModal.descripcion : '',
-    amount: contentModal ? contentModal.cantidad.toString() : '',
-    price: contentModal ? contentModal.monto.toString() : '',
-    datePicker: contentModal ? transformToDateValue(contentModal.fec_compra) : null
-*/
+
 export const useUpdate = ({ setDataForm, contentModal, isOpen }: IUseUpdate) => {
     useEffect(() => {
         setDataForm({
