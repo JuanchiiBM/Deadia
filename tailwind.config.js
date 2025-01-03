@@ -14,18 +14,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-          'ejemplo': {
-            50: '#fdf8f6',
-            100: '#f2e8e5',
-            200: '#eaddd7',
-            300: '#e0cec7',
-            400: '#d2bab0',
-            500: '#bfa094',
-            600: '#a18072',
-            700: '#977669',
-            800: '#846358',
-            900: '#43302b',
-          }
+        'ejemplo': {
+          50: '#fdf8f6',
+          100: '#f2e8e5',
+          200: '#eaddd7',
+          300: '#e0cec7',
+          400: '#d2bab0',
+          500: '#bfa094',
+          600: '#a18072',
+          700: '#977669',
+          800: '#846358',
+          900: '#43302b',
+        }
       }
     },
   },
@@ -35,14 +35,25 @@ module.exports = {
       light: {
         colors: {
           background: {
-            DEFAULT: '#ffffff', // Primary background
-            100: '#EDF3F4', // Primary background hover
-            200: '#D1E5EB', // Secondary background
+            DEFAULT: '#fafafa', // Primary background
+            100: '#f4f4f5', // Primary background hover
+            200: '#fff', // Secondary background
             300: '#C0D8DF', // Secondary background hover
-            400: '#E5F0F2', // Primary background contrast
+            400: '#fff', // Primary background contrast
           },
           primary: {
-            DEFAULT: '#86ADB3' // Primary color
+            DEFAULT: '#86ADB3', // Primary color
+            50: '#f3f8f8',
+            100: '#e1ebec',
+            200: '#c6d9db',
+            300: '#86adb3',
+            400: '#6f9aa1',
+            500: '#547e86',
+            600: '#486972',
+            700: '#3f575f',
+            800: '#394b51',
+            900: '#334146',
+            950: '#1f292d'
           },
           secondary: {
             DEFAULT: '#CECFA3', // Secondary color
@@ -69,14 +80,25 @@ module.exports = {
       dark: {
         colors: {
           background: {
-            DEFAULT: '#1C1F24', // Primary background
-            100: '#1F2329', // Primary background hover
-            200: '#2A3C44', // Secondary background
-            300: '#223138', // Secondary background hover
-            400: '#23282F', // Primary background contrast
+            DEFAULT: '#0e0e11', // Primary background
+            100: '#090909', // Primary background hover
+            200: '#18181b', // Secondary background
+            300: '#1a1a1e', // Secondary background hover
+            400: '#18181b', // Primary background contrast
           },
           primary: {
-            DEFAULT: '#86ADB3' // Primary color
+            DEFAULT: '#86ADB3', // Primary color
+            50: '#f3f8f8',
+            100: '#e1ebec',
+            200: '#c6d9db',
+            300: '#86adb3',
+            400: '#6f9aa1',
+            500: '#547e86',
+            600: '#486972',
+            700: '#3f575f',
+            800: '#394b51',
+            900: '#334146',
+            950: '#1f292d'
           },
           secondary: {
             DEFAULT: '#B5C28A', // Secondary color

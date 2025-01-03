@@ -53,7 +53,7 @@ const OptionsRegistrarIngreso: React.FC<IOptionsRegistrarIngreso> = ({ optionsCh
             </I18nProvider>
             
             {hasPermission(MODULES.MODULEINSCRIPTION, ACTIONS.CREATE) &&
-            <Button isDisabled={!optionsCharged} onPress={resetModal} className='content-center h-full text-content2 text-md rounded-md' color='primary' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl' />}>
+            <Button isDisabled={!optionsCharged} onPress={resetModal} className='bg-primary-200 dark:bg-primary-700 content-center h-full text-content2 text-md rounded-md' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl' />}>
                 Crear Registro
             </Button>
             }

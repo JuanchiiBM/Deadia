@@ -36,7 +36,7 @@ const Options: React.FC<IOptions> = ({ onOpen, selectDateRange, dateRef }) => {
                 }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
             </I18nProvider>
             {hasPermission(MODULES.MODULEUSER, ACTIONS.CREATE) &&
-            <Button onPress={resetModal} isDisabled={jsonIsLoading} className='content-center h-full text-conntent2 text-md' color='primary' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl'/>}>
+            <Button onPress={resetModal} isDisabled={jsonIsLoading} className='bg-primary-200 dark:bg-primary-700 content-center h-full text-content2 text-md' startContent={<FontAwesomeIcon icon={faUserPlus} className='text-content2  text-xl'/>}>
                 Crear Usuario
             </Button>
             }

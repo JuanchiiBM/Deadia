@@ -23,7 +23,7 @@ export const UserDropdown = () => {
                     <DropdownTrigger>
                         <Avatar
                             as='button'
-                            color='secondary'
+                            color='primary'
                             size='md'
                             name="Juanchi"
                         />

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarItem } from "./sidebar-item";
 import { usePathname } from "next/navigation";
 import { faCircleDot, faUserGraduate, faMoneyBillTransfer, faGears, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
+import clsx from "clsx";
 
 interface Props {
     icon: number;
@@ -15,6 +16,7 @@ interface Props {
 
 export const CollapseItems = ({ icon, items, path, title }: Props) => {
     const pathname = usePathname();
+    const isActive = path.includes(pathname as string);
 
     const icons = (icon: number) => {
         switch (icon) {
@@ -38,7 +40,9 @@ export const CollapseItems = ({ icon, items, path, title }: Props) => {
                     classNames={{
                         indicator: "data-[open=true]:-rotate-180",
                         trigger:
-                            "py-0 min-h-[44px] hover:bg-background text-content1 hover:text-content2 rounded-xl active:scale-[0.98] transition-all duration-150 px-2",
+                        clsx(isActive
+                            && "bg-primary-200 dark:bg-primary-700 [&_svg_path]:fill-primary-700 dark:[&_svg_path]:fill-primary-50",
+                            "py-0 min-h-[44px] hover:bg-background text-content1 hover:text-content2 rounded-xl active:scale-[0.98] transition-all duration-150 px-2"),
 
                         title:
                             "px-0 flex text-base text-content1 hover:text-content2 transition-all duration-150 gap-2 h-full items-center cursor-pointer [&_svg_path]:fill-default-400",
