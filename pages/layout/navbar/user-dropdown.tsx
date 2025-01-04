@@ -23,9 +23,10 @@ export const UserDropdown = () => {
                     <DropdownTrigger>
                         <Avatar
                             as='button'
-                            color='primary'
                             size='md'
                             name="Juanchi"
+                            className="bg-primary-200 dark:bg-primary-700"
+                            classNames={{base: 'border-2 border-primary-200 dark:border-primary-700'}}
                         />
                     </DropdownTrigger>
                 </NavbarItem>
