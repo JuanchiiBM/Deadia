@@ -4,18 +4,19 @@
     --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 0.5rem;
 
     .dt-layout-row {
 
         /*TABLA*/
         .dataTable {
-            border-radius: 5px;
+            border-radius: 0.5rem;
             clip-path: view-box;
 
             thead {
+                height: 50px;
                 background-color: hsl(var(--nextui-background));
-                border-bottom: 1px solid hsl(var(--nextui-default-500));
+                border-bottom: 1px solid hsl(var(--nextui-default-300));
             }
 
             tbody {
@@ -116,7 +117,7 @@
     background-color: hsl(var(--nextui-warning));
 
     svg {
-        color: #eee
+        color: hsl(var(--nextui-default-700));
     }
 }
 
@@ -124,6 +125,14 @@
     background-color: hsl(var(--nextui-danger));
 
     svg {
-        color: #eee
+        color: hsl(var(--nextui-default-700));
+    }
+}
+
+.activate-btn {
+    background-color: hsl(var(--nextui-success));
+
+    svg {
+        color: hsl(var(--nextui-default-700));
     }
 }

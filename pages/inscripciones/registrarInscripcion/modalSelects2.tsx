@@ -16,8 +16,8 @@ const ModalSelectsRegistrarIngreso2: React.FC<IModalSelects2Inscription> = ({ js
                 <Select maxMenuHeight={200} value={studentInfo?.category} onChange={(newValue: any) => selectCategory(newValue)} className='w-[50%]' isDisabled={isLoadingDni} options={options.category} placeholder='Categoría' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered} required></Select>
                 <Select maxMenuHeight={200} value={studentInfo?.grade} onChange={(newValue: any) => handleInputChange('grade', newValue)} isDisabled={isDisabled || isLoadingDni} required={!isDisabled} className='w-[50%]' options={options.grade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
             </div>
-            <div className="flex">
-                <Input variant='bordered' labelPlacement='outside' label='Destino' isDisabled={isDisabled || isLoadingDni} required={!isDisabled} />
+            <div className="flex mb-2 mt-8">
+                <Select maxMenuHeight={200} value={studentInfo?.destination} onChange={(newValue: any) => handleInputChange('destination', newValue)} isDisabled={isDisabled || isLoadingDni} required={!isDisabled} className='w-[100%]' options={options.destination} placeholder='Destino' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
             </div>
         </>
     )

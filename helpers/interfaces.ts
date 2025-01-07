@@ -13,6 +13,7 @@ export interface IUseFormInscription {
     id_pupil: string | undefined | null
     category: Option | undefined | null | any
     grade: Option | undefined | null
+    destination: Option | undefined | null
     classroom: Option | undefined | null
     curse: Option | undefined | null
     dependency: Option | undefined | null
@@ -93,6 +94,9 @@ export interface IncomeRegisterOptions {
     ],
     ranks: [
         IncomeRegisterOptionRank
+    ],
+    destination: [
+        IncomeRegisterOptionDestination
     ]
 }
 
@@ -130,6 +134,11 @@ export interface IncomeRegisterOptionRank {
     id: number
     grado: string
     id_categoria: number
+}
+
+export interface IncomeRegisterOptionDestination {
+    id: number
+    destino: string
 }
 
 export interface IModalSelects2Inscription {

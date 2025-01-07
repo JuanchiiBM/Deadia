@@ -188,8 +188,9 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
 export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChange }: IModalSelects2Inscription) => {
     const [options, setOptions] = useState<{
         category: Option[] | undefined,
-        grade: Option[] | undefined
-    }>({ category: undefined, grade: undefined })
+        grade: Option[] | undefined,
+        destination: Option[] | undefined
+    }>({ category: undefined, grade: undefined, destination: undefined })
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
     const chargeCategory = async () => {
@@ -230,6 +231,17 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
         }
     }
 
+    const chargeDestination = () => {
+        const optionsDestination = jsonData.destination.map((destination) => ({
+            value: destination.id.toString(),
+            label: destination.destino,
+        })) as Option[]
+        setOptions(prev => ({
+            ...prev,
+            destination: optionsDestination,
+        }))
+    }
+
     const selectCategory = (newValue: Option) => {
         handleInputChange('category', newValue)
         chargeGrade(parseInt(newValue.value || ''))        
@@ -237,6 +249,7 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
 
     useEffect(() => {
         chargeCategory()
+        chargeDestination()
     }, [isOpen])
 
     return { options, isDisabled, selectCategory }

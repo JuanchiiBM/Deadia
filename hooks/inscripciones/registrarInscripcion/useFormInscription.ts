@@ -11,6 +11,7 @@ export const useFormInscription = () => {
         mail: undefined,
         category: undefined,
         grade: undefined,
+        destination: undefined,
         classroom: undefined,
         curse: undefined,
         id_pupil: undefined,

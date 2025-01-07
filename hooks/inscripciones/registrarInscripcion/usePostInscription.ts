@@ -28,7 +28,8 @@ export const usePostInscription = ({ studentInfo, onClose, oldRegister }: IUsePo
             code: studentInfo.classroom?.label,
             begin_date: formatDateFromDatePicker(studentInfo.datePicker.start),
             end_date: formatDateFromDatePicker(studentInfo.datePicker.end),
-            id_rank: studentInfo?.curse?.value ? parseInt(studentInfo?.curse?.value || '') : null
+            id_rank: studentInfo?.grade?.value ? parseInt(studentInfo?.grade?.value || '') : null,
+            id_destination: studentInfo?.destination?.value ? parseInt(studentInfo?.destination?.value || '') : null
         }
         setShowSpinner(true)
         console.log(_dataObject)

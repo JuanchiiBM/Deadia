@@ -11,24 +11,6 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {
-      colors: {
-        'ejemplo': {
-          50: '#fdf8f6',
-          100: '#f2e8e5',
-          200: '#eaddd7',
-          300: '#e0cec7',
-          400: '#d2bab0',
-          500: '#bfa094',
-          600: '#a18072',
-          700: '#977669',
-          800: '#846358',
-          900: '#43302b',
-        }
-      }
-    },
-  },
   darkMode: "class",
   plugins: [nextui({
     themes: {
@@ -39,7 +21,7 @@ module.exports = {
             100: '#f4f4f5', // Primary background hover
             200: '#fff', // Secondary background
             300: '#C0D8DF', // Secondary background hover
-            400: '#fff', // Primary background contrast
+            400: '#fbfbfb', // Primary background contrast
           },
           primary: {
             DEFAULT: '#86ADB3', // Primary color
@@ -84,7 +66,7 @@ module.exports = {
             100: '#090909', // Primary background hover
             200: '#18181b', // Secondary background
             300: '#1a1a1e', // Secondary background hover
-            400: '#18181b', // Primary background contrast
+            400: '#131313', // Primary background contrast
           },
           primary: {
             DEFAULT: '#86ADB3', // Primary color
@@ -115,7 +97,7 @@ module.exports = {
             DEFAULT: '#4A7F50'
           },
           warning: {
-            DEFAULT: '#D4A23D'
+            DEFAULT: '#C88500'
           },
           danger: {
             DEFAULT: '#C85C5C'
