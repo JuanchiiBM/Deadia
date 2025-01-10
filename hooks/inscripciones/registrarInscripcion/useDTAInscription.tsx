@@ -13,6 +13,7 @@ export const useDTAInscription = ({ tableData, setContentModal, onOpen }: IUseDT
     const deleteRegister = (dato: IRegister) => {
         QuestionAlert('Borrar registro', 'Esta usted seguro de proceder con la accion?', 'Confirmar', async () => {
             setShowSpinner(true)
+            console.log(`api/income/register/${dato.id}`)
             const response = await DELETEFunction(`api/income/register/${dato.id}`)
             console.log(response)
             setShowSpinner(false)

@@ -125,6 +125,19 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
                     reset: true,
                 }
             },
+            animations: {
+                enabled: true,
+                easing: "easeinout",
+                speed: 800, // Velocidad en milisegundos
+                animateGradually: {
+                    enabled: true,
+                    delay: 150, // Retraso entre puntos
+                },
+                dynamicAnimation: {
+                    enabled: true,
+                    speed: 350, // Velocidad al actualizar datos
+                },
+            },
         },
         stroke: {
             curve: 'straight', // Líneas rectas

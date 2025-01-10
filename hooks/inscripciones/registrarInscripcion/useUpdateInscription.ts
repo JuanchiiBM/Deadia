@@ -13,6 +13,7 @@ export const useUpdateInscription = ({ setStudentInfo, contentModal, isOpen }: I
             grade: contentModal && contentModal.grado != '-' ? contentModal.grado : '',
             classroom: contentModal ? contentModal.aula : null,
             curse: null,
+            destination: contentModal ? contentModal.destino : null,
             dependency: null,
             id_pupil: null,
             amount: contentModal ? contentModal.monto_acumulado.split(' de ')[0] : '',
