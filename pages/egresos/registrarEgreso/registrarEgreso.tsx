@@ -1,39 +1,69 @@
 "use client"
 
-import React, { useState } from 'react'
-import Options from './options'
-import TableData from './dataTable';
-import ModalView from './modal';
+import React, { useState } from 'react';
 import { useDisclosure } from '@nextui-org/react';
-import { useJsonData } from '@/hooks/useJsonData';
-import { ContextRegister } from '@/hooks/useContextRegister';
-import { useDatePicker } from '@/hooks/useDatePicker';
+
+import Options from '@/components/options/options'
+import TableData from '@/components/dataTable/dataTable';
+import ModalView from '@/components/modal/modal';
+import ModalContent from './components/modalContent';
+
+import { ContextRegister } from '@/context/contextRegister';
+import { MODULES } from '@/utils/enums/permissions';
+
+import useDatePicker from '@/hookss/useDatePicker';
+import useSetDTAContent from '@/hookss/useSetDTAContent';
+import useJsonData from '@/hookss/useJsonData';
+
+import useDT from './hooks/useDT';
+import useForm from './hooks/useForm';
+import useUpdate from './hooks/useUpdate';
+import useSetDataObject from './hooks/useSetDataObject';
+
+const title = 'Egreso'
 
 const registrarEgreso = () => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [refreshData, setRefreshData] = useState(0)
+    const [refreshData, setRefreshData] = useState(0)
 	const [isUpdate, setIsUpdate] = useState(false)
-	const [contentModal, setContentModal] = useState()
-	const {dateSelected, dateRef, selectDateRange} = useDatePicker()
-	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
+	const [contentTable, setContentTable] = useState()
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
-	return (
-		<ContextRegister.Provider value={{
-			jsonData: jsonData,
-			jsonIsLoading: isLoading,
-			update: isUpdate,
-			setUpdate: setIsUpdate,
-			refreshData: refreshData,
-			setRefreshData: setRefreshData,
-			contentModal: contentModal,
-			setContentModal: setContentModal
-		}}>
-			<h1 className='text-4xl'>Egresos</h1>
-			<Options onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
-			<TableData onOpen={onOpen}/>
-			<ModalView isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-		</ContextRegister.Provider>
-	)
+    const { dateSelected, dateRef, selectDateRange } = useDatePicker()
+    const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
+    
+    const useDTAContent = useSetDTAContent({ module: 'egreso', urlDelete: 'api/loss/register/', urlPut: 'api/loss/register/form/' })
+    const urlPost = 'api/loss/register/form'
+    const { tableData, columns, columnDefs } = useDT({jsonData, refreshData})
+
+    const { dataForm, handleInputChange, setDataForm } = useForm()
+    const { oldRegister } = useUpdate({ setDataForm, contentTable, isOpen })
+    const { _dataObject } = useSetDataObject({ dataForm })
+
+    return (
+        <ContextRegister.Provider value={{
+            jsonData: jsonData,
+            jsonIsLoading: isLoading,
+            dataForm: dataForm,
+            handleInputChange: handleInputChange,
+            update: isUpdate,
+            setUpdate: setIsUpdate,
+            refreshData: refreshData,
+            setRefreshData: setRefreshData,
+            contentTable: contentTable,
+            setContentTable: setContentTable
+        }}>
+            <h1 className='text-4xl'>{title}</h1>
+            <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
+                <Options title={`Registrar ${title}`} buttonTitle='Crear Registro' altButtonTitle='Crear Registro' MODULE={MODULES.MODULEUSER} onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} exportExcel={true} dateTime={true} />
+            </div>
+            <div className='bg-background-200 rounded-lg'>
+                <TableData onOpen={onOpen} title={`Registrar ${title}`} useDTAContent={useDTAContent} tableData={tableData} columns={columns} setColumnDefs={columnDefs} />
+            </div>
+            <ModalView size='xl' text='egreso' isOpen={isOpen} onClose={onClose} onOpen={onOpen} _dataObject={_dataObject} urlPost={urlPost} oldRegister={oldRegister}>
+                <ModalContent/>
+            </ModalView>
+        </ContextRegister.Provider>
+    )
 }
 
 export default registrarEgreso

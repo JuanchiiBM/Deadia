@@ -3,8 +3,6 @@ import { IUseFormEgressRegister } from "@/helpers/interfaces";
 import { RangeValue, DateValue } from "@nextui-org/react";
 import { Option } from "@/utils/globals";
 
-
-
 export const useForm = () => {
     const [dataForm, setDataForm] = useState<IUseFormEgressRegister>({
         category: undefined,

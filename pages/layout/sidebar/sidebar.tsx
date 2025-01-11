@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { Sidebar } from "./sidebar.styles";
-import { HomeIcon } from "@/components/icons/sidebar/home-icon";
 import { CollapseItems } from "./collapse-items";
 import { SidebarItem } from "./sidebar-item";
 import { useSidebarContext } from "../layout-context";
 import { usePathname } from "next/navigation";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
-import { IPermissionsContent } from "@/helpers/interfaces";
 import { useHandlerPermissions } from "@/hooks/layout/useHandlerPermissions";
 
 

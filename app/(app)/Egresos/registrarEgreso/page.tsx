@@ -1,5 +1,5 @@
 import React from 'react'
-import RegistrarEgreso from '@/pages/egresos/registrarEgreso/registrarEgreso'
+import RegistrarEgreso from '@/pages/egresos/OLD-RegistrarEgreso/registrarEgreso'
 
 const registrarEgreso = () => {
   return (

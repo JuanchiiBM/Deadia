@@ -43,8 +43,8 @@
             .dt-search {
                 input {
                     border-radius: 5px;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
                     border: none;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
                     background-color: hsl(var(--nextui-background));
                     transition: 0.25s ease-in-out all;
                     padding-left: 5px;
@@ -117,24 +117,46 @@
 
 .edit-btn {
     background-color: hsl(var(--nextui-warning));
+    transition: opacity 0.25s ease-in-out;
 
     svg {
         color: hsl(var(--nextui-default-700));
+    }
+
+    &:hover {
+        transition: opacity 0.25s ease-in-out;
+        opacity: 0.8;
     }
 }
 
 .delete-btn {
     background-color: hsl(var(--nextui-danger));
+    transition: opacity 0.25s ease-in-out;
 
     svg {
         color: hsl(var(--nextui-default-700));
+    }
+
+    &:hover {
+        transition: opacity 0.25s ease-in-out;
+        opacity: 0.8;
     }
 }
 
 .activate-btn {
     background-color: hsl(var(--nextui-success));
+    transition: opacity 0.25s ease-in-out;
 
     svg {
         color: hsl(var(--nextui-default-700));
     }
+
+    &:hover {
+        transition: opacity 0.25s ease-in-out;
+        opacity: 0.8;
+    }
+}
+
+button.btn-excel-export {
+    display: none !important;
 }

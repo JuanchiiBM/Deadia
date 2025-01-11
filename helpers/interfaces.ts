@@ -241,7 +241,7 @@ export interface IUseFormEgressRegister {
     amount: string | undefined | null
     price: string | undefined | null
     nro_renglon: string | undefined | null
-    nro_proceso: string | undefined | null
+    licitation: Option | undefined | null
     datePicker: DateValue | undefined | null
     datePickerVencimiento: DateValue | undefined | null
 }
@@ -256,6 +256,7 @@ export interface ITableDataEgressInside {
     articulo: string
     cantidad: number
     id_articulo: number
+    nro_licitacion: number
     id_categoria: number
     categoria: string
     fec_compra: string
@@ -270,11 +271,21 @@ export interface IDataEgressRegister {
         IDataEgressViewCatFilter
     ],
 
+    biddings: [
+        IDataEgressViewBidFilter
+    ]
+
     list: {
         article: [
             IDataEgressRegisterArticle
         ]
     }
+}
+
+export interface IDataEgressViewBidFilter {
+    id: number
+    numero: string
+    fecha: string
 }
 
 export interface IDataEgressRegisterArticle {
