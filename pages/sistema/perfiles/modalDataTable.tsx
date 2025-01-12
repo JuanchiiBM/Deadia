@@ -20,7 +20,7 @@ const ModalTableProfiles = () => {
             {isLoading == true ? <SpinnerForModalTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
-                    responsive: true,
+                     
                     paging: false,
                     scrollY: '250',
                     language: {

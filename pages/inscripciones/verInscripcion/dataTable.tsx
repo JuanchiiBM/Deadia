@@ -22,7 +22,7 @@ const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableLoader, dateRef }) =
                 <SpinnerForTables /> :
                 <DataTable key={tableKey} columns={tableColumns} data={tableData} className='order-column text-sm' options={{
                     destroy: true,
-                    responsive: true,
+                     
                     language: {
                         url: '../dataTableLanguaje.json',
                     },

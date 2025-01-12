@@ -7,16 +7,49 @@
     border-radius: 0.5rem;
 
     .dt-layout-row {
+        .dt-layout-cell {
+            overflow-x: auto !important;
+            border-radius: 0.5rem;
+        }
+
+        .dt-layout-cell::-webkit-scrollbar {
+            width: 2px;
+            height: 4px;
+        }
+
+        .dt-layout-cell::-webkit-scrollbar-thumb {
+            background-color: hsl(var(--nextui-default-300));
+            border-radius: 4px;
+            cursor: pointer;
+            transition: '0.5s ease all';
+        }
+
+        .dt-layout-cell::-webkit-scrollbar-thumb:hover {
+            background-color: hsl(var(--nextui-default-300));
+        }
 
         /*TABLA*/
         .dataTable {
             border-radius: 0.5rem;
             clip-path: view-box;
+            border-collapse: separate;
+            border-spacing: 0;
 
             thead {
                 height: 50px;
                 background-color: hsl(var(--nextui-background));
                 border-bottom: 1px solid hsl(var(--nextui-default-300));
+
+                tr {
+                    th {
+                        &:last-child {
+                            position: sticky;
+                            right: -1px;
+                            background-color: hsl(var(--nextui-background));
+                            border-left: 1px solid hsl(var(--nextui-default-300));
+                        }
+                    }
+                }
             }
 
             tbody {
@@ -29,6 +62,12 @@
 
                     td {
                         padding: 2px 5px;
+
+                        &:last-child {
+                            position: sticky;
+                            right: -1px;
+                            background-color: hsl(var(--nextui-background-400));
+                        }
                     }
                 }
             }
@@ -44,7 +83,8 @@
                 input {
                     border-radius: 5px;
                     border: none;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    /* Sombra suave */
                     background-color: hsl(var(--nextui-background));
                     transition: 0.25s ease-in-out all;
                     padding-left: 5px;
@@ -63,7 +103,8 @@
                     margin-right: 5px;
                     border: none;
                     background-color: hsl(var(--nextui-background));
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    /* Sombra suave */
 
                     &:focus-visible {
                         outline: none;

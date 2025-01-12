@@ -33,7 +33,6 @@ const DataTableRegistrarIngreso: React.FC<IDataTable> = ({ onOpen, setContentMod
                 <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
-                    responsive: true,
                     order: [[0, 'desc']],
                     columnDefs: [
                         { "width": "5%", "targets": 0 },

@@ -4,7 +4,7 @@ import ListExample from '@/pages/--listExample/listExample'
 
 const home = () => {
   return (
-    <Home/>
+    <ListExample/>
   )
 }
 

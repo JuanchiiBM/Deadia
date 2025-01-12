@@ -27,7 +27,7 @@ const TableData: React.FC<ITableData> = ({ onOpen}) => {
                 <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columns} options={{
                     destroy: true,
-                    responsive: true,
+                     
                     order: [[0, 'desc']],
                     columnDefs: [
                         { "width": "5%", "targets": 0 },

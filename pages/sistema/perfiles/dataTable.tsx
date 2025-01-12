@@ -24,7 +24,7 @@ const TableProfiles: React.FC<ITableProfiles> = () => {
             {isLoading == true ? <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columnsData} options={{
                     destroy: true,
-                    responsive: true,
+                     
                     language: {
                         url: '../dataTableLanguaje.json',
                     },
