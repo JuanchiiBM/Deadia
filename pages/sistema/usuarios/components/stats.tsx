@@ -1,7 +1,7 @@
 import React from 'react'
 import ProfileUser from './profileUser'
 
-import { useGenerateStats } from '@/hooks/sistema/usuarios/useGenerateStats'
+import { useGenerateStats } from '../hooks/useGenerateStats'
 
 const StatsUsers = () => {
     const { stats } = useGenerateStats()

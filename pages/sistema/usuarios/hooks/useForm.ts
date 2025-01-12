@@ -1,12 +1,9 @@
-import { useState } from "react"
-import { IUseFormUsers } from "@/helpers/interfaces";
+import { useEffect, useState } from "react"
 import { RangeValue, DateValue } from "@nextui-org/react";
-import { Option } from "@/utils/globals";
+import { Option } from "@/utils/types/options";
 
-
-
-export const useForm = () => {
-    const [dataForm, setDataForm] = useState<IUseFormUsers>({
+const useForm = () => {
+    const [dataForm, setDataForm] = useState<any>({
         name: '',
         lastname: '',
         mail: '',
@@ -17,11 +14,17 @@ export const useForm = () => {
     })
 
     const handleInputChange = (field: string, value: string | RangeValue<any> | DateValue | undefined | Option | null) => {
-        setDataForm(prev => ({
+        setDataForm((prev: any) => ({
             ...prev,
             [field]: value,
         }))
     };
 
+    useEffect(() => {
+        console.log(dataForm)
+    }, [dataForm])
+
     return {dataForm, handleInputChange, setDataForm}
 }
+
+export default useForm

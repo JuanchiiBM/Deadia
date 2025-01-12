@@ -1,5 +1,5 @@
-import { IUsersTableInside } from "@/helpers/interfaces";
-import { useContextRegister } from "@/hooks/useContextRegister";
+import { IUsersTableInside } from "@/utils/interfaces/usuarios";
+import { useContextRegister } from "@/context/contextRegister";
 import { useState, useEffect } from "react";
 
 export const useGenerateStats = () => {
