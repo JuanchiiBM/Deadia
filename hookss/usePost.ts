@@ -42,6 +42,10 @@ export const usePost = ({ onClose, oldRegister, _dataObject, urlPost, text }: IU
                 if (onClose)
                     onClose()
             })
+        } else if (response.result && response.result[0]) {
+            QuestionAlert(`${capitalizeFirstLetter(text)} Repetido`, `Este ${capitalizeFirstLetter(text)} fue asignado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario}, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
+                cargarIngreso(e, 1)
+            })
         } else if (response.error) {
             ErrorAlert('Error', response.error, 'Ok')
         }
@@ -56,6 +60,10 @@ export const usePost = ({ onClose, oldRegister, _dataObject, urlPost, text }: IU
                 setRefreshData((prev) => prev = prev + 1)
                 if (onClose)
                     onClose()
+            })
+        } else if (response.result && response.result[0]) {
+            QuestionAlert(`${capitalizeFirstLetter(text)} Repetido`, `Este ${capitalizeFirstLetter(text)} fue asignado por ultima vez el dia ${response.result[0].fecha} por ${response.result[0].usuario}, ¿Esta usted seguro de que desea cargarlo?`, 'Cargar', () => {
+                cargarIngreso(e, 1)
             })
         } else if (response.error) {
             ErrorAlert('Error', response.error, 'Ok')

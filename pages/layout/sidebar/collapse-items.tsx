@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronDownIcon } from "@/components/icons/sidebar/chevron-down-icon";
+import { ChevronDownIcon } from "@/components/--oldTemplate/icons/sidebar/chevron-down-icon";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarItem } from "./sidebar-item";

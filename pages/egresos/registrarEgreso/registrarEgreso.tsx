@@ -54,7 +54,7 @@ const registrarEgreso = () => {
         }}>
             <h1 className='text-4xl'>{title}</h1>
             <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
-                <Options title={`Registrar ${title}`} buttonTitle='Crear Registro' altButtonTitle='Crear Registro' MODULE={MODULES.MODULEUSER} onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} exportExcel={true} dateTime={true} />
+                <Options title={`Registrar ${title}`} buttonTitle='Crear Registro' altButtonTitle='Crear Registro' MODULE={MODULES.MODULEEGRESS} onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} exportExcel={true} dateTime={true} />
             </div>
             <div className='bg-background-200 rounded-lg'>
                 <TableData onOpen={onOpen} title={`Registrar ${title}`} useDTAContent={useDTAContent} tableData={tableData} columns={columns} setColumnDefs={columnDefs} />

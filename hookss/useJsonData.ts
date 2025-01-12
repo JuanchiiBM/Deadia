@@ -14,13 +14,9 @@ const useJsonData = ({ url, refreshData }: { url: string | undefined, refreshDat
     }
 
     useEffect(() => {
+        console.log('useJsonData')
         getJsonData()
-    }, [url])
-
-    
-    useEffect(() => {
-        getJsonData()
-    }, [refreshData])
+    }, [url, refreshData])
 
     return {isLoading, jsonData, setIsLoading}
 }

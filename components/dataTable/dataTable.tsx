@@ -28,12 +28,12 @@ interface ITableData {
 }
 
 const TableData: React.FC<ITableData> = ({ onOpen, setColumnDefs, title, tableData, columns, useDTAContent }) => {
-    const { jsonIsLoading, setContentTable } = useContextRegister()
+    const { jsonIsLoading, setContentTable, refreshData } = useContextRegister()
     const { } = useDTA({ tableData, setContentTable, onOpen, useDTAContent })
 
     return (
         <>
-            {(jsonIsLoading == true && tableData == undefined) ?
+            {(jsonIsLoading == true || tableData == undefined) ?
                 <SpinnerForTables /> :
                 <DataTable data={tableData} className='order-column text-sm' columns={columns} options={{
                     destroy: true,
@@ -59,7 +59,7 @@ const TableData: React.FC<ITableData> = ({ onOpen, setColumnDefs, title, tableDa
                         }
                     },
                     language: {
-                        url: 'json/dataTableLanguaje.json',
+                        url: '../json/dataTableLanguaje.json',
                     },
                 }} >
                     <thead>

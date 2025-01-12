@@ -386,6 +386,7 @@ export interface ITableDataInventoryInside {
     saldo_actual: number
     saldo_restante: number
     total_comprado: number
+    estado: string
 }
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

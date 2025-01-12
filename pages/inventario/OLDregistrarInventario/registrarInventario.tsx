@@ -9,13 +9,13 @@ import { useJsonData } from '@/hooks/useJsonData';
 import { ContextRegister } from '@/hooks/useContextRegister';
 import { useDatePicker } from '@/hooks/useDatePicker';
 
-const registrarEgreso = () => {
+const registrarInventario = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [refreshData, setRefreshData] = useState(0)
 	const [isUpdate, setIsUpdate] = useState(false)
 	const [contentModal, setContentModal] = useState()
 	const {dateSelected, dateRef, selectDateRange} = useDatePicker()
-	const { jsonData, isLoading } = useJsonData({ url: `api/loss/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
+	const { jsonData, isLoading } = useJsonData({ url: `api/inventory/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
 
 	return (
 		<ContextRegister.Provider value={{
@@ -28,7 +28,7 @@ const registrarEgreso = () => {
 			contentModal: contentModal,
 			setContentModal: setContentModal
 		}}>
-			<h1 className='text-4xl'>Egresos</h1>
+			<h1 className='text-4xl'>Inventario</h1>
 			<Options onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} />
 			<TableData onOpen={onOpen}/>
 			<ModalView isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
@@ -36,4 +36,4 @@ const registrarEgreso = () => {
 	)
 }
 
-export default registrarEgreso
+export default registrarInventario
