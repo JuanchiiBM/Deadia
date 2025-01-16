@@ -1,14 +1,14 @@
 import { IUseFormInscription } from "@/helpers/interfaces"
 import { createOption } from "@/utils/globals"
 import { useEffect, useState } from "react"
-import { useUpdateContext } from "./useUpdateContext"
+import { useContextRegister } from "@/context/contextRegister"
 
-export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom, handleInputChange, optionsAmount }: { studentInfo: IUseFormInscription, jsonData: any, selectOptionOfClassroom: any, handleInputChange: any, optionsAmount: any }) => {
-    const { update, contentModal } = useUpdateContext()
+export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClassroom, handleInputChange, optionsAmount }: { dataForm: IUseFormInscription, optionsJsonData: any, selectOptionOfClassroom: any, handleInputChange: any, optionsAmount: any }) => {
+    const { update, contentTable } = useContextRegister()
 
     const findOption = () => {
-        const option = jsonData.classrooms.find((cat: any) =>
-            cat.codigo == studentInfo.classroom
+        const option = optionsJsonData.classrooms.find((cat: any) =>
+            cat.codigo == contentTable.aula
         )
 
         if (option && option.codigo) {
@@ -16,15 +16,17 @@ export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom
                 value: option.id.toString(),
                 label: option.codigo
             }
+
             selectOptionOfClassroom(finalOption)
         }
     }
 
     const findOptionForAmount = () => {
-        if (contentModal) {
+        if (contentTable) {
             const option = optionsAmount.find((cat: any) =>
-                cat.label.split('$')[1] == contentModal.monto_acumulado.split(' de ')[0]
+                cat.label.split('$')[1] == contentTable.monto_acumulado.split(' de ')[0]
             )
+            console.log(option)
 
             if (option) {
                 handleInputChange('amount', optionsAmount[1])
@@ -36,9 +38,11 @@ export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom
 
     useEffect(() => {
         if (update) {
-            findOption()
+            setTimeout(() => {
+                findOption()
+            }, 500)
         }
-    }, [studentInfo])
+    }, [update])
 
     useEffect(() => {
         if (update && optionsAmount) {
@@ -50,15 +54,12 @@ export const useChargeSelect = ({ studentInfo, jsonData, selectOptionOfClassroom
 }
 
 
-export const useChargeSelect2 = ({ studentInfo, jsonData, selectCategory, handleInputChange }: { studentInfo: IUseFormInscription | undefined, jsonData: any, selectCategory: any, handleInputChange: any }) => {
-
-    const { update } = useUpdateContext()
+export const useChargeSelect2 = ({ dataForm, optionsJsonData, selectCategory, handleInputChange }: { dataForm: IUseFormInscription | undefined, optionsJsonData: any, selectCategory: any, handleInputChange: any }) => {
+    const { update } = useContextRegister()
 
     const findOption = () => {
-        console.log(jsonData)
-        console.log(studentInfo)
-        const option = jsonData.categories.find((cat: any) =>
-            cat.categoria == studentInfo?.category
+        const option = optionsJsonData.categories.find((cat: any) =>
+            cat.categoria == dataForm?.category
         )
 
         if (option && option.categoria) {
@@ -69,8 +70,8 @@ export const useChargeSelect2 = ({ studentInfo, jsonData, selectCategory, handle
             selectCategory(finalOption)
         }
 
-        const optionGrade = jsonData.ranks.find((cat: any) =>
-            cat.grado == studentInfo?.grade
+        const optionGrade = optionsJsonData.ranks.find((cat: any) =>
+            cat.grado == dataForm?.grade
         )
 
         if (optionGrade && optionGrade.grado) {
@@ -86,7 +87,7 @@ export const useChargeSelect2 = ({ studentInfo, jsonData, selectCategory, handle
         if (update) {
             findOption()
         }
-    }, [studentInfo])
+    }, [dataForm])
 
     return {}
 }

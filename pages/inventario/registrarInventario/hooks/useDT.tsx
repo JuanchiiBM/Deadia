@@ -58,6 +58,7 @@ const useDT = ({jsonData, refreshData}: {jsonData: ITableDataInventory, refreshD
             }
         })) as any[]
 
+         setTableData([]);
         setTimeout(() => {
             setTableData(tableDataMapped)
         }, 100)

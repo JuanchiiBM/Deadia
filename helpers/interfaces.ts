@@ -146,7 +146,7 @@ export interface IModalSelects2Inscription {
     studentInfo?: IUseFormInscription
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
     isOpen: boolean | undefined
-    jsonData: IncomeRegisterOptions
+    optionsJsonData: IncomeRegisterOptions
 }
 
 export interface IModalSelectsRegistrarIngreso {

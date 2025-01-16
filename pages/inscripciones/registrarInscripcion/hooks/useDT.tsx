@@ -2,47 +2,42 @@ import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faPowerOff, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import ReactDOMServer from 'react-dom/server';
+import moment from "moment";
 import { MODULES, ACTIONS } from "@/utils/enums/permissions"
 import useHandlerPermissions from "@/hookss/useHandlerPermissions"
 
-const useDT = ({jsonData, refreshData}: {jsonData: any, refreshData: number}) => {
+const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }) => {
     const [tableData, setTableData] = useState<any[] | undefined>()
     const { hasPermission } = useHandlerPermissions()
     const columns = [
         { data: 'id', title: 'Nro.' },
-        { data: 'nombre_completo', title: 'Nombre' },
-        { data: 'nickname', title: 'Usuario' },
-        { data: 'mail', title: 'Mail' },
-        { data: 'perfil', title: 'Perfil' },
+        { data: 'dni', title: 'DNI' },
+        { data: 'nombre', title: 'Nombre' },
+        { data: 'categoria', title: 'Categoría' },
         { data: 'dependencia', title: 'Dependencia' },
-        { data: 'fec_creacion', title: 'Fecha' },
+        { data: 'curso', title: 'Curso' },
+        { data: 'aula', title: 'Aula' },
+        { data: 'fecha', title: 'Fecha' },
+        { data: 'monto_acumulado', title: 'Monto' },
         { data: 'acciones', title: 'Acciones' }
     ]
 
-    const columnDefs = [
-        { "width": "5%", "targets": 0 },
-        { "width": "20%", "targets": 1 },
-        { "width": "20%", "targets": 2 },
-        { "width": "20%", "targets": 3 },
-        { "width": "20%", "targets": 4 },
-        { "width": "5%", "targets": 5 },
-        { "width": "10%", "targets": 6 },
-    ]
+    const columnDefs = undefined
 
     const initializeDataTable = async () => {
         const tableDataMapped = jsonData.list.map((dato: any) => ({
             id: dato.id,
-            id_dependencia: dato.id_dependencia,
-            id_perfil: dato.id_perfil,
-            dependencia: dato.dependencia,
-            nombre: dato.nombre,
-            nombre_completo: `${dato.nombre} ${dato.apellido}`,
-            apellido: dato.apellido,
-            fec_creacion: dato.fec_creacion,
+            usuario: dato.usuario,
+            dni: dato.dni_alumno,
+            nombre: dato.nom_alumno,
             mail: dato.mail,
-            nickname: dato.nickname,
-            perfil: dato.perfil,
-            estado: dato.estado,
+            dependencia: dato.dependencia,
+            categoria: dato.grado == null ? dato.categoria : `${dato.categoria} (${dato.grado})`,
+            grado: dato.grado,
+            curso: dato.curso,
+            aula: dato.aula,
+            fecha: moment(moment(dato.fec_compra, "DD/MM/YYYY").toDate()).format("DD/MM/YYYY"),
+            monto_acumulado: dato.monto_acumulado ? dato.monto_acumulado.replace('/', 'de') : undefined,
             acciones: () => {
                 return ReactDOMServer.renderToString(
                     <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
@@ -68,7 +63,7 @@ const useDT = ({jsonData, refreshData}: {jsonData: any, refreshData: number}) =>
             }
         })) as any[]
 
-         setTableData([]);
+        setTableData([]);
         setTimeout(() => {
             setTableData(tableDataMapped)
         }, 100)
@@ -77,7 +72,7 @@ const useDT = ({jsonData, refreshData}: {jsonData: any, refreshData: number}) =>
     useEffect(() => {
         console.log(jsonData)
         if (jsonData)
-        initializeDataTable()
+            initializeDataTable()
     }, [jsonData])
 
     return { tableData, columns, columnDefs }

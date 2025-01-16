@@ -42,11 +42,10 @@
 
                 tr {
                     th {
-                        &:last-child {
+                        &:last-child[aria-label="Acciones: Activate to sort"] {
                             position: sticky;
                             right: -1px;
                             background-color: hsl(var(--nextui-background));
-                            border-left: 1px solid hsl(var(--nextui-default-300));
                         }
                     }
                 }
@@ -63,7 +62,7 @@
                     td {
                         padding: 2px 5px;
 
-                        &:last-child {
+                        &:last-child:has(div) {
                             position: sticky;
                             right: -1px;
                             background-color: hsl(var(--nextui-background-400));

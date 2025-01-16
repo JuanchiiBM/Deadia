@@ -5,7 +5,7 @@ import { IUseSearchDNI, IUseSearchDNIData, IUseFormInscription } from "@/helpers
 import { useDebounce } from "@/hooks/useDebounce"
 
 
-export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void, jsonData: any }) => {
+export const useSearchDNI = ({ handleInputChange, optionsJsonData }: { handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void, optionsJsonData: any }) => {
     const [isLoadingDni, setIsLoading] = useState(false)
     const [dni, setDni] = useState("")
     const debouncedDni = useDebounce(dni, 500)
@@ -13,13 +13,13 @@ export const useSearchDNI = ({ handleInputChange, jsonData }: { handleInputChang
     const findOption = (id: number, type: string) => {
         let optionSelected
         if (type == 'category') {
-            const option = jsonData.categories.map((cat: any) => {
+            const option = optionsJsonData.categories.map((cat: any) => {
                 if (cat.id == id) {
                     optionSelected = createOption(cat.categoria, cat.id.toString())
                 }
             })
         } else {
-            const option = jsonData.ranks.map((cat: any) => {
+            const option = optionsJsonData.ranks.map((cat: any) => {
                 if (cat.id == id) {
                     optionSelected = createOption(cat.grado, cat.id.toString())
                 }

@@ -60,10 +60,6 @@ body::-webkit-scrollbar-thumb:hover {
   box-sizing: border-box;
 }
 
-[data-slot='header-wrapper'], [data-slot='grid-header'], [data-slot='picker-wrapper'] {
-  background: hsl(var(--nextui-background-200));
-}
-
 .after\:bg-content1::after {
   background: hsl(var(--nextui-background-200)) !important;
 }

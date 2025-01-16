@@ -1,28 +1,19 @@
-import { useState, useEffect, use } from "react"
+import { useState, useEffect } from "react"
 import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom } from "@/helpers/interfaces"
 import { RangeValue } from "@nextui-org/react";
 import { Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
-import { GETFunction } from "@/utils/globals";
+import { useContextRegister } from "@/context/contextRegister";
 import { useJsonData } from "@/hooks/useJsonData";
-import { useUpdateContext } from "./useUpdateContext";
 
-export const useSelectOptionsInscriptionModal = ({ setOptionsCharged }: { setOptionsCharged: React.Dispatch<React.SetStateAction<boolean>> }) => {
-    const { refreshData } = useUpdateContext()
-    const { jsonData, isLoading } = useJsonData({ url: 'api/income/register/form', refreshData })
+export const useSelectOptionsInscriptionModal = () => {
+    const { refreshData } = useContextRegister()
+    const { jsonData: optionsJsonData } = useJsonData({ url: 'api/income/register/form', refreshData })
 
-    useEffect(() => {
-        if (isLoading) {
-            setOptionsCharged(false)
-        } else {
-            setOptionsCharged(true)
-        }
-    }, [isLoading])
-
-    return { jsonData }
+    return { optionsJsonData }
 }
 
-export const useSelectOptionsInscription = ({ jsonData }: { jsonData: IncomeRegisterOptions }) => {
+export const useSelectOptionsInscription = ({ optionsJsonData }: { optionsJsonData: IncomeRegisterOptions }) => {
     const [options, setOptions] = useState<{
         classroom: Option[] | undefined,
         dependency: Option[] | undefined,
@@ -31,15 +22,15 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData: IncomeRegi
     }>({ classroom: undefined, dependency: undefined, grade: undefined, value: undefined })
 
     const chargueOptions = async () => {
-        const optionsClassrooms = jsonData.classrooms.map((opt) => ({
+        const optionsClassrooms = optionsJsonData.classrooms.map((opt) => ({
             value: opt.id.toString(),
             label: opt.codigo
         })) as Option[]
-        const optionsDeps = jsonData.deps.map((opt) => ({
+        const optionsDeps = optionsJsonData.deps.map((opt) => ({
             value: opt.id.toString(),
             label: opt.dependencia
         })) as Option[]
-        const optionsGrades = jsonData.grades.map((opt) => ({
+        const optionsGrades = optionsJsonData.grades.map((opt) => ({
             value: opt.id.toString(),
             label: opt.curso
         })) as Option[]
@@ -61,22 +52,23 @@ export const useSelectOptionsInscription = ({ jsonData }: { jsonData: IncomeRegi
     }
 
     useEffect(() => {
+        console.log(optionsJsonData)
         chargueOptions()
-    }, [jsonData])
+    }, [optionsJsonData])
 
     return { options, chargueNewClassroom }
 }
 
 interface IUseSelectHandleChangeInscription {
     handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void
-    jsonData: IncomeRegisterOptions
+    optionsJsonData: IncomeRegisterOptions
     chargueNewClassroom: (value: Option) => void
-    contentModal: any
-    studentInfo: any
+    contentTable: any
+    dataForm: any
 }
 
 
-export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, chargueNewClassroom, contentModal, studentInfo }: IUseSelectHandleChangeInscription) => {
+export const useSelectHandleChangeInscription = ({ optionsJsonData, handleInputChange, chargueNewClassroom, contentTable, dataForm }: IUseSelectHandleChangeInscription) => {
     const [curseDisabled, setCurseDisabled] = useState<boolean>(true)
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
     const [optionsAmount, setOptionsAmount] = useState<Option[] | undefined>(undefined)
@@ -112,11 +104,11 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
 
     const selectOptionOfClassroom = async (newValue: Option | null, monthlyDiscount: number) => {
         handleInputChange('classroom', newValue)
-        if (jsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue?.value)) {
+        if (optionsJsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue?.value)) {
 
             setIsDisabled(true)
             setCurseDisabled(true)
-            jsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
+            optionsJsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
                 if (opt.id.toString() == newValue?.value) {
 
                     setOptionsCurse(opt, monthlyDiscount)
@@ -143,11 +135,11 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
     }
 
     const selectOptionOfCurse = (newValue: Option | null, monthlyDiscount: number) => {
-        const grade = jsonData.grades.find((grade) => grade.id.toString() === newValue?.value)
+        const grade = optionsJsonData.grades.find((grade) => grade.id.toString() === newValue?.value)
         handleInputChange('curse', newValue)
         if (grade) {
-            const discountedPricePerMonth = grade.precio_mes - monthlyDiscount;
-            console.log('entradescuento', monthlyDiscount)
+            const discountedPricePerMonth = monthlyDiscount ? grade.precio_mes - monthlyDiscount : grade.precio_mes;
+            console.log('entradescuento', discountedPricePerMonth)
             setOptionsAmount([{
                 value: '0',
                 label: `Por mes: $${discountedPricePerMonth.toString()}`
@@ -162,8 +154,8 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
     }
 
     useEffect(() => {
-        if (jsonData && contentModal && contentModal.aula) {
-            const jsonClassroomFiltered = jsonData.classrooms.find((classroom) => { return classroom.codigo == contentModal.aula })
+        if (optionsJsonData && contentTable && contentTable.aula) {
+            const jsonClassroomFiltered = optionsJsonData.classrooms.find((classroom) => { return classroom.codigo == contentTable.aula })
             console.log(jsonClassroomFiltered)
             const option: Option = {
                 value: jsonClassroomFiltered?.id_curso.toString(),
@@ -171,11 +163,11 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
             }
             selectOptionOfClassroom(option, 0)
         }
-    }, [jsonData])
+    }, [optionsJsonData])
 
     useEffect(() => {
         selectOptionOfClassroom(null, 0)
-    }, [studentInfo.category])
+    }, [dataForm.category])
 
     useEffect(() => {
         setIsDisabled(true)
@@ -185,7 +177,7 @@ export const useSelectHandleChangeInscription = ({ jsonData, handleInputChange, 
 }
 
 
-export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChange }: IModalSelects2Inscription) => {
+export const useSelectOptionsInscription2 = ({ optionsJsonData, isOpen, handleInputChange }: IModalSelects2Inscription) => {
     const [options, setOptions] = useState<{
         category: Option[] | undefined,
         grade: Option[] | undefined,
@@ -194,7 +186,7 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
     const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
     const chargeCategory = async () => {
-        const optionsCategory = jsonData.categories.map((category) => ({
+        const optionsCategory = optionsJsonData.categories.map((category) => ({
             value: category.id.toString(),
             label: category.categoria,
             discount: category.descuento_mes
@@ -206,7 +198,7 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
     }
 
     const chargeGrade = async (id_category: number) => {
-        const jsonGradeFiltered = jsonData.ranks.filter((grade) => {
+        const jsonGradeFiltered = optionsJsonData.ranks.filter((grade) => {
             return grade.id_categoria == id_category
         })
 
@@ -232,7 +224,7 @@ export const useSelectOptionsInscription2 = ({ jsonData, isOpen, handleInputChan
     }
 
     const chargeDestination = () => {
-        const optionsDestination = jsonData.destination.map((destination) => ({
+        const optionsDestination = optionsJsonData.destination.map((destination) => ({
             value: destination.id.toString(),
             label: destination.destino,
         })) as Option[]

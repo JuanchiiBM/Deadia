@@ -207,7 +207,7 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
     }, [chartContent]);
 
     return (
-        <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md'>
+        <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md overflow-hidden'>
             <Chart ref={chartRef} options={options} series={chartData.series} type="area" height={400} />
         </div>
     );

@@ -1,38 +1,71 @@
 "use client"
 
-import React, { useState, useRef } from 'react'
-import OptionsRegistrarIngreso from './options'
-import DataTableRegistrarIngreso from './dataTable'
-import ModalRegistrarIngreso from './modal'
-import { useDisclosure } from '@nextui-org/react'
-import { useDatePickerInscription } from '@/hooks/inscripciones/registrarInscripcion/useDatePickerInscription'
-import { UpdateContext } from '@/hooks/inscripciones/registrarInscripcion/useUpdateContext'
+import React, { useState } from 'react';
+import { useDisclosure } from '@nextui-org/react';
 
+import Options from '@/components/options/options'
+import TableData from '@/components/dataTable/dataTable';
+import ModalView from '@/components/modal/modal';
+import ModalContent from './components/modalContent';
 
-const RegistrarIngreso = () => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+import { ContextRegister } from '@/context/contextRegister';
+import { MODULES } from '@/utils/enums/permissions';
+
+import useDatePicker from '@/hookss/useDatePicker';
+import useSetDTAContent from '@/hookss/useSetDTAContent';
+import useJsonData from '@/hookss/useJsonData';
+
+import useDT from './hooks/useDT';
+import useForm from './hooks/useForm';
+import useUpdate from './hooks/useUpdate';
+import useSetDataObject from './hooks/useSetDataObject';
+import { useSelectOptionsInscriptionModal } from './hooks/useSelectOptionsInscription';
+
+const title = 'Inscripcion'
+
+const registrarInscripcion = () => {
+    const [refreshData, setRefreshData] = useState(0)
     const [isUpdate, setIsUpdate] = useState(false)
-    const [refreshData, setRefreshData] = useState(2)
-    const [contentModal, setContentModal] = useState()
-    const [optionsCharged, setOptionsCharged] = useState<boolean>(false)
-    const { dateSelected, dateRef, selectDateRange } = useDatePickerInscription()
+    const [contentTable, setContentTable] = useState()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const { dateSelected, dateRef, selectDateRange } = useDatePicker()
+    const { jsonData, isLoading } = useJsonData({ url: `api/income/register?start_date=${dateSelected && dateSelected[0]}&end_date=${dateSelected && dateSelected[1]}`, refreshData })
+
+    const useDTAContent = useSetDTAContent({ module: 'inscripcion', urlDelete: 'api/income/register/', urlPut: 'api/income/register/form/' })
+    const urlPost = 'api/income/register/form'
+    const { tableData, columns, columnDefs } = useDT({ jsonData, refreshData })
+
+    const { optionsJsonData } = useSelectOptionsInscriptionModal()
+    const { dataForm, handleInputChange, setDataForm } = useForm()
+    const { oldRegister } = useUpdate({ setDataForm, contentTable, isOpen })
+    const { _dataObject } = useSetDataObject({ dataForm })
 
     return (
-        <>
-            <UpdateContext.Provider value={{
-                refreshData: refreshData,
-                setRefreshData: setRefreshData,
-                contentModal: contentModal,
-                update: isUpdate,
-                setUpdate: setIsUpdate
-            }}>
-                <h1 className='text-4xl'>Inscripciones</h1>
-                <OptionsRegistrarIngreso optionsCharged={optionsCharged} onOpen={onOpen} setContentModal={setContentModal} dateRef={dateRef} selectDateRange={selectDateRange} />
-                <DataTableRegistrarIngreso onOpen={onOpen} setContentModal={setContentModal} dateSelected={dateSelected} />
-                <ModalRegistrarIngreso setContentModal={setContentModal} setOptionsCharged={setOptionsCharged} isOpen={isOpen} onClose={onClose} contentModal={contentModal} />
-            </UpdateContext.Provider>
-        </>
+        <ContextRegister.Provider value={{
+            jsonData: jsonData,
+            jsonIsLoading: isLoading,
+            dataForm: dataForm,
+            handleInputChange: handleInputChange,
+            update: isUpdate,
+            setUpdate: setIsUpdate,
+            refreshData: refreshData,
+            setRefreshData: setRefreshData,
+            contentTable: contentTable,
+            setContentTable: setContentTable
+        }}>
+            <h1 className='text-4xl'>{title}</h1>
+            <div className='w-full my-[50px] bg-background-200 h-[80px] flex justify-between p-5 rounded-lg shadow-md'>
+                <Options title={`Registrar ${title}`} buttonTitle='Crear Inscripcion' altButtonTitle='Crear Inscripcion' MODULE={MODULES.MODULEUSER} onOpen={onOpen} dateRef={dateRef} selectDateRange={selectDateRange} exportExcel={true} dateTime={true} />
+            </div>
+            <div className='bg-background-200 rounded-lg'>
+                <TableData onOpen={onOpen} title={title} useDTAContent={useDTAContent} tableData={tableData} columns={columns} setColumnDefs={columnDefs} />
+            </div>
+            <ModalView size='4xl' text='inscripcion' isOpen={isOpen} onClose={onClose} onOpen={onOpen} _dataObject={_dataObject} urlPost={urlPost} oldRegister={oldRegister}>
+                <ModalContent isOpen={isOpen} optionsJsonData={optionsJsonData} />
+            </ModalView>
+        </ContextRegister.Provider>
     )
 }
 
-export default RegistrarIngreso
+export default registrarInscripcion
