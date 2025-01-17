@@ -3,13 +3,11 @@ import { getLocalTimeZone, today, startOfYear } from "@internationalized/date";
 import { RangeValue } from '@nextui-org/react'
 
 interface IUseInitDatePicker {
-    setContentModal: React.Dispatch<React.SetStateAction<undefined>>
-    onOpen: () => void
     selectDateRange: () => Promise<void>
     setRefreshData: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal, setRefreshData}: IUseInitDatePicker) => {
+const useInitDatePicker = ({selectDateRange, setRefreshData}: IUseInitDatePicker) => {
     const [dateInitial, setDateInitial] = useState<RangeValue<any>>({
         start: startOfYear(today(getLocalTimeZone())),
         end: today(getLocalTimeZone()),
@@ -28,3 +26,5 @@ export const useInitDatePicker = ({selectDateRange, onOpen, setContentModal, set
 
     return { handlerDateInitial, dateInitial}
 }
+
+export default useInitDatePicker

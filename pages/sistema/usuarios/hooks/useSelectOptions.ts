@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { IDataUsersRegister } from "@/helpers/interfaces"
 import { Option } from "@/utils/globals"
-import { useJsonData } from "@/hooks/useJsonData";
+import useJsonData from "@/hooks/useJsonData";
 
 export const useSelectOptions = () => {
     const {jsonData, isLoading}: {jsonData: IDataUsersRegister, isLoading: boolean} = useJsonData({url: 'api/user/register/form'})

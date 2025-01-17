@@ -3,7 +3,7 @@ import DataTable from 'datatables.net-react';
 import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
 import SpinnerForTables from '@/components/spinnerTables/SpinnerForTables';
-import { useDT } from '@/hooks/inventario/verInventario/useDT';
+import { useDT } from './hooks/useDT';
 
 DataTable.use(DT);
 

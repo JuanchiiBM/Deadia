@@ -4,7 +4,7 @@ import { RangeValue } from "@nextui-org/react";
 import { Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import { useContextRegister } from "@/context/contextRegister";
-import { useJsonData } from "@/hooks/useJsonData";
+import useJsonData from "@/hooks/useJsonData";
 
 export const useSelectOptionsInscriptionModal = () => {
     const { refreshData } = useContextRegister()

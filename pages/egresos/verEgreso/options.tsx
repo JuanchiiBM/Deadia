@@ -4,10 +4,10 @@ import { DateRangePicker } from "@nextui-org/react";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import { useDatePickerCharge } from '@/hooks/egresos/verEgreso/useDatePickerCharge';
-import { useChargeOptions } from '@/hooks/egresos/verEgreso/useChargeOptions';
-import { useContextView } from '@/hooks/useContextView';
-import { useHandlerOptions } from '@/hooks/egresos/verEgreso/useHandlerOptions';
+import { useDatePickerCharge } from './hooks/useDatePickerCharge';
+import { useChargeOptions } from './hooks/useChargeOptions';
+import { useContextView } from '@/context/contextView';
+import { useHandlerOptions } from './hooks/useHandlerOptions';
 
 interface IOptions {
     setValueOption: React.Dispatch<React.SetStateAction<{

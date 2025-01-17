@@ -1,10 +1,12 @@
-export const useResetModal = ({ setContentModal, setUpdate, onOpen}: any) => {
+const useResetModal = ({ setContentTable, setUpdate, onOpen}: any) => {
     const resetModal = () => {
-        setContentModal(undefined)
+        setContentTable(undefined)
         if (setUpdate)
         setUpdate(false)
         onOpen()
     }
 
-    return { resetModal }
+    return resetModal
 }
+
+export default useResetModal

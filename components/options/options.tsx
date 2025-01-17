@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faFileExcel } from '@fortawesome/free-solid-svg-icons'
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, today } from "@internationalized/date";
-import useInitDatePicker from '@/hookss/useInitDatePicker'
+import useInitDatePicker from '@/hooks/useInitDatePicker'
 import { useContextRegister } from '@/context/contextRegister'
-import useClickTrigger from '@/hookss/useClickTrigger'
-import useResetModal from '@/hookss/useResetModal'
+import useClickTrigger from '@/hooks/useClickTrigger'
+import useResetModal from '@/hooks/useResetModal'
 import { TMODULES } from '@/utils/types/permissions'
 import { dateRangePickerStyles } from '@/styles/dateRangePickerStyles'
 //import { useHandlerPermissions } from '@/hooks/useHandlerPermissions' DESCOMENTAR AL IMPLEMENTAR PERMISOS

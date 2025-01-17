@@ -24,14 +24,14 @@ export const UserDropdown = () => {
                         <Avatar
                             as='button'
                             size='md'
-                            name="Juanchi"
+                            name=""
                             className="bg-primary-200 dark:bg-primary-700"
                             classNames={{base: 'border-2 border-primary-200 dark:border-primary-700'}}
                         />
                     </DropdownTrigger>
                 </NavbarItem>
                 <DropdownMenu aria-label='User menu actions'>
-                    <DropdownItem className='data-[hover=true]:bg-background-200 cursor-default text-content1' key='profile' startContent={<FontAwesomeIcon icon={faUser} />}>Usuario: Juanchi</DropdownItem>
+                    <DropdownItem className='data-[hover=true]:bg-background-200 cursor-default text-content1' key='profile' startContent={<FontAwesomeIcon icon={faUser} />}>Usuario: </DropdownItem>
                     <DropdownItem onPress={() =>  onOpen()} className="data-[hover=true]:bg-background-300 text-content1" key='configurations' startContent={<FontAwesomeIcon icon={faGear} />}>Configuración</DropdownItem>
                     <DropdownItem
                         key='logout'

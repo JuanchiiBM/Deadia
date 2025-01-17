@@ -27,8 +27,8 @@ export const SidebarItem = ({ icon, title, isActive, href = "", className }: Pro
             <div
                 className={clsx(
                     isActive
-                        ? "bg-primary-200 dark:bg-primary-700 [&_svg_path]:fill-primary-700 dark:[&_svg_path]:fill-primary-50"
-                        : "hover:bg-background [&_svg_path]:fill-default-400",
+                    ? "bg-primary-200 dark:bg-primary-700 [&_svg_path]:fill-primary-700 dark:[&_svg_path]:fill-primary-50"
+                    : "hover:bg-background [&_svg_path]:fill-default-400",
                     `${className} flex gap-2 w-full py-2 h-full items-center px-2 rounded-lg cursor-pointer text-content1 hover:text-content2 transition-all duration-150 active:scale-[0.98]`
                 )}
                 onClick={handleClick}

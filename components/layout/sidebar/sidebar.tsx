@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Sidebar } from "./sidebar.styles";
 import { CollapseItems } from "./collapse-items";
 import { SidebarItem } from "./sidebar-item";
 import { useSidebarContext } from "../layout-context";
 import { usePathname } from "next/navigation";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
+import { useHandlerPermissions } from "@/components/layout/hooks/useHandlerPermissions";
+
 
 export const SidebarWrapper = () => {
     const pathname = usePathname();
     const { collapsed, setCollapsed } = useSidebarContext();
+    const { permissions, sistema, inscripcion, egreso, inventario } = useHandlerPermissions();
 
     return (
         <aside className={Sidebar.Aside({
@@ -32,39 +34,40 @@ export const SidebarWrapper = () => {
                         <SidebarItem
                             title="Home"
                             icon={<FontAwesomeIcon icon={faHouse} />}
-                            isActive={pathname === "/"}
-                            href="/"
+                            isActive={pathname === "/home"}
+                            href="/home"
                         />
-                        <SidebarItem
-                            title="ListExample"
-                            icon={<FontAwesomeIcon icon={faHouse} />}
-                            isActive={pathname === "/listExample"}
-                            href="/listExample"
-                        />
+                        {inscripcion.items.length > 0 &&
                         <CollapseItems
                             icon={1}
-                            items={["Visualizar Inscripciones", "Registrar Inscripciones"]}
-                            path={["/inscripciones/verInscripcion", "/inscripciones/registrarInscripcion"]}
+                            items={inscripcion.items}
+                            path={inscripcion.paths}
                             title="Inscripcion"
-                        />
+                        />}
+                        
+                        {egreso.items.length > 0 &&
                         <CollapseItems
                             icon={2}
-                            items={["Visualizar Egresos", "Registrar Egresos"]}
-                            path={["/egresos/verEgreso", "/egresos/registrarEgreso"]}
+                            items={egreso.items}
+                            path={egreso.paths}
                             title="Egreso"
-                        />
-                        <CollapseItems
-                            icon={4}
-                            items={["Visualizar Inventario", "Registrar Inventario"]}
-                            path={["/inventario/verInventario", "/inventario/registrarInventario"]}
-                            title="Inventario"
-                        />
+                        />}
+
+                        {inventario.items.length > 0 &&
                         <CollapseItems
                             icon={3}
-                            items={["Usuarios", "Perfiles", "Acciones"]}
-                            path={["/sistema/usuarios", "/sistema/perfiles", "/sistema/acciones"]}
+                            items={inventario.items}
+                            path={inventario.paths}
+                            title="Inventario"
+                        />}
+
+                        {sistema.items.length > 0 &&
+                        <CollapseItems
+                            icon={4}
+                            items={sistema.items}
+                            path={sistema.paths}
                             title="Sistema"
-                        />
+                        />}
                     </div>
                 </div>
             </div>

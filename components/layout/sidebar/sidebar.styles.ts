@@ -1,7 +1,7 @@
 import { tv } from "@nextui-org/react";
 
 export const SidebarWrapper = tv({
-  base: "bg-background-200 w-0 transition-all h-full fixed -translate-x-full shrink-0 z-[202] overflow-y-auto border-r border-divider flex-col pyb-6 px-3 md:ml-0 md:flex md:static md:h-screen ",
+  base: "bg-background-100 w-0 transition-all h-full fixed -translate-x-full shrink-0 z-[202] overflow-y-auto border-r border-divider flex-col pyb-6 px-3 md:ml-0 md:flex md:static md:h-screen ",
 
   variants: {
     collapsed: {

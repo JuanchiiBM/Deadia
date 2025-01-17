@@ -13,7 +13,7 @@ import "datatables.net-buttons/js/buttons.print.js";
 import SpinnerForTables from '@/components/spinner/spinnerForTables';
 import { useContextRegister } from '@/context/contextRegister';
 import { TuseDTA } from '@/utils/types/tables';
-import { useDTA } from '@/hookss/useDTA';
+import { useDTA } from '@/hooks/useDTA';
 
 DataTable.use(DT);
 DT.Buttons.jszip(jszip);

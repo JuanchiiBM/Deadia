@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
 import Options from './options'
 import TableData from './dataTable';
-import { ContextView } from '@/hooks/useContextView';
-import { useJsonData } from '@/hooks/useJsonData';
-import { useGetUrl } from '@/hooks/inventario/verInventario/useGetUrl';
-import { useDatePicker } from '@/hooks/inventario/verInventario/useDatePicker';
+import { ContextView } from '@/context/contextView';
+import useJsonData from '@/hooks/useJsonData';
+import { useGetUrl } from './hooks/useGetUrl';
+import { useDatePicker } from './hooks/useDatePicker';
 
 const Chart = dynamic(
     () => import("@/pages/inventario/verInventario/chart").then((mod) => mod.ChartFinal

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useContextView } from "@/hooks/useContextView"
+import { useContextView } from "@/context/contextView"
 import { Option } from "@/utils/globals"
 import { ITableDataClassrooms, ITableDataDep, ITableDataDepInsideFilter, ITableDataDeps, ITableDataDepsInsideFilter } from "@/helpers/interfaces"
 

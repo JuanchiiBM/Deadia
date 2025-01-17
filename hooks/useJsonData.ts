@@ -1,7 +1,7 @@
-import { GETFunction } from "@/utils/globals"
+import { GETFunction } from "@/utils/helpers/httpsFunctions"
 import { useEffect, useState } from "react"
 
-export const useJsonData = ({ url, refreshData }: { url: string | undefined, refreshData?: number}) => {
+const useJsonData = ({ url, refreshData }: { url: string | undefined, refreshData?: number}) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [jsonData, setJsonData] = useState<any>(undefined)
     const getJsonData = async () => {
@@ -14,13 +14,11 @@ export const useJsonData = ({ url, refreshData }: { url: string | undefined, ref
     }
 
     useEffect(() => {
+        console.log('useJsonData')
         getJsonData()
-    }, [url])
-
-    
-    useEffect(() => {
-        getJsonData()
-    }, [refreshData])
+    }, [url, refreshData])
 
     return {isLoading, jsonData, setIsLoading}
 }
+
+export default useJsonData

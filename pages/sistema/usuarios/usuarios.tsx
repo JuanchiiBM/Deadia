@@ -12,9 +12,9 @@ import StatsUsers from './components/stats';
 import { ContextRegister } from '@/context/contextRegister';
 import { MODULES } from '@/utils/enums/permissions';
 
-import useDatePicker from '@/hookss/useDatePicker';
-import useSetDTAContent from '@/hookss/useSetDTAContent';
-import useJsonData from '@/hookss/useJsonData';
+import useDatePicker from '@/hooks/useDatePicker';
+import useSetDTAContent from '@/hooks/useSetDTAContent';
+import useJsonData from '@/hooks/useJsonData';
 
 import useDT from './hooks/useDT';
 import useForm from './hooks/useForm';

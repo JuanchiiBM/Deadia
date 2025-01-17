@@ -1,6 +1,5 @@
 import { IUseFormInscription } from "@/helpers/interfaces"
-import { createOption } from "@/utils/globals"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useContextRegister } from "@/context/contextRegister"
 
 export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClassroom, handleInputChange, optionsAmount }: { dataForm: IUseFormInscription, optionsJsonData: any, selectOptionOfClassroom: any, handleInputChange: any, optionsAmount: any }) => {

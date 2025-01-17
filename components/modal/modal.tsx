@@ -3,7 +3,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from
 import SpinnerComponent from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
 import { useContextRegister } from '@/context/contextRegister'
-import { usePost } from '@/hookss/usePost'
+import { usePost } from '@/hooks/usePost'
 
 interface IModalView {
     children: React.ReactNode

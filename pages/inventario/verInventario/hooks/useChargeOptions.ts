@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react"
-import { useContextView } from "@/hooks/useContextView"
+import { useContextView } from "@/context/contextView"
 import { Option } from "@/utils/globals"
-import { IDataEgressView, IDataEgressViewCatFilter, IDataEgressViewArtFilter } from "@/helpers/interfaces"
+import { IDataInventoryView, IDataInventoryViewDepFilter, IDataInventoryViewCatFilter } from "@/helpers/interfaces"
 
 export const useChargeOptions = () => {
-    const { jsonData, refreshData }: { jsonData: IDataEgressView, refreshData: number } = useContextView()
+    const { jsonData, refreshData }: { jsonData: IDataInventoryView, refreshData: number } = useContextView()
     const [options, setOptions] = useState({
-        categories: [{ value: '0', label: 'Todas' }],
-        articles: [{}]
+        dependencies: [{ value: '0', label: 'Seleccione' }],
+        categories: [{}]
     })
 
     const chargeOptsCat = () => {
         setOptions((prev) => ({
             ...prev,
-            categories: [{ value: '0', label: 'Todas' }].concat(jsonData.filter.category
+            dependencies: [{ value: '0', label: 'Seleccione' }].concat(jsonData.filter.dependency
                 .map((opt) => ({
                     value: opt.id?.toString() || '',
-                    label: opt.categoria
+                    label: opt.name
                 }))
                 .filter((opt) => opt.value !== '')
             ) as { value: string; label: string }[]
@@ -26,27 +26,27 @@ export const useChargeOptions = () => {
     const chargeOptsArt = () => {
         setOptions((prev) => ({
             ...prev,
-            articles: jsonData.filter.article.map((opt: IDataEgressViewArtFilter) => ({
+            categories: jsonData.filter.category.map((opt: IDataInventoryViewCatFilter) => ({
                 value: opt.id.toString(),
-                label: opt.articulo
+                label: opt.categoria
             })) as Option[]
         }))
     }
 
     //cambiar el effect
     useEffect(() => {
-        if (jsonData && jsonData.list.categories && !jsonData.list.products)
+        if (jsonData && jsonData.list.deps)
             chargeOptsCat()
 
-        if (jsonData && jsonData.list.articles)
+        if (jsonData && jsonData.list.categories)
             chargeOptsArt()
     }, [refreshData])
 
     useEffect(() => {
-        if (jsonData && jsonData.list.categories && !jsonData.list.products)
+        if (jsonData && jsonData.list.deps)
             chargeOptsCat()
 
-        if (jsonData && jsonData.list.articles)
+        if (jsonData && jsonData.list.categories)
             chargeOptsArt()
     }, [jsonData])
 

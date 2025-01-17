@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faPowerOff, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import ReactDOMServer from 'react-dom/server';
 import { MODULES, ACTIONS } from "@/utils/enums/permissions"
-import useHandlerPermissions from "@/hookss/useHandlerPermissions"
+import useHandlerPermissions from "@/hooks/useHandlerPermissions"
 import { ITableDataEgress, ITableDataEgressInside } from "@/helpers/interfaces"
 
 const useDT = ({jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData: number}) => {

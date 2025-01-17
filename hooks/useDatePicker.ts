@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 
-export const useDatePicker = () => {
+const useDatePicker = () => {
     const [dateSelected, setDateSelected] = useState<any[]>()
     const dateRef = useRef<any>()
 
@@ -15,3 +15,5 @@ export const useDatePicker = () => {
 
     return {dateSelected, dateRef, selectDateRange}
 }
+
+export default useDatePicker

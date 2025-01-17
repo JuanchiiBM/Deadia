@@ -1,11 +1,13 @@
-import { IPermissionsContent } from "@/helpers/interfaces"
+import { TMODULES, TPermissionsContent } from "@/utils/types/permissions"
 
-export const useHandlerPermissions = () => {
+const useHandlerPermissions = () => {
     const permissions = JSON.parse(localStorage.getItem("permission") || '')
 
-    const hasPermission = (module: string, action: string) => {
-        return permissions.some((permission: IPermissionsContent) => permission.module === module && permission.action === action)
+    const hasPermission = (module: TMODULES, action: string) => {
+        return permissions.some((permission: TPermissionsContent) => permission.module === module && permission.action === action)
     }
 
     return { hasPermission }
 }
+
+export default useHandlerPermissions

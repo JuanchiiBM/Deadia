@@ -1,5 +1,5 @@
 import { IUseFormInventoryRegister } from "@/helpers/interfaces";
-import { useJsonData } from "@/hooks/useJsonData";
+import useJsonData from "@/hooks/useJsonData";
 import { useEffect, useState } from "react";
 
 interface IData {

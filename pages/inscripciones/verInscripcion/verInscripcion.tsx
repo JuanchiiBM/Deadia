@@ -5,10 +5,10 @@ import dynamic from "next/dynamic";
 import Options from './options'
 import TableVerIngreso from './dataTable';
 
-import { ContextView } from '@/hooks/useContextView';
-import { useJsonData } from '@/hooks/useJsonData';
-import { useGetUrl } from '@/hooks/inscripciones/verInscripcion/useGetUrl';
-import { useDatePickerInscription } from '@/hooks/inscripciones/verInscripcion/useDatePickerInscription';
+import { ContextView } from '@/context/contextView';
+import useJsonData from '@/hooks/useJsonData';
+import { useGetUrl } from './hooks/useGetUrl';
+import { useDatePickerInscription } from './hooks/useDatePickerInscription';
 
 const Chart = dynamic(
     () => import("@/pages/inscripciones/verInscripcion/chart").then((mod) => mod.ChartIngresos

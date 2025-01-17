@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { IDataEgressRegister, IDataEgressViewArtFilter, IDataEgressViewCatFilter, IUseFormEgressRegister } from "@/helpers/interfaces"
 import { GETFunction, Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
-import { useJsonData } from "@/hooks/useJsonData";
+import useJsonData from "@/hooks/useJsonData";
 import { RangeValue } from "@nextui-org/react";
 import { useContextRegister } from "@/context/contextRegister";
 

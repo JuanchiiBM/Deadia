@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { ITableDataClassrooms, ITableDataClassroomsInside, ITableDataDep, ITableDataDepInsideGrades, ITableDataDeps, ITableDataDepsInsideDeps } from "@/helpers/interfaces"
 import { useDepAcc } from "./useDepAcc"
-import { useContextView } from "@/hooks/useContextView"
+import { useContextView } from "@/context/contextView"
 
 export const useDTInscription = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => {
     const [tableKey, setTableKey] = useState(0)

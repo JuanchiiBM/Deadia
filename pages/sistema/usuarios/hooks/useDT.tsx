@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPenToSquare, faPowerOff, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import ReactDOMServer from 'react-dom/server';
 import { MODULES, ACTIONS } from "@/utils/enums/permissions"
-import useHandlerPermissions from "@/hookss/useHandlerPermissions"
+import useHandlerPermissions from "@/hooks/useHandlerPermissions"
 
 const useDT = ({jsonData, refreshData}: {jsonData: any, refreshData: number}) => {
     const [tableData, setTableData] = useState<any[] | undefined>()

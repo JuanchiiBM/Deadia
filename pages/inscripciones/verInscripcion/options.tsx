@@ -5,10 +5,10 @@ import { RangeValue } from "@react-types/shared";
 import { colourStyles } from '@/helpers/selects';
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
-import { useDatePickerCharge } from '@/hooks/inscripciones/verInscripcion/useDatePickerCharge';
-import { useChargeOptions } from '@/hooks/inscripciones/verInscripcion/useChargeOptions';
-import { useContextView } from '@/hooks/useContextView';
-import { useHandlerOptions } from '@/hooks/inscripciones/verInscripcion/useHandlerOptions';
+import { useDatePickerCharge } from './hooks/useDatePickerCharge';
+import { useChargeOptions } from './hooks/useChargeOptions';
+import { useContextView } from '@/context/contextView';
+import { useHandlerOptions } from './hooks/useHandlerOptions';
 
 interface IOptionsVerInsc {
     setValueOption: React.Dispatch<React.SetStateAction<{

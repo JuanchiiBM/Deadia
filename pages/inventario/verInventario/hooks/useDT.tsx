@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDepAcc } from "./useDepAcc"
-import { useContextView } from "@/hooks/useContextView"
+import { useContextView } from "@/context/contextView"
 import { IDataInventoryView, IDataInventoryViewDepList, IDataInventoryViewArtList, IDataInventoryViewCatList } from "@/helpers/interfaces"
 
 export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => {

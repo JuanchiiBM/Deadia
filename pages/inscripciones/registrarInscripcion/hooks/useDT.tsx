@@ -4,7 +4,7 @@ import { faPenToSquare, faPowerOff, faTrashCan } from "@fortawesome/free-solid-s
 import ReactDOMServer from 'react-dom/server';
 import moment from "moment";
 import { MODULES, ACTIONS } from "@/utils/enums/permissions"
-import useHandlerPermissions from "@/hookss/useHandlerPermissions"
+import useHandlerPermissions from "@/hooks/useHandlerPermissions"
 
 const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }) => {
     const [tableData, setTableData] = useState<any[] | undefined>()

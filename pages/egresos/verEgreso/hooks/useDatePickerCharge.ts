@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { RangeValue } from "@react-types/shared";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
-import { useContextView } from "@/hooks/useContextView";
+import { useContextView } from "@/context/contextView";
 
 export const useDatePickerCharge = ({ selectDateRange }: { selectDateRange: () => Promise<void>}) => {
     const { setRefreshData } = useContextView()
