@@ -44,7 +44,7 @@ const ModalContent = ({ isOpen, optionsJsonData }: { isOpen: boolean, optionsJso
                             <Select maxMenuHeight={200} value={dataForm?.grade} onChange={(newValue: any) => handleInputChange('grade', newValue)} isDisabled={isDisabled2 || isLoadingDni} required={!isDisabled2} className='w-[50%]' options={options2.grade} placeholder='Grado' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
                         </div>
                         <div className="flex mb-2 mt-8">
-                            <Select maxMenuHeight={200} value={dataForm?.destination} onChange={(newValue: any) => handleInputChange('destination', newValue)} isDisabled={isDisabled || isLoadingDni} required={!isDisabled} className='w-[100%]' options={options2.destination} placeholder='Destino' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
+                            <Select maxMenuHeight={200} value={dataForm?.destination} onChange={(newValue: any) => handleInputChange('destination', newValue)} isDisabled={isDisabled2 || isLoadingDni} required={!isDisabled2} className='w-[100%]' options={options2.destination} placeholder='Destino' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered}></Select>
                         </div>                    </div>
                 </div>
                 <div>

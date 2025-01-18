@@ -22,19 +22,24 @@ export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClass
 
     const findOptionForAmount = () => {
         if (contentTable) {
-            const montoAcumulado = contentTable.monto_acumulado.split(' de ')[0]
-            const duracion = Number(contentTable.monto_acumulado.split(' de ')[1]) / Number(montoAcumulado)
+            const duracion = Number(contentTable.monto_acumulado.split(' de ')[1]) / Number(contentTable.monto)
+            const discount = Number(contentTable.cant_descontada_mes)
 
-            const option = optionsAmount.find((cat: any) =>
-                cat.label.split('$')[1] == Number(contentTable.monto_acumulado.split(' de ')[0]) + Number(contentTable.cant_descontada_mes)
-            )
+            const option = optionsAmount.find((cat: any, index: number) => {
+                if (index == 0) {
+
+                } else if (index == 1)
+                return Number(cat.label.split('$')[1]) == Number(contentTable.monto_acumulado.split(' de ')[0])
+            })
+
+            console
 
             setOptionsAmount([{
                 value: '0',
-                label: `Por mes: $${montoAcumulado.toString()}`
+                label: `Por mes: $${(contentTable.monto).toString()}`
             }, {
                 value: '1',
-                label: `Total: $${(montoAcumulado * duracion).toString()}`
+                label: `Total: $${(contentTable.monto * duracion).toString()}`
             }])
 
             if (option) {

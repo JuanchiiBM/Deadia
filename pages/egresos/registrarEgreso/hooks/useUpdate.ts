@@ -36,6 +36,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             amount: contentTable.monto,
             quantity: contentTable.cantidad,
             date: formatDate(contentTable.fec_compra.toString()),
+            nro_renglon: contentTable.renglon.toString()
         }
     }
 

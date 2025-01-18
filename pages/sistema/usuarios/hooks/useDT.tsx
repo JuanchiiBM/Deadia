@@ -39,6 +39,7 @@ const useDT = ({jsonData, refreshData}: {jsonData: any, refreshData: number}) =>
             nombre_completo: `${dato.nombre} ${dato.apellido}`,
             apellido: dato.apellido,
             fec_creacion: dato.fec_creacion,
+            password: dato.password,
             mail: dato.mail,
             nickname: dato.nickname,
             perfil: dato.perfil,

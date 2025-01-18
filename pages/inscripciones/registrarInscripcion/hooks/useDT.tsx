@@ -14,6 +14,7 @@ const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }
         { data: 'dni', title: 'DNI' },
         { data: 'nombre', title: 'Nombre' },
         { data: 'categoria', title: 'Categoría' },
+        { data: 'destino', title: 'Destino' },
         { data: 'dependencia', title: 'Dependencia' },
         { data: 'curso', title: 'Curso' },
         { data: 'aula', title: 'Aula' },
@@ -30,6 +31,10 @@ const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }
             usuario: dato.usuario,
             dni: dato.dni_alumno,
             nombre: dato.nom_alumno,
+            nombre_solo: dato.nombre,
+            apellido: dato.apellido,
+            destino: dato.destino,
+            id_destino: dato.id_destino,
             mail: dato.mail,
             dependencia: dato.dependencia,
             categoria: dato.grado == null ? dato.categoria : `${dato.categoria} (${dato.grado})`,
@@ -38,6 +43,7 @@ const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }
             curso: dato.curso,
             aula: dato.aula,
             fecha: moment(moment(dato.fec_compra, "DD/MM/YYYY").toDate()).format("DD/MM/YYYY"),
+            monto: dato.monto,
             monto_acumulado: dato.monto_acumulado ? dato.monto_acumulado.replace('/', 'de') : undefined,
             acciones: () => {
                 return ReactDOMServer.renderToString(

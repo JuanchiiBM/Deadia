@@ -12,14 +12,14 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
         console.log(contentTable)
         setDataForm({
             dni: contentTable ? contentTable.dni : '',
-            name: contentTable ? contentTable.nombre.split(' ')[1] : '',
-            lastname: contentTable ? contentTable.nombre.split(' ')[0] : '',
+            name: contentTable ? contentTable.nombre_solo : '',
+            lastname: contentTable ? contentTable.apellido : '',
             mail: contentTable ? contentTable.mail : '',
             category: contentTable ? contentTable.categoria.includes('(') ? contentTable.categoria.split(' ')[0] : contentTable.categoria : '',
             grade: contentTable && contentTable.grado != '-' ? contentTable.grado : '',
             classroom: contentTable ? contentTable.aula : null,
             curse: null,
-            destination: contentTable ? contentTable.destino : null,
+            destination: contentTable ? contentTable.destino && createOption(contentTable.destino, contentTable.id_destino) : null,
             dependency: null,
             id_pupil: null,
             amount: contentTable ? contentTable.monto_acumulado.split(' de ')[0] : '',
@@ -44,6 +44,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             grade: contentTable && contentTable.grado != '-' ? contentTable.grado : '',
             classroom: contentTable ? contentTable.aula : null,
             amount: contentTable ? contentTable.monto_acumulado.split(' de ')[0] : '',
+            destination: contentTable ? contentTable.destino : null,
         }
     }
 

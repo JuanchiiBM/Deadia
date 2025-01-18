@@ -16,7 +16,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             mail: contentTable?.mail || '',
             profile: contentTable ? createOption(contentTable.perfil, contentTable.id_perfil.toString()) : null,
             dependency: contentTable ? createOption(contentTable.dependencia, contentTable.id_dependencia.toString()) : null,
-            password: ''
+            password: contentTable ? contentTable.password : '',
         })
         
     }, [isOpen])
@@ -32,6 +32,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             lastname: contentTable.apellido,
             user: contentTable.nickname,
             mail: contentTable.mail,
+            password: contentTable.password,
         }
     }
 

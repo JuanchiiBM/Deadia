@@ -4,7 +4,7 @@ import { GETFunction, Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import useJsonData from "@/hooks/useJsonData";
 import { RangeValue } from "@nextui-org/react";
-import { useContextRegister } from "@/hooks/useContextRegister";
+import { useContextRegister } from "@/context/contextRegister";
 
 export const useSelectOptions = () => {
     const {jsonData, isLoading}: {jsonData: IDataInventoryRegister, isLoading: boolean} = useJsonData({url: 'api/inventory/register/form'})
