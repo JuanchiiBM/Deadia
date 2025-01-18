@@ -101,9 +101,10 @@ export const DELETEFunction = async (url: string) => {
     }
 }
 
-export const createOption = (label: string | null | undefined, value?: string) => ({
+export const createOption = (label: string | null | undefined, value?: string, plusText?: string, plusValue?: string) => ({
     label: label,
     value: value ? value : label?.toLowerCase().replace(/\W/g, ''),
+    [plusText ? plusText : '']: plusValue ? plusValue : undefined
 }) as Option
 
 export const selectOption = (label: string) => {

@@ -3,9 +3,11 @@ import { createOption, GETFunction, Option } from "@/utils/globals"
 import { RangeValue } from "@nextui-org/react"
 import { IUseSearchDNI, IUseSearchDNIData, IUseFormInscription } from "@/helpers/interfaces"
 import { useDebounce } from "@/hooks/useDebounce"
+import { useContextRegister } from "@/context/contextRegister"
 
 
 export const useSearchDNI = ({ handleInputChange, optionsJsonData }: { handleInputChange: (field: string, value: string | RangeValue<any> | undefined | Option | null) => void, optionsJsonData: any }) => {
+    const {dataForm} = useContextRegister()
     const [isLoadingDni, setIsLoading] = useState(false)
     const [dni, setDni] = useState("")
     const debouncedDni = useDebounce(dni, 500)
@@ -15,7 +17,7 @@ export const useSearchDNI = ({ handleInputChange, optionsJsonData }: { handleInp
         if (type == 'category') {
             const option = optionsJsonData.categories.map((cat: any) => {
                 if (cat.id == id) {
-                    optionSelected = createOption(cat.categoria, cat.id.toString())
+                    optionSelected = createOption(cat.categoria, cat.id.toString(), 'discount', cat.descuento_mes.toString())
                 }
             })
         } else {

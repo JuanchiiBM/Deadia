@@ -36,7 +36,7 @@ export const useDTInscription = ({ dateRef }: { dateRef: React.MutableRefObject<
             setTimeout(() => {
                 setTableData(promiseData)
                 setChartContent(tableDataMapped)
-            }, 100)
+            }, 300)
         }
     }
 
@@ -65,7 +65,7 @@ export const useDTInscription = ({ dateRef }: { dateRef: React.MutableRefObject<
             setTimeout(() => {
                 setTableData(finalData)
                 setChartContent(finalData)
-            }, 100)
+            }, 300)
         }
     }
 

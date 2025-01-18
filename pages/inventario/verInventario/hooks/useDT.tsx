@@ -39,7 +39,7 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
             setTimeout(() => {
                 setTableData(promiseData)
                 setChartContent(tableDataMapped)
-            }, 100)
+            }, 300)
         }
     }
 
@@ -68,7 +68,7 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
             setTimeout(() => {
                 setTableData(promiseData)
                 setChartContent(tableDataMapped)
-            }, 100)
+            }, 300)
         }
     }
 
@@ -94,7 +94,7 @@ export const useDT = ({ dateRef }: { dateRef: React.MutableRefObject<any> }) => 
             setTableData(undefined)
             setTimeout(() => {
                 setTableData(finalData)
-            }, 100)
+            }, 300)
         }
     }
 
