@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { IModalSelects2Inscription, IncomeRegisterOptions, IncomeRegisterOptionClassroom } from "@/helpers/interfaces"
-import { RangeValue } from "@nextui-org/react";
+import { RangeValue } from "@heroui/react";
 import { Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import { useContextRegister } from "@/context/contextRegister";

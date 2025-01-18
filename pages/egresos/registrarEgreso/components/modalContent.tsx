@@ -3,7 +3,7 @@ import { Option } from '@/utils/globals';
 import { colourStylesBordered } from '@/styles/selects';
 import { useContextRegister } from '@/context/contextRegister'
 import CreatableSelect from 'react-select/creatable';
-import { Input, DatePicker } from '@nextui-org/react'
+import { Input, DatePicker } from "@heroui/react"
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useSelectHandleChange, useSelectOptions } from '../hooks/useSelectOptions';

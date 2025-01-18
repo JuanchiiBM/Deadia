@@ -1,16 +1,16 @@
 import React from "react";
-import { useTheme as useNextTheme } from "next-themes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faStar } from "@fortawesome/free-solid-svg-icons";
-import { Switch } from "@nextui-org/react";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { Switch } from "@heroui/react";
+import { useSidebarContext } from "../layout-context";
 
 export const DarkModeSwitch = () => {
-    const { setTheme, resolvedTheme } = useNextTheme();
+    const { setTheme, resolveTheme } = useSidebarContext();
     return (
         <Switch
-            isSelected={resolvedTheme === "dark" ? true : false}
+            isSelected={resolveTheme === "dark" ? true : false}
             onValueChange={(e) => setTheme(e ? "dark" : "light")}
-            startContent={<FontAwesomeIcon icon={faStar} />}
+            startContent={<FontAwesomeIcon icon={faMoon} />}
             endContent={<FontAwesomeIcon icon={faMoon} />}
         />
     );

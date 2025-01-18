@@ -1,5 +1,5 @@
 import { Option } from "@/utils/globals"
-import { RangeValue, UseDisclosureProps, CalendarDate, DateValue } from "@nextui-org/react"
+import { RangeValue, UseDisclosureProps, CalendarDate, DateValue } from "@heroui/react"
 
 
 //-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_

@@ -1,6 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input } from "@heroui/react";
 
 export default function ModalNavbar({isOpen, onClose}: {isOpen: boolean, onClose: () => void}) {
 

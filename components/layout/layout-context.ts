@@ -7,13 +7,17 @@ interface SidebarContext {
   setCollapsed: () => void;
   showSpinner: boolean
   setShowSpinner: React.Dispatch<React.SetStateAction<boolean>>
+  resolveTheme: string | undefined
+  setTheme: any
 }
 
 export const SidebarContext = createContext<SidebarContext>({
   collapsed: false,
   setCollapsed: () => {},
   showSpinner: false,
-  setShowSpinner: () => {}
+  setShowSpinner: () => {},
+  resolveTheme: 'light',
+  setTheme: () => {}
 });
 
 export const useSidebarContext = () => {

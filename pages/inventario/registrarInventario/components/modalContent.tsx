@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select';
-import { Input } from '@nextui-org/react';
+import { Input } from "@heroui/react";
 import { useContextRegister } from '@/context/contextRegister'
 import { colourStylesBordered } from '@/styles/selects';
 import { useArtcilesOfSection } from '../hooks/useArticlesOfSection';

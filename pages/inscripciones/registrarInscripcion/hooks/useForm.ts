@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { RangeValue, DateValue } from "@nextui-org/react";
+import { RangeValue, DateValue } from "@heroui/react";
 import { Option } from "@/utils/types/options";
 
 const useForm = () => {

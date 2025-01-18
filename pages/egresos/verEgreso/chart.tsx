@@ -147,20 +147,20 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
             categories: months,
             labels: {
                 style: {
-                    colors: 'hsl(var(--nextui-content2))',
+                    colors: 'hsl(var(--heroui-content2))',
                 }
             }
         },
         yaxis: {
             labels: {
                 style: {
-                    colors: 'hsl(var(--nextui-content2))'
+                    colors: 'hsl(var(--heroui-content2))'
                 }
             },
             title: {
                 text: 'Egresos',
                 style: {
-                    color: 'hsl(var(--nextui-content2))'
+                    color: 'hsl(var(--heroui-content2))'
                 }
             }
         },
@@ -177,19 +177,14 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
             },
         },
         grid: {
-            borderColor: 'hsl(var(--nextui-content2))',
+            borderColor: 'hsl(var(--heroui-content2))',
         },
         legend: {
             labels: {
-                colors: 'hsl(var(--nextui-content2))'
+                colors: 'hsl(var(--heroui-content2))'
             },
             position: 'top',
         },
-        colors: chartData.series.map((serie) => {
-            if (serie.name === 'Informática') return '#318CE7'; // Azul Francia
-            if (serie.name === 'Idiomas') return '#33FF57'; // Verde
-            return '#008FFB'; // Azul predeterminado
-        }),
     };
 
     const showAllSeries = () => {

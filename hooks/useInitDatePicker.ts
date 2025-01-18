@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getLocalTimeZone, today, startOfYear } from "@internationalized/date";
-import { RangeValue } from '@nextui-org/react'
+import { RangeValue } from "@heroui/react"
 
 interface IUseInitDatePicker {
     selectDateRange: () => Promise<void>

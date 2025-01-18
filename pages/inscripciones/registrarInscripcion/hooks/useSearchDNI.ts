@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { createOption, GETFunction, Option } from "@/utils/globals"
-import { RangeValue } from "@nextui-org/react"
+import { RangeValue } from "@heroui/react"
 import { IUseSearchDNI, IUseSearchDNIData, IUseFormInscription } from "@/helpers/interfaces"
 import { useDebounce } from "@/hooks/useDebounce"
 import { useContextRegister } from "@/context/contextRegister"

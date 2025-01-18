@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { Button, DateRangePicker } from '@nextui-org/react'
+import { Button, DateRangePicker } from "@heroui/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faFileExcel } from '@fortawesome/free-solid-svg-icons'
 import { I18nProvider } from "@react-aria/i18n";
