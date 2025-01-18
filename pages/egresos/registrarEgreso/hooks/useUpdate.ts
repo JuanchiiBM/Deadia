@@ -17,7 +17,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             amount: contentTable ? contentTable.cantidad.toString() : '',
             price: contentTable ? contentTable.monto.toString() : '',
             licitation: null,
-            nro_renglon: null,
+            nro_renglon: contentTable ? contentTable.renglon.toString() : '',
             datePickerVencimiento: null,
             datePicker: contentTable ? transformToDateValue(contentTable.fec_compra) : null
         })

@@ -15,6 +15,8 @@ const useDT = ({jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData
         { data: 'articulo', title: 'Articulo' },
         { data: 'usuario', title: 'Cargado por' },
         { data: 'fec_compra', title: 'Fecha' },
+        { data: 'nro_licitacion', title: 'Nro. Lic' },
+        { data: 'renglon', title: 'Renglón' },
         { data: 'cantidad', title: 'Cantidad' },
         { data: 'monto', title: 'Monto' },
         { data: 'acciones', title: 'Acciones' }
@@ -31,6 +33,8 @@ const useDT = ({jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData
             articulo: dato.articulo,
             usuario: dato.usuario,
             fec_compra: dato.fec_compra,
+            nro_licitacion: dato.nro_licitacion,
+            renglon: dato.renglon,
             descripcion: dato.descripcion,
             cantidad: dato.cantidad,
             monto: dato.monto,

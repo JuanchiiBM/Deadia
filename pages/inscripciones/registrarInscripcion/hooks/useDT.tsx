@@ -34,6 +34,7 @@ const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }
             dependencia: dato.dependencia,
             categoria: dato.grado == null ? dato.categoria : `${dato.categoria} (${dato.grado})`,
             grado: dato.grado,
+            cant_descontada_mes: dato.cant_descontada_mes,
             curso: dato.curso,
             aula: dato.aula,
             fecha: moment(moment(dato.fec_compra, "DD/MM/YYYY").toDate()).format("DD/MM/YYYY"),

@@ -257,6 +257,8 @@ export interface ITableDataEgressInside {
     cantidad: number
     id_articulo: number
     nro_licitacion: number
+    renglon: number
+    id_licitacion: number
     id_categoria: number
     categoria: string
     fec_compra: string

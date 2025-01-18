@@ -173,7 +173,7 @@ export const useSelectHandleChangeInscription = ({ optionsJsonData, handleInputC
         setIsDisabled(true)
     }, [])
 
-    return { selectOptionOfClassroom, selectOptionOfDependency, selectOptionOfCurse, classroomCreated, curseDisabled, optionsAmount, isDisabled }
+    return { selectOptionOfClassroom, selectOptionOfDependency, selectOptionOfCurse, setOptionsAmount, classroomCreated, curseDisabled, optionsAmount, isDisabled }
 }
 
 

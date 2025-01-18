@@ -21,9 +21,9 @@ const ModalContent = ({ isOpen, optionsJsonData }: { isOpen: boolean, optionsJso
 
     const { isLoadingDni, setDni } = useSearchDNI({ handleInputChange, optionsJsonData })
     const { options, chargueNewClassroom } = useSelectOptionsInscription({ optionsJsonData })
-    const { selectOptionOfClassroom, selectOptionOfDependency, selectOptionOfCurse, classroomCreated, isDisabled, optionsAmount, curseDisabled }
+    const { selectOptionOfClassroom, selectOptionOfDependency, selectOptionOfCurse, classroomCreated, setOptionsAmount, isDisabled, optionsAmount, curseDisabled }
         = useSelectHandleChangeInscription({ optionsJsonData, contentTable, chargueNewClassroom, handleInputChange, dataForm })
-    useChargeSelect({ dataForm, optionsJsonData, selectOptionOfClassroom, handleInputChange, optionsAmount })
+    useChargeSelect({ dataForm, optionsJsonData, selectOptionOfClassroom, handleInputChange, optionsAmount, setOptionsAmount })
     const { options: options2, isDisabled: isDisabled2, selectCategory } = useSelectOptionsInscription2({ optionsJsonData, isOpen, handleInputChange })
     const { } = useChargeSelect2({ dataForm, optionsJsonData, selectCategory, handleInputChange })
 

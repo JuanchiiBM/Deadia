@@ -1,8 +1,8 @@
 import { IUseFormInscription } from "@/helpers/interfaces"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useContextRegister } from "@/context/contextRegister"
 
-export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClassroom, handleInputChange, optionsAmount }: { dataForm: IUseFormInscription, optionsJsonData: any, selectOptionOfClassroom: any, handleInputChange: any, optionsAmount: any }) => {
+export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClassroom, handleInputChange, optionsAmount, setOptionsAmount }: { dataForm: IUseFormInscription, optionsJsonData: any, selectOptionOfClassroom: any, handleInputChange: any, optionsAmount: any, setOptionsAmount: any }) => {
     const { update, contentTable } = useContextRegister()
 
     const findOption = () => {
@@ -22,10 +22,20 @@ export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClass
 
     const findOptionForAmount = () => {
         if (contentTable) {
+            const montoAcumulado = contentTable.monto_acumulado.split(' de ')[0]
+            const duracion = Number(contentTable.monto_acumulado.split(' de ')[1]) / Number(montoAcumulado)
+
             const option = optionsAmount.find((cat: any) =>
-                cat.label.split('$')[1] == contentTable.monto_acumulado.split(' de ')[0]
+                cat.label.split('$')[1] == Number(contentTable.monto_acumulado.split(' de ')[0]) + Number(contentTable.cant_descontada_mes)
             )
-            console.log(option)
+
+            setOptionsAmount([{
+                value: '0',
+                label: `Por mes: $${montoAcumulado.toString()}`
+            }, {
+                value: '1',
+                label: `Total: $${(montoAcumulado * duracion).toString()}`
+            }])
 
             if (option) {
                 handleInputChange('amount', optionsAmount[1])
@@ -35,7 +45,9 @@ export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClass
         }
     }
 
+    const [oneTimeEffect, setOneTimeEffect] = useState(false)
     useEffect(() => {
+        setOneTimeEffect(true)
         if (update) {
             setTimeout(() => {
                 findOption()
@@ -45,9 +57,12 @@ export const useChargeSelect = ({ dataForm, optionsJsonData, selectOptionOfClass
 
     useEffect(() => {
         if (update && optionsAmount) {
-            findOptionForAmount()
+            setTimeout(() => {
+                setOneTimeEffect(false)
+                findOptionForAmount()
+            }, 500)
         }
-    }, [optionsAmount])
+    }, [update, optionsAmount && oneTimeEffect])
 
     return {}
 }

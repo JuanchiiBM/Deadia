@@ -25,9 +25,11 @@ const ModalContent = () => {
                 <I18nProvider locale='es-ES'>
                     <DatePicker label="Fecha de Compra" value={dataForm.datePicker} onChange={(e) => { handleInputChange('datePicker', e) }} maxValue={today(getLocalTimeZone())} showMonthAndYearPickers labelPlacement='outside' variant='bordered' {...dateRangePickerStyles} />
                 </I18nProvider>
+                {/*
                 <I18nProvider locale='es-ES'>
                     <DatePicker label="Fecha de Vencimiento" value={dataForm.datePickerVencimiento} onChange={(e) => { handleInputChange('datePickerVencimiento', e) }} showMonthAndYearPickers labelPlacement='outside' variant='bordered' {...dateRangePickerStyles} />
                 </I18nProvider>
+                */}
             </div>
             <div className='w-full mt-3 flex gap-2'>
                 <Input variant='bordered' value={dataForm.amount ? dataForm.amount : ''} onChange={(e) => { handleInputChange('amount', e.currentTarget.value) }} placeholder='---' label='Cantidad' labelPlacement='outside' classNames={{ mainWrapper: 'flex justify-end' }} required />
