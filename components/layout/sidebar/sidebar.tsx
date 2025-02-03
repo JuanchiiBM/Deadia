@@ -35,18 +35,6 @@ export const SidebarWrapper = () => {
                             isActive={pathname === "/"}
                             href="/"
                         />
-                        <SidebarItem
-                            title="ListExample"
-                            icon={<FontAwesomeIcon icon={faHouse} />}
-                            isActive={pathname === "/listExample"}
-                            href="/listExample"
-                        />
-                        <SidebarItem
-                            title="GraphExample"
-                            icon={<FontAwesomeIcon icon={faHouse} />}
-                            isActive={pathname === "/graphExample"}
-                            href="/graphExample"
-                        />
                         <CollapseItems
                             icon={1}
                             items={["Visualizar Inscripciones", "Registrar Inscripciones"]}

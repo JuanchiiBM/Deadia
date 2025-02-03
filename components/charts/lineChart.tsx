@@ -19,24 +19,13 @@ export const LineChart = ({ content }: { content: lineChartContent }) => {
         series: Props["series"];
         options: Props["options"];
     } = {
-        series: [{
-            name: "Music",
-            data: [1, 15, 26, 20, 33, 27]
-        },
-        {
-            name: "Photos",
-            data: [3, 33, 21, 42, 19, 32]
-        },
-        {
-            name: "Files",
-            data: [0, 39, 52, 11, 29, 43]
-        }],
+        series: content.series,
         options: {
             chart: {
-                height: 328,
+                height: '100px',
                 type: 'line',
                 zoom: {
-                    enabled: false
+                    enabled: true
                 },
                 dropShadow: {
                     enabled: true,
@@ -104,11 +93,11 @@ export const LineChart = ({ content }: { content: lineChartContent }) => {
                 position: 'top', // Posición de la leyenda
                 horizontalAlign: 'left', // Alineación horizontal
                 markers: {
-                    size: 5
+                    size: 10
                 },
                 itemMargin: {
                     horizontal: 10, // Margen horizontal entre los elementos de la leyenda
-                    vertical: 5, // Margen vertical
+                    vertical: 0, // Margen vertical
                 },
                 onItemClick: {
                     toggleDataSeries: true, // Permite ocultar/mostrar series al hacer clic en la leyenda
@@ -132,7 +121,7 @@ export const LineChart = ({ content }: { content: lineChartContent }) => {
     return (
         <div style={{ display: "flex", alignItems: "center" }}>
             <div id="chart" className="w-full overflow-hidden">
-                <ReactApexChart options={state.options} series={state.series} type="line" />
+                <ReactApexChart options={state.options} height={350} series={state.series} type="line" />
             </div>
         </div>
     );

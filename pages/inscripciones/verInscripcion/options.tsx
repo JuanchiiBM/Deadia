@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { DateRangePicker } from "@heroui/react";
 import { RangeValue } from "@react-types/shared";
-import { colourStyles } from '@/helpers/selects';
+import { colourStyles } from '@/styles/selects';
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
 import { useDatePickerCharge } from './hooks/useDatePickerCharge';
@@ -34,7 +34,7 @@ const Options: React.FC<IOptionsVerInsc> = ({ setValueOption, dateRef, selectDat
             <div>
                 <I18nProvider locale='es-ES'>
                     <label htmlFor="datepicker">Seleccionar Rango:</label>
-                    <DateRangePicker isDisabled={jsonIsLoading} visibleMonths={2} defaultValue={undefined} ref={dateRef} onChange={(e) => handleDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
+                    <DateRangePicker isDisabled={jsonIsLoading} visibleMonths={2} defaultValue={undefined} ref={dateRef} onChange={(e: any) => handleDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
                         input: 'bg-background hover:bg-background focus:bg-background',
                         inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
                     }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />

@@ -42,10 +42,10 @@ const options: Props["options"] = {
       },
     },
     axisBorder: {
-      color: "hsl(var(--heroui-nextui-default-200))",
+      color: "hsl(var(--heroui-heroui-default-200))",
     },
     axisTicks: {
-      color: "hsl(var(--heroui-nextui-default-200))",
+      color: "hsl(var(--heroui-heroui-default-200))",
     },
   },
   yaxis: {

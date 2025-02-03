@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Select, { SelectInstance } from 'react-select';
 import { DateRangePicker } from "@heroui/react";
 import { RangeValue } from "@react-types/shared";
-import { colourStyles } from '@/helpers/selects';
+import { colourStyles } from '@/styles/selects';
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, parseDate, today, DateValue, startOfYear } from "@internationalized/date";
 import { useDatePickerCharge } from './hooks/useDatePickerCharge';

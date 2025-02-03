@@ -1,9 +1,10 @@
 import { StylesConfig } from 'react-select';
 export const colourStyles: StylesConfig = {
     control: (baseStyles, state) => ({
-        background: state.isFocused ? 'hsl(var(--heroui-background-100))' : state.isDisabled ? 'hsl(var(--heroui-background-100))' : 'hsl(var(--heroui-background))',
+        background: state.isFocused ? 'hsl(var(--heroui-background-100))' : state.isDisabled ? 'hsl(var(--heroui-background-100))' : 'hsl(var(--heroui-background-100))',
         opacity: state.isDisabled ? '0.5' : '1',
         transition: 'all 0.15s ease',
+        boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
         border: state.isFocused ? 'none' : 'none',
         borderRadius: '5px',
         display: 'flex',
@@ -18,6 +19,11 @@ export const colourStyles: StylesConfig = {
     singleValue: (baseStyles, state) => ({
         ...baseStyles,
         color: state.isDisabled ? 'hsl(var(--heroui-default-400))' : 'hsl(var(--heroui-content1))'
+    }),
+    menu: (baseStyles, state) => ({
+        ...baseStyles,
+        zIndex: '21',
+        background: 'hsl(var(--heroui-background-100))'
     }),
     menuList: (provided) => ({
         ...provided,
