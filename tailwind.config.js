@@ -66,7 +66,7 @@ module.exports = {
             100: '#090909', // Primary background hover
             200: '#18181b', // Secondary background
             300: '#1a1a1e', // Secondary background hover
-            400: '#131313', // Primary background contrast
+            400: '#0e0e11', // Primary background contrast
           },
           primary: {
             DEFAULT: '#86ADB3', // Primary color

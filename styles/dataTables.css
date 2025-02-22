@@ -37,7 +37,7 @@
 
             thead {
                 height: 50px;
-                background-color: hsl(var(--heroui-background));
+                background-color: hsl(var(--heroui-background-400));
                 border-bottom: 1px solid hsl(var(--heroui-default-300));
 
                 tr {
@@ -45,7 +45,7 @@
                         &:last-child[aria-label="Acciones: Activate to sort"] {
                             position: sticky;
                             right: -1px;
-                            background-color: hsl(var(--heroui-background));
+                            background-color: hsl(var(--heroui-background-400));
                         }
                     }
                 }
@@ -84,7 +84,7 @@
                     border: none;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     /* Sombra suave */
-                    background-color: hsl(var(--heroui-background));
+                    background-color: hsl(var(--heroui-background-100));
                     transition: 0.25s ease-in-out all;
                     padding-left: 5px;
                     margin-left: 10px;
@@ -101,7 +101,7 @@
                     border-radius: 5px;
                     margin-right: 5px;
                     border: none;
-                    background-color: hsl(var(--heroui-background));
+                    background-color: hsl(var(--heroui-background-100));
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     /* Sombra suave */
 
@@ -135,7 +135,7 @@
                     transition: 0.25s ease-in-out all;
                     padding: 0px 10px;
                     border: 1px solid hsl(var(--heroui-default-200));
-                    background-color: hsl(var(--heroui-background));
+                    background-color: hsl(var(--heroui-background-400));
                 }
             }
         }

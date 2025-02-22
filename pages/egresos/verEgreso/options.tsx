@@ -8,6 +8,7 @@ import { useDatePickerCharge } from './hooks/useDatePickerCharge';
 import { useChargeOptions } from './hooks/useChargeOptions';
 import { useContextView } from '@/context/contextView';
 import { useHandlerOptions } from './hooks/useHandlerOptions';
+import { dateRangePickerStyles } from '@/styles/dateRangePickerStyles';
 
 interface IOptions {
     setValueOption: React.Dispatch<React.SetStateAction<{
@@ -33,10 +34,7 @@ const Options: React.FC<IOptions> = ({ setValueOption, dateRef, selectDateRange 
             <div>
                 <I18nProvider locale='es-ES'>
                     <label htmlFor="datepicker">Seleccionar Rango:</label>
-                    <DateRangePicker isDisabled={jsonIsLoading} visibleMonths={2} defaultValue={undefined} ref={dateRef} onChange={(e) => handleDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} className="max-w-xs transition-all" classNames={{
-                        input: 'bg-background hover:bg-background focus:bg-background',
-                        inputWrapper: 'bg-background hover:!bg-background focus:bg-background rounded-md',
-                    }} calendarProps={{ classNames: { headerWrapper: "bg-background-200", gridHeader: "bg-background-200" } }} />
+                    <DateRangePicker isDisabled={jsonIsLoading} visibleMonths={2} defaultValue={undefined} ref={dateRef} onChange={(e) => handleDateInitial(e)} value={dateInitial} id='datepicker' labelPlacement='outside' maxValue={today(getLocalTimeZone())} {...dateRangePickerStyles} />
                 </I18nProvider>
             </div>
             <div className='flex flex-col'>

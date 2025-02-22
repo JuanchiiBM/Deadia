@@ -41,6 +41,7 @@ export const Login = () => {
         if (response.token) {
             localStorage.setItem('permission', JSON.stringify(response.permission))
             localStorage.setItem('userToken', response.token)
+            localStorage.setItem('colorUser', response.colour)
             router.replace("/home");
         } else {
             setIsFetching(() => false)

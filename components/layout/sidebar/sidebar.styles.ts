@@ -1,5 +1,7 @@
 import { tv } from "@heroui/react";
 
+const colorUser = localStorage.getItem('colorUser')
+
 export const SidebarWrapper = tv({
   base: "bg-background-200 w-0 transition-all h-full fixed -translate-x-full shrink-0 z-[202] overflow-y-auto border-r border-divider flex-col pyb-6 px-3 md:ml-0 md:flex md:static md:h-screen ",
 
@@ -15,7 +17,7 @@ export const Overlay = tv({
 });
 
 export const Header = tv({
-  base: "flex justify-center text-2xl items-center px-6 py-0 my-0 w-full border-b-1 border-default-200 h-[60px]",
+  base: `flex justify-center text-2xl items-center px-6 py-0 my-0 w-full border-b-1 border-b-[#${colorUser}] h-[60px]`,
 });
 
 export const Body = tv({

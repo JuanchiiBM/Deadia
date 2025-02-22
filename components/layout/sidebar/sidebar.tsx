@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useEffect } from "react";
 import { Sidebar } from "./sidebar.styles";
 import { CollapseItems } from "./collapse-items";
 import { SidebarItem } from "./sidebar-item";
@@ -8,14 +10,22 @@ import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
 
+const colorUser = localStorage.getItem('colorUser')
+
 export const SidebarWrapper = () => {
     const pathname = usePathname();
+    let headerKey = 0
     const { collapsed, setCollapsed } = useSidebarContext();
 
+    useEffect(() => {
+        headerKey = 1
+    }, [colorUser]);
+
     return (
-        <aside className={Sidebar.Aside({
-            collapsed: collapsed
-        })}>
+        <aside
+            className={Sidebar.Aside({
+                collapsed: collapsed
+            })}>
             {collapsed ? (
                 <div className={Sidebar.Overlay()} onClick={setCollapsed} />
             ) : null}
@@ -24,7 +34,7 @@ export const SidebarWrapper = () => {
                     collapsed: collapsed,
                 })}
             >
-                <div className={Sidebar.Header()}>
+                <div className={`flex justify-center text-2xl items-center px-6 py-0 my-0 w-full border-b-1 h-[60px]`}>
                     SIGMA
                 </div>
                 <div className="flex flex-col justify-between">
