@@ -17,7 +17,7 @@ export const Overlay = tv({
 });
 
 export const Header = tv({
-  base: `flex justify-center text-2xl items-center px-6 py-0 my-0 w-full border-b-1 border-b-[#${colorUser}] h-[60px]`,
+  base: `flex justify-center text-2xl items-center px-6 py-0 my-0 w-full border-b-1 h-[60px]`,
 });
 
 export const Body = tv({

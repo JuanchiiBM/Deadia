@@ -30,6 +30,7 @@ export const SidebarWrapper = () => {
                 <div className={Sidebar.Overlay()} onClick={setCollapsed} />
             ) : null}
             <div
+            
                 className={Sidebar({
                     collapsed: collapsed,
                 })}
