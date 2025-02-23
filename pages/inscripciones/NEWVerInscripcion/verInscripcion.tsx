@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
 import Options from './options'
 import TableVerIngreso from './dataTable';
@@ -52,6 +52,10 @@ const verInscripcion = () => {
             intervalMin: 1440
         }
     }
+
+    useEffect(() => {
+        console.log(chartContent)
+    }, [])
 
     return (
         <ContextView.Provider value={{

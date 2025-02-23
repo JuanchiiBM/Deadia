@@ -1,16 +1,27 @@
 :root {
     --heroui-background: #fafafa;
+    --heroui-text: #111111;
     --heroui-default-200: #c6d9db;
 }
 
 .dark {
     --heroui-background: #0e0e11;
+    --heroui-text: #eeefff;
     --heroui-default-200: #3f575f;
 }
 
-.apexcharts-menu {
+.apexcharts-tooltip {
     background: radial-gradient(var(--heroui-background), var(--heroui-background)) !important;
     border-radius: 10px !important;
+}
+
+.apexcharts-tooltip-title {
+    background: radial-gradient(var(--heroui-background), var(--heroui-background)) !important;
+}
+
+.apexcharts-xaxistooltip {
+    background: var(--heroui-background) !important;
+    color: var(--heroui-text) !important;
 }
 
 .apexcharts-menu-item:hover {
