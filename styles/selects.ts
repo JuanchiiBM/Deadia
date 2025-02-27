@@ -55,7 +55,7 @@ export const colourStylesBordered: StylesConfig = {
         background: 'transparent',
         opacity: state.isDisabled ? '0.5' : '1',
         transition: 'all 0.15s ease',
-        border: state.isFocused ? '2px solid hsl(var(--heroui-default-800))' : '2px solid hsl(var(--heroui-default-200))',
+        border: state.isFocused ? '2px solid hsl(var(--heroui-default-800))' : '2px solid hsl(var(--heroui-default-600))',
         borderRadius: '12px',
         fontSize: '0.875rem',
         height: '40px',

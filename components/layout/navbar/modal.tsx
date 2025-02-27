@@ -10,7 +10,7 @@ export default function ModalNavbar({isOpen, onClose}: {isOpen: boolean, onClose
     }
 
     return createPortal(
-        <Modal isDismissable={false} backdrop='blur' size='xl' className='bg-background' isOpen={isOpen} onClose={onClose}>
+        <Modal isDismissable={false} backdrop='blur' size='xl' className='bg-background-200' isOpen={isOpen} onClose={onClose}>
             <ModalContent>
                 {(onClose) => (
                     <>

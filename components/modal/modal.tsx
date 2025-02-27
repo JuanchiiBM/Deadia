@@ -22,7 +22,7 @@ const ModalView: React.FC<IModalView> = ({children, isOpen, onClose, onOpen, _da
     const { cargarIngreso, showSpinner } = usePost({ oldRegister, onClose, _dataObject, urlPost, text })
 
     return createPortal(
-        <Modal isDismissable={false} backdrop='blur' size={size} className='bg-background-400' isOpen={isOpen} onClose={onClose}>
+        <Modal isDismissable={false} backdrop='blur' size={size} className='bg-background-200' isOpen={isOpen} onClose={onClose}>
             {showSpinner && <SpinnerComponent />}
             <ModalContent>
                 {(onClose: any) => (
