@@ -14,7 +14,7 @@ import { MODULES } from '@/utils/enums/permissions';
 
 import useDatePicker from '@/hooks/useDatePicker';
 import useSetDTAContent from '@/hooks/useSetDTAContent';
-import useJsonData from '@/hooks/useJsonData';
+import useJsonDataConfig from '@/hooks/useJsonDataConfig';
 
 import useDT from './hooks/useDT';
 import useForm from './hooks/useForm';
@@ -30,7 +30,7 @@ const usuarios = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { dateSelected, dateRef, selectDateRange } = useDatePicker()
-    const { jsonData, isLoading } = useJsonData({ url: `api/user/register?start_date=2024-01-01&end_date=${dateSelected && dateSelected[1]}`, refreshData })
+    const { jsonData, isLoading } = useJsonDataConfig({ url: `api/user/register?start_date=2024-01-01&end_date=${dateSelected && dateSelected[1]}`, refreshData, xconfig: 'false' })
 
     const useDTAContent = useSetDTAContent({ module: 'usuario', urlDelete: 'api/user/register/', urlPut: 'api/user/register/form/' })
     const urlPost = 'api/user/register/form'

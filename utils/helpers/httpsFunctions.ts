@@ -23,6 +23,30 @@ export const GETFunction = async (url: string, loader?: any) => {
     }
 }
 
+export const GETFunctionConfig = async (url: string, xconfig: 'true' | 'false', loader?: any) => {
+    try {
+        const response = await fetch(`${URLBack}${url}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+                'x-config-request': xconfig
+            }
+        });
+        const finalResponse = response.json()
+        if (loader) loader(false)
+
+        console.log(url)
+        console.log(finalResponse)
+        console.log('-_-_-_-_-_-_-_-_-_-_-_-_')
+
+        return finalResponse;
+    } catch (error) {
+        console.error("Error:", error);
+        return []; // Retorna un string vacío en caso de error
+    }
+}
+
 export const POSTFunction = async (url: string, _dataObject: any, loader?: any) => {
     try {
         console.log(_dataObject)
