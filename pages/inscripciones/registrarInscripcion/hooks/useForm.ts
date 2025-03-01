@@ -16,6 +16,10 @@ const useForm = () => {
         id_pupil: undefined,
         dependency: undefined,
         amount: undefined,
+        date: undefined,
+        begin_date: undefined,
+        end_date: undefined,
+
         datePicker: {
             start: null,
             end: null

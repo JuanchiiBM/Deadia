@@ -21,8 +21,11 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             curse: null,
             destination: contentTable ? contentTable.destino && createOption(contentTable.destino, contentTable.id_destino) : null,
             dependency: null,
-            id_pupil: null,
+            id_pupil: contentTable ? contentTable.id_alumno : '',
             amount: contentTable ? contentTable.monto_acumulado.split(' de ')[0] : '',
+            begin_date: contentTable ? contentTable.fec_inicio : '',
+            end_date: contentTable ? contentTable.fec_finalizacion : '',
+            date: contentTable ? contentTable.fecha : '',
             datePicker: {
                 start: null,
                 end: null
@@ -35,16 +38,24 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
 
     if (contentTable) {
         oldRegister = {
-            id: contentTable ? contentTable.id : '',
-            dni: contentTable ? contentTable.dni : '',
-            name: contentTable ? contentTable.nombre.split(' ')[1] : '',
-            lastname: contentTable ? contentTable.nombre.split(' ')[0] : '',
-            mail: contentTable ? contentTable.mail : '',
-            category: contentTable ? contentTable.categoria.includes('(') ? contentTable.categoria.split(' ')[0] : contentTable.categoria : null,
-            grade: contentTable && contentTable.grado != '-' ? contentTable.grado : '',
-            classroom: contentTable ? contentTable.aula : null,
-            amount: contentTable ? contentTable.monto_acumulado.split(' de ')[0] : '',
-            destination: contentTable ? contentTable.destino : null,
+            id: contentTable ? contentTable.id : undefined,
+            id_classroom: contentTable ? contentTable.id_aula : undefined,
+            id_dependency: contentTable ? contentTable.id_dependencia : undefined,
+            amount: contentTable ? contentTable.monto : undefined,
+            date: contentTable ? contentTable.fecha : undefined,
+            dni: contentTable ? contentTable.dni : undefined,
+            name: contentTable ? contentTable.nombre : undefined,
+            last_name: contentTable ? contentTable.apellido: undefined,
+            email: contentTable ? contentTable.mail : undefined,
+            id_category: contentTable ? contentTable.id_categoria : undefined,
+            id_pupil: contentTable ? contentTable.id_alumno : undefined,
+            
+            code: contentTable ? contentTable.aula : undefined,
+            begin_date: contentTable ? contentTable.fec_inicio : undefined,
+            end_date: contentTable ? contentTable.fec_finalizacion : undefined,
+            id_grade_type: contentTable ? contentTable.id_curso : undefined,
+            id_rank: contentTable ? contentTable.id_grado : undefined,
+            id_destination: contentTable ? contentTable.id_destino : undefined,
         }
     }
 

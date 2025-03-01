@@ -1,4 +1,4 @@
-import { QuestionAlert, SuccessAlert, ErrorAlert } from "@/components/sweetAlert/sweetsAlerts"
+import { QuestionAlert, SuccessAlert, ErrorAlert } from "@/components/sweetAlert/SweetsAlerts"
 import { DELETEFunction, PUTFunction } from "@/utils/helpers/httpsFunctions"
 import { useEffect } from "react"
 import { useContextRegister } from "@/context/contextRegister"

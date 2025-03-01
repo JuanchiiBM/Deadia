@@ -43,17 +43,26 @@ const useDT = ({ jsonData, refreshData }: { jsonData: any, refreshData: number }
             curso: dato.curso,
             aula: dato.aula,
             fecha: moment(moment(dato.fec_compra, "DD/MM/YYYY").toDate()).format("DD/MM/YYYY"),
+            fec_inicio: dato.fec_inicio,
+            fec_finalizacion: dato.fec_finalizacion,
             monto: dato.monto,
             monto_acumulado: dato.monto_acumulado ? dato.monto_acumulado.replace('/', 'de') : undefined,
+
+            id_dependencia: dato.id_dependencia,
+            id_alumno: dato.id_alumno,
+            id_aula: dato.id_aula,
+            id_categoria: dato.id_categoria,
+            id_grado: dato.id_grado,
+            id_curso: dato.id_curso,
             acciones: () => {
                 return ReactDOMServer.renderToString(
                     <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                        {hasPermission(MODULES.MODULEUSER, ACTIONS.UPDATE) && (
+                        {hasPermission(MODULES.MODULEINSCRIPTION, ACTIONS.UPDATE) && (
                             <button className="edit-btn btn-sigma" title="Editar registro" id={`edit-btn-${dato.id}`}>
                                 <FontAwesomeIcon icon={faPenToSquare} className="text-2xl" />
                             </button>
                         )}
-                        {hasPermission(MODULES.MODULEUSER, ACTIONS.DELETE) && !dato.estado ? (
+                        {hasPermission(MODULES.MODULEINSCRIPTION, ACTIONS.DELETE) && !dato.estado ? (
                             <button className="delete-btn btn-sigma" title="Borrar registro" id={`delete-btn-${dato.id}`}>
                                 <FontAwesomeIcon icon={faTrashCan} className="text-2xl" />
                             </button>

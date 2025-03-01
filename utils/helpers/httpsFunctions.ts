@@ -74,6 +74,7 @@ export const POSTFunction = async (url: string, _dataObject: any, loader?: any) 
 }
 
 export const PUTFunction = async (url: string, _dataObject: any, loader?: any) => {
+    console.log(_dataObject)
     try {
         const response = await fetch(`${URLBack}${url}`, {
             method: "PUT",
