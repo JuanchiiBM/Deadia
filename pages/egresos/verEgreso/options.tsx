@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select';
-import { DateRangePicker } from "@heroui/react";
+import { DateRangePicker } from "@nextui-org/react";
 import { colourStyles } from '@/styles/selects';
 import { I18nProvider } from "@react-aria/i18n";
 import { getLocalTimeZone, today } from "@internationalized/date";

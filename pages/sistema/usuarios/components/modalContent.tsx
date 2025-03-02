@@ -2,7 +2,7 @@ import React from 'react'
 import { useContextRegister } from '@/context/contextRegister'
 import Select from 'react-select'
 import { colourStylesBordered } from '@/helpers/selects';
-import { Input } from "@heroui/react";
+import { Input } from "@nextui-org/react";
 import { useSelectOptions } from '../hooks/useSelectOptions';
 import { usePasswordValidation } from '@/hooks/usePasswordValidation';
 import { useGeneratePassword } from '../hooks/useGeneratePassword';

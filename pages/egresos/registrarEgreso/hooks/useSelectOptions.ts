@@ -3,7 +3,7 @@ import { IDataEgressRegister, IDataEgressViewArtFilter, IDataEgressViewCatFilter
 import { GETFunction, Option, createOption, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import useJsonData from "@/hooks/useJsonData";
-import { RangeValue } from "@heroui/react";
+import { RangeValue } from "@nextui-org/react";
 import { useContextRegister } from "@/context/contextRegister";
 
 export const useSelectOptions = () => {

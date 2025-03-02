@@ -18,14 +18,14 @@
         }
 
         .dt-layout-full::-webkit-scrollbar-thumb {
-            background-color: hsl(var(--heroui-default-300));
+            background-color: hsl(var(--nextui-default-300));
             border-radius: 4px;
             cursor: pointer;
             transition: '0.5s ease all';
         }
 
         .dt-layout-full::-webkit-scrollbar-thumb:hover {
-            background-color: hsl(var(--heroui-default-300));
+            background-color: hsl(var(--nextui-default-300));
         }
 
         /*TABLA*/
@@ -37,15 +37,15 @@
 
             thead {
                 height: 50px;
-                background-color: hsl(var(--heroui-background-400));
-                border-bottom: 1px solid hsl(var(--heroui-default-300));
+                background-color: hsl(var(--nextui-background-400));
+                border-bottom: 1px solid hsl(var(--nextui-default-300));
 
                 tr {
                     th {
                         &:last-child[aria-label="Acciones: Activate to sort"] {
                             position: sticky;
                             right: -1px;
-                            background-color: hsl(var(--heroui-background-400));
+                            background-color: hsl(var(--nextui-background-400));
                         }
                     }
                 }
@@ -53,10 +53,10 @@
 
             tbody {
                 tr {
-                    background-color: hsl(var(--heroui-background-100));
+                    background-color: hsl(var(--nextui-background-100));
 
                     &:nth-child(odd) {
-                        background-color: hsl(var(--heroui-background-400));
+                        background-color: hsl(var(--nextui-background-400));
                     }
 
                     td {
@@ -65,7 +65,7 @@
                         &:last-child:has(div) {
                             position: sticky;
                             right: -1px;
-                            background-color: hsl(var(--heroui-background-400));
+                            background-color: hsl(var(--nextui-background-400));
                         }
                     }
                 }
@@ -84,14 +84,14 @@
                     border: none;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     /* Sombra suave */
-                    background-color: hsl(var(--heroui-background-100));
+                    background-color: hsl(var(--nextui-background-100));
                     transition: 0.25s ease-in-out all;
                     padding-left: 5px;
                     margin-left: 10px;
 
                     &:focus-visible {
                         outline: none;
-                        background-color: hsl(var(--heroui-background-100));
+                        background-color: hsl(var(--nextui-background-100));
                     }
                 }
             }
@@ -101,7 +101,7 @@
                     border-radius: 5px;
                     margin-right: 5px;
                     border: none;
-                    background-color: hsl(var(--heroui-background-100));
+                    background-color: hsl(var(--nextui-background-100));
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     /* Sombra suave */
 
@@ -129,13 +129,13 @@
                     }
 
                     &:hover {
-                        background-color: hsl(var(--heroui-background-200));
+                        background-color: hsl(var(--nextui-background-200));
                     }
 
                     transition: 0.25s ease-in-out all;
                     padding: 0px 10px;
-                    border: 1px solid hsl(var(--heroui-default-200));
-                    background-color: hsl(var(--heroui-background-400));
+                    border: 1px solid hsl(var(--nextui-default-200));
+                    background-color: hsl(var(--nextui-background-400));
                 }
             }
         }
@@ -150,17 +150,17 @@
 
     svg {
         font-size: 115%;
-        color: hsl(var(--heroui-content1));
+        color: hsl(var(--nextui-content1));
         padding: 3px 5px;
     }
 }
 
 .edit-btn {
-    background-color: hsl(var(--heroui-warning));
+    background-color: hsl(var(--nextui-warning));
     transition: opacity 0.25s ease-in-out;
 
     svg {
-        color: hsl(var(--heroui-default-700));
+        color: hsl(var(--nextui-default-700));
     }
 
     &:hover {
@@ -170,11 +170,11 @@
 }
 
 .delete-btn {
-    background-color: hsl(var(--heroui-danger));
+    background-color: hsl(var(--nextui-danger));
     transition: opacity 0.25s ease-in-out;
 
     svg {
-        color: hsl(var(--heroui-default-700));
+        color: hsl(var(--nextui-default-700));
     }
 
     &:hover {
@@ -184,11 +184,11 @@
 }
 
 .activate-btn {
-    background-color: hsl(var(--heroui-success));
+    background-color: hsl(var(--nextui-success));
     transition: opacity 0.25s ease-in-out;
 
     svg {
-        color: hsl(var(--heroui-default-700));
+        color: hsl(var(--nextui-default-700));
     }
 
     &:hover {

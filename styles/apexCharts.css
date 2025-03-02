@@ -1,30 +1,30 @@
 :root {
-    --heroui-background: #fafafa;
-    --heroui-text: #111111;
-    --heroui-default-200: #c6d9db;
+    --nextui-background: #fafafa;
+    --nextui-text: #111111;
+    --nextui-default-200: #c6d9db;
 }
 
 .dark {
-    --heroui-background: #0e0e11;
-    --heroui-text: #eeefff;
-    --heroui-default-200: #3f575f;
+    --nextui-background: #0e0e11;
+    --nextui-text: #eeefff;
+    --nextui-default-200: #3f575f;
 }
 
 .apexcharts-tooltip {
-    background: radial-gradient(var(--heroui-background), var(--heroui-background)) !important;
+    background: radial-gradient(var(--nextui-background), var(--nextui-background)) !important;
     border-radius: 10px !important;
 }
 
 .apexcharts-tooltip-title {
-    background: radial-gradient(var(--heroui-background), var(--heroui-background)) !important;
+    background: radial-gradient(var(--nextui-background), var(--nextui-background)) !important;
 }
 
 .apexcharts-xaxistooltip {
-    background: var(--heroui-background) !important;
-    color: var(--heroui-text) !important;
+    background: var(--nextui-background) !important;
+    color: var(--nextui-text) !important;
 }
 
 .apexcharts-menu-item:hover {
     border-radius: 7px !important;
-    background-color: var(--heroui-default-200) !important;
+    background-color: var(--nextui-default-200) !important;
 }

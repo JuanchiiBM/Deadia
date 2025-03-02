@@ -1,4 +1,4 @@
-import { tv } from "@heroui/react";
+import { tv } from "@nextui-org/react";
 
 const colorUser = localStorage.getItem('colorUser')
 

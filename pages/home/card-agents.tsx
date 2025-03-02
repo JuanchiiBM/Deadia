@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup, Card, CardBody } from "@heroui/react";
+import { Avatar, AvatarGroup, Card, CardBody } from "@nextui-org/react";
 import React from "react";
 
 const pictureUsers = [

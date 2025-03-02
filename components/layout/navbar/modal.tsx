@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input } from "@heroui/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Input } from "@nextui-org/react";
 import { GETFunctionConfig } from "@/utils/helpers/httpsFunctions";
 import useJsonDataConfig from "@/hooks/useJsonDataConfig";
 

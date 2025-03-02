@@ -147,20 +147,20 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
             categories: months,
             labels: {
                 style: {
-                    colors: 'hsl(var(--heroui-content2))',
+                    colors: 'hsl(var(--nextui-content2))',
                 }
             }
         },
         yaxis: {
             labels: {
                 style: {
-                    colors: 'hsl(var(--heroui-content2))'
+                    colors: 'hsl(var(--nextui-content2))'
                 }
             },
             title: {
                 text: 'Egresos',
                 style: {
-                    color: 'hsl(var(--heroui-content2))'
+                    color: 'hsl(var(--nextui-content2))'
                 }
             }
         },
@@ -177,11 +177,11 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
             },
         },
         grid: {
-            borderColor: 'hsl(var(--heroui-content2))',
+            borderColor: 'hsl(var(--nextui-content2))',
         },
         legend: {
             labels: {
-                colors: 'hsl(var(--heroui-content2))'
+                colors: 'hsl(var(--nextui-content2))'
             },
             position: 'top',
         },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@heroui/react"
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react"
 import SpinnerComponent from '@/components/spinner/Spinner'
 import { createPortal } from 'react-dom'
 import { useContextRegister } from '@/context/contextRegister'

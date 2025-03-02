@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input } from "@heroui/react"
+import { Input } from "@nextui-org/react"
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import { useContextRegister } from '@/context/contextRegister'
-import { DateRangePicker } from "@heroui/react"
+import { DateRangePicker } from "@nextui-org/react"
 import { I18nProvider } from "@react-aria/i18n";
 import { colourStylesBordered } from '@/styles/selects'
 

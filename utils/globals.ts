@@ -1,4 +1,4 @@
-import { DateValue } from "@heroui/react";
+import { DateValue } from "@nextui-org/react";
 import { parseDate } from "@internationalized/date";
 
 

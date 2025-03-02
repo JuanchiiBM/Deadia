@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { useDisclosure } from "@heroui/react";
+import { useDisclosure } from "@nextui-org/react";
 
 import Options from '@/components/options/options'
 import TableData from '@/components/dataTable/dataTable';

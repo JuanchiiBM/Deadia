@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
-import { Switch } from "@heroui/react";
+import { Switch } from "@nextui-org/react";
 import { useSidebarContext } from "../layout-context";
 
 export const DarkModeSwitch = () => {

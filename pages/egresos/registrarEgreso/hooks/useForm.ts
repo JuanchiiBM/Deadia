@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { IUseFormEgressRegister } from "@/helpers/interfaces";
-import { RangeValue, DateValue } from "@heroui/react";
+import { RangeValue, DateValue } from "@nextui-org/react";
 import { Option } from "@/utils/globals";
 
 const useForm = () => {

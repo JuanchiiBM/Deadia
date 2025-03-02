@@ -6,7 +6,7 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@heroui/react";
+} from "@nextui-org/react";
 import React from "react";
 import { columns, users } from "./data";
 import { RenderCell } from "./render-cell";
