@@ -15,7 +15,6 @@ const useSetDataObject = ({ dataForm }: {dataForm: any}) => {
         bid_number: dataForm.licitation?.label,
         bid_date: dataForm.licitation?.date && formatDate(dataForm.licitation?.date),
         bidding_row: dataForm.nro_renglon,
-        date_vencimiento: dataForm.datePickerVencimiento?.toString(),
         status: 0
     }
 

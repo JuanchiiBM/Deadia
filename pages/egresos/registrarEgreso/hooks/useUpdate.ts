@@ -36,7 +36,10 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             amount: contentTable.monto,
             quantity: contentTable.cantidad,
             date: formatDate(contentTable.fec_compra.toString()),
-            nro_renglon: contentTable.renglon.toString()
+            bid_number: contentTable.nro_licitacion,
+            id_bidding: contentTable.id_licitacion,
+            bid_date: contentTable.fec_licitacion,
+            bidding_row: contentTable.renglon
         }
     }
 

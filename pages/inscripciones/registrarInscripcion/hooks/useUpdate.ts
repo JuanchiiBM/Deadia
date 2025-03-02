@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { createOption } from "@/utils/helpers/options"
+import { formatDate } from "@/utils/helpers/formatDates"
 
 interface IUseUpdate {
     setDataForm: React.Dispatch<React.SetStateAction<any>>,
@@ -25,10 +26,10 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             amount: contentTable ? contentTable.monto_acumulado.split(' de ')[0] : '',
             begin_date: contentTable ? contentTable.fec_inicio : '',
             end_date: contentTable ? contentTable.fec_finalizacion : '',
-            date: contentTable ? contentTable.fecha : '',
+            date: contentTable && contentTable.fecha ? contentTable.fecha : new Date().toISOString().split('T')[0],
             datePicker: {
-                start: null,
-                end: null
+            start: null,
+            end: null
             }
         })
 
@@ -42,7 +43,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             id_classroom: contentTable ? contentTable.id_aula : undefined,
             id_dependency: contentTable ? contentTable.id_dependencia : undefined,
             amount: contentTable ? contentTable.monto : undefined,
-            date: contentTable ? contentTable.fecha : undefined,
+            date: contentTable ? formatDate(contentTable.fecha) : undefined,
             dni: contentTable ? contentTable.dni : undefined,
             name: contentTable ? contentTable.nombre : undefined,
             last_name: contentTable ? contentTable.apellido: undefined,
@@ -51,8 +52,8 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             id_pupil: contentTable ? contentTable.id_alumno : undefined,
             
             code: contentTable ? contentTable.aula : undefined,
-            begin_date: contentTable ? contentTable.fec_inicio : undefined,
-            end_date: contentTable ? contentTable.fec_finalizacion : undefined,
+            begin_date: contentTable ? formatDate(contentTable.fec_inicio) : undefined,
+            end_date: contentTable ? formatDate(contentTable.fec_finalizacion) : undefined,
             id_grade_type: contentTable ? contentTable.id_curso : undefined,
             id_rank: contentTable ? contentTable.id_grado : undefined,
             id_destination: contentTable ? contentTable.id_destino : undefined,

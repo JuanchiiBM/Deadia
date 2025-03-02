@@ -34,6 +34,8 @@ const useDT = ({jsonData, refreshData}: {jsonData: ITableDataEgress, refreshData
             usuario: dato.usuario,
             fec_compra: dato.fec_compra,
             nro_licitacion: dato.nro_licitacion,
+            id_licitacion: dato.id_licitacion,
+            fec_licitacion: dato.fec_licitacion,
             renglon: dato.renglon,
             descripcion: dato.descripcion,
             cantidad: dato.cantidad,
