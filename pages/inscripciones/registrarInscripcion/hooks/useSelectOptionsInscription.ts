@@ -107,6 +107,7 @@ export const useSelectHandleChangeInscription = ({ optionsJsonData, handleInputC
         if (optionsJsonData?.classrooms.some((opt: IncomeRegisterOptionClassroom) => opt.id.toString() == newValue?.value)) {
             setIsDisabled(true)
             setCurseDisabled(true)
+            handleInputChange('amount', null)
             optionsJsonData.classrooms.forEach((opt: IncomeRegisterOptionClassroom) => {
                 if (opt.id.toString() == newValue?.value) {
 
@@ -120,10 +121,9 @@ export const useSelectHandleChangeInscription = ({ optionsJsonData, handleInputC
             })
         } else {
             setIsDisabled(false)
-            handleInputChange('amount', undefined)
+            handleInputChange('amount', null)
             selectOptionOfDependency(null)
             selectOptionOfCurse(null, monthlyDiscount)
-            handleInputChange('amount', null)
             handleInputChange('datePicker', { start: null, end: null })
         }
     }
@@ -139,7 +139,7 @@ export const useSelectHandleChangeInscription = ({ optionsJsonData, handleInputC
 
         handleInputChange('curse', newValue)
         if (grade) {
-            console.log(monthlyDiscount)
+            console.log(grade)
             console.log(grade.precio_mes)
             const discountedPricePerMonth = monthlyDiscount ? grade.precio_mes - monthlyDiscount : grade.precio_mes;
             console.log('entradescuento', discountedPricePerMonth)
