@@ -10,7 +10,6 @@ const useSetDataObject = ({ dataForm }: any) => {
         mail: dataForm.mail,
         id_profile: dataForm.profile?.value && Number(dataForm.profile.value),
         id_dependency: dataForm.dependency?.value && Number(dataForm.dependency.value),
-        status: 0
     }
 
     return { _dataObject }

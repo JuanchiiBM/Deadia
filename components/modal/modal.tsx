@@ -14,12 +14,13 @@ interface IModalView {
     _dataObject: any
     urlPost: string
     oldRegister: any
+    configHeader?: boolean
     size: "sm" | "md" | "lg" | "xl" | "2xl" | "xs" | "3xl" | "4xl" | "5xl" | "full" | undefined
 }
 
-const ModalView: React.FC<IModalView> = ({children, isOpen, onClose, onOpen, _dataObject, urlPost, oldRegister, text, size }) => {
+const ModalView: React.FC<IModalView> = ({children, isOpen, onClose, onOpen, _dataObject, urlPost, oldRegister, text, size, configHeader }) => {
     const { contentTable }: { contentTable: any} = useContextRegister()
-    const { cargarIngreso, showSpinner } = usePost({ oldRegister, onClose, _dataObject, urlPost, text })
+    const { cargarIngreso, showSpinner } = usePost({ oldRegister, onClose, _dataObject, urlPost, text, configHeader })
 
     return createPortal(
         <Modal isDismissable={false} backdrop='blur' size={size} className='bg-background-200' isOpen={isOpen} onClose={onClose}>

@@ -30,7 +30,7 @@ const usuarios = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { dateSelected, dateRef, selectDateRange } = useDatePicker()
-    const { jsonData, isLoading } = useJsonDataConfig({ url: `api/user/register?start_date=2024-01-01&end_date=${dateSelected && dateSelected[1]}`, refreshData, xconfig: 'false' })
+    const { jsonData, isLoading } = useJsonDataConfig({ url: `api/user/register?start_date=2024-01-01&end_date=${dateSelected && dateSelected[1]}`, refreshData, xconfig: 'false', xreactivate: 'true' })
 
     const useDTAContent = useSetDTAContent({ module: 'usuario', urlDelete: 'api/user/register/', urlPut: 'api/user/register/form/' })
     const urlPost = 'api/user/register/form'
@@ -65,7 +65,7 @@ const usuarios = () => {
                     <TableData onOpen={onOpen} title={title} useDTAContent={useDTAContent} tableData={tableData} columns={columns} setColumnDefs={columnDefs} />
                 </div>
             </div>
-            <ModalView size='2xl' text='usuario' isOpen={isOpen} onClose={onClose} onOpen={onOpen} _dataObject={_dataObject} urlPost={urlPost} oldRegister={oldRegister}>
+            <ModalView size='2xl' text='usuario' isOpen={isOpen} onClose={onClose} onOpen={onOpen} _dataObject={_dataObject} urlPost={urlPost} oldRegister={oldRegister} configHeader={true}>
                 <ModalContent />
             </ModalView>
         </ContextRegister.Provider>

@@ -1,5 +1,5 @@
 import { QuestionAlert, SuccessAlert, ErrorAlert } from "@/components/sweetAlert/SweetsAlerts"
-import { DELETEFunction, PUTFunction } from "@/utils/helpers/httpsFunctions"
+import { DELETEFunction, PUTFunction, PUTFunctionConfig } from "@/utils/helpers/httpsFunctions"
 import { useEffect } from "react"
 import { useContextRegister } from "@/context/contextRegister"
 import { useSidebarContext } from "@/components/layout/layout-context"
@@ -36,14 +36,12 @@ export const useDTA = ({ tableData, setContentTable, onOpen, useDTAContent }: Iu
             setShowSpinner(true)
             const _dataObject = {
                 newRecords: {
-                    trash: '0'
                 },
                 oldRecords: {
-                    trash: '1'
                 }
             }
             console.log(_dataObject)
-            const response = await PUTFunction(`${useDTAContent.urlPut}${dato.id}`, _dataObject)
+            const response = await PUTFunctionConfig(`${useDTAContent.urlPut}${dato.id}`, _dataObject, 'false', 'true')
             console.log(response)
             setShowSpinner(false)
             if (response.status == 'ok') {

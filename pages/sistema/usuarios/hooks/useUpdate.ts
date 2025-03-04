@@ -29,8 +29,8 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             id_profile: contentTable.id_perfil,
             id_dependency: contentTable.id_dependencia,
             name: contentTable.nombre,
-            lastname: contentTable.apellido,
-            user: contentTable.nickname,
+            last_name: contentTable.apellido,
+            username: contentTable.nickname,
             mail: contentTable.mail,
             password: contentTable.password,
         }

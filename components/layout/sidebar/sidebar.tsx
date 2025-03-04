@@ -9,11 +9,15 @@ import { usePathname } from "next/navigation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
+import {useHandlerPermissions} from "@/components/layout/hooks/useHandlerPermissions";
+
 
 const colorUser = localStorage.getItem('colorUser')
 
 export const SidebarWrapper = () => {
     const pathname = usePathname();
+    const { permissions, sistema, inscripcion, egreso, inventario } = useHandlerPermissions();
+
     let headerKey = 0
     const { collapsed, setCollapsed } = useSidebarContext();
 
@@ -40,36 +44,43 @@ export const SidebarWrapper = () => {
                 </div>
                 <div className="flex flex-col justify-between">
                     <div className={Sidebar.Body()}>
-                        <SidebarItem
+                    <SidebarItem
                             title="Home"
                             icon={<FontAwesomeIcon icon={faHouse} />}
                             isActive={pathname === "/home"}
                             href="/home"
                         />
+                        {inscripcion.items.length > 0 &&
                         <CollapseItems
                             icon={1}
-                            items={["Visualizar Inscripciones", "Registrar Inscripciones"]}
-                            path={["/inscripciones/verInscripcion", "/inscripciones/registrarInscripcion"]}
+                            items={inscripcion.items}
+                            path={inscripcion.paths}
                             title="Inscripcion"
-                        />
+                        />}
+                        
+                        {egreso.items.length > 0 &&
                         <CollapseItems
                             icon={2}
-                            items={["Visualizar Egresos", "Registrar Egresos"]}
-                            path={["/egresos/verEgreso", "/egresos/registrarEgreso"]}
+                            items={egreso.items}
+                            path={egreso.paths}
                             title="Egreso"
-                        />
-                        <CollapseItems
-                            icon={4}
-                            items={["Visualizar Inventario", "Registrar Inventario"]}
-                            path={["/inventario/verInventario", "/inventario/registrarInventario"]}
-                            title="Inventario"
-                        />
+                        />}
+
+                        {inventario.items.length > 0 &&
                         <CollapseItems
                             icon={3}
-                            items={["Usuarios", "Perfiles", "Acciones"]}
-                            path={["/sistema/usuarios", "/sistema/perfiles", "/sistema/acciones"]}
+                            items={inventario.items}
+                            path={inventario.paths}
+                            title="Inventario"
+                        />}
+
+                        {sistema.items.length > 0 &&
+                        <CollapseItems
+                            icon={4}
+                            items={sistema.items}
+                            path={sistema.paths}
                             title="Sistema"
-                        />
+                        />}
                     </div>
                 </div>
             </div>

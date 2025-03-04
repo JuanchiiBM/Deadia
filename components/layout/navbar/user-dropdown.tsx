@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalNavbar from "./modal";
 import { faRightFromBracket, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 
+const username = localStorage.getItem('username') as string
+
 export const UserDropdown = () => {
     const router = useRouter();
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,14 +26,14 @@ export const UserDropdown = () => {
                         <Avatar
                             as='button'
                             size='md'
-                            name="Juanchi"
+                            name={username}
                             className="bg-primary-200 dark:bg-primary-700"
                             classNames={{base: 'border-2 border-primary-200 dark:border-primary-700'}}
                         />
                     </DropdownTrigger>
                 </NavbarItem>
                 <DropdownMenu aria-label='User menu actions'>
-                    <DropdownItem className='data-[hover=true]:bg-primary-200 dark:data-[hover=true]:bg-primary-700 cursor-default text-content1' key='profile' startContent={<FontAwesomeIcon icon={faUser} />}>Usuario: Juanchi</DropdownItem>
+                    <DropdownItem className='data-[hover=true]:bg-primary-200 dark:data-[hover=true]:bg-primary-700 cursor-default text-content1' key='profile' startContent={<FontAwesomeIcon icon={faUser} />}>Usuario: {username}</DropdownItem>
                     <DropdownItem onPress={() =>  onOpen()} className="data-[hover=true]:bg-primary-200 dark:data-[hover=true]:bg-primary-700 text-content1" key='configurations' startContent={<FontAwesomeIcon icon={faGear} />}>Configuración</DropdownItem>
                     <DropdownItem
                         key='logout'
