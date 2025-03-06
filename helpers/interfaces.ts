@@ -183,6 +183,7 @@ export interface ITableDataDepsInsideDeps {
 export interface ITableDataDepsInsideFilter {
     id: number
     name: string
+    color: string
 }
 
 export interface ITableDataDep {
@@ -203,6 +204,7 @@ export interface ITableDataDepInsideFilter {
     id: number
     code: string
     grade: string
+    color: string
 }
 
 export interface ITableDataDepInsideGrades {

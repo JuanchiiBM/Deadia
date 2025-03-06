@@ -4,6 +4,7 @@ import { Option } from "@/utils/globals"
 import { ITableDataClassrooms, ITableDataDep, ITableDataDepInsideFilter, ITableDataDeps, ITableDataDepsInsideFilter } from "@/helpers/interfaces"
 
 export const useChargeOptions = () => {
+    const { setColors } = useContextView()
     const { jsonData, refreshData }: { jsonData: ITableDataDeps & ITableDataDep & ITableDataClassrooms, refreshData: number } = useContextView()
     const [options, setOptions] = useState({
         deps: [{ value: '0', label: 'Todas' }],
@@ -21,6 +22,14 @@ export const useChargeOptions = () => {
                 .filter((opt) => opt.value !== '')
             ) as { value: string; label: string }[]
         }))
+        if (setColors)
+        setColors((prev: any) => ({
+            ...prev,
+            opts: jsonData.filter.dependency.map((opt) => ({
+                name: opt.name,
+                color: opt.color
+            }))
+        }))
     }
 
     const chargeOptsClassrooms = () => {
@@ -31,6 +40,14 @@ export const useChargeOptions = () => {
                 label: `${opt.code} | ${opt.grade}`
             })) as Option[]
         }))
+        if (setColors)
+            setColors((prev: any) => ({
+                ...prev,
+                opts: jsonData.filter.classroom.map((opt) => ({
+                    name: opt.grade,
+                    color: opt.color
+                }))
+            }))
     }
 
     //cambiar el effect

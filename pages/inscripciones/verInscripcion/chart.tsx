@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import dayjs from 'dayjs';
 import Chart, { Props } from "react-apexcharts";
 import '@/styles/apexCharts.css';
+import { useContextView } from "@/context/contextView";
 
 interface ChartIngresosProps {
     chartContent: Array<object>
@@ -21,6 +22,7 @@ interface ChartData {
 export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) => {
     const chartRef = useRef<any>(null);
     const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
+    const { colors } = useContextView()
 
     // Funcion para cargar el ApexChart
     const processDataForChart = (data: any[]) => {
@@ -191,9 +193,9 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
             position: 'top',
         },
         colors: chartData.series.map((serie) => {
-            if (serie.name === 'Informática') return '#318CE7'; // Azul Francia
-            if (serie.name === 'Idiomas') return '#33FF57'; // Verde
-            return '#008FFB'; // Azul predeterminado
+            const color = colors.opts.find((opt: any) => opt.name === serie.name);
+            console.log(color)
+            return color ? `#${color.color}` : undefined; // Azul predeterminado
         }),
     };
 
@@ -208,8 +210,10 @@ export const ChartIngresos: React.FC<ChartIngresosProps> = ({ chartContent }) =>
 
     useEffect(() => {
         showAllSeries()
+        console.log(colors)
         processDataForChart(chartContent)
-    }, [chartContent]);
+    }, [chartContent, colors]);
+    
 
     return (
         <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md overflow-hidden'>

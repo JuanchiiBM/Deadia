@@ -42,8 +42,8 @@ const ModalContent = () => {
                 <div className='rounded-xl p-2 border-2 border-default-200 w-full h-[95px]'>
                     <h3 className='text-lg text-center w-full border-b-2 border-default-200 px-2 mb-1'>Nuevo Inventario</h3>
                     <div className='text-sm'>
-                        <p className='text-sm truncate'><FontAwesomeIcon icon={faClock} className='text-xs mr-1 w-4' />{jsonDataArticles ? `Ult. mov ${jsonDataArticles.fecha_ultimo_movimiento}` : 'Ultimo Movimiento'}</p>
-                        <p className='text-sm truncate'><FontAwesomeIcon icon={faRotate} className='text-xs mr-1 w-4' /> {jsonDataArticles ? jsonDataArticles.saldo : 'actual'} -{'>'} {jsonDataArticles ? `${Number(jsonDataArticles.saldo) + Number(dataForm.action)}` : 'nuevo'}</p>
+                        <p className='text-sm truncate'><FontAwesomeIcon icon={faClock} className='text-xs mr-1 w-4' />{jsonDataArticles ? `Ult. mov ${jsonDataArticles.fecha_ultimo_movimiento ? jsonDataArticles.fecha_ultimo_movimiento : 'inexistente'}` : 'Ultimo Movimiento'}</p>
+                        <p className='text-sm truncate'><FontAwesomeIcon icon={faRotate} className='text-xs mr-1 w-4' /> {jsonDataArticles ? jsonDataArticles.saldo : 'actual'} -{'>'} {jsonDataArticles ? `${Number(jsonDataArticles.saldo) + Number(dataForm.action ? dataForm.action : 0)}` : 'nuevo'}</p>
                     </div>
                 </div>
             </section>

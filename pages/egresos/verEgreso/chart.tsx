@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import dayjs from 'dayjs';
 import Chart, { Props } from "react-apexcharts";
 import '@/styles/apexCharts.css';
+import { useContextView } from "@/context/contextView";
 
 interface ChartProps {
     chartContent: Array<object>
@@ -21,6 +22,7 @@ interface ChartData {
 export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
     const chartRef = useRef<any>(null);
     const [chartData, setChartData] = useState<ChartData>({ series: [], minFecha: '', maxFecha: '' });
+    const { colors } = useContextView()
 
     // Funcion para cargar el ApexChart
     const processDataForChart = (data: any[]) => {
@@ -199,7 +201,7 @@ export const ChartFinal: React.FC<ChartProps> = ({ chartContent }) => {
     useEffect(() => {
         showAllSeries()
         processDataForChart(chartContent)
-    }, [chartContent]);
+    }, [chartContent, colors]);
 
     return (
         <div id="chart" className='bg-background-200 p-5 rounded-lg my-[25px] shadow-md overflow-hidden'>

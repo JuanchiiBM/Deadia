@@ -22,6 +22,7 @@ const Chart = dynamic(
 const verInscripcion = () => {
     const [refreshData, setRefreshData] = useState<number>(0)
     const [chartContent, setChartContent] = useState([{}])
+    const [colors, setColors] = useState()
     const { dateSelected, dateRef, selectDateRange } = useDatePickerInscription()
     const [valueOption, setValueOption] = useState({
         value: '0',
@@ -37,7 +38,9 @@ const verInscripcion = () => {
             jsonData: jsonData,
             jsonIsLoading: isLoading,
             chartContent: chartContent,
-            setChartContent: setChartContent
+            setChartContent: setChartContent,
+            setColors: setColors,
+            colors: colors
         }}>
             <h1 className='text-4xl'>Inscripciones</h1>
             <Chart chartContent={chartContent} />

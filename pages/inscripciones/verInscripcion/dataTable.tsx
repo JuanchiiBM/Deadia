@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'datatables.net-react';
 import '../../../styles/dataTables.css'
 import DT from 'datatables.net-dt';
@@ -15,10 +15,18 @@ interface ITableVerIngreso {
 
 const TableVerIngreso: React.FC<ITableVerIngreso> = ({ tableLoader, dateRef }) => {
     const { tableColumns, tableData, tableKey } = useDTInscription({dateRef})
+    const [twoSeconds, setTwoSeconds] = useState(true)
+    useEffect(() => {
+        if(tableLoader == false) {
+            setTimeout(() => {
+                setTwoSeconds((prev) => prev = false)
+            }, 1000)
+        }
+    }, [tableLoader])
 
     return (
         <div className='bg-background-200 rounded-lg'>
-            {tableLoader == true ?
+            {twoSeconds == true ?
                 <SpinnerForTables /> :
                 <DataTable key={tableKey} columns={tableColumns} data={tableData} className='order-column text-sm' options={{
                     destroy: true,

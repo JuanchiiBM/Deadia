@@ -21,6 +21,7 @@ const Chart = dynamic(
 const verEgreso = () => {
     const [refreshData, setRefreshData] = useState<number>(0)
     const [chartContent, setChartContent] = useState([{}])
+    const [colors, setColors] = useState()
     const { dateSelected, dateRef, selectDateRange } = useDatePicker()
     const [valueOption, setValueOption] = useState({
         value: '0',
@@ -36,7 +37,9 @@ const verEgreso = () => {
             jsonData: jsonData,
             jsonIsLoading: isLoading,
             chartContent: chartContent,
-            setChartContent: setChartContent
+            setChartContent: setChartContent,
+            setColors: setColors,
+            colors: colors
         }}>
             <h1 className='text-4xl'>Egresos</h1>
             <Chart chartContent={chartContent} />
