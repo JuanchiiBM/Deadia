@@ -28,7 +28,7 @@ const ModalView: React.FC<IModalView> = ({children, isOpen, onClose, onOpen, _da
             <ModalContent>
                 {(onClose: any) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">{ contentTable ? `Editar ${text} cargado por ${contentTable.usuario}` : `Cargar ${text}`}</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{ contentTable && contentTable.usuario ? `Editar ${text} cargado por ${contentTable.usuario}` : contentTable ? `Editar ${text}` : `Cargar ${text}`}</ModalHeader>
                         <ModalBody className='flex flex-row justify-center gap-0'>
                             <form id='register-charge' onSubmit={(e) => cargarIngreso(e)} className='w-full flex flex-col justify-evenly'>
                                 {children}

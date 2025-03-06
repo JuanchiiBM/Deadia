@@ -11,7 +11,7 @@ import { dateRangePickerStylesFullWidth } from '@/styles/dateRangePickerStyles';
 
 
 const ModalContent = () => {
-    const { dataForm, handleInputChange } = useContextRegister()
+    const { dataForm, handleInputChange, update } = useContextRegister()
     const { options, jsonData, isLoading, chargueNewCategory, chargueNewLicitation, chargueNewArticle, chargueOptionsArticle } = useSelectOptions()
     const { selectOptionOfCategory, categoryCreated, articleCreated, licitationCreated, isDisabled } = useSelectHandleChange({ jsonData, handleInputChange, chargueNewCategory, chargueNewArticle, chargueOptionsArticle, chargueNewLicitation })
 

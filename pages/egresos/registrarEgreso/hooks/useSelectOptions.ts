@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { IDataEgressRegister, IDataEgressViewArtFilter, IDataEgressViewCatFilter, IUseFormEgressRegister } from "@/helpers/interfaces"
-import { GETFunction, Option, createOption, formatDate } from "@/utils/globals"
+import { GETFunction, Option, createOption, createOptionWithValueUndef, formatDate } from "@/utils/globals"
 import { parseDate } from "@internationalized/date";
 import useJsonData from "@/hooks/useJsonData";
 import { RangeValue } from "@nextui-org/react";
@@ -124,7 +124,7 @@ export const useSelectHandleChange = ({ jsonData, handleInputChange, chargueNewC
     }
 
     const licitationCreated = (inputValue: string) => {
-        const newOption = createOption(inputValue)
+        const newOption = createOptionWithValueUndef(inputValue)
         chargueNewLicitation(newOption)
         handleInputChange('licitation', newOption)
         setIsDisabled(false)

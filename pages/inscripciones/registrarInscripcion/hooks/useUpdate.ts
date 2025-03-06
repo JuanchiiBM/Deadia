@@ -45,7 +45,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             amount: contentTable ? contentTable.monto : undefined,
             date: contentTable ? formatDate(contentTable.fecha) : undefined,
             dni: contentTable ? contentTable.dni : undefined,
-            name: contentTable ? contentTable.nombre : undefined,
+            name: contentTable ? contentTable.nombre_solo : undefined,
             last_name: contentTable ? contentTable.apellido: undefined,
             email: contentTable ? contentTable.mail : undefined,
             id_category: contentTable ? contentTable.id_categoria : undefined,
@@ -55,8 +55,8 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             begin_date: contentTable ? formatDate(contentTable.fec_inicio) : undefined,
             end_date: contentTable ? formatDate(contentTable.fec_finalizacion) : undefined,
             id_grade_type: contentTable ? contentTable.id_curso : undefined,
-            id_rank: contentTable ? contentTable.id_grado : undefined,
-            id_destination: contentTable ? contentTable.id_destino : undefined,
+            id_rank: contentTable ? contentTable.id_grado : '0',
+            id_destination: contentTable ? contentTable.id_destino : '0',
         }
     }
 

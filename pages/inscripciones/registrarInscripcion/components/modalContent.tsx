@@ -58,8 +58,8 @@ const ModalContent = ({ isOpen, optionsJsonData }: { isOpen: boolean, optionsJso
                         <Select value={dataForm.amount} onChange={(newValue: any) => handleInputChange('amount', newValue)} isDisabled={!dataForm.curse} className='m-0 self-end w-[50%]' options={optionsAmount} menuPlacement="top" placeholder='Monto' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable styles={colourStylesBordered} required></Select>
                         <I18nProvider locale='es-ES'>
                             <DateRangePicker visibleMonths={2} value={dataForm.datePicker} isDisabled={curseDisabled} onChange={(e) => { handleInputChange('datePicker', e) }} id='datepicker' variant='bordered' label='Duración del Curso' labelPlacement='outside' className="max-w-xs w-[50%] transition-all" classNames={{
-                                input: 'bg-background hover:bg-background focus:bg-background disabled:!text-default-400',
-                                inputWrapper: 'bg-background hover:!bg-background focus:bg-background disabled:!text-default-400',
+                                input: 'bg-background-400 hover:bg-background-400 focus:bg-background-400 disabled:!text-default-400',
+                                inputWrapper: 'bg-background-400 hover:!bg-background-400 focus:bg-background-400 disabled:!text-default-400',
                             }} />
                         </I18nProvider>
                     </div>

@@ -1,5 +1,6 @@
 import { DateValue } from "@nextui-org/react";
 import { parseDate } from "@internationalized/date";
+import { URLBack } from "./enums/urls";
 
 
 export const GETFunctionFake = async (value: string) => {
@@ -16,7 +17,7 @@ export const GETFunctionFake = async (value: string) => {
 
 export const GETFunction = async (url: string, loader?: any) => {
     try {
-        const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
+        const response = await fetch(`${URLBack}${url}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ export const GETFunction = async (url: string, loader?: any) => {
 
 export const POSTFunction = async (url: string, _dataObject: any, loader?: any) => {
     try {
-        const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
+        const response = await fetch(`${URLBack}${url}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ export const POSTFunction = async (url: string, _dataObject: any, loader?: any) 
 
 export const PUTFunction = async (url: string, _dataObject: any, loader?: any) => {
     try {
-        const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
+        const response = await fetch(`${URLBack}${url}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ export const PUTFunction = async (url: string, _dataObject: any, loader?: any) =
 
 export const DELETEFunction = async (url: string) => {
     try {
-        const response = await fetch(`https://sigma-backend-0ekn.onrender.com/${url}`, {
+        const response = await fetch(`${URLBack}${url}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -104,6 +105,12 @@ export const DELETEFunction = async (url: string) => {
 export const createOption = (label: string | null | undefined, value?: string, plusText?: string, plusValue?: string) => (({
     label: label,
     value: value ? value : label?.toLowerCase().replace(/\W/g, ''),
+    [plusText ? plusText : '']: plusValue ? plusValue : undefined
+}) as Option)
+
+export const createOptionWithValueUndef = (label: string | null | undefined, plusText?: string, plusValue?: string) => (({
+    label: label,
+    value: undefined,
     [plusText ? plusText : '']: plusValue ? plusValue : undefined
 }) as Option)
 

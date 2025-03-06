@@ -384,6 +384,7 @@ export interface ITableDataInventoryInside {
     categoria: string
     dependencia: string
     fec_asignacion: string
+    nro_licitacion: number
     id: number
     id_articulo: number
     id_categoria: number

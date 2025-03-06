@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { createOption, formatDate, transformToDateValue } from "@/utils/globals"
 import { ITableDataEgressInside, IUseFormEgressRegister } from "@/helpers/interfaces"
+import { formatDateT } from "@/utils/helpers/formatDates"
 
 interface IUseUpdate {
     setDataForm: React.Dispatch<React.SetStateAction<IUseFormEgressRegister>>,
@@ -38,7 +39,7 @@ const useUpdate = ({ setDataForm, contentTable, isOpen }: IUseUpdate) => {
             date: formatDate(contentTable.fec_compra.toString()),
             bid_number: contentTable.nro_licitacion,
             id_bidding: contentTable.id_licitacion,
-            bid_date: contentTable.fec_licitacion,
+            bid_date: formatDateT(contentTable.fec_licitacion),
             bidding_row: contentTable.renglon
         }
     }

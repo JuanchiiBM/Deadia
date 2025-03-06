@@ -12,6 +12,10 @@ export const formatDateFromDatePicker = (obj: { year: number, month: number, day
     return `${obj.year}-${obj.month}-${obj.day}`
 }
 
+export const formatDateT = (date: string) => {
+    return date.split('T')[0]
+}
+
 export const formatDateToSpanish = (dateString: string): string => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("es-ES", {

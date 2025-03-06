@@ -20,10 +20,9 @@ export const usePost = ({ onClose, oldRegister, _dataObject, urlPost, text, conf
 
     const cargarIngreso = async (e: FormEvent<HTMLFormElement>, repetido?: number) => {
         e.preventDefault()
-        console.log(_dataObject)
-        if (_dataObject.status)
-        repetido == undefined ? _dataObject.status = 0 : _dataObject.status = 1
-
+        if (_dataObject.status || repetido) {
+            repetido == undefined ? _dataObject.status = 0 : _dataObject.status = 1
+        }
         setShowSpinner(true)
         if (!update) {
             console.log(_dataObject)

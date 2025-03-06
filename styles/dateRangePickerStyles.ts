@@ -3,7 +3,7 @@ export const dateRangePickerStyles = {
   classNames: {
     input: "bg-background-400 hover:bg-background-400 focus:bg-background-400",
     inputWrapper:
-      "bg-background-400 shadow-sm hover:bg-background-400 focus:bg-background-400 rounded-md focus-within:hover:bg-background",
+      "bg-background-400 shadow-sm hover:bg-background-400 focus:bg-background-400 rounded-md focus-within:hover:bg-background-400",
   },
   calendarProps: {
     classNames: {
@@ -23,7 +23,7 @@ export const dateRangePickerStylesFullWidth = {
   className: "max-w-xs w-full transition-all",
   classNames: {
     input: "bg-background-400 hover:bg-background-400 focus:bg-background-400",
-    inputWrapper: "bg-background-400 shadow-sm hover:bg-background-400 focus:bg-background-400 rounded-md focus-within:hover:bg-background",
+    inputWrapper: "bg-background-400 shadow-sm hover:bg-background-400 focus:bg-background-400 rounded-md focus-within:hover:bg-background-400",
   },
   calendarProps: {
     classNames: {

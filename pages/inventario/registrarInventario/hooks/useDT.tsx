@@ -16,6 +16,7 @@ const useDT = ({jsonData, refreshData}: {jsonData: ITableDataInventory, refreshD
         { data: 'articulo', title: 'Articulo' },
         { data: 'fec_asignacion', title: 'Fecha' },
         { data: 'accion', title: 'Consumo/Asignado' },
+        { data: 'licitacion', title: 'Nro. Licitación'},
         { data: 'cantidad', title: 'Cantidad' },
         { data: 'saldo_actual', title: 'Cantidad Total' },
         { data: 'acciones', title: 'Acciones' }
@@ -35,6 +36,7 @@ const useDT = ({jsonData, refreshData}: {jsonData: ITableDataInventory, refreshD
             fec_asignacion: dato.fec_asignacion,
             accion: dato.accion,
             cantidad: dato.cantidad,
+            licitacion: dato.nro_licitacion,
             saldo_actual: dato.saldo_actual,
             saldo_restante: dato.saldo_restante,
             total_comprado: dato.total_comprado,

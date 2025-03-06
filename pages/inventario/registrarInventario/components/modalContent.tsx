@@ -28,7 +28,7 @@ const ModalContent = () => {
                 </div>
                 <div className='flex justify-end gap-2 my-2 w-full'>
                     <Select maxMenuHeight={140} value={dataForm.section} onChange={(newValue: any) => handleInputChange('section', newValue)} options={options.deps} isDisabled={isLoading} styles={colourStylesBordered} className='w-[50%] self-end' placeholder='Sector' noOptionsMessage={({ inputValue }) => !inputValue ? 'Sin opción' : 'Sin opción'} isSearchable required></Select>
-                    <Input type='number' value={dataForm.action || ''} onChange={(newValue: any) => handleInputChange('action', newValue.currentTarget.value)} max={jsonDataArticles && jsonDataArticles.saldo_restante} min={jsonDataArticles && `-${jsonDataArticles.saldo}`} variant='bordered' label='Acción' isDisabled={(jsonDataArticles && !isLoadingArticles) ? false : true} labelPlacement='outside' className='w-[50%]' classNames={{ mainWrapper: 'flex justify-end', helperWrapper: 'absolute bottom-[-23px]' }} required />
+                    <Input type='number' value={dataForm.action || ''} onChange={(newValue: any) => handleInputChange('action', newValue.currentTarget.value)} max={jsonDataArticles && jsonDataArticles.saldo_restante} min={`0`} variant='bordered' label='Acción' isDisabled={(jsonDataArticles && !isLoadingArticles) ? false : true} labelPlacement='outside' className='w-[50%]' classNames={{ mainWrapper: 'flex justify-end', helperWrapper: 'absolute bottom-[-23px]' }} required />
                 </div>
             </section>
             <section className='flex flex-col gap-2 w-[40%] h-auto m-0 pl-6 border-l-2 border-default-200'>
