@@ -32,10 +32,10 @@ const TableData: React.FC<ITableData> = ({ onOpen, setColumnDefs, title, tableDa
     const { } = useDTA({ tableData, setContentTable, onOpen, useDTAContent })
 
     return (
-        <>
+        <section className='h-[500px]'>
             {(jsonIsLoading == true || tableData == undefined) ?
                 <SpinnerForTables /> :
-                <DataTable data={tableData} className='order-column text-sm' columns={columns} options={{
+                <DataTable data={tableData} className='order-column text-sm h-full' columns={columns} options={{
                     destroy: true,
                     order: [[0, 'desc']],
                     columnDefs: setColumnDefs,
@@ -70,7 +70,7 @@ const TableData: React.FC<ITableData> = ({ onOpen, setColumnDefs, title, tableDa
                     </thead>
                 </DataTable>
             }
-        </>
+        </section>
     )
 }
 
